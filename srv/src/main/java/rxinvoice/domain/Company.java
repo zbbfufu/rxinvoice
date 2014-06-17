@@ -2,6 +2,9 @@ package rxinvoice.domain;
 
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
+import restx.jackson.FixedPrecision;
+
+import java.math.BigDecimal;
 
 /**
  */
@@ -13,6 +16,8 @@ public class Company {
 
     private Address address;
 
+    private Metrics metrics;
+
     public String getKey() {
         return key;
     }
@@ -23,6 +28,10 @@ public class Company {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Metrics getMetrics() {
+        return metrics;
     }
 
     public Company setKey(final String key) {
@@ -40,12 +49,84 @@ public class Company {
         return this;
     }
 
+    public Company setMetrics(Metrics metrics) {
+        this.metrics = metrics;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
                 "key='" + key + '\'' +
                 ", name='" + name + '\'' +
                 ", address=" + address +
+                ", metrics=" + metrics +
                 '}';
+    }
+
+
+    public static class Metrics {
+        private int nbInvoices;
+        @FixedPrecision(2)
+        private BigDecimal expected;
+        @FixedPrecision(2)
+        private BigDecimal expired;
+        @FixedPrecision(2)
+        private BigDecimal invoiced;
+        @FixedPrecision(2)
+        private BigDecimal paid;
+
+
+        public int getNbInvoices() {
+            return nbInvoices;
+        }
+
+        public void setNbInvoices(int nbInvoices) {
+            this.nbInvoices = nbInvoices;
+        }
+
+        public BigDecimal getExpected() {
+            return expected;
+        }
+
+        public void setExpected(BigDecimal expected) {
+            this.expected = expected;
+        }
+
+        public BigDecimal getExpired() {
+            return expired;
+        }
+
+        public void setExpired(BigDecimal expired) {
+            this.expired = expired;
+        }
+
+        public BigDecimal getInvoiced() {
+            return invoiced;
+        }
+
+        public void setInvoiced(BigDecimal invoiced) {
+            this.invoiced = invoiced;
+        }
+
+        public BigDecimal getPaid() {
+            return paid;
+        }
+
+        public void setPaid(BigDecimal paid) {
+            this.paid = paid;
+        }
+
+
+        @Override
+        public String toString() {
+            return "Metrics{" +
+                    "nbInvoices=" + nbInvoices +
+                    ", expected=" + expected +
+                    ", expired=" + expired +
+                    ", invoiced=" + invoiced +
+                    ", paid=" + paid +
+                    '}';
+        }
     }
 }

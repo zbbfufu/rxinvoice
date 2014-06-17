@@ -1,0 +1,123 @@
+<div class="dashboard" ng-controller="DashboardCtrl">
+    <h1 class="title-page">
+        <span class="title-logo"></span>
+        <span class="smallSeparator"></span>
+        <span class="title-page-content">Bienvenue sur 4PM Facturation</span>
+    </h1>
+    <td class="nameRessources">
+        Filtre :
+        <select ui-select2 ng-model="filterCompany" data-placeholder="-- Sélectionner le client --">
+            <option value=""></option>
+            <option ng-repeat="item in filterCompanies" value="{{item._id}}">{{item.name}}</option>
+        </select>
+        Filtre :
+        <select ui-select2 ng-model="filterProject" data-placeholder="-- Sélectionner le projet --">
+            <option value=""></option>
+            <option ng-repeat="item in filterProjects" value="{{item._id}}">{{item.name}}</option>
+        </select>
+    </td>
+
+    <ul class="sorts-projects f-right">
+        <li class="sorts-item title-list-sorts" style="display: none">Trie :</li>
+        <li class="sorts-item" style="display: none">Status</li>
+        <li class="sorts-item" style="display: none">Type</li>
+        <li class="sorts-item" style="display: none">Nom</li>
+        <input type="text" class="project-search" ng-model="projectSearch" placeholder="Rechercher ..." autofocus="true"/>
+    </ul>
+
+    <hr class="clear"/>
+
+
+
+    <div class="columns-bloc col-type-left">
+        <div class="zone-title">
+            <h1 class="title-col">Client</h1>
+            <span class="info-stat">(*) x client pour x projet</span>
+        </div>
+        <button class="fsh-btn-add" ng-click="addCompany()"><span class="icon-buttonAdd"></span> Ajouter</button>
+        <hr class="clear"/>
+
+        <div class="bloc-type" ng-repeat="company in companies | filter:companiesSearch | orderBy:orderByFunction">
+            <div class="content-infos">
+                <div class="avatar-project">
+                    <img src="../images/no-icon-company.png" alt="{{company.name}}">
+                    <btn class="show-all-project">All Projects</btn>
+                </div>
+                <div class="content-infos-project">
+                    <div class="header-project">
+                        <span class="title-project-content">
+                            <a ng-href="/#/project/{{project._id}}" title="{{company.name}}"> {{company.name}}</a>
+                        </span>
+                        <div class="invoices-number">
+                            <h2>nombre de facture </h2>
+                            <h1>{{company.metrics.nbInvoices}}</h1>
+                        </div>
+                    </div>
+                    <div class="desc-project">
+                        <div class="content-planned">
+                            <div class="invoices-planned">
+                                <h2>Prévu :</h2>
+                                <h1>{{company.metrics.expected | currency}}</h1>
+                            </div>
+                            <div class="invoices-planned">
+                                <h2>Facturé :</h2>
+                                <h1>{{company.metrics.invoiced | currency}}</h1>
+                            </div>
+                        </div>
+                        <div class="content-planned">
+                            <div class="invoices-planned">
+                                <h2>Echue :</h2>
+                                <h1>{{company.metrics.expired | currency}}</h1>
+                            </div>
+                            <div class="invoices-planned">
+                                <h2>Payé :</h2>
+                                <h1>{{company.metrics.paid | currency}}</h1>
+                            </div>
+                        </div>
+                        <ul class="btn-edit">
+                            <li><a ng-href='/#/project/{{project._id}}'><span class="small-icon-buttonedit"></span>Editer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns-bloc col-type-right">
+        <div class="zone-title">
+             <h1 class="title-col">Factures</h1>
+             <span class="info-stat">(*) x factures pour un total de x €</span>
+        </div>
+        <button class="fsh-btn-add" ng-click="addInvoice()"><span class="icon-buttonAdd"></span> Ajouter</button>
+        <hr class="clear"/>
+
+        <div class="bloc-type" ng-repeat="invoice in invoices | filter:invoicesSearch | orderBy:orderByFunction">
+            <div class="content-infos">
+                <div class="avatar-project">
+                    <img src="../images/no-icon-project.png" alt="{{invoice.name}}">
+                </div>
+                <div class="content-infos-project">
+                    <div class="header-project">
+                        <span class="title-project-content">
+                            <a ng-href="/#/invoice/{{invoice._id}}" title="{{invoice.reference}}"> {{invoice.reference}}</a>
+                            <ul class="invoice-date">
+                                <li>Du : {{invoice.date | date:'dd/MM/yyyy'}}</li>
+                                <li>Date d'échéance : {{findExpiredInvoice(invoice.date)}}</li>
+                            </ul>
+                        </span>
+                        <div class="invoices-number">
+                            <h2>Total </h2>
+                            <h1>{{invoice.grossAmount | currency}} HT</h1>
+                        </div>
+                    </div>
+                    <div class="desc-project">
+                        <span class="invoices-status {{invoice.status}}">{{invoice.status}}</span>
+                        <ul class="btn-edit">
+                            <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>Voir la facture</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

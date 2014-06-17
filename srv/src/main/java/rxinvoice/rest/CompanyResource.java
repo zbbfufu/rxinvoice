@@ -48,6 +48,12 @@ public class CompanyResource {
         return Optional.fromNullable(companies.get().findOne(new ObjectId(key)).as(Company.class));
     }
 
+    @RolesAllowed({ADMIN, SELLER})
+    @GET("/companies/buyer")
+    public Iterable<Company> findBuyers() {
+        return companies.get().find().as(Company.class);
+    }
+
     @RolesAllowed(ADMIN)
     @POST("/companies")
     public Company createCompany(Company company) {

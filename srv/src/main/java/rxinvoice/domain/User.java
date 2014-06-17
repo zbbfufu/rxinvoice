@@ -8,6 +8,7 @@ import restx.exceptions.ErrorCode;
 import restx.exceptions.ErrorField;
 import restx.security.RestxPrincipal;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**

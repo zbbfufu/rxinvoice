@@ -13,6 +13,7 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/sass-bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/select2/select2.css">
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
@@ -25,7 +26,23 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <header>
+        <div ng-controller="LoginCtrl">
+            <div ng-show="currentUser">
+                <a class="white-button" ng-controller="SessionController" ng-click="logout()"><span class="iconDisconnect"></span>Deconnexion</a>
+                <img id="avatarUser" class="avatar" ng-src="{{currentUser.login ? '/images/user/' + currentUser.login : '/images/user-avatar' | lowercase}}.png" alt="{{currentUser.name}}"/>
+
+                <span class="user-name" ng-bind="currentUser.name"></span>
+                <span class="user-function" ng-show="currentUser.roles">{{"- " + currentUser.roles}}</span>
+                <span class="user-function"> - <a ng-click="openPasswordPopup()">Modifier Mon mot de passe</a></span>
+
+                <span class="company-logo"></span>
+            </div>
+        </div>
+    </header>
+    <section class="container">
+        <div class="content" ng-view></div>
+    </section>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -45,9 +62,12 @@
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/select2/select2.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/sass-bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_fr-fr.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -58,9 +78,12 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/session.js"></script>
-    <script src="scripts/invoice.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/models/Company.js"></script>
+    <script src="scripts/models/Invoice.js"></script>
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/DashboardCtrl.js"></script>
+    <script src="scripts/directives/Select2.js"></script>
     <!-- endbuild -->
 </body>
 </html>

@@ -5,14 +5,21 @@ angular.module('rxinvoiceApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
+  'ui.select2',
+  'ui.bootstrap',
   'rxSession',
-  'invoice'
+  'rxInvoice',
+  'rxCompany'
 ])
   .config(function ($routeProvider) {
     $routeProvider
+//      .when('/', {
+//        templateUrl: 'views/main.html',
+//        controller: 'MainCtrl'
+//      })
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl'
       })
       .when('/login', {
         templateUrl: 'views/login.html'

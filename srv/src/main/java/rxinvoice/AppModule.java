@@ -1,7 +1,11 @@
 package rxinvoice;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableMap;
+import restx.admin.AdminModule;
 import restx.i18n.SupportedLocale;
+import restx.jongo.JongoCollection;
 import restx.mongo.MongoModule;
 import restx.security.*;
 import restx.factory.Module;
@@ -9,12 +13,27 @@ import restx.factory.Provides;
 import rxinvoice.domain.User;
 import rxinvoice.rest.AppUserRepository;
 import rxinvoice.rest.UserResource;
+import rxinvoice.util.MD5;
 
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Locale;
 
 @Module
 public class AppModule {
+
+
+    public static final RestxPrincipal ADMIN_RESTX_PRINCIPAL = new User()
+            .setName(AdminModule.RESTX_ADMIN_PRINCIPAL.getName())
+            .setRoles(adminRoles());
+    private static Collection<String> adminRoles() {
+        Collection<String> roles = new ArrayList<String>();
+        roles.addAll(AdminModule.RESTX_ADMIN_PRINCIPAL.getPrincipalRoles());
+        roles.add(Roles.ADMIN);
+        return roles;
+    };
     public static User currentUser() {
         return (User) RestxSession.current().getPrincipal().get();
     }
@@ -56,9 +75,27 @@ public class AppModule {
     @Provides
     public BasicPrincipalAuthenticator basicPrincipalAuthenticator(
             AppUserRepository userRepository, SecuritySettings securitySettings,
-            CredentialsStrategy credentialsStrategy,
-            @Named("restx.admin.passwordHash") String adminPasswordHash) {
-        return new StdBasicPrincipalAuthenticator(
-                new StdUserService<>(userRepository, credentialsStrategy, adminPasswordHash), securitySettings);
+            CredentialsStrategy credentialsStrategy, @Named("users") final JongoCollection users,
+            @Named("restx.admin.passwordHash") final String adminPasswordHash) {
+        return new BasicPrincipalAuthenticator() {
+            @Override
+            public Optional<? extends RestxPrincipal> findByName(String name) {
+                if ("admin".equals(name)) {
+                    return Optional.of(ADMIN_RESTX_PRINCIPAL);
+                }
+                User user = users.get().findOne("{name: #}", name).as(User.class);
+                return Optional.of(user);
+            }
+
+            @Override
+            public Optional<? extends RestxPrincipal> authenticate(
+                    String name, String passwordHash, ImmutableMap<String, ?> principalData) {
+                if ("admin".equals(name) && adminPasswordHash.equals(passwordHash)) {
+                    return Optional.of(ADMIN_RESTX_PRINCIPAL);
+                }
+                User user = users.get().findOne("{login: #, password: #}", name, MD5.getSaltPassword(passwordHash)).as(User.class);
+                return Optional.of(user);
+            }
+        };
     }
 }

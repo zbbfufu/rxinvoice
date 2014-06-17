@@ -22,7 +22,7 @@ angular
         }
     })
     .controller('SessionController', function($scope, Sessions) {
-        $scope.session = Sessions.get()
+        $scope.session = Sessions.get();
 
         $scope.logout = function() {
             Sessions.delete(function() { location.reload() });
@@ -31,14 +31,21 @@ angular
     .config(function($httpProvider) {
         $httpProvider.responseInterceptors.push('SecurityHttpInterceptor');
     })
-    .controller('LoginCtrl', function ($scope, $http, $location, md5) {
+.controller('LoginCtrl', function ($scope, $http, $location, md5, Sessions) {
+        $scope.currentUser = null;
+        $scope.session = Sessions.get(function(data) {
+            console.log(data);
+            $scope.currentUser = data.principal;
+        });
         $scope.authenticate = function(username, password) {
             $http.post('/api/sessions', {principal: {name: username, passwordHash: md5.createHash(password)}})
                 .success(function(data, status, headers, config) {
                     console.log('authenticated', data, status);
+                    $scope.currentUser = data.principal;
                     $location.path('/');
                 }).error(function(data, status, headers, config) {
                     console.log('error', data, status);
+                    $scope.currentUser = null;
                     alert("Authentication error, please try again.");
                 });
         }
