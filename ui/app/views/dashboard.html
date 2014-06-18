@@ -5,12 +5,13 @@
         <span class="title-page-content">Bienvenue sur 4PM Facturation</span>
     </h1>
     <td class="nameRessources">
-        Filtre :
+        <label class="control-label">Filtre :</label>
         <select ui-select2 ng-model="filterCompany" data-placeholder="-- Sélectionner le client --">
             <option value=""></option>
             <option ng-repeat="item in filterCompanies" value="{{item._id}}">{{item.name}}</option>
         </select>
-        Filtre :
+        <span class="smallSeparator"></span>
+        <label class="control-label">Filtre :</label>
         <select ui-select2 ng-model="filterProject" data-placeholder="-- Sélectionner le projet --">
             <option value=""></option>
             <option ng-repeat="item in filterProjects" value="{{item._id}}">{{item.name}}</option>
@@ -40,7 +41,7 @@
         <div class="bloc-type" ng-repeat="company in companies | filter:companiesSearch | orderBy:orderByFunction">
             <div class="content-infos">
                 <div class="avatar-project">
-                    <img src="../images/no-icon-company.png" alt="{{company.name}}">
+                    <img src="../images/no-icon-company.png" width="83" height="83" alt="{{company.name}}">
                     <btn class="show-all-project">All Projects</btn>
                 </div>
                 <div class="content-infos-project">
@@ -92,7 +93,7 @@
         <hr class="clear"/>
 
         <div class="bloc-type" ng-repeat="invoice in invoices | filter:invoicesSearch | orderBy:orderByFunction">
-            <div class="content-infos">
+            <div class="content-infos content-bloc-invoice">
                 <div class="avatar-project">
                     <img src="../images/no-icon-project.png" alt="{{invoice.name}}">
                 </div>
@@ -111,7 +112,7 @@
                         </div>
                     </div>
                     <div class="desc-project">
-                        <span class="invoices-status {{invoice.status}}">{{invoice.status}}</span>
+                        <span class="invoices-status {{invoice.status}}"><p>{{invoice.status}}</p></span>
                         <ul class="btn-edit">
                             <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>Voir la facture</a></li>
                         </ul>

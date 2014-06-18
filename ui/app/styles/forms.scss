@@ -66,11 +66,6 @@ input {
     border-radius: $global-radius 0 0 $global-radius !important;
   }
 
-  .control-label {
-    float: none;
-    padding-top: 0;
-  }
-
   .controls {
     display: inline-block;
     vertical-align: middle;
@@ -93,8 +88,29 @@ div[contenteditable="true"] {
   min-height: 20px;
 }
 
+.control-label {
+  float: none;
+  padding-top: 0;
+  display: inline-block;
+  vertical-align: middle;
+  width: auto!important;
+  min-width: 100px;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 -4px 0 0;
+  padding: 0 10px;
+  font-size: 12px;
+  color: #fff;
+  background: #3f3f3f;
+  -webkit-border-radius: 3px 0 0 3px!important;
+  border-radius: 3px 0 0 3px!important
+}
+
+
 /* PASSWORD */
 .login-row {
+  margin-bottom: 10px;
+
   .label-login {
     display: inline-block;
     vertical-align: middle;
@@ -111,10 +127,10 @@ div[contenteditable="true"] {
 
   .input-login {
     display: inline-block;
-    position: relative;
-      top: 5px;
+    top: 5px;
     vertical-align: middle;
     height: 35px;
+    width: 205px;
     line-height: 35px;
     margin-left: -4px;
     padding: 5px 5px 5px 5px;

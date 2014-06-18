@@ -49,9 +49,10 @@ h5 { font-size: 14px;}
 h6 { font-size: 12px;}
 
 header {
-  min-height: 60px;
+  height: 60px;
   background-color: $fsh-darkgrey;
   opacity: 0.7;
+  overflow: hidden;
   transition: 650ms;
 
   &:hover {
@@ -116,13 +117,13 @@ header {
 }
 
 .company-logo {
-  background: url(#{$imagePath}logo-4sh.png) 0 0 no-repeat transparent;
-  height: 22px;
   display: inline-block;
-  width: 70px;
   float: right;
+  height: 30px;
+  width: 100px;
   margin-right: 20px;
   margin-top: 22px;
+  background: url(#{$imagePath}logo-4sh.png) 0 0 no-repeat transparent;
 }
 
 .table-fpm {
