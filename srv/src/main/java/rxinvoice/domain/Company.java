@@ -5,6 +5,8 @@ import org.jongo.marshall.jackson.oid.ObjectId;
 import restx.jackson.FixedPrecision;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  */
@@ -17,6 +19,8 @@ public class Company {
     private Address address;
 
     private Metrics metrics;
+
+    private List<Business> business = new ArrayList<>();
 
     public String getKey() {
         return key;
@@ -32,6 +36,10 @@ public class Company {
 
     public Metrics getMetrics() {
         return metrics;
+    }
+
+    public List<Business> getBusiness() {
+        return business;
     }
 
     public Company setKey(final String key) {
@@ -54,6 +62,11 @@ public class Company {
         return this;
     }
 
+    public Company setBusiness(List<Business> business) {
+        this.business = business;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
@@ -61,6 +74,7 @@ public class Company {
                 ", name='" + name + '\'' +
                 ", address=" + address +
                 ", metrics=" + metrics +
+                ", business=" + business +
                 '}';
     }
 

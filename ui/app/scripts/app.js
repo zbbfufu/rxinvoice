@@ -9,22 +9,21 @@ angular.module('rxinvoiceApp', [
   'ui.bootstrap',
   'rxSession',
   'rxInvoice',
-  'rxCompany'
+  'rxCompany',
+  'rxI18n'
 ])
-  .config(function ($routeProvider) {
+.config(function ($routeProvider) {
     $routeProvider
-//      .when('/', {
-//        templateUrl: 'views/main.html',
-//        controller: 'MainCtrl'
-//      })
-      .when('/', {
-        templateUrl: 'views/dashboard.html',
-        controller: 'DashboardCtrl'
-      })
-      .when('/login', {
-        templateUrl: 'views/login.html'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+        .when('/', {
+            templateUrl: 'views/dashboard.html'
+        })
+        .when('/login', {
+            templateUrl: 'views/login.html'
+        })
+        .when('/company/:id', {
+            templateUrl: 'views/company.html'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+});

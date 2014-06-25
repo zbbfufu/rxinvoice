@@ -28,6 +28,8 @@ public class Invoice {
     @FixedPrecision(2)
     private BigDecimal netAmount;
 
+    private Business business;
+
     private List<Line> lines = new ArrayList<>();
 
     public String getKey() {
@@ -64,6 +66,10 @@ public class Invoice {
 
     public BigDecimal getNetAmount() {
         return netAmount;
+    }
+
+    public Business getBusiness() {
+        return business;
     }
 
     public List<Line> getLines() {
@@ -115,6 +121,11 @@ public class Invoice {
         return this;
     }
 
+    public Invoice setBusiness(final Business business) {
+        this.business = business;
+        return this;
+    }
+
     public Invoice setLines(final List<Line> lines) {
         this.lines = lines;
         return this;
@@ -127,11 +138,12 @@ public class Invoice {
                 ", reference='" + reference + '\'' +
                 ", date=" + date +
                 ", status=" + status +
-                ", emitter=" + seller +
-                ", recipient=" + buyer +
+                ", seller=" + seller +
+                ", buyer=" + buyer +
                 ", grossAmount=" + grossAmount +
                 ", vats=" + vats +
                 ", netAmount=" + netAmount +
+                ", business=" + business +
                 ", lines=" + lines +
                 '}';
     }

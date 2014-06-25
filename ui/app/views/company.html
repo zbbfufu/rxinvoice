@@ -1,0 +1,65 @@
+<div class="company" ng-controller="CompanyCtrl">
+    <h1 class="title-page">
+        <span class="title-logo"></span>
+        <span class="smallSeparator"></span>
+        <span class="title-page-content" translate="company.title">Company</span>
+        <span class="title-page-content"> - {{company.name}}</span>
+    </h1>
+
+    <div><input type="button" value="{{i18n.translate('company.save')}}" ng-click="save()"/></div>
+
+    <div class="companyAddress">
+        <h1 class="title-col" translate="company.address">Address</h1>
+        <div class="control-group">
+            <label class="control-label" translate="company.body">Body</label>
+            <div class="controls">
+                <input type="text" ng-model="company.address.body">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" translate="company.zipCode">Zip Code</label>
+            <div class="controls">
+                <input type="text" ng-model="company.address.zipCode">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" translate="company.city">City</label>
+            <div class="controls">
+                <input type="text" ng-model="company.address.city">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" translate="company.country">Country</label>
+            <div class="controls">
+                <input type="text" ng-model="company.address.country">
+            </div>
+        </div>
+    </div>
+
+    <div class="companyBusiness">
+        <h1 class="title-col" translate="company.business">Business</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th translate="company.business.reference">Reference</th>
+                    <th translate="company.business.name">Name</th>
+                    <th translate="company.business.actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="b in company.business">
+                    <td><input type="text" ng-model="b.reference"></td>
+                    <td><input type="text" ng-model="b.name"></td>
+                    <td><input type="button" value="{{i18n.translate('company.business.actions.remove')}}" ng-click="business.remove($index)"/></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><input type="text" ng-model="business.reference"/></td>
+                    <td><input type="text" ng-model="business.name"/></td>
+                    <td><input type="button" value="{{i18n.translate('company.business.actions.add')}}" ng-click="business.add()"/></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

@@ -17,6 +17,8 @@ import rxinvoice.domain.User;
 
 import javax.inject.Named;
 
+import java.util.Arrays;
+
 import static restx.common.MorePreconditions.checkEquals;
 import static rxinvoice.AppModule.Roles.ADMIN;
 import static rxinvoice.AppModule.Roles.SELLER;
@@ -82,6 +84,11 @@ public class InvoiceResource {
             return invoices.get().find("{ $or: [ { seller._id: #}, { buyer._id: #}]}",
                     new ObjectId(user.getCompanyRef()), new ObjectId(user.getCompanyRef())).as(Invoice.class);
         }
+    }
+
+    @GET("/invoices/status")
+    public Iterable<Invoice.Status> findInvoiceStatus() {
+        return Arrays.asList(Invoice.Status.values());
     }
 
     @GET("/invoices/{key}")

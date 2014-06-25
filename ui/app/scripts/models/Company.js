@@ -9,8 +9,16 @@ angular.module('rxCompany', [
 
         return  angular.extend(res,
             {
-                findAll: function(callback){
+                findAll: function(callback) {
                     $http.get('/api/companies')
+                        .success(function(data) {
+                            if (callback) {
+                                callback(data);
+                            }
+                        });
+                },
+                findBuyers: function(callback) {
+                    $http.get('/api/companies/buyers')
                         .success(function(data) {
                             if (callback) {
                                 callback(data);

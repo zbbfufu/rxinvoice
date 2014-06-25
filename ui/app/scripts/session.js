@@ -34,7 +34,6 @@ angular
 .controller('LoginCtrl', function ($scope, $http, $location, md5, Sessions) {
         $scope.currentUser = null;
         $scope.session = Sessions.get(function(data) {
-            console.log(data);
             $scope.currentUser = data.principal;
         });
         $scope.authenticate = function(username, password) {

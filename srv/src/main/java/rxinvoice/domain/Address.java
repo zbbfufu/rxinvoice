@@ -6,6 +6,7 @@ public class Address {
     private String body;
     private String zipCode;
     private String city;
+    private String country;
 
     public String getBody() {
         return body;
@@ -17,6 +18,10 @@ public class Address {
 
     public String getCity() {
         return city;
+    }
+
+    public String getCountry() {
+        return country;
     }
 
     public Address setBody(final String body) {
@@ -34,12 +39,18 @@ public class Address {
         return this;
     }
 
+    public Address setCountry(final String country) {
+        this.country = country;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Address{" +
-                "lines='" + body + '\'' +
+                "body='" + body + '\'' +
                 ", zipCode='" + zipCode + '\'' +
                 ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
                 '}';
     }
 }

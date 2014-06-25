@@ -4,26 +4,13 @@
         <span class="smallSeparator"></span>
         <span class="title-page-content">Bienvenue sur 4PM Facturation</span>
     </h1>
-    <td class="nameRessources">
-        <label class="control-label">Filtre :</label>
-        <select ui-select2 ng-model="filterCompany" data-placeholder="-- Sélectionner le client --">
-            <option value=""></option>
-            <option ng-repeat="item in filterCompanies" value="{{item._id}}">{{item.name}}</option>
-        </select>
-        <span class="smallSeparator"></span>
-        <label class="control-label">Filtre :</label>
-        <select ui-select2 ng-model="filterProject" data-placeholder="-- Sélectionner le projet --">
-            <option value=""></option>
-            <option ng-repeat="item in filterProjects" value="{{item._id}}">{{item.name}}</option>
-        </select>
-    </td>
 
     <ul class="sorts-projects f-right">
         <li class="sorts-item title-list-sorts" style="display: none">Trie :</li>
         <li class="sorts-item" style="display: none">Status</li>
         <li class="sorts-item" style="display: none">Type</li>
         <li class="sorts-item" style="display: none">Nom</li>
-        <input type="text" class="project-search" ng-model="projectSearch" placeholder="Rechercher ..." autofocus="true"/>
+        <input type="text" class="project-search" ng-model="filter.searchText" placeholder="Rechercher ..." autofocus="true"/>
     </ul>
 
     <hr class="clear"/>
@@ -33,12 +20,23 @@
     <div class="columns-bloc col-type-left">
         <div class="zone-title">
             <h1 class="title-col">Client</h1>
-            <span class="info-stat">(*) x client pour x projet</span>
+            <span class="info-stat">(*) {{nbCompanies()}} client pour {{nbBusiness()}} affaire(s)</span>
         </div>
-        <button class="fsh-btn-add" ng-click="addCompany()"><span class="icon-buttonAdd"></span> Ajouter</button>
-        <hr class="clear"/>
+        <div class="zone-actions">
+            <button class="fsh-btn-add" ng-click="addCompany()"><span class="icon-buttonAdd"></span> Ajouter</button>
+            <select ui-select2 ng-model="filter.companySelected" data-placeholder="-- Sélectionner un client --" style="width: 200px;">
+                <option value=""></option>
+                <option ng-repeat="item in filter.companiesList" value="{{item._id}}">{{item.name}}</option>
+            </select>
+            <select ui-select2 ng-show="filter.companySelected" ng-model="filter.businessSelected" data-placeholder="-- Sélectionner une affaire --" style="width: 200px;">
+                <option value=""></option>
+                <option ng-repeat="item in filter.businessList" value="{{item.reference}}">{{item.name}}</option>
+            </select>
+            <a ng-click="filter.clearCompany()">effacer</a>
+            <hr class="clear"/>
+        </div>
 
-        <div class="bloc-type" ng-repeat="company in companies | filter:companiesSearch | orderBy:orderByFunction">
+        <div class="bloc-type" ng-repeat="company in companies | filter:filter.filterCompanies" ng-class="{blocTypeOneCompany: $first && $last}">
             <div class="content-infos">
                 <div class="avatar-project">
                     <img src="../images/no-icon-company.png" width="83" height="83" alt="{{company.name}}">
@@ -47,7 +45,7 @@
                 <div class="content-infos-project">
                     <div class="header-project">
                         <span class="title-project-content">
-                            <a ng-href="/#/project/{{project._id}}" title="{{company.name}}"> {{company.name}}</a>
+                            <a title="{{company.name}}" ng-click="filter.selectCompany(company)"> {{company.name}}</a>
                         </span>
                         <div class="invoices-number">
                             <h2>nombre de facture </h2>
@@ -76,10 +74,15 @@
                             </div>
                         </div>
                         <ul class="btn-edit">
-                            <li><a ng-href='/#/project/{{project._id}}'><span class="small-icon-buttonedit"></span>Editer</a></li>
+                            <li><a ng-href='/#/company/{{company._id}}'><span class="small-icon-buttonedit"></span>Editer</a></li>
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div ng-show="$first && $last">
+                <ul class="tags-business">
+                    <li ng-repeat="business in company.business" ng-click="filter.selectBusiness(business)">{{business.name}}</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -87,12 +90,19 @@
     <div class="columns-bloc col-type-right">
         <div class="zone-title">
              <h1 class="title-col">Factures</h1>
-             <span class="info-stat">(*) x factures pour un total de x €</span>
+             <span class="info-stat">(*) {{nbInvoices()}} facture(s) pour un total de {{totalInvoices() | currency}}</span>
         </div>
-        <button class="fsh-btn-add" ng-click="addInvoice()"><span class="icon-buttonAdd"></span> Ajouter</button>
-        <hr class="clear"/>
+        <div class="zone-actions">
+            <button class="fsh-btn-add" ng-click="addInvoice()"><span class="icon-buttonAdd"></span> Ajouter</button>
+            <select ui-select2 ng-model="filter.statusSelected" data-placeholder="-- Sélectionner un status --">
+                <option value=""></option>
+                <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
+            </select>
+            <a ng-click="filter.clearStatus()">effacer</a>
+            <hr class="clear"/>
+        </div>
 
-        <div class="bloc-type" ng-repeat="invoice in invoices | filter:invoicesSearch | orderBy:orderByFunction">
+        <div class="bloc-type" ng-repeat="invoice in invoices | filter:filter.filterInvoices | orderBy:orderByFunction">
             <div class="content-infos content-bloc-invoice">
                 <div class="avatar-project">
                     <img src="../images/no-icon-project.png" alt="{{invoice.name}}">
@@ -100,7 +110,7 @@
                 <div class="content-infos-project">
                     <div class="header-project">
                         <span class="title-project-content">
-                            <a ng-href="/#/invoice/{{invoice._id}}" title="{{invoice.reference}}"> {{invoice.reference}}</a>
+                            <a title="{{invoice.reference}}" ng-click="filter.selectBusinessFromInvoice(invoice)"> {{invoice.reference}}</a>
                             <ul class="invoice-date">
                                 <li>Du : {{invoice.date | date:'dd/MM/yyyy'}}</li>
                                 <li>Date d'échéance : {{findExpiredInvoice(invoice.date)}}</li>
@@ -112,7 +122,7 @@
                         </div>
                     </div>
                     <div class="desc-project">
-                        <span class="invoices-status {{invoice.status}}"><p>{{invoice.status}}</p></span>
+                        <span class="invoices-status {{invoice.status}}"><p>{{translateStatusLabel(invoice.status)}}</p></span>
                         <ul class="btn-edit">
                             <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>Voir la facture</a></li>
                         </ul>

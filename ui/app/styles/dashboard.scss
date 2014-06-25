@@ -67,7 +67,6 @@
 .columns-bloc {
   .fsh-btn-add {
     float: right;
-    margin-top: 60px;
   }
 }
 
@@ -94,6 +93,9 @@
     color: white;
   }
 }
+.zone-actions {
+  display: block;
+}
 
 // BLOC TYPE ITEM
 
@@ -106,6 +108,9 @@
   padding: 10px;
   border-radius: 5px;
   overflow: hidden;
+}
+.blocTypeOneCompany {
+  height: auto;
 }
 
 .content-infos {
@@ -283,8 +288,7 @@
   }
 }
 
-.tags-project {
-  position: absolute;
+.tags-business {
   bottom: 40px;
   left: 34px;
   display: block;
