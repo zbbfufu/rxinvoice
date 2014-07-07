@@ -1,6 +1,6 @@
 package rxinvoice.domain;
 
-import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 import restx.jackson.FixedPrecision;
@@ -16,8 +16,11 @@ public class Invoice {
     private String key;
 
     private String reference;
-    private DateMidnight date;
+    private DateTime date;
     private Status status;
+    private boolean withVAT;
+    private String object;
+    private String comment;
 
     private Company seller;
     private Company buyer;
@@ -27,6 +30,7 @@ public class Invoice {
     private List<VATVal> vats = new ArrayList<>();
     @FixedPrecision(2)
     private BigDecimal netAmount;
+    private List<VATAmount> vatsAmount = new ArrayList<>();
 
     private Business business;
 
@@ -40,12 +44,24 @@ public class Invoice {
         return reference;
     }
 
-    public DateMidnight getDate() {
+    public DateTime getDate() {
         return date;
     }
 
     public Status getStatus() {
         return status;
+    }
+
+    public boolean isWithVAT() {
+        return withVAT;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public String getComment() {
+        return comment;
     }
 
     public Company getSeller() {
@@ -76,6 +92,10 @@ public class Invoice {
         return lines;
     }
 
+    public List<VATAmount> getVatsAmount() {
+        return vatsAmount;
+    }
+
     public Invoice setKey(final String key) {
         this.key = key;
         return this;
@@ -86,13 +106,28 @@ public class Invoice {
         return this;
     }
 
-    public Invoice setDate(final DateMidnight date) {
+    public Invoice setDate(final DateTime date) {
         this.date = date;
         return this;
     }
 
     public Invoice setStatus(final Status status) {
         this.status = status;
+        return this;
+    }
+
+    public Invoice setWithVAT(boolean withVAT) {
+        this.withVAT = withVAT;
+        return this;
+    }
+
+    public Invoice setObject(String object) {
+        this.object = object;
+        return this;
+    }
+
+    public Invoice setComment(String comment) {
+        this.comment = comment;
         return this;
     }
 
@@ -131,6 +166,11 @@ public class Invoice {
         return this;
     }
 
+    public Invoice setVatsAmount(List<VATAmount> vatsAmount) {
+        this.vatsAmount = vatsAmount;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -138,11 +178,15 @@ public class Invoice {
                 ", reference='" + reference + '\'' +
                 ", date=" + date +
                 ", status=" + status +
+                ", withVAT=" + withVAT +
+                ", object='" + object + '\'' +
+                ", comment='" + comment + '\'' +
                 ", seller=" + seller +
                 ", buyer=" + buyer +
                 ", grossAmount=" + grossAmount +
                 ", vats=" + vats +
                 ", netAmount=" + netAmount +
+                ", vatsAmount=" + vatsAmount +
                 ", business=" + business +
                 ", lines=" + lines +
                 '}';
@@ -153,13 +197,12 @@ public class Invoice {
     }
 
     public static class VATVal {
-        @FixedPrecision(2)
-        private BigDecimal vat;
+        private String vat;
 
         @FixedPrecision(2)
         private BigDecimal amount;
 
-        public BigDecimal getVat() {
+        public String getVat() {
             return vat;
         }
 
@@ -167,7 +210,7 @@ public class Invoice {
             return amount;
         }
 
-        public VATVal setVat(final BigDecimal vat) {
+        public VATVal setVat(final String vat) {
             this.vat = vat;
             return this;
         }
@@ -181,6 +224,39 @@ public class Invoice {
         public String toString() {
             return "VATVal{" +
                     "vat=" + vat +
+                    ", amount=" + amount +
+                    '}';
+        }
+    }
+
+    public static class VATAmount {
+        private String vat;
+        @FixedPrecision(2)
+        private BigDecimal amount;
+
+        public String getVat() {
+            return vat;
+        }
+
+        public BigDecimal getAmount() {
+            return amount;
+        }
+
+        public VATAmount setVat(String vat) {
+            this.vat = vat;
+            return this;
+        }
+
+        public VATAmount setAmount(BigDecimal amount) {
+            this.amount = amount;
+            return this;
+        }
+
+
+        @Override
+        public String toString() {
+            return "VATAmount{" +
+                    "vat='" + vat + '\'' +
                     ", amount=" + amount +
                     '}';
         }

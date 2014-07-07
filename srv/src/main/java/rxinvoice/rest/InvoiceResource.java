@@ -17,7 +17,11 @@ import rxinvoice.domain.User;
 
 import javax.inject.Named;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static restx.common.MorePreconditions.checkEquals;
 import static rxinvoice.AppModule.Roles.ADMIN;
@@ -46,6 +50,9 @@ public class InvoiceResource {
                 invoice.setSeller(companyResource.findCompanyByKey(user.getCompanyRef()).get());
             }
         }
+
+        updateAmounts(invoice);
+
         invoices.get().save(invoice);
         return invoice;
     }
@@ -70,6 +77,8 @@ public class InvoiceResource {
                 throw new WebException(HttpStatus.NOT_FOUND);
             }
         }
+
+        updateAmounts(invoice);
 
         invoices.get().save(invoice);
         return invoice;
@@ -115,6 +124,39 @@ public class InvoiceResource {
             return Status.of("deleted");
         } else {
             throw new WebException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    private void updateAmounts(Invoice invoice) {
+        BigDecimal grossAmount = BigDecimal.ZERO;
+        BigDecimal vatAmountLine = BigDecimal.ZERO;
+        BigDecimal netAmount = BigDecimal.ZERO;
+        Map<String, Invoice.VATAmount> vatAmounts = new TreeMap<>();
+        for (Invoice.Line line : invoice.getLines()) {
+            if (line.getQuantity() != null && line.getUnitCost() != null) {
+                line.setGrossAmount(line.getQuantity().multiply(line.getUnitCost()));
+                grossAmount = grossAmount.add(line.getGrossAmount());
+                if (line.getVat() != null) {
+                    vatAmountLine = line.getGrossAmount().multiply(line.getVat().getAmount().divide(new BigDecimal(100)));
+                    Invoice.VATAmount vatAmount = vatAmounts.get(line.getVat().getVat());
+                    String vat = line.getVat().getVat();
+                    if (vatAmount == null) {
+                        vatAmounts.put(vat, new Invoice.VATAmount().setVat(vat).setAmount(vatAmountLine));
+                    } else {
+                        vatAmounts.put(vat, vatAmount.setAmount(vatAmount.getAmount().add(vatAmountLine)));
+                    }
+                    netAmount = netAmount.add(vatAmountLine).add(line.getGrossAmount());
+                }
+            }
+        }
+
+        invoice.setVatsAmount(new ArrayList<Invoice.VATAmount>(vatAmounts.values()));
+        invoice.setGrossAmount(grossAmount);
+        if (invoice.isWithVAT()) {
+            invoice.setNetAmount(netAmount);
+        } else {
+            invoice.setNetAmount(grossAmount);
         }
     }
 }

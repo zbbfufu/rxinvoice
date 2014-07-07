@@ -31,6 +31,14 @@ angular.module('rxinvoiceApp')
         };
 
         $scope.save = function() {
-            Company.update({id:$routeParams.id}, $scope.company);
+            Company.update({id:$routeParams.id}, $scope.company,
+                function(data) {
+                    $scope.company = data;
+                    alertify.success("Company saved");
+                },
+                function() {
+                    alertify.error("Company can not saved");
+                }
+            );
         }
     });

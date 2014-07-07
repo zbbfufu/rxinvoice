@@ -1,0 +1,85 @@
+<div class="invoice view" ng-controller="InvoiceCtrl" xmlns="http://www.w3.org/1999/html"
+     xmlns="http://www.w3.org/1999/html">
+    <a ng-click="edit()">
+        <h1 class="title-page">
+            <span class="title-logo"></span>
+            <span class="smallSeparator"></span>
+            <span class="title-page-content" translate="invoice.title">Invoice</span>
+            <span class="title-page-content"> - {{invoice.reference}}</span>
+        </h1>
+    </a>
+
+    <div class="panel panel-body">
+
+        <div class="row">
+            <div class="invoiceReference pull-right">
+                <h2 translate="invoice.title"></h2>
+                <div>FACTURE N° {{invoice.reference}}</div>
+                <div>DATE : {{invoice.date | date:'dd/MM/yyyy'}}</div>
+            </div>
+
+            <div class="invoiceSeller">
+                <h2>{{invoice.seller.name}}</h2>
+                <div>{{invoice.seller.address.body}}</div>
+                <div>{{invoice.seller.address.zipCode}} {{invoice.seller.address.city}}</div>
+                <div ng-show="invoice.seller.address.country">{{invoice.seller.address.country}}</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="invoiceObject pull-right">
+                <h3 translate="invoice.object.view"></h3>
+                <pre class="invoiceObject">{{invoice.object}}</pre>
+            </div>
+
+            <div class="invoiceBuyer">
+                <h3 translate="invoice.buyer.view"></h3>
+                <div>{{invoice.buyer.name}}</div>
+                <div>{{invoice.buyer.address.body}}</div>
+                <div>{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}}</div>
+                <div ng-show="invoice.buyer.address.country">{{invoice.buyer.address.country}}</div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="invoice.comment">
+            <div class="invoiceComment">{{invoice.comment}}</div>
+        </div>
+
+        <div class="invoiceLines">
+            <table class="table table-condensed table-bordered">
+                <thead>
+                <tr>
+                    <th translate="invoice.lines.description">Description</th>
+                    <th translate="invoice.lines.grossAmount">Gross amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="line in invoice.lines">
+                    <td>{{line.description}}</td>
+                    <td class="currency">{{line.grossAmount | currency}}</td>
+                </tr>
+                <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+                <tr ng-repeat="line in invoice.vatsAmount">
+                    <td>{{line.vat}}</td>
+                    <td class="currency">{{line.amount | currency}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td class="currency totalLabel"><div translate="invoice.totalAmount"></div></td>
+                    <td class="currency totalAmount">{{invoice.netAmount | currency}}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="invoiceLegalNotice">
+            <div class="invoiceLegalNoticeBlock">
+                <pre class="legalNotice">{{invoice.seller.legalNotice}}</pre>
+            </div>
+            <div class="invoiceLegalNoticeBlock invoiceLegalNoticeInfo">
+                <div translate="invoice.legal.notice.info"></div>
+            </div>
+        </div>
+    </div>
+</div>

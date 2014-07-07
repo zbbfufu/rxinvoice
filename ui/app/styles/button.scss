@@ -154,6 +154,14 @@
     height: 19px;
     width: 19px;
   }
+  .icon-buttonView {
+    display: block;
+    float: left;
+    margin-right: 5px;
+    background: url("#{$imagePath}icon-btn-look.png") no-repeat;
+    height: 19px;
+    width: 19px;
+  }
 
   &:hover {
     transition: 200ms;
@@ -330,5 +338,23 @@
   &:hover {
     transition: 250ms;
     background:  url("#{$imagePath}btn-suppr-hover.png") no-repeat;
+  }
+}
+
+
+.button {
+  width: 20px;
+  height: 20px;
+}
+.buttonAdd {
+  background: url(#{$imagePath}icon-btn-add.png) no-repeat;
+  &:hover {
+    background: url(#{$imagePath}icon-btn-add-hover.png) no-repeat;
+  }
+}
+.buttonDelete {
+  background: url(#{$imagePath}btn-suppr.png) no-repeat;
+  &:hover {
+    background: url(#{$imagePath}btn-suppr-hover.png) no-repeat;
   }
 }

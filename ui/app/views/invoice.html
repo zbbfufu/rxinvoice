@@ -1,0 +1,242 @@
+<div class="invoice" ng-controller="InvoiceCtrl">
+    <a ng-href="/#/">
+        <h1 class="title-page">
+            <span class="title-logo"></span>
+            <span class="smallSeparator"></span>
+            <span class="title-page-content" translate="invoice.title">Invoice</span>
+            <span class="title-page-content"> - {{invoice.reference}}</span>
+        </h1>
+    </a>
+
+    <div class="table-fpm">
+        <div class="pull-right">
+            <button class="fsh-btn-success" type="submit" ng-click="view()"><span class="icon-buttonView"></span>{{i18n.translate('invoice.view')}}</button>
+            <button class="fsh-btn-success" type="submit" ng-click="save()"><span class="icon-buttonSav"></span>{{i18n.translate('invoice.save')}}</button>
+        </div>
+
+        <div class="invoice">
+            <h1 class="title-col" translate="invoice.title"></h1>
+            <div class="control-group">
+                <label class="control-label" translate="invoice.reference">Reference</label>
+                <div class="controls">
+                    <input type="text" ng-model="invoice.reference">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" translate="invoice.date">Date</label>
+                <div class="controls">
+                    <input type="date" ng-model="date">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" translate="invoice.status">Status</label>
+                <div class="controls">
+                    <select ng-model="invoice.status" ng-options="i._id as i.name for i in status"></select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" translate="invoice.withVAT">With VAT</label>
+                <div class="controls">
+                    <input type="checkbox" ng-model="invoice.withVAT" />
+                </div>
+            </div>
+            <br>
+            <div class="control-group">
+                <label class="control-label invoiceObject" translate="invoice.object">Object</label>
+                <div class="controls">
+                    <textarea class="invoiceObject" rows="3" ng-model="invoice.object" />
+                </div>
+            </div>
+            <br>
+            <div class="control-group">
+                <label class="control-label" translate="invoice.comment">Comment</label>
+                <div class="controls">
+                    <input class="invoiceComment" type="text" ng-model="invoice.comment" />
+                </div>
+            </div>
+        </div>
+
+        <div class="invoiceSeller">
+            <h1 class="title-col" translate="invoice.seller"></h1>
+            <div class="control-group">
+                <label class="control-label" translate="company.name">Name</label>
+                <div class="controls">
+                    <select ui-select2 ng-model="companies.seller" data-placeholder="{{i18n.translate('invoice.seller.placeholder')}}" style="width: 220px;">
+                        <option value=""></option>
+                        <option ng-repeat="item in companies.list" value="{{item._id}}">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="companyAddress">
+                <div class="control-group">
+                    <label class="control-label" translate="company.body">Body</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.seller.address.body">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" translate="company.zipCode">Zip Code</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.seller.address.zipCode">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" translate="company.city">City</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.seller.address.city">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" translate="company.country">Country</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.seller.address.country">
+                    </div>
+                </div>
+                <br>
+                <div class="control-group">
+                    <label class="control-label legalNotice" translate="company.legalNotice"></label>
+                    <div class="controls">
+                        <textarea class="legalNotice" ng-model="invoice.seller.legalNotice"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="invoiceBuyer">
+            <h1 class="title-col" translate="invoice.buyer"></h1>
+            <div class="control-group">
+                <label class="control-label" translate="company.name">Name</label>
+                <div class="controls">
+                    <select ui-select2 ng-model="companies.buyer" data-placeholder="{{i18n.translate('invoice.buyer.placeholder')}}" style="width: 220px;">
+                        <option value=""></option>
+                        <option ng-repeat="item in companies.list" value="{{item._id}}">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" translate="invoice.business">Business</label>
+                <div class="controls">
+                    <select ui-select2 ng-model="companies.business" data-placeholder="{{i18n.translate('invoice.business.placeholder')}}" style="width: 220px;">
+                        <option value=""></option>
+                        <option ng-repeat="item in companies.businessList" value="{{item.reference}}">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="companyAddress">
+                <div class="control-group">
+                    <label class="control-label" translate="company.body">Body</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.buyer.address.body">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" translate="company.zipCode">Zip Code</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.buyer.address.zipCode">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" translate="company.city">City</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.buyer.address.city">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" translate="company.country">Country</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.buyer.address.country">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="invoiceLines">
+            <h1 class="title-col" translate="invoice.lines"></h1>
+            <table class="table table-condensed table-bordered">
+                <thead>
+                <tr>
+                    <th translate="invoice.lines.description">Description</th>
+                    <th translate="invoice.lines.quantity">Quantity</th>
+                    <th translate="invoice.lines.unitCost">Unit cost</th>
+                    <th translate="invoice.lines.grossAmount">Gross amount</th>
+                    <th translate="invoice.lines.vat" ng-show="invoice.withVAT">VAT</th>
+                    <th translate="invoice.lines.actions"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="line in invoice.lines">
+                    <td><input type="text" ng-model="line.description"></td>
+                    <td><input type="number" ng-model="line.quantity"></td>
+                    <td><input type="number" ng-model="line.unitCost"></td>
+                    <td class="currency"><span ng-show="line.grossAmount">{{line.grossAmount | currency}}</span></td>
+                    <td ng-show="invoice.withVAT">
+                        <select ng-model="line.vat" ng-options="v.amount as v.vat for v in invoice.vats" class="form-control input-sm">
+                            <option value="">-- choose --</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" ng-click="lines.remove($index)" title="{{i18n.translate('invoice.lines.actions.remove')}}">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr class="success">
+                    <td><input type="text" ng-model="lines.newLine.description" id="newLineDescription"/></td>
+                    <td><input type="number" ng-model="lines.newLine.quantity"/></td>
+                    <td><input type="number" ng-model="lines.newLine.unitCost"/></td>
+                    <td class="currency"><span ng-show="lines.newLine.grossAmount">{{lines.newLine.grossAmount | currency}}</span></td>
+                    <td ng-show="invoice.withVAT">
+                        <select ng-model="lines.newLine.vat" ng-options="v.amount as v.vat for v in invoice.vats" class="form-control input-sm">
+                            <option value="">-- choose --</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-success btn-sm" ng-click="lines.add()" title="{{i18n.translate('invoice.lines.actions.add')}}">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="invoiceVats" ng-show="invoice.withVAT">
+            <h1 class="title-col" translate="invoice.vats"></h1>
+            <table class="table table-condensed table-bordered">
+                <thead>
+                <tr>
+                    <th translate="invoice.vats.vat">VAT</th>
+                    <th translate="invoice.vats.amount">Amount</th>
+                    <th translate="invoice.vats.actions"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="vat in invoice.vats">
+                    <td><input type="text" ng-model="vat.vat"></td>
+                    <td><input type="number" ng-model="vat.amount"></td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" ng-click="vats.remove($index)" title="{{i18n.translate('invoice.vats.actions.remove')}}">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td><input type="text" ng-model="vats.newVat.vat"/></td>
+                    <td><input type="number" ng-model="vats.newVat.amount"/></td>
+                    <td>
+                        <button class="btn btn-success btn-sm" ng-click="vats.add()" title="{{i18n.translate('invoice.vats.actions.add')}}">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

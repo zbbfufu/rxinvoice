@@ -16,6 +16,8 @@ public class Company {
 
     private String name;
 
+    private String legalNotice;
+
     private Address address;
 
     private Metrics metrics;
@@ -28,6 +30,10 @@ public class Company {
 
     public String getName() {
         return name;
+    }
+
+    public String getLegalNotice() {
+        return legalNotice;
     }
 
     public Address getAddress() {
@@ -52,6 +58,10 @@ public class Company {
         return this;
     }
 
+    public void setLegalNotice(String legalNotice) {
+        this.legalNotice = legalNotice;
+    }
+
     public Company setAddress(final Address address) {
         this.address = address;
         return this;
@@ -72,6 +82,7 @@ public class Company {
         return "Company{" +
                 "key='" + key + '\'' +
                 ", name='" + name + '\'' +
+                ", legalNotice='" + legalNotice + '\'' +
                 ", address=" + address +
                 ", metrics=" + metrics +
                 ", business=" + business +

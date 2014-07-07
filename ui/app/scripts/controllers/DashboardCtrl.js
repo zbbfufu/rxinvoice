@@ -5,6 +5,7 @@ angular.module('rxinvoiceApp')
 
         $scope.companies = [];
         $scope.invoices = [];
+        $scope.translateStatusLabel = Invoice.translateStatusLabel;
 
         $scope.$watch("filter.companySelected", function(newValue, oldValue) {
             if (newValue) {
@@ -88,8 +89,7 @@ angular.module('rxinvoiceApp')
             alert('Not implemented')
         };
         $scope.addInvoice = function () {
-            //TODO implement this method
-            alert('Not implemented')
+            $location.url('/invoice/new');
         };
 
         $scope.orderByFunction = function (list) {
@@ -129,9 +129,5 @@ angular.module('rxinvoiceApp')
 
         $scope.getCompanies = function() {
             return $scope.company;
-        }
-
-        $scope.translateStatusLabel = function(status) {
-            return i18nUtils.translate('invoice.status.' + status);
         }
     });

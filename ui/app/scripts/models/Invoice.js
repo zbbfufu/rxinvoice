@@ -5,7 +5,7 @@ angular.module('rxInvoice', [
     ])
 
 
-    .factory('Invoice', function ($resource, $http) {
+    .factory('Invoice', function ($resource, $http, i18nUtils) {
         var res = $resource('/api/invoices/:id', {'id': '@_id'}, {update: {method:'PUT'}, 'get':  {method:'GET', isArray:false}});
         var status = null;
 
@@ -32,6 +32,10 @@ angular.module('rxInvoice', [
                     } else if (callback) {
                         callback(status);
                     }
+                },
+
+                translateStatusLabel: function(status) {
+                    return i18nUtils.translate('invoice.status.' + status);
                 }
             });
     }

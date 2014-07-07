@@ -61,7 +61,9 @@ public class CompanyResource {
         }
         List<ObjectId> buyers = new ArrayList<ObjectId>();
         for (Company company : distinct.as(Company.class)) {
-            buyers.add(new ObjectId(company.getKey()));
+            if (company.getKey() != null) {
+                buyers.add(new ObjectId(company.getKey()));
+            }
         }
         return companies.get().find("{_id: {$in:#}}", buyers).as(Company.class);
     }
