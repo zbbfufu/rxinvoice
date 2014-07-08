@@ -40,6 +40,7 @@ angular.module('rxinvoiceApp')
             },
             selectBusinessFromInvoice: function(invoice) {
                 if (invoice && invoice.business && invoice.business.reference) {
+                    $scope.filter.companySelected = invoice.buyer._id;
                     $scope.filter.businessSelected = invoice.business.reference;
                 }
             },
