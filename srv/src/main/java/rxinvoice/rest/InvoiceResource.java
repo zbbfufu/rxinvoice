@@ -1,6 +1,7 @@
 package rxinvoice.rest;
 
 import com.google.common.base.Optional;
+import com.google.common.eventbus.EventBus;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Invoice;
 import rxinvoice.domain.User;
+import rxinvoice.rest.events.InvoiceUpdatedEvent;
 
 import javax.inject.Named;
 
@@ -34,11 +36,14 @@ public class InvoiceResource {
     private static final Logger logger = LoggerFactory.getLogger(InvoiceResource.class);
 
     private final JongoCollection invoices;
+    private Optional<EventBus> eventBus;
     private final CompanyResource companyResource;
 
-    public InvoiceResource(@Named("invoices") JongoCollection invoices, CompanyResource companyResource) {
-        this.invoices = invoices;
+    public InvoiceResource(CompanyResource companyResource, Optional<EventBus> eventBus,
+                           @Named("invoices") JongoCollection invoices) {
         this.companyResource = companyResource;
+        this.eventBus = eventBus;
+        this.invoices = invoices;
     }
 
     @RolesAllowed({ADMIN, SELLER})
@@ -54,6 +59,9 @@ public class InvoiceResource {
         updateAmounts(invoice);
 
         invoices.get().save(invoice);
+        if (eventBus.isPresent()) {
+            eventBus.get().post(new InvoiceUpdatedEvent(invoice));
+        }
         return invoice;
     }
 
@@ -81,6 +89,9 @@ public class InvoiceResource {
         updateAmounts(invoice);
 
         invoices.get().save(invoice);
+        if (eventBus.isPresent()) {
+            eventBus.get().post(new InvoiceUpdatedEvent(invoice));
+        }
         return invoice;
     }
 
@@ -121,6 +132,9 @@ public class InvoiceResource {
         Optional<Invoice> invoice = findInvoiceByKey(key);
         if (invoice.isPresent()) {
             invoices.get().remove(new ObjectId(key));
+            if (eventBus.isPresent()) {
+                eventBus.get().post(new InvoiceUpdatedEvent(invoice.get()));
+            }
             return Status.of("deleted");
         } else {
             throw new WebException(HttpStatus.NOT_FOUND);
@@ -128,7 +142,7 @@ public class InvoiceResource {
     }
 
 
-    private void updateAmounts(Invoice invoice) {
+    public void updateAmounts(Invoice invoice) {
         BigDecimal grossAmount = BigDecimal.ZERO;
         BigDecimal vatAmountLine = BigDecimal.ZERO;
         BigDecimal netAmount = BigDecimal.ZERO;
