@@ -14,10 +14,13 @@
 
   label.invoiceObject {
     height: 100px;
+    vertical-align: top;
   }
+
   textarea.invoiceObject {
     height: 100px;
-    width: 500px;
+    width: 504px;
+    max-width: 905px;
     line-height: normal;
   }
   input.invoiceComment {
@@ -26,10 +29,12 @@
 
   label.legalNotice {
     height: 100px;
+    vertical-align: top;
   }
   textarea.legalNotice {
     height: 100px;
-    width: 500px;
+    width: 504px;
+    max-width: 870px;
     line-height: normal;
   }
 }
