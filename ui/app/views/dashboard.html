@@ -10,7 +10,6 @@
         <li class="sorts-item" style="display: none">Status</li>
         <li class="sorts-item" style="display: none">Type</li>
         <li class="sorts-item" style="display: none">Nom</li>
-        <input type="text" class="project-search" ng-model="filter.searchText" placeholder="Rechercher ..." autofocus="true"/>
     </ul>
 
     <hr class="clear"/>
@@ -33,6 +32,7 @@
                 <option ng-repeat="item in filter.businessList" value="{{item.reference}}">{{item.name}}</option>
             </select>
             <a ng-click="filter.clearCompany()"><span class="fsh-btn-refresh"></span></a>
+            <div class="sorts-a-z">A-Z<span class="arrow-bottom"></span></div>
             <hr class="clear"/>
         </div>
 
@@ -94,6 +94,9 @@
         </div>
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addInvoice()"><span class="icon-buttonAdd"></span> Ajouter</button>
+            <div class="sorts-a-z">A-Z<span class="arrow-bottom"></span></div>
+            <span class="separator-sorts">|</span>
+            <div class="sorts-number">Total<span class="arrow-bottom"></span></div>
             <select ui-select2 ng-model="filter.statusSelected" data-placeholder="-- Sélectionner un status --">
                 <option value=""></option>
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
