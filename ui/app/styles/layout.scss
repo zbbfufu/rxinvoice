@@ -147,6 +147,11 @@ header {
     background: url(#{$imagePath}4d-picto.png) 50% 50% no-repeat transparent;
     -webkit-border-radius: $global-radius 0 0 $global-radius;
     border-radius: $global-radius 0 0 $global-radius;
+    cursor: pointer;
+
+    &:hover {
+      background: url(#{$imagePath}4d-picto-hover.png) 50% 50% no-repeat transparent;
+    }
 
     &.back-home {
       background-color: white();
