@@ -83,7 +83,7 @@
 }
 
 .zone-title {
-  width: 50%;
+  width: 100%;
   display: inline-block;
 
   .info-stat {
@@ -95,6 +95,14 @@
 }
 .zone-actions {
   display: block;
+
+  .select2-container {
+    margin-right: 10px;
+
+    @media (max-width: 1290px) {
+      width: 150px !important;;
+    }
+  }
 }
 
 // BLOC TYPE ITEM
@@ -163,6 +171,10 @@
     height: 60px;
     width: 100%;
 
+    @media (max-width: 1250px) {
+      width: 95%;
+    }
+
     .title-project-content {
       float: left;
       display: block;
@@ -196,6 +208,10 @@
     display: block;
     width: 100%;
     float: right;
+
+    @media (max-width: 1250px) {
+      width: 95%;
+    }
 
     .content-planned {
       max-width: 400px;
@@ -270,6 +286,15 @@
       }
     }
 
+    .PAID {background: $status-closed;}
+    .DRAFT {background: $status-pre;}
+    .SENT {background: $status-draft;}
+    .LATE {background: $status-lost;}
+    .CANCELLED {
+      background-color: $status-canceled;
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
+    }
+
     .btn-edit {
       display: inline-block;
       margin: 30px 5px 0 0;
@@ -324,11 +349,11 @@
     background: none;
     height: 30px;
     width: 100%;
+    margin-top: 10px;
+    padding: 0;
     font-size: 20px;
     font-weight: bold;
     text-align: right;
-    margin: 0;
-    padding: 0;
     color: $fsh-darkgrey;
     text-transform: uppercase;
   }

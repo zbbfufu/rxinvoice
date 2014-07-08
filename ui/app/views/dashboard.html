@@ -32,7 +32,7 @@
                 <option value=""></option>
                 <option ng-repeat="item in filter.businessList" value="{{item.reference}}">{{item.name}}</option>
             </select>
-            <a ng-click="filter.clearCompany()">effacer</a>
+            <a ng-click="filter.clearCompany()"><span class="fsh-btn-refresh"></span></a>
             <hr class="clear"/>
         </div>
 
@@ -98,7 +98,7 @@
                 <option value=""></option>
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
             </select>
-            <a ng-click="filter.clearStatus()">effacer</a>
+            <a ng-click="filter.clearStatus()"><span class="fsh-btn-refresh"></span></a>
             <hr class="clear"/>
         </div>
 
