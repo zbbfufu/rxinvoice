@@ -23,7 +23,14 @@
   &.fsh-login {
     float: right;
     margin-top: 15px;
+    padding: 0;
     @include colorButton($fsh-darkgrey, $btn-main-color-hover);
+
+    a {
+      display: block;
+      height: 100%;
+      padding: 12px;
+    }
 
     .icon-connect {
       display: block;
