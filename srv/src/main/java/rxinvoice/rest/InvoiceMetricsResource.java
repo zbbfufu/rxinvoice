@@ -42,8 +42,8 @@ public class InvoiceMetricsResource {
         this.invoices = invoices;
     }
 
-    private Company getCompany(Company company) {
-        return companies.get().findOne(new ObjectId(company.getKey())).as(Company.class);
+    private Company getCompany(String key) {
+        return companies.get().findOne(new ObjectId(key)).as(Company.class);
     }
 
     private void computeCompanyMetricsAsync(final Company company) {
@@ -53,7 +53,7 @@ public class InvoiceMetricsResource {
                 final Factory factory = Factory.builder().addFromServiceLoader().build();
 
                 try {
-                    factory.queryByClass(InvoiceMetricsResource.class).findOneAsComponent().get().computeCompanyMetrics(company);
+                    factory.queryByClass(InvoiceMetricsResource.class).findOneAsComponent().get().computeCompanyMetrics(company.getKey());
                 } catch (Exception e) {
                     logger.error("Error in computeCompanyMetricsAsync", e);
                     throw new RuntimeException(e);
@@ -65,7 +65,7 @@ public class InvoiceMetricsResource {
     }
 
     public void computeCompanyMetricsSync(final Company company) {
-        computeCompanyMetrics(company);
+        computeCompanyMetrics(company.getKey());
     }
 
     public void computeCompanyMetricsAsync(String companyId) {
@@ -84,10 +84,11 @@ public class InvoiceMetricsResource {
         }
     }
 
-    private void computeCompanyMetrics(Company company) {
-        logger.debug("Begin to compute company metrics for company {}", company.getKey());
+    private void computeCompanyMetrics(String companyKey) {
+        logger.debug("Begin to compute company metrics for company {}", companyKey);
 
-        Company.Metrics metrics = getCompany(company).getMetrics();
+        Company company = getCompany(companyKey);
+        Company.Metrics metrics = company.getMetrics();
 
         if (metrics == null) {
             metrics = new Company.Metrics();
