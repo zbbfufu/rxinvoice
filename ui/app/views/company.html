@@ -9,6 +9,7 @@
     </a>
 
     <div class="table-fpm">
+        <form novalidate>
         <div class="pull-right">
             <button class="fsh-btn-success" type="submit" ng-click="save()"><span class="icon-buttonSav"></span>{{i18n.translate('company.save')}}</button>
         </div>
@@ -18,7 +19,7 @@
             <div class="control-group">
                 <label class="control-label" translate="company.name"></label>
                 <div class="controls">
-                    <input type="text" ng-model="company.name">
+                    <input type="text" ng-model="company.name" required>
                 </div>
             </div>
             <br>
@@ -92,5 +93,7 @@
                 </tfoot>
             </table>
         </div>
+
+        </form>
     </div>
 </div>

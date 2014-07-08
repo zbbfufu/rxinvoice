@@ -1,19 +1,14 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('CompanyCtrl', function ($scope, $routeParams, $location, $filter, Company, i18nUtils) {
+    .controller('CompanyCtrl', function ($scope, $routeParams, $location, $filter, Company, i18nUtils, Message) {
+        var loadCompany = function(company) {
+            $scope.company = company;
+        };
 
+        $scope.newMode = $routeParams.id == 'new';
         $scope.i18n = i18nUtils;
-
         $scope.company = null;
-        Company.get({id:$routeParams.id},
-            function(data) {
-                $scope.company = data;
-            },
-            function() {
-                $location.url('/');
-            }
-        );
 
         $scope.business = {
             reference: '',
@@ -31,13 +26,44 @@ angular.module('rxinvoiceApp')
         };
 
         $scope.save = function() {
-            Company.update({id:$routeParams.id}, $scope.company,
+            var company = $scope.company;
+            if ($scope.newMode) {
+                Company.save(company,
+                    function(data) {
+                        $location.url('/company/' + data._id);
+                        Message.success('message.company.create.success');
+                    },
+                    function() {
+                        Message.error('message.company.create.error', company);
+                    }
+                );
+            } else {
+                Company.update({id:$routeParams.id}, company,
+                    function(data) {
+                        $scope.company = data;
+                        Message.success('message.company.update.success');
+                    },
+                    function() {
+                        Message.error('message.company.update.error', company);
+                    }
+                );
+            }
+        }
+
+        if ($scope.newMode) {
+            loadCompany({
+                address : {},
+                business: []
+            });
+        } else {
+            Company.get({id:$routeParams.id},
                 function(data) {
-                    $scope.company = data;
-                    alertify.success("Company saved");
+                    Message.success('message.company.load.success');
+                    loadCompany(data);
                 },
                 function() {
-                    alertify.error("Company can not saved");
+                    Message.error('message.company.load.error', $routeParams.id);
+                    $location.url('/');
                 }
             );
         }

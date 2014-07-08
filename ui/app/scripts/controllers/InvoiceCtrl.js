@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('InvoiceCtrl', function ($scope, $routeParams, $location, $filter, Invoice, Company, i18nUtils) {
+    .controller('InvoiceCtrl', function ($scope, $routeParams, $location, $filter, Invoice, Company, i18nUtils, Message) {
 
         $scope.newMode = $routeParams.id == 'new';
         $scope.i18n = i18nUtils;
@@ -164,7 +164,6 @@ angular.module('rxinvoiceApp')
             var invoice = $scope.invoice;
             invoice.business = $scope.companies.findBusinessByRef($scope.companies.business);
             invoice.date = new Date($scope.date);
-            console.log(invoice.date);
             for (var index = 0, length = invoice.lines.length; index < length; index++) {
                 var line = invoice.lines[index];
                 if (!angular.isObject(line.vat)) {
@@ -176,24 +175,20 @@ angular.module('rxinvoiceApp')
                 Invoice.save(invoice,
                     function(data) {
                         $scope.view(data._id);
-                        alertify.success("Invoice created");
+                        Message.success('message.invoice.create.success');
                     },
                     function() {
-                        console.log("Invoice can not created");
-                        alertify.error("Invoice can not created");
-                        //TODO error
+                        Message.error('message.invoice.create.error', invoice);
                     }
                 );
             } else {
                 Invoice.update({id:$routeParams.id}, invoice,
                     function(data) {
                         $scope.view(data._id);
-                        alertify.success("Invoice updated");
+                        Message.success('message.invoice.update.success');
                     },
                     function() {
-                        console.log("Invoice can not updated");
-                        alertify.error("Invoice can not updated");
-                        //TODO error
+                        Message.error('message.invoice.update.error', invoice);
                     }
                 );
             }
@@ -229,9 +224,11 @@ angular.module('rxinvoiceApp')
             Invoice.get({id:$routeParams.id},
                 function(data) {
                     loadInvoice(data);
+                    Message.success('message.invoice.load.success');
                 },
                 function() {
                     $location.url('/');
+                    Message.error('message.invoice.load.error', $routeParams.id);
                 }
             );
         }

@@ -57,9 +57,9 @@ angular.module('rxinvoiceApp')
             },
             filterInvoices: function(value) {
                 var ret =
-                    (!$scope.filter.companySelected || $scope.filter.companySelected == value.buyer._id) &&
+                    (!$scope.filter.companySelected || (value.buyer && $scope.filter.companySelected == value.buyer._id)) &&
                     (!$scope.filter.statusSelected || $scope.filter.statusSelected == value.status) &&
-                    (!$scope.filter.businessSelected || $scope.filter.businessSelected == value.business.reference);
+                    (!$scope.filter.businessSelected || (value.business && $scope.filter.businessSelected == value.business.reference));
                 return ret;
             }
         };
@@ -80,13 +80,7 @@ angular.module('rxinvoiceApp')
         });
 
         $scope.addCompany = function () {
-//            var project = new Project();
-//            project.name = "Projet vide";
-//            project.$save(function (response) {
-//                $location.url("/project/" + response._id);
-//            });
-            //TODO implement this method
-            alert('Not implemented')
+            $location.url('/company/new');
         };
         $scope.addInvoice = function () {
             $location.url('/invoice/new');
