@@ -1,6 +1,11 @@
 @import "variables";
 @import "mixins";
 
+@media print {
+  header {
+    display: none;
+  }
+}
 .invoice {
   clear: both;
   table {

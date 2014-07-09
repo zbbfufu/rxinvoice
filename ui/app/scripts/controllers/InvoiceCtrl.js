@@ -170,7 +170,7 @@ angular.module('rxinvoiceApp')
             if ($scope.newMode) {
                 Invoice.save(invoice,
                     function(data) {
-                        $scope.view(data._id);
+                        $scope.edit(data._id);
                         Message.success('message.invoice.create.success');
                     },
                     function() {
@@ -180,7 +180,7 @@ angular.module('rxinvoiceApp')
             } else {
                 Invoice.update({id:$routeParams.id}, invoice,
                     function(data) {
-                        $scope.view(data._id);
+                        $scope.edit(data._id);
                         Message.success('message.invoice.update.success');
                     },
                     function() {
@@ -191,8 +191,7 @@ angular.module('rxinvoiceApp')
         };
 
         $scope.view = function(id) {
-            var url = '/invoice_view/' + (id ? id : $routeParams.id);
-            $location.url(url);
+            window.open('/#/invoice_view/' + (id ? id : $routeParams.id));
         };
         $scope.edit = function() {
             $location.url('/invoice/' + $routeParams.id);
