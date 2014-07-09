@@ -132,3 +132,21 @@
     }
   }
 }
+
+// Icon Titles
+
+.icon-title {
+  display: inline-block;
+  vertical-align: top;
+  height: 25px;
+  width: 25px;
+  margin-right: 10px;
+}
+
+.icon-invoice { background: url("#{$imagePath}icon-invoice.png") no-repeat;}
+.icon-seller { background: url("#{$imagePath}icon-seller.png") no-repeat;}
+.icon-buyer { background: url("#{$imagePath}icon-buyer.png") no-repeat;}
+.icon-lines { background: url("#{$imagePath}icon-lines.png") no-repeat;}
+.icon-address { background: url("#{$imagePath}icon-address.png") no-repeat;}
+.icon-business { background: url("#{$imagePath}icon-business.png") no-repeat;}
+

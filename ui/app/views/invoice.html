@@ -16,7 +16,8 @@
 
         <div class="invoice">
             <div class="title-section-invoice">
-                <h1 class="title-col-onglet" translate="invoice.title"></h1>
+                <div class="fsh-hide"><span class="arrow-bottom"></span></div>
+                <h1 class="title-col-onglet"><span class="icon-title icon-invoice"></span>{{i18n.translate('invoice.title')}}</h1>
             </div>
             <div class="container-control-group">
                 <div class="control-group">
@@ -64,7 +65,8 @@
 
         <div class="invoiceSeller">
             <div class="title-section-invoice">
-                <h1 class="title-col-onglet" translate="invoice.seller"></h1>
+                <div class="fsh-hide"><span class="arrow-bottom"></span></div>
+                <h1 class="title-col-onglet"><span class="icon-title icon-seller"></span>{{i18n.translate('invoice.seller')}}</h1>
             </div>
             <div class="container-control-group">
                 <div class="control-group">
@@ -115,7 +117,8 @@
 
         <div class="invoiceBuyer">
             <div class="title-section-invoice">
-                <h1 class="title-col-onglet" translate="invoice.buyer"></h1>
+                <div class="fsh-hide"><span class="arrow-bottom"></span></div>
+                <h1 class="title-col-onglet"><span class="icon-title icon-buyer"></span>{{i18n.translate('invoice.buyer')}}</h1>
             </div>
             <div class="control-group">
                 <label class="control-label label-light" translate="company.name">Name</label>
@@ -166,7 +169,8 @@
 
         <div class="invoiceLines">
             <div class="title-section-invoice">
-                <h1 class="title-col-onglet" translate="invoice.lines"></h1>
+                <div class="fsh-hide"><span class="arrow-bottom"></span></div>
+                <h1 class="title-col-onglet"><span class="icon-title icon-lines"></span>{{i18n.translate('invoice.lines')}}</h1>
             </div>
             <table class="table table-condensed table-bordered">
                 <thead>
@@ -220,6 +224,7 @@
 
         <div class="invoiceVats" ng-show="invoice.withVAT">
             <div class="title-section-invoice">
+                <div class="fsh-hide"><span class="arrow-bottom"></span></div>
                 <h1 class="title-col-onglet" translate="invoice.vats"></h1>
             </div>
             <table class="table table-condensed table-bordered">

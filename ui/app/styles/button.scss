@@ -159,6 +159,36 @@
   }
 }
 
+.arrow-bottom, .arrow-top {
+  display: inline-block;
+  height: 7px;
+  width: 11px;
+  margin: 0 10px 0 10px;
+}
+
+.arrow-bottom  { background: url("#{$imagePath}arrow-bottom.png") no-repeat;}
+.arrow-top  { background: url("#{$imagePath}arrow-top.png") no-repeat;}
+
+.fsh-hide {
+    float: right;
+    height: 40px;
+    width: 40px;
+    background: $fsh-darkgrey;
+    margin-top: 10px;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    transition: 300ms;
+
+  &:hover {
+    transition: 300ms;
+    background: $fsh-grey ;
+  }
+
+  .arrow-bottom {
+    margin: 18px 0 0 14px;
+  }
+}
+
 .fsh-btn-success {
   padding: 10px;
   padding-right: 20px;

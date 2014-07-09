@@ -96,8 +96,6 @@ input {
   }
 }
 
-
-
 div[contenteditable="true"] {
   min-height: 20px;
 }
@@ -181,3 +179,13 @@ div[contenteditable="true"] {
   padding: 10px;
   text-align: right;
 }
+
+.slidingDiv {
+  display: block;
+  height:auto;
+  background-color: #99CCFF;
+  padding:20px;
+  margin-top:10px;
+  border-bottom:5px solid #3399FF;
+}
+
