@@ -237,6 +237,19 @@
         line-height: 1.2;
         list-style: none;
       }
+
+      .tags-business {
+        display: inline-block;
+        padding: 3px 10px 3px 10px;
+        margin-right: 5px;
+        margin-top: 5px;
+        color: #ffffff;
+        background-color: $fsh-grey;
+        cursor: pointer;
+        transition: 450ms;
+        border-radius: $global-radius;
+        -webkit-border-radius: $global-radius;
+      }
     }
   }
 }
