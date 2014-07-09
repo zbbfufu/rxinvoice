@@ -24,6 +24,20 @@ angular.module('rxinvoiceApp')
                 $scope.company.business.splice(index, 1);
             }
         };
+        $scope.vats = {
+            vat: '',
+            amount: '',
+            add: function() {
+                if (this.vat && this.amount) {
+                    $scope.company.vats.push({vat: this.vat, amount: this.amount});
+                    this.vat = '';
+                    this.amount = '';
+                }
+            },
+            remove: function(index) {
+                $scope.company.vats.splice(index, 1);
+            }
+        };
 
         $scope.save = function() {
             var company = $scope.company;

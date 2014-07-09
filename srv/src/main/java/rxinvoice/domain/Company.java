@@ -24,6 +24,8 @@ public class Company {
 
     private List<Business> business = new ArrayList<>();
 
+    private List<VATVal> vats = new ArrayList<>();
+
     public String getKey() {
         return key;
     }
@@ -46,6 +48,10 @@ public class Company {
 
     public List<Business> getBusiness() {
         return business;
+    }
+
+    public List<VATVal> getVats() {
+        return vats;
     }
 
     public Company setKey(final String key) {
@@ -77,6 +83,11 @@ public class Company {
         return this;
     }
 
+    public Company setVats(List<VATVal> vats) {
+        this.vats = vats;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
@@ -86,6 +97,7 @@ public class Company {
                 ", address=" + address +
                 ", metrics=" + metrics +
                 ", business=" + business +
+                ", vats=" + vats +
                 '}';
     }
 

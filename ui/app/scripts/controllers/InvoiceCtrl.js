@@ -53,13 +53,6 @@ angular.module('rxinvoiceApp')
         };
 
         $scope.vats = {
-            defaultVats: [
-                {amount: 20, vat: "Taux normal 20 %"},
-                {amount: 10, vat: "Taux réduit 10 %"},
-                {amount: 5.5, vat: "Taux réduit 5.5 %"},
-                {amount: 2.1, vat: "Taux particulier 2.1 %"}
-            ],
-
             newVat: {
                 amount: '',
                 vat: ''
@@ -83,12 +76,12 @@ angular.module('rxinvoiceApp')
         });
         $scope.$watch("companies.seller", function(newValue, oldValue) {
             if ($scope.invoice && newValue) {
-                $scope.companies.load(newValue, $scope.invoice.seller);
+                $scope.companies.load(newValue, $scope.invoice.seller, true);
             }
         });
         $scope.$watch("companies.buyer", function(newValue, oldValue) {
             if ($scope.invoice && newValue) {
-                $scope.companies.load(newValue, $scope.invoice.buyer);
+                $scope.companies.load(newValue, $scope.invoice.buyer, false);
             }
         });
         $scope.companies = {
@@ -97,7 +90,7 @@ angular.module('rxinvoiceApp')
             seller: null,
             buyer: null,
             business: null,
-            load: function(selectedId, company) {
+            load: function(selectedId, company, loadDefaultVat) {
                 var selected = $scope.companies.findCompanyById(selectedId);
                 if (selected && company) {
                     company._id = selected._id;
@@ -112,6 +105,9 @@ angular.module('rxinvoiceApp')
                         this.business = this.businessList[0].reference;
                     } else {
                         this.business = null;
+                    }
+                    if (loadDefaultVat) {
+                        $scope.invoice.vats = angular.copy(selected.vats);
                     }
                 }
             },
@@ -216,7 +212,7 @@ angular.module('rxinvoiceApp')
                     name : "",
                     address : {}
                 },
-                vats : angular.copy($scope.vats.defaultVats),
+                vats : [],
                 business : {},
                 lines : []
             });
