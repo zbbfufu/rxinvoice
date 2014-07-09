@@ -5,13 +5,6 @@
         <span class="title-page-content">Bienvenue sur 4PM Facturation</span>
     </h1>
 
-    <ul class="sorts-projects f-right">
-        <li class="sorts-item title-list-sorts" style="display: none">Trie :</li>
-        <li class="sorts-item" style="display: none">Status</li>
-        <li class="sorts-item" style="display: none">Type</li>
-        <li class="sorts-item" style="display: none">Nom</li>
-    </ul>
-
     <hr class="clear"/>
 
 
@@ -20,9 +13,13 @@
         <div class="zone-title">
             <h1 class="title-col">Client</h1>
             <span class="info-stat">(*) {{nbCompanies()}} client pour {{nbBusiness()}} affaire(s)
-               <div class="sorts-a-z">A-Z<span class="arrow-bottom"></span></div>
+                <div class="sorts" ng-click="orderBy.byCompany(o)"
+                     ng-repeat="o in orderBy.companies">
+                    <span ng-class="{selected: o.selected}">{{o.label}}</span>
+                    <span ng-show="!$first" class="separator-sorts">|</span>
+                    <span ng-class="{arrowTop:!o.reverse, arrowBottom:o.reverse}"></span>
+                </div>
             </span>
-
         </div>
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addCompany()"><span class="icon-buttonAdd"></span> Ajouter</button>
@@ -38,7 +35,8 @@
             <hr class="clear"/>
         </div>
 
-        <div class="bloc-type" ng-repeat="company in companies | filter:filter.filterCompanies" ng-class="{blocTypeOneCompany: $first && $last}">
+        <div class="bloc-type" ng-class="{blocTypeOneCompany: $first && $last}"
+             ng-repeat="company in companies | filter:filter.filterCompanies | orderBy:orderBy.company.predicate:orderBy.company.reverse">
             <div class="content-infos">
                 <div class="avatar-project">
                     <img src="../images/no-icon-company.png" width="83" height="83" alt="{{company.name}}">
@@ -93,9 +91,12 @@
         <div class="zone-title">
              <h1 class="title-col">Factures</h1>
              <span class="info-stat">(*) {{nbInvoices()}} facture(s) pour un total de {{totalInvoices() | currency}}
-                <div class="sorts-a-z">A-Z<span class="arrow-bottom"></span></div>
-                <span class="separator-sorts">|</span>
-                <div class="sorts-number">Total<span class="arrow-bottom"></span></div>
+                <div class="sorts" ng-click="orderBy.byInvoice(o)"
+                     ng-repeat="o in orderBy.invoices">
+                    <span ng-class="{selected: o.selected}">{{o.label}}</span>
+                    <span ng-show="!$first" class="separator-sorts">|</span>
+                    <span ng-class="{arrowTop:!o.reverse, arrowBottom:o.reverse}"></span>
+                </div>
              </span>
         </div>
         <div class="zone-actions">
@@ -108,7 +109,8 @@
             <hr class="clear"/>
         </div>
 
-        <div class="bloc-type" ng-repeat="invoice in invoices | filter:filter.filterInvoices | orderBy:orderByFunction">
+        <div class="bloc-type"
+             ng-repeat="invoice in invoices | filter:filter.filterInvoices | orderBy:orderBy.invoice.predicate:orderBy.invoice.reverse">
             <div class="content-infos content-bloc-invoice">
                 <div class="avatar-project">
                     <img src="../images/no-icon-project.png" alt="{{invoice.name}}">

@@ -64,6 +64,40 @@ angular.module('rxinvoiceApp')
                 return ret;
             }
         };
+        $scope.orderBy = {
+            company: null,
+            companies: [
+                {label: 'A-Z', predicate: 'name', reverse: false, selected: false},
+                {label: 'Nb', predicate: 'metrics.nbInvoices', reverse: true, selected: false}
+            ],
+            byCompany: function(order) {
+                if (this.company) {
+                    this.company.selected = false;
+                    if (this.company.predicate == order.predicate) {
+                        this.company.reverse = !this.company.reverse;
+                    }
+                }
+                this.company = order;
+                this.company.selected = true;
+            },
+
+            invoice: null,
+            invoices: [
+                {label: 'A-Z', predicate: 'reference', reverse: false, selected: false},
+                {label: 'Total', predicate: 'grossAmount', reverse: true, selected: false},
+                {label: 'Date', predicate: 'date', reverse: true, selected: false}
+            ],
+            byInvoice: function(order) {
+                if (this.invoice) {
+                    this.invoice.selected = false;
+                    if (this.invoice.predicate == order.predicate) {
+                        this.invoice.reverse = !this.invoice.reverse;
+                    }
+                }
+                this.invoice = order;
+                this.invoice.selected = true;
+            }
+        }
 
         Company.findAll(function(data) {
             $scope.filter.companiesList = data;
@@ -86,11 +120,6 @@ angular.module('rxinvoiceApp')
         $scope.addInvoice = function () {
             $location.url('/invoice/new');
         };
-
-        $scope.orderByFunction = function (list) {
-            //TODO implement this method
-            return list;
-        }
 
         $scope.nbCompanies = function () {
             var companies = $filter('filter')($scope.companies, $scope.filter.filterCompanies);

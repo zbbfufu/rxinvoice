@@ -41,7 +41,7 @@ angular.module('rxinvoiceApp', [
             error: function(key, params) {
                 var message = getMessage(key);
                 alertify.error(message);
-                console.log(message + ' : ' + params);
+                console.log(message, params);
             },
             success: function(key) {
                 var message = getMessage(key);

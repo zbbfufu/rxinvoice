@@ -93,18 +93,30 @@
     color: white;
   }
 
-  .sorts-a-z, .sorts-number {
+  .sorts {
     display: inline-block;
     float: right;
-    color: white();
+    color: #b2b2b2;
     cursor: pointer;
 
-    .arrow-bottom {
+    .arrowBottom {
       display: inline-block;
       height: 7px;
       width: 11px;
       margin: 0 10px 0 10px;
       background: url("#{$imagePath}arrow-bottom.png") no-repeat;
+    }
+    .arrowTop {
+      display: inline-block;
+      height: 7px;
+      width: 11px;
+      margin: 0 10px 0 10px;
+      background: url("#{$imagePath}arrow-top.png") no-repeat;
+    }
+    .selected {
+      text-decoration: underline;
+      font-weight: bold;
+      color: white();
     }
   }
 
