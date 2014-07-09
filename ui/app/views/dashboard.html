@@ -19,7 +19,10 @@
     <div class="columns-bloc col-type-left">
         <div class="zone-title">
             <h1 class="title-col">Client</h1>
-            <span class="info-stat">(*) {{nbCompanies()}} client pour {{nbBusiness()}} affaire(s)</span>
+            <span class="info-stat">(*) {{nbCompanies()}} client pour {{nbBusiness()}} affaire(s)
+               <div class="sorts-a-z">A-Z<span class="arrow-bottom"></span></div>
+            </span>
+
         </div>
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addCompany()"><span class="icon-buttonAdd"></span> Ajouter</button>
@@ -32,7 +35,6 @@
                 <option ng-repeat="item in filter.businessList" value="{{item.reference}}">{{item.name}}</option>
             </select>
             <a ng-click="filter.clearCompany()"><span class="fsh-btn-refresh"></span></a>
-            <div class="sorts-a-z">A-Z<span class="arrow-bottom"></span></div>
             <hr class="clear"/>
         </div>
 
@@ -90,13 +92,14 @@
     <div class="columns-bloc col-type-right">
         <div class="zone-title">
              <h1 class="title-col">Factures</h1>
-             <span class="info-stat">(*) {{nbInvoices()}} facture(s) pour un total de {{totalInvoices() | currency}}</span>
+             <span class="info-stat">(*) {{nbInvoices()}} facture(s) pour un total de {{totalInvoices() | currency}}
+                <div class="sorts-a-z">A-Z<span class="arrow-bottom"></span></div>
+                <span class="separator-sorts">|</span>
+                <div class="sorts-number">Total<span class="arrow-bottom"></span></div>
+             </span>
         </div>
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addInvoice()"><span class="icon-buttonAdd"></span> Ajouter</button>
-            <div class="sorts-a-z">A-Z<span class="arrow-bottom"></span></div>
-            <span class="separator-sorts">|</span>
-            <div class="sorts-number">Total<span class="arrow-bottom"></span></div>
             <select ui-select2 ng-model="filter.statusSelected" data-placeholder="-- Sélectionner un status --">
                 <option value=""></option>
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
