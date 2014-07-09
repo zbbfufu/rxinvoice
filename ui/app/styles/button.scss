@@ -171,6 +171,12 @@
   border: none;
   border-bottom: 1px solid #939393;
   float: none;
+  transition: 300ms;
+
+  &:focus {
+    transition: 300ms;
+    background: $fsh-black !important;
+  }
 
   .icon-buttonSav {
     display: block;
