@@ -18,42 +18,46 @@
             <div class="title-section-invoice">
                 <h1 class="title-col-onglet" translate="invoice.title"></h1>
             </div>
-            <div class="control-group">
-                <label class="control-label label-light" translate="invoice.reference">Reference</label>
-                <div class="controls">
-                    <input type="text" ng-model="invoice.reference">
+            <div class="container-control-group">
+                <div class="control-group">
+                    <label class="control-label label-light" translate="invoice.reference">Reference</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.reference">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label label-light" translate="invoice.date">Date</label>
+                    <div class="controls">
+                        <input type="date" ng-model="date">
+                    </div>
+                </div>
+                </br>
+                <div class="control-group">
+                    <label class="control-label label-light" translate="invoice.status">Status</label>
+                    <div class="controls">
+                        <select ng-model="invoice.status" ng-options="i._id as i.name for i in status"></select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label label-light" translate="invoice.withVAT">With VAT</label>
+                    <div class="controls">
+                        <input type="checkbox" ng-model="invoice.withVAT" />
+                    </div>
                 </div>
             </div>
-            <div class="control-group">
-                <label class="control-label label-light" translate="invoice.date">Date</label>
-                <div class="controls">
-                    <input type="date" ng-model="date">
+            <div class="container-control-group">
+                <div class="control-group">
+                    <label class="control-label label-light invoiceObject" translate="invoice.object">Object</label>
+                    <div class="controls">
+                        <textarea class="invoiceObject" rows="3" ng-model="invoice.object" />
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label label-light" translate="invoice.status">Status</label>
-                <div class="controls">
-                    <select ng-model="invoice.status" ng-options="i._id as i.name for i in status"></select>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label label-light" translate="invoice.withVAT">With VAT</label>
-                <div class="controls">
-                    <input type="checkbox" ng-model="invoice.withVAT" />
-                </div>
-            </div>
-            <br>
-            <div class="control-group">
-                <label class="control-label label-light invoiceObject" translate="invoice.object">Object</label>
-                <div class="controls">
-                    <textarea class="invoiceObject" rows="3" ng-model="invoice.object" />
-                </div>
-            </div>
-            <br>
-            <div class="control-group">
-                <label class="control-label label-light" translate="invoice.comment">Comment</label>
-                <div class="controls">
-                    <input class="invoiceComment" type="text" ng-model="invoice.comment" />
+                <br>
+                <div class="control-group">
+                    <label class="control-label label-light" translate="invoice.comment">Comment</label>
+                    <div class="controls">
+                        <input class="invoiceComment" type="text" ng-model="invoice.comment" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,48 +66,50 @@
             <div class="title-section-invoice">
                 <h1 class="title-col-onglet" translate="invoice.seller"></h1>
             </div>
-            <div class="control-group">
-                <label class="control-label label-light" translate="company.name">Name</label>
-                <div class="controls">
-                    <select ui-select2 ng-model="companies.seller" data-placeholder="{{i18n.translate('invoice.seller.placeholder')}}" style="width: 220px;">
-                        <option value=""></option>
-                        <option ng-repeat="item in companies.list" value="{{item._id}}">{{item.name}}</option>
-                    </select>
+            <div class="container-control-group">
+                <div class="control-group">
+                    <label class="control-label label-light" translate="company.name">Name</label>
+                    <div class="controls">
+                        <select ui-select2 ng-model="companies.seller" data-placeholder="{{i18n.translate('invoice.seller.placeholder')}}" style="width: 220px;">
+                            <option value=""></option>
+                            <option ng-repeat="item in companies.list" value="{{item._id}}">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="companyAddress">
+                    <div class="control-group">
+                        <label class="control-label label-light" translate="company.body">Body</label>
+                        <div class="controls">
+                            <input type="text" ng-model="invoice.seller.address.body">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label label-light" translate="company.zipCode">Zip Code</label>
+                        <div class="controls">
+                            <input type="text" ng-model="invoice.seller.address.zipCode">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label label-light" translate="company.city">City</label>
+                        <div class="controls">
+                            <input type="text" ng-model="invoice.seller.address.city">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label label-light" translate="company.country">Country</label>
+                        <div class="controls">
+                            <input type="text" ng-model="invoice.seller.address.country">
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="companyAddress">
-                <div class="control-group">
-                    <label class="control-label label-light" translate="company.body">Body</label>
-                    <div class="controls">
-                        <input type="text" ng-model="invoice.seller.address.body">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label label-light" translate="company.zipCode">Zip Code</label>
-                    <div class="controls">
-                        <input type="text" ng-model="invoice.seller.address.zipCode">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label label-light" translate="company.city">City</label>
-                    <div class="controls">
-                        <input type="text" ng-model="invoice.seller.address.city">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label label-light" translate="company.country">Country</label>
-                    <div class="controls">
-                        <input type="text" ng-model="invoice.seller.address.country">
-                    </div>
-                </div>
-                <br>
+            <div class="container-control-group">
                 <div class="control-group">
                     <label class="control-label label-light legalNotice" translate="company.legalNotice"></label>
-                    <div class="controls">
-                        <textarea class="legalNotice" ng-model="invoice.seller.legalNotice"></textarea>
-                    </div>
+                        <div class="controls">
+                    <textarea class="legalNotice" ng-model="invoice.seller.legalNotice"></textarea>
                 </div>
+            </div>
             </div>
         </div>
 

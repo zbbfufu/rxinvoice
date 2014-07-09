@@ -2,6 +2,7 @@
 @import "mixins";
 
 .invoice {
+  display: inline-block;
   table {
     td.currency {
       text-align: right;
@@ -13,18 +14,18 @@
   }
 
   label.invoiceObject {
-    height: 100px;
+    height: 145px;
     vertical-align: top;
   }
 
   textarea.invoiceObject {
-    height: 100px;
-    width: 504px;
-    max-width: 905px;
+    height: 145px;
+    width: 340px;
+    max-width: 340px;
     line-height: normal;
   }
   input.invoiceComment {
-    width: 500px;
+    width: 332px;
   }
 
   label.legalNotice {
@@ -33,10 +34,14 @@
   }
   textarea.legalNotice {
     height: 100px;
-    width: 504px;
-    max-width: 870px;
+    width: 305px;
+    max-width: 305px;
     line-height: normal;
   }
+}
+
+.invoiceSeller, .invoiceBuyer, .invoiceComment {
+  display: inline-block;
 }
 
 .view {

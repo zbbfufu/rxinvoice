@@ -42,6 +42,17 @@ input {
   vertical-align: middle;
 }
 
+.container-control-group {
+  float: left;
+  width: 45%;
+  height: auto;
+
+  @media (max-width: 1150px) {
+    width: 100%;
+  }
+}
+
+
 .control-group {
   display: inline-block;
   margin-right: 20px;
@@ -84,6 +95,8 @@ input {
     }
   }
 }
+
+
 
 div[contenteditable="true"] {
   min-height: 20px;

@@ -9,11 +9,16 @@
     }
     textarea.legalNotice {
       height: 100px;
-      width: 504px;
-      max-width: 870px;
+      width: 305px;
+      max-width: 305px;
       line-height: normal;
     }
   }
+
+  .companyAddress {
+    display: inline-block;
+  }
+
   .companyBusiness {
     input {
       width: 100%;
