@@ -2,7 +2,7 @@
 @import "mixins";
 
 .invoice {
-  display: inline-block;
+  clear: both;
   table {
     td.currency {
       text-align: right;
@@ -41,7 +41,7 @@
 }
 
 .invoiceSeller, .invoiceBuyer, .invoiceComment {
-  display: inline-block;
+    clear: both;
 }
 
 .view {

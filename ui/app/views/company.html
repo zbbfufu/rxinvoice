@@ -16,24 +16,27 @@
 
         <div class="companyDescription">
             <div class="title-section-invoice">
+                <div class="fsh-hide"><span class="arrow-bottom"></span></div>
                 <h1 class="title-col-onglet"><span class="icon-title icon-invoice"></span>{{i18n.translate('company.description')}}</h1>
             </div>
-            <div class="container-control-group">
-                <div class="control-group">
-                    <label class="control-label label-light" translate="company.name"></label>
-                    <div class="controls">
-                        <input type="text" ng-model="company.name" required>
+            <div class="container-form">
+                <div class="container-control-group">
+                    <div class="control-group">
+                        <label class="control-label label-light" translate="company.name"></label>
+                        <div class="controls">
+                            <input type="text" ng-model="company.name" required>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-control-group">
-                <div class="control-group">
-                    <label class="control-label label-light legalNotice" translate="company.legalNotice"></label>
-                    <div class="controls">
-                        <textarea class="legalNotice" ng-model="company.legalNotice"></textarea>
+                <div class="container-control-group">
+                    <div class="control-group">
+                        <label class="control-label label-light legalNotice" translate="company.legalNotice"></label>
+                        <div class="controls">
+                            <textarea class="legalNotice" ng-model="company.legalNotice"></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
+             </div>
         </div>
 
         <div class="companyAddress">
@@ -41,29 +44,31 @@
                 <div class="fsh-hide"><span class="arrow-bottom"></span></div>
                 <h1 class="title-col-onglet"><span class="icon-title icon-address"></span>{{i18n.translate('company.address')}}</h1>
             </div>
-            <div class="container-control-group">
-                <div class="control-group">
-                    <label class="control-label label-light" translate="company.body">Body</label>
-                    <div class="controls">
-                        <input type="text" ng-model="company.address.body">
+            <div class="container-form">
+                <div class="container-control-group">
+                    <div class="control-group">
+                        <label class="control-label label-light" translate="company.body">Body</label>
+                        <div class="controls">
+                            <input type="text" ng-model="company.address.body">
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label label-light " translate="company.zipCode">Zip Code</label>
-                    <div class="controls">
-                        <input type="text" ng-model="company.address.zipCode">
+                    <div class="control-group">
+                        <label class="control-label label-light " translate="company.zipCode">Zip Code</label>
+                        <div class="controls">
+                            <input type="text" ng-model="company.address.zipCode">
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label label-light" translate="company.city">City</label>
-                    <div class="controls">
-                        <input type="text" ng-model="company.address.city">
+                    <div class="control-group">
+                        <label class="control-label label-light" translate="company.city">City</label>
+                        <div class="controls">
+                            <input type="text" ng-model="company.address.city">
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label label-light" translate="company.country">Country</label>
-                    <div class="controls">
-                        <input type="text" ng-model="company.address.country">
+                    <div class="control-group">
+                        <label class="control-label label-light" translate="company.country">Country</label>
+                        <div class="controls">
+                            <input type="text" ng-model="company.address.country">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,75 +79,78 @@
                 <div class="fsh-hide"><span class="arrow-bottom"></span></div>
                 <h1 class="title-col-onglet"><span class="icon-title icon-business"></span>{{i18n.translate('company.business')}}</h1>
             </div>
-
-            <table class="table table-striped table-condensed table-bordered">
-                <thead>
+            <div class="container-form">
+                <table class="table table-striped table-condensed table-bordered">
+                    <thead>
+                        <tr>
+                            <th translate="company.business.reference">Reference</th>
+                            <th translate="company.business.name">Name</th>
+                            <th translate="company.business.actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="b in company.business">
+                            <td><input type="text" ng-model="b.reference"></td>
+                            <td><input type="text" ng-model="b.name"></td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" ng-click="business.remove($index)" title="{{i18n.translate('company.business.actions.remove')}}">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="success">
+                            <td><input type="text" ng-model="business.reference"/></td>
+                            <td><input type="text" ng-model="business.name"/></td>
+                            <td>
+                                <button class="btn btn-success btn-sm" ng-click="business.add()" title="{{i18n.translate('company.business.actions.add')}}">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="companyBusiness">
+            <div class="title-section-invoice">
+                <div class="fsh-hide"><span class="arrow-bottom"></span></div>
+                <h1 class="title-col-onglet"><span class="icon-title icon-vats"></span>{{i18n.translate('company.vats')}}</h1>
+            </div>
+            <div class="container-form">
+                <table class="table table-striped table-condensed table-bordered">
+                    <thead>
                     <tr>
-                        <th translate="company.business.reference">Reference</th>
-                        <th translate="company.business.name">Name</th>
-                        <th translate="company.business.actions">Actions</th>
+                        <th translate="company.vats.vat">Vat</th>
+                        <th translate="company.vats.amount">Amount</th>
+                        <th translate="company.vats.actions">Actions</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="b in company.business">
-                        <td><input type="text" ng-model="b.reference"></td>
-                        <td><input type="text" ng-model="b.name"></td>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="v in company.vats">
+                        <td><input type="text" ng-model="v.vat"></td>
+                        <td><input type="text" ng-model="v.amount"></td>
                         <td>
-                            <button class="btn btn-danger btn-sm" ng-click="business.remove($index)" title="{{i18n.translate('company.business.actions.remove')}}">
+                            <button class="btn btn-danger btn-sm" ng-click="vats.remove($index)" title="{{i18n.translate('company.vats.actions.remove')}}">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
                         </td>
                     </tr>
-                </tbody>
-                <tfoot>
+                    </tbody>
+                    <tfoot>
                     <tr class="success">
-                        <td><input type="text" ng-model="business.reference"/></td>
-                        <td><input type="text" ng-model="business.name"/></td>
+                        <td><input type="text" ng-model="vats.vat"/></td>
+                        <td><input type="text" ng-model="vats.amount"/></td>
                         <td>
-                            <button class="btn btn-success btn-sm" ng-click="business.add()" title="{{i18n.translate('company.business.actions.add')}}">
+                            <button class="btn btn-success btn-sm" ng-click="vats.add()" title="{{i18n.translate('company.vats.actions.add')}}">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </button>
                         </td>
                     </tr>
-                </tfoot>
-            </table>
-        </div>
-        <div class="companyBusiness">
-            <div class="title-section-invoice">
-                <h1 class="title-col-onglet"><span class="icon-title icon-vats"></span>{{i18n.translate('company.vats')}}</h1>
+                    </tfoot>
+                </table>
             </div>
-
-            <table class="table table-striped table-condensed table-bordered">
-                <thead>
-                <tr>
-                    <th translate="company.vats.vat">Vat</th>
-                    <th translate="company.vats.amount">Amount</th>
-                    <th translate="company.vats.actions">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="v in company.vats">
-                    <td><input type="text" ng-model="v.vat"></td>
-                    <td><input type="text" ng-model="v.amount"></td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" ng-click="vats.remove($index)" title="{{i18n.translate('company.vats.actions.remove')}}">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr class="success">
-                    <td><input type="text" ng-model="vats.vat"/></td>
-                    <td><input type="text" ng-model="vats.amount"/></td>
-                    <td>
-                        <button class="btn btn-success btn-sm" ng-click="vats.add()" title="{{i18n.translate('company.vats.actions.add')}}">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
         </div>
         </form>
     </div>

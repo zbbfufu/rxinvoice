@@ -11,14 +11,15 @@
 
     <div class="columns-bloc col-type-left">
         <div class="zone-title">
-            <h1 class="title-col">Client</h1>
-            <span class="info-stat">(*) {{nbCompanies()}} client pour {{nbBusiness()}} affaire(s)
-                <div class="sorts" ng-click="orderBy.byCompany(o)"
-                     ng-repeat="o in orderBy.companies">
+            <h1 class="title-col">Client
+                <div class="sorts" ng-click="orderBy.byCompany(o)"ng-repeat="o in orderBy.companies">
                     <span ng-class="{selected: o.selected}">{{o.label}}</span>
                     <span ng-show="!$first" class="separator-sorts">|</span>
                     <span ng-class="{arrowTop:!o.reverse, arrowBottom:o.reverse}"></span>
                 </div>
+            </h1>
+            <span class="info-stat">(*) {{nbCompanies()}} client pour {{nbBusiness()}} affaire(s)
+
             </span>
         </div>
         <div class="zone-actions">
@@ -89,15 +90,14 @@
 
     <div class="columns-bloc col-type-right">
         <div class="zone-title">
-             <h1 class="title-col">Factures</h1>
-             <span class="info-stat">(*) {{nbInvoices()}} facture(s) pour un total de {{totalInvoices() | currency}}
-                <div class="sorts" ng-click="orderBy.byInvoice(o)"
-                     ng-repeat="o in orderBy.invoices">
-                    <span ng-class="{selected: o.selected}">{{o.label}}</span>
-                    <span ng-show="!$first" class="separator-sorts">|</span>
-                    <span ng-class="{arrowTop:!o.reverse, arrowBottom:o.reverse}"></span>
-                </div>
-             </span>
+             <h1 class="title-col">Factures
+                 <div class="sorts" ng-click="orderBy.byInvoice(o)" ng-repeat="o in orderBy.invoices">
+                     <span ng-class="{selected: o.selected}">{{o.label}}</span>
+                     <span ng-show="!$first" class="separator-sorts">|</span>
+                     <span ng-class="{arrowTop:!o.reverse, arrowBottom:o.reverse}"></span>
+                 </div>
+             </h1>
+             <span class="info-stat">(*) {{nbInvoices()}} facture(s) pour un total de {{totalInvoices() | currency}}</span>
         </div>
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addInvoice()"><span class="icon-buttonAdd"></span> Ajouter</button>
