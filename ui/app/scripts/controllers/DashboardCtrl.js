@@ -38,6 +38,12 @@ angular.module('rxinvoiceApp')
             selectBusiness: function(business) {
                 $scope.filter.businessSelected = business.reference;
             },
+            selectCompanyFromInvoice: function(invoice) {
+                if (invoice && invoice.buyer) {
+                    $scope.filter.companySelected = invoice.buyer._id;
+                    $scope.filter.businessSelected = '';
+                }
+            },
             selectBusinessFromInvoice: function(invoice) {
                 if (invoice && invoice.business && invoice.business.reference) {
                     $scope.filter.companySelected = invoice.buyer._id;
@@ -98,6 +104,8 @@ angular.module('rxinvoiceApp')
                 this.invoice.selected = true;
             }
         }
+        $scope.orderBy.byCompany($scope.orderBy.companies[0]);
+        $scope.orderBy.byInvoice($scope.orderBy.invoices[2]);
 
         Company.findAll(function(data) {
             $scope.filter.companiesList = data;

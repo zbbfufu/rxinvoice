@@ -239,7 +239,8 @@
       }
 
       .tags-business {
-        display: inline-block;
+        font-weight: normal;
+        display: table;
         padding: 3px 10px 3px 10px;
         margin-right: 5px;
         margin-top: 5px;
@@ -648,6 +649,13 @@
   height: 15px;
   width: 15px;
   background: url("#{$imagePath}icon-edit-16x16.png") no-repeat;
+}
+.small-icon-buttonview {
+  float: left;
+  margin-right: 8px;
+  height: 15px;
+  width: 15px;
+  background: url("#{$imagePath}icon-look-16x16.png") no-repeat;
 }
 
 .small-icon-buttonLook {

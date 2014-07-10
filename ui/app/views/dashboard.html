@@ -122,7 +122,8 @@
                             <ul class="invoice-date">
                                 <li>Du : {{invoice.date | date:'dd/MM/yyyy'}}</li>
                                 <li>Date d'échéance : {{findExpiredInvoice(invoice.date)}}</li>
-                                <li class="tags-business">tag</li>
+                                <li class="tags-business" ng-click="filter.selectCompanyFromInvoice(invoice)" ng-show="invoice.buyer">{{invoice.buyer.name}}</li>
+                                <li class="tags-business" ng-click="filter.selectBusinessFromInvoice(invoice)" ng-show="invoice.business">{{invoice.business.name}}</li>
                             </ul>
                         </span>
                         <div class="invoices-number">
@@ -133,7 +134,8 @@
                     <div class="desc-project">
                         <span class="invoices-status {{invoice.status}}"><p>{{translateStatusLabel(invoice.status)}}</p></span>
                         <ul class="btn-edit">
-                            <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>Voir la facture</a></li>
+                            <li><a ng-href='/#/invoice_view/{{invoice._id}}' target="_blank"><span class="small-icon-buttonview"></span>Voir</a></li>
+                            <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>Editer</a></li>
                         </ul>
                     </div>
                 </div>
