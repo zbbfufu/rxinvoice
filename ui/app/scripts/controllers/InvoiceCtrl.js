@@ -3,6 +3,10 @@
 angular.module('rxinvoiceApp')
     .controller('InvoiceCtrl', function ($scope, $routeParams, $location, $filter, Invoice, Company, i18nUtils, Message) {
 
+        if ($location.url().match('^/invoice_view/*')) {
+            angular.element('header').hide();
+        }
+
         $scope.newMode = $routeParams.id == 'new';
         $scope.i18n = i18nUtils;
 

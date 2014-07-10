@@ -1,11 +1,6 @@
 @import "variables";
 @import "mixins";
 
-@media print {
-  header {
-    display: none;
-  }
-}
 .invoice {
   clear: both;
   table {
@@ -78,6 +73,7 @@
 
   .invoiceSeller, .invoiceBuyer, .invoiceComment {
     margin-left: 20px;
+    clear: none;
   }
   .invoiceReference, .invoiceObject {
     margin-right: 20px;
