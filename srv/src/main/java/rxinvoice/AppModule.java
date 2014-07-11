@@ -2,6 +2,8 @@ package rxinvoice;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
+import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import restx.admin.AdminModule;
 import restx.i18n.SupportedLocale;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 @Module
 public class AppModule {
@@ -43,6 +46,7 @@ public class AppModule {
         public static final String ADMIN = "admin";
         public static final String SELLER = "seller";
         public static final String BUYER = "buyer";
+        public static final String CORS = "cors";
     }
 
     @Provides
@@ -97,5 +101,15 @@ public class AppModule {
                 return Optional.of(user);
             }
         };
+    }
+
+    @Provides
+    public CORSAuthorizer getApiDocsAuthorizer() {
+        return StdCORSAuthorizer.builder()
+                .setOriginMatcher(Predicates.<CharSequence>alwaysTrue())
+                .setPathMatcher(Predicates.contains(Pattern.compile("^/cors")))
+                .setAllowedMethods(ImmutableList.of("OPTIONS", "GET", "POST"))
+                .setAllowedHeaders(ImmutableList.of("accept", "authorization"))
+                .build();
     }
 }
