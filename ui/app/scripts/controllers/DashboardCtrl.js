@@ -24,6 +24,8 @@ angular.module('rxinvoiceApp')
             businessSelected: '',
             companySelected: '',
             statusSelected: null,
+            dateMin: null,
+            dateMax: null,
 
             companiesList: [],
             businessList: [],
@@ -57,16 +59,39 @@ angular.module('rxinvoiceApp')
             },
             clearStatus: function() {
                 $scope.filter.statusSelected = '';
+                $scope.filter.dateMin = '';
+                $scope.filter.dateMax = '';
             },
 
             filterCompanies: function(value) {
                 return !$scope.filter.companySelected || $scope.filter.companySelected == value._id;
             },
             filterInvoices: function(value) {
+                var filter = $scope.filter;
+                var getDate = function(date) {
+                    return moment(date).format('YYYYMMDD');
+                }
+                var filterDate = function() {
+                    var compareMin = getDate(value.date) >= getDate(new Date(filter.dateMin));
+                    var compareMax = getDate(value.date) <= getDate(new Date(filter.dateMax));
+                    if (filter.dateMin) {
+                        if (filter.dateMax) {
+                            return compareMin && compareMax;
+                        } else {
+                            return compareMin;
+                        }
+                    } else if (filter.dateMax) {
+                        return compareMax;
+                    } else {
+                        return true;
+                    }
+                }
                 var ret =
-                    (!$scope.filter.companySelected || (value.buyer && $scope.filter.companySelected == value.buyer._id)) &&
-                    (!$scope.filter.statusSelected || $scope.filter.statusSelected == value.status) &&
-                    (!$scope.filter.businessSelected || (value.business && $scope.filter.businessSelected == value.business.reference));
+                    (!filter.companySelected || (value.buyer && filter.companySelected == value.buyer._id)) &&
+                    (!filter.statusSelected || filter.statusSelected == value.status) &&
+                    (!filter.businessSelected || (value.business && filter.businessSelected == value.business.reference)) &&
+                    (filterDate())
+                ;
                 return ret;
             }
         };
