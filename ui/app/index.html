@@ -29,13 +29,14 @@
 
     <!-- Add your site or application content here -->
     <header>
-        <div ng-controller="LoginCtrl">
-            <div ng-show="currentUser">
-                <a class="white-button" ng-controller="SessionController" ng-click="logout()"><span class="iconDisconnect"></span>Deconnexion</a>
-                <img id="avatarUser" class="avatar" ng-src="{{currentUser.login ? '/images/user/' + currentUser.login : '/images/user-avatar' | lowercase}}.png" alt="{{currentUser.name}}"/>
+        <div ng-controller="SessionController">
+            <div ng-show="session.getCurrentUser()">
+                <a class="white-button" ng-click="session.logout()"><span class="iconDisconnect"></span>Deconnexion</a>
+                <img id="avatarUser" class="avatar" alt="{{session.getCurrentUser().name}}"
+                     ng-src="{{session.getCurrentUser().login ? '/images/user/' + session.getCurrentUser().login : '/images/user-avatar' | lowercase}}.png"/>
 
-                <span class="user-name" ng-bind="currentUser.name"></span>
-                <span class="user-function" ng-show="currentUser.roles">{{"- " + currentUser.roles}}</span>
+                <span class="user-name" ng-bind="session.getCurrentUser().name"></span>
+                <span class="user-function" ng-show="session.getCurrentUser().roles">{{"- " + session.getCurrentUser().roles}}</span>
                 <span class="user-function"> - <a ng-click="openPasswordPopup()">Modifier Mon mot de passe</a></span>
 
                 <span class="company-logo"></span>
