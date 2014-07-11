@@ -12,13 +12,11 @@ import restx.jongo.JongoCollection;
 import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Company;
-import rxinvoice.domain.Invoice;
 import rxinvoice.domain.User;
 
 import javax.inject.Named;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static restx.common.MorePreconditions.checkEquals;
@@ -45,7 +43,7 @@ public class CompanyResource {
 
     @RolesAllowed({ADMIN, SELLER})
     @GET("/companies/buyers")
-    public Iterable<Company> findSellerCompanies() {
+    public Iterable<Company> findBuyerCompanies() {
         /* TODO: use aggregate to remove for each in java code
         db.invoices.aggregate({
             $group : {
@@ -55,6 +53,23 @@ public class CompanyResource {
         })
          */
         Distinct distinct = invoices.get().distinct("buyer");
+        User user = AppModule.currentUser();
+        if (!user.getPrincipalRoles().contains(ADMIN)) {
+            distinct = distinct.query("{ seller._id: #}", new ObjectId(user.getCompanyRef()));
+        }
+        List<ObjectId> buyers = new ArrayList<ObjectId>();
+        for (Company company : distinct.as(Company.class)) {
+            if (company.getKey() != null) {
+                buyers.add(new ObjectId(company.getKey()));
+            }
+        }
+        return companies.get().find("{_id: {$in:#}}", buyers).as(Company.class);
+    }
+
+    @RolesAllowed({ADMIN, SELLER})
+    @GET("/companies/sellers")
+    public Iterable<Company> findSellerCompanies() {
+        Distinct distinct = invoices.get().distinct("seller");
         User user = AppModule.currentUser();
         if (!user.getPrincipalRoles().contains(ADMIN)) {
             distinct = distinct.query("{ seller._id: #}", new ObjectId(user.getCompanyRef()));
@@ -87,14 +102,14 @@ public class CompanyResource {
         return companies.get().find().as(Company.class);
     }
 
-    @RolesAllowed(ADMIN)
+    @RolesAllowed({ADMIN, SELLER})
     @POST("/companies")
     public Company createCompany(Company company) {
         companies.get().save(company);
         return company;
     }
 
-    @RolesAllowed(ADMIN)
+    @RolesAllowed({ADMIN, SELLER})
     @PUT("/companies/{key}")
     public Company updateCompany(String key, Company company) {
         checkEquals("key", key, "company.key", company.getKey());

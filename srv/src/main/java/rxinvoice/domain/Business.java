@@ -8,16 +8,18 @@ public class Business {
             return reference;
         }
 
-        public void setReference(String reference) {
+        public Business setReference(String reference) {
             this.reference = reference;
+            return this;
         }
 
         public String getName() {
             return name;
         }
 
-        public void setName(String name) {
+        public Business setName(String name) {
             this.name = name;
+            return this;
         }
 
 
