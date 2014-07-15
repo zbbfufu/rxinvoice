@@ -2,7 +2,7 @@
     <h1 class="title-page">
         <span class="title-logo"></span>
         <span class="smallSeparator"></span>
-        <span class="title-page-content">Bienvenue sur 4PM Facturation</span>
+        <span class="title-page-content" rx-translate="dashboard.title"></span>
     </h1>
 
     <hr class="clear"/>
@@ -11,7 +11,7 @@
 
     <div class="columns-bloc col-type-left">
         <div class="zone-title">
-            <h1 class="title-col">Client
+            <h1 class="title-col">{{i18n.translate('dashboard.customers')}}
                 <div class="sorts" ng-click="orderBy.byCompany(o)"ng-repeat="o in orderBy.companies">
                     <span ng-class="{selected: o.selected}">{{o.label}}</span>
                     <span ng-show="!$first" class="separator-sorts">|</span>
@@ -23,7 +23,7 @@
             </span>
         </div>
         <div class="zone-actions">
-            <button class="fsh-btn-add" ng-click="addCompany()"><span class="icon-buttonAdd"></span> Ajouter</button>
+            <button class="fsh-btn-add" ng-click="addCompany()" title="Ajouter"><span class="icon-buttonAdd"></span></button>
             <select ui-select2 ng-model="filter.companySelected" data-placeholder="-- Sélectionner un client --" style="width: 200px;">
                 <option value=""></option>
                 <option ng-repeat="item in filter.companiesList" value="{{item._id}}">{{item.name}}</option>
@@ -41,7 +41,7 @@
             <div class="content-infos">
                 <div class="avatar-project">
                     <img src="../images/no-icon-company.png" width="83" height="83" alt="{{company.name}}">
-                    <btn class="show-all-project" ng-click="filter.selectCompany(company)">All Business</btn>
+                    <btn class="show-all-project" ng-click="filter.selectCompany(company)" rx-translate="dashboard.customer.allBusiness"></btn>
                 </div>
                 <div class="content-infos-project">
                     <div class="header-project">
@@ -49,33 +49,33 @@
                             <a title="{{company.name}}" ng-click="filter.selectCompany(company)"> {{company.name}}</a>
                         </span>
                         <div class="invoices-number">
-                            <h2>nombre de facture </h2>
+                            <h2 rx-translate="dashboard.customer.numberOfInvoice"></h2>
                             <h1>{{company.metrics.nbInvoices}}</h1>
                         </div>
                     </div>
                     <div class="desc-project">
                         <div class="content-planned">
                             <div class="invoices-planned">
-                                <h2>Prévu :</h2>
+                                <h2 rx-translate="dashboard.customer.expected"></h2>
                                 <h1>{{company.metrics.expected | currency}}</h1>
                             </div>
                             <div class="invoices-planned">
-                                <h2>Facturé :</h2>
+                                <h2 rx-translate="dashboard.customer.invoiced"></h2>
                                 <h1>{{company.metrics.invoiced | currency}}</h1>
                             </div>
                         </div>
                         <div class="content-planned">
                             <div class="invoices-planned">
-                                <h2>Echue :</h2>
+                                <h2 rx-translate="dashboard.customer.expired"></h2>
                                 <h1>{{company.metrics.expired | currency}}</h1>
                             </div>
                             <div class="invoices-planned">
-                                <h2>Payé :</h2>
+                                <h2 rx-translate="dashboard.customer.paid"></h2>
                                 <h1>{{company.metrics.paid | currency}}</h1>
                             </div>
                         </div>
                         <ul class="btn-edit">
-                            <li><a ng-href='/#/company/{{company._id}}'><span class="small-icon-buttonedit"></span>Editer</a></li>
+                            <li><a ng-href='/#/company/{{company._id}}'><span class="small-icon-buttonedit"></span>{{i18n.translate('dashboard.edit')}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
 
     <div class="columns-bloc col-type-right">
         <div class="zone-title">
-             <h1 class="title-col">Factures
+             <h1 class="title-col">{{i18n.translate('dashboard.invoices')}}
                  <div class="sorts" ng-click="orderBy.byInvoice(o)"ng-repeat="o in orderBy.invoices">
                      <span ng-class="{selected: o.selected}">{{o.label}}</span>
                      <span ng-show="!$first" class="separator-sorts">|</span>
@@ -105,8 +105,8 @@
                 <option value=""></option>
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
             </select>
-            <input type="date" ng-model="filter.dateMin" placeholder="Date min" style="width:120px"/>
-            <input type="date" ng-model="filter.dateMax" placeholder="Date max" style="width:120px"/>
+            <input type="date" ng-model="filter.dateMin" placeholder="Date min" class="date"/>
+            <input type="date" ng-model="filter.dateMax" placeholder="Date max" class="date"/>
             <a ng-click="filter.clearStatus()"><span class="fsh-btn-refresh"></span></a>
             <hr class="clear"/>
         </div>
@@ -122,22 +122,22 @@
                         <span class="title-project-content">
                             <a title="{{invoice.reference}}" ng-click="filter.selectBusinessFromInvoice(invoice)"> {{invoice.reference}}</a>
                             <ul class="invoice-date">
-                                <li>Du : {{invoice.date | date:'dd/MM/yyyy'}}</li>
-                                <li>Date d'échéance : {{findExpiredInvoice(invoice.date)}}</li>
+                                <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}}</li>
+                                <li>{{i18n.translate('dashboard.invoice.expired')}} {{findExpiredInvoice(invoice.date)}}</li>
                                 <li class="tags-business" ng-click="filter.selectCompanyFromInvoice(invoice)" ng-show="invoice.buyer">{{invoice.buyer.name}}</li>
                                 <li class="tags-business" ng-click="filter.selectBusinessFromInvoice(invoice)" ng-show="invoice.business">{{invoice.business.name}}</li>
                             </ul>
                         </span>
                         <div class="invoices-number">
-                            <h2>Total </h2>
+                            <h2 rx-translate="dashboard.invoice.total"></h2>
                             <h1>{{invoice.grossAmount | currency}} HT</h1>
                         </div>
                     </div>
                     <div class="desc-project">
                         <span class="invoices-status {{invoice.status}}"><p>{{translateStatusLabel(invoice.status)}}</p></span>
                         <ul class="btn-edit">
-                            <li><a ng-href='/#/invoice_view/{{invoice._id}}' target="_blank"><span class="small-icon-buttonview"></span>Voir</a></li>
-                            <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>Editer</a></li>
+                            <li><a ng-href='/#/invoice_view/{{invoice._id}}' target="_blank"><span class="small-icon-buttonview"></span>{{i18n.translate('dashboard.view')}}</a></li>
+                            <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>{{i18n.translate('dashboard.edit')}}</a></li>
                         </ul>
                     </div>
                 </div>

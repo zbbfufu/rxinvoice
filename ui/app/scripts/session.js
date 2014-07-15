@@ -54,13 +54,15 @@ angular.module('rxSession', [
         });
     })
 
-    .controller('SessionController', function($scope, Sessions) {
+    .controller('SessionController', function($scope, Sessions, i18nUtils) {
+        $scope.i18n = i18nUtils;
         $scope.session = Sessions;
         $scope.openPasswordPopup = function() {
             alertify.log('TODO : Not implemented');
         };
     })
     .controller('LoginCtrl', function ($scope, $location, Sessions, i18nUtils) {
+        $scope.i18n = i18nUtils;
         $scope.authenticate = function(username, password) {
             Sessions.authenticate(
                 username ? username : angular.element('#login-username').val(),

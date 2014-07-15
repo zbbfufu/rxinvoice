@@ -64,12 +64,6 @@
 
 //COLUMNS
 
-.columns-bloc {
-  .fsh-btn-add {
-    float: right;
-  }
-}
-
 .col-type-left {
   float: left;
   width: 48%;
@@ -134,10 +128,22 @@
 
   .select2-container {
     margin-right: 10px;
+    width: 100px;
 
     @media (max-width: 1250px) {
       width: 150px !important;
     }
+  }
+
+  .date {
+    width: 120px;
+    height: 25px;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .fsh-btn-add {
+    float: right;
+    width: 25px;
   }
 }
 

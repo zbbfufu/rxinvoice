@@ -3,6 +3,7 @@
 angular.module('rxinvoiceApp')
     .controller('DashboardCtrl', function ($scope, $location, $filter, Company, Invoice, i18nUtils) {
 
+        $scope.i18n = i18nUtils;
         $scope.companies = [];
         $scope.invoices = [];
         $scope.translateStatusLabel = Invoice.translateStatusLabel;

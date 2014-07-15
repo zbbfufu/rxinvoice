@@ -2,11 +2,11 @@
 
 angular.module('rxI18n', [])
 
-    .directive('translate', function(i18nUtils) {
+    .directive('rxTranslate', function(i18nUtils) {
         return {
             restrict: 'A',
             compile: function(element, attr) {
-                element.html(i18nUtils.translate(attr.translate));
+                element.html(i18nUtils.translate(attr.rxTranslate));
             }
         };
     })
