@@ -109,7 +109,7 @@ public class AppModule {
                 .setOriginMatcher(Predicates.<CharSequence>alwaysTrue())
                 .setPathMatcher(Predicates.contains(Pattern.compile("^/cors")))
                 .setAllowedMethods(ImmutableList.of("OPTIONS", "GET", "POST"))
-                .setAllowedHeaders(ImmutableList.of("accept", "authorization"))
+                .setAllowedHeaders(ImmutableList.of("accept", "authorization", "content-type"))
                 .build();
     }
 }
