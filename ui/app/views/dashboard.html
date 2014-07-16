@@ -24,6 +24,7 @@
         </div>
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addCompany()" title="Ajouter"><span class="icon-buttonAdd"></span></button>
+            <button class="fsh-btn-edit" ng-click="editCompany()" title="Editer" ng-show="filter.companySelected"><span class="icon-buttonEdit"></span></button>
             <select ui-select2 ng-model="filter.companySelected" data-placeholder="-- Sélectionner un client --" style="width: 200px;">
                 <option value=""></option>
                 <option ng-repeat="item in filter.companiesList" value="{{item._id}}">{{item.name}}</option>

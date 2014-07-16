@@ -151,6 +151,11 @@ angular.module('rxinvoiceApp')
         $scope.addCompany = function () {
             $location.url('/company/new');
         };
+        $scope.editCompany = function() {
+            if ($scope.filter.companySelected) {
+                $location.url('/company/' + $scope.filter.companySelected);
+            }
+        };
         $scope.addInvoice = function () {
             $location.url('/invoice/new');
         };

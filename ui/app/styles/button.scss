@@ -104,16 +104,17 @@
 }
 
 .fsh-btn-edit {
-  float: right;
   display: inline-block;
-  margin: 15px 0 10px 15px !important;
-  padding: 10px;
-  padding-right: 20px;
-  background: $fsh-mediumgrey;
-  color: #ffffff;
+  border: none;
+  background: $fsh-lightgrey;
+  height: 25px;
+  padding: 3px 15px 0px 5px;
+  margin-bottom: 15px;
   border-radius: $global-radius;
   -webkit-border-radius: $global-radius;
-  border-bottom: 1px solid #939393;
+  color: $fsh-black;
+  text-transform: uppercase;
+  font-weight: bold;
   font-size: 12px;
 
   &:hover {
@@ -124,12 +125,13 @@
   }
 
   .icon-buttonEdit {
-    float: left;
-    height: 19px;
-    width: 19px;
-    margin-right: 5px;
-    margin-top: 2px;
+    display: inline-block;
+    margin-top: -1px;
     background: url("#{$imagePath}icon-btn-edit.png") no-repeat;
+    height: 16px;
+    width: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
   }
 }
 
