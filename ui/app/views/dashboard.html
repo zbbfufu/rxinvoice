@@ -102,6 +102,7 @@
         </div>
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addInvoice()" title="Ajouter"><span class="icon-buttonAdd"></span></button>
+
             <select ui-select2 ng-model="filter.statusSelected" data-placeholder="-- Sélectionner un statut --">
                 <option value=""></option>
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
@@ -109,19 +110,22 @@
             <input type="date" ng-model="filter.dateMin" placeholder="Date min" class="date"/>
             <input type="date" ng-model="filter.dateMax" placeholder="Date max" class="date"/>
             <a ng-click="filter.clearStatus()"><span class="fsh-btn-refresh"></span></a>
+
+
+            <div class="display-mode">
+                <span ng-show="isListDisplayMode()" ng-click="toggleDisplayMode()">{{i18n.translate('dashboard.table')}}</span>
+                <span ng-show="isTableDisplayMode()" ng-click="toggleDisplayMode()">{{i18n.translate('dashboard.list')}}</span>
+            </div>
             <hr class="clear"/>
         </div>
 
-        <div class="bloc-type"
+        <div class="bloc-type" ng-show="isListDisplayMode()"
              ng-repeat="invoice in invoices | filter:filter.filterInvoices | orderBy:orderBy.invoice.predicate:orderBy.invoice.reverse">
             <div class="content-infos content-bloc-invoice">
-                <div class="avatar-project">
-                    <img src="../images/no-icon-project.png" alt="{{invoice.name}}">
-                </div>
-                <div class="content-infos-project">
+                <div class="content-infos-project content-invoice-project">
                     <div class="header-project">
-                        <span class="title-project-content">
-                            <a title="{{invoice.object}}" ng-click="filter.selectBusinessFromInvoice(invoice)"> {{invoice.object}}</a>
+                        <span class="title-project-content invoice">
+                            <a title="{{invoice.business.name}} {{invoice.object}}" ng-click="filter.selectBusinessFromInvoice(invoice)">{{invoice.business.name}} {{invoice.object}}</a>
                             <ul class="invoice-date">
                                 <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}}</li>
                                 <li>{{i18n.translate('dashboard.invoice.expired')}} {{findExpiredInvoice(invoice.date)}}</li>
@@ -143,6 +147,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="invoice-table" ng-show="isTableDisplayMode()">
+
+            <smart-table config="invoicesTableConfig" rows="invoices" columns="invoicesTableColumns"></smart-table>
+
         </div>
     </div>
 </div>

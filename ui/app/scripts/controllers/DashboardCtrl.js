@@ -8,6 +8,25 @@ angular.module('rxinvoiceApp')
         $scope.invoices = [];
         $scope.translateStatusLabel = Invoice.translateStatusLabel;
 
+        var displayMode = "list";
+
+        $scope.isListDisplayMode = function() {
+            return displayMode === "list";
+        };
+
+        $scope.isTableDisplayMode = function() {
+            return displayMode === "table";
+        };
+
+
+        $scope.toggleDisplayMode = function() {
+            if (displayMode === "list") {
+                displayMode = "table";
+            } else if (displayMode === "table") {
+                displayMode = "list";
+            }
+        };
+
         $scope.$watch("filter.companySelected", function(newValue, oldValue) {
             if (newValue) {
                 var companies = $scope.filter.companiesList;
@@ -193,4 +212,26 @@ angular.module('rxinvoiceApp')
         $scope.getCompanies = function() {
             return $scope.company;
         }
+
+        $scope.invoicesTableConfig = {
+            isPaginationEnabled: false,
+//            isGlobalSearchActivated: true,
+            selectionMode: 'single'
+        };
+
+        $scope.$on('selectionChange', function (event, args) {
+            console.log(args);
+            $location.url("/invoice/" + args.item._id)
+        });
+
+        $scope.invoicesTableColumns = [
+            {label: $scope.i18n.translate('invoice.buyer'), map: "buyer.name", headerClass:"cell-header invoice-buyer", cellClass: "cell-content invoice-buyer"},
+            {label: $scope.i18n.translate('invoice.business'), map: "business.name", headerClass:"cell-header invoice-business", cellClass: "cell-content invoice-business"},
+            {label: $scope.i18n.translate('invoice.object'), map: "object", headerClass:"cell-header invoice-object", cellClass: "cell-content invoice-object"},
+            {label: $scope.i18n.translate('invoice.reference.short'), map:"reference", headerClass:"cell-header invoice-reference", cellClass: "cell-content invoice-reference"},
+            {label: $scope.i18n.translate('invoice.date'), map: "date", formatFunction: 'date', formatParameter : 'dd/MM/yyyy', headerClass:"cell-header invoice-date", cellClass: "cell-content invoice-date"},
+            {label: $scope.i18n.translate('invoice.status'), map:"status", formatFunction: $scope.translateStatusLabel, headerClass:"cell-header invoice-status", cellClass: "cell-content invoice-status"},
+            {label: $scope.i18n.translate('invoice.lines.grossAmount'), map:"grossAmount",  formatFunction: 'currency', formatParameter: '€', headerClass:"cell-header invoice-grossAmount", cellClass:"cell-content cell-number invoice-grossAmount"}
+
+        ];
     });

@@ -126,6 +126,12 @@
 .zone-actions {
   display: block;
 
+  .display-mode {
+    color: #ffffff;
+    margin-left: 10px;
+    display: inline-block;
+  }
+
   .select2-container {
     margin-right: 10px;
     width: 100px;
@@ -211,6 +217,9 @@
   display: inline-block;
   width: 82%;
 
+  &.content-invoice-project {
+    width :99%;
+  }
 
   .header-project {
     display: block;
@@ -237,6 +246,10 @@
       cursor:pointer;
 
       a {color: #3f3f3f;}
+
+      &.invoice {
+        font-size: 14px;
+      }
     }
 
     .invoice-date {
@@ -682,4 +695,59 @@
   width: 1px;
   height: 124px;
   background: url("#{$imagePath}sep-bloc.png") no-repeat;
+}
+
+.invoice-table {
+  color: $fsh-darkgrey;
+  background-color: #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px;
+
+  .cell-header {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  tbody {
+     tr:nth-child(odd)  {
+        background-color: $fsh-lightgrey;
+      }
+
+      tr:hover {
+        transition: 250ms;
+        background-color: $fsh-mediumgrey;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+      }
+    }
+
+
+  .invoice-buyer {
+    width: 5%;
+    cursor: pointer;
+  }
+  .invoice-business {
+    width: 25%;
+  }
+  .invoice-object {
+    width: 15%;
+  }
+  .invoice-reference {
+    width: 10%;
+  }
+  .invoice-date {
+    width: 15%;
+  }
+  .invoice-status {
+    width: 15%;
+  }
+  .invoice-grossAmount {
+    width: 15%;
+  }
+
+  .cell-number {
+    text-align: right;
+  }
 }
