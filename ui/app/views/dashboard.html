@@ -151,7 +151,7 @@
 
         <div class="invoice-table" ng-show="isTableDisplayMode()">
 
-            <smart-table config="invoicesTableConfig" rows="invoices" columns="invoicesTableColumns"></smart-table>
+            <smart-table config="invoicesTableConfig" rows="invoices | filter:filter.filterInvoices | orderBy:orderBy.invoice.predicate:orderBy.invoice.reverse" columns="invoicesTableColumns"></smart-table>
 
         </div>
     </div>
