@@ -1,23 +1,25 @@
 package rxinvoice.rest;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Strings;
 import org.bson.types.ObjectId;
 import org.jongo.Distinct;
-import restx.http.HttpStatus;
 import restx.Status;
 import restx.WebException;
 import restx.annotations.*;
 import restx.factory.Component;
+import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
+import rxinvoice.domain.Business;
 import rxinvoice.domain.Company;
 import rxinvoice.domain.User;
 
 import javax.inject.Named;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static restx.common.MorePreconditions.checkEquals;
 import static rxinvoice.AppModule.Roles.ADMIN;
@@ -105,15 +107,24 @@ public class CompanyResource {
     @RolesAllowed({ADMIN, SELLER})
     @POST("/companies")
     public Company createCompany(Company company) {
-        companies.get().save(company);
+        saveCompany(company);
         return company;
+    }
+
+    private void saveCompany(Company company) {
+        for (Business business : company.getBusiness()) {
+            if (Strings.isNullOrEmpty(business.getReference())) {
+                business.setReference(UUID.randomUUID().toString());
+            }
+        }
+        companies.get().save(company);
     }
 
     @RolesAllowed({ADMIN, SELLER})
     @PUT("/companies/{key}")
     public Company updateCompany(String key, Company company) {
         checkEquals("key", key, "company.key", company.getKey());
-        companies.get().save(company);
+        saveCompany(company);
         return company;
     }
 

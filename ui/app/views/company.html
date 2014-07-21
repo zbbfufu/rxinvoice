@@ -83,14 +83,13 @@
                 <table class="table table-striped table-condensed table-bordered">
                     <thead>
                         <tr>
-                            <th rx-translate="company.business.reference">Reference</th>
                             <th rx-translate="company.business.name">Name</th>
                             <th rx-translate="company.business.actions">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="b in company.business">
-                            <td><input type="text" ng-model="b.reference"></td>
+
                             <td><input type="text" ng-model="b.name"></td>
                             <td>
                                 <button class="btn btn-danger btn-sm" ng-click="business.remove($index)" title="{{i18n.translate('company.business.actions.remove')}}">
@@ -101,7 +100,6 @@
                     </tbody>
                     <tfoot>
                         <tr class="success">
-                            <td><input type="text" ng-model="business.reference"/></td>
                             <td><input type="text" ng-model="business.name"/></td>
                             <td>
                                 <button class="btn btn-success btn-sm" ng-click="business.add()" title="{{i18n.translate('company.business.actions.add')}}">

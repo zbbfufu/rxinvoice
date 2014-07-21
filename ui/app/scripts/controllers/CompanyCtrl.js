@@ -14,7 +14,7 @@ angular.module('rxinvoiceApp')
             reference: '',
             name: '',
             add: function() {
-                if (this.reference && this.name) {
+                if (this.name) {
                     $scope.company.business.push({reference: this.reference, name: this.name});
                     this.reference = '';
                     this.name = '';
