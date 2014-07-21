@@ -12,11 +12,6 @@ import rxinvoice.domain.Invoice;
 
 import javax.inject.Named;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -109,6 +104,7 @@ public class InvoiceMetricsResource {
                 case SENT: invoiced = invoiced.add(invoice.getGrossAmount());break;
                 case LATE: expired = expired.add(invoice.getGrossAmount());break;
                 case READY: expected = expected.add(invoice.getGrossAmount());break;
+                case DRAFT: expected = expected.add(invoice.getGrossAmount());break;
             }
         }
 
