@@ -75,9 +75,6 @@ angular.module('rxinvoiceApp')
             }
         };
 
-        Company.findAll(function(data) {
-            $scope.companies.list = data;
-        });
         $scope.$watch("companies.seller", function(newValue, oldValue) {
             if ($scope.invoice && newValue) {
                 $scope.companies.load(newValue, $scope.invoice.seller, true);
@@ -157,7 +154,7 @@ angular.module('rxinvoiceApp')
             $scope.companies.seller = invoice.seller._id;
             $scope.companies.buyer = invoice.buyer._id;
             $scope.companies.business = invoice.business ? invoice.business.reference : null;
-            $scope.date = $filter('date')(invoice.date, 'dd-MM-yyyy');
+            $scope.date = $filter('date')(invoice.date, 'yyyy-MM-dd');
         };
 
         $scope.save = function() {
@@ -201,34 +198,36 @@ angular.module('rxinvoiceApp')
             $location.url('/invoice/' + $routeParams.id);
         };
 
-
-        if ($scope.newMode) {
-            loadInvoice({
-                date : new Date().toLocaleDateString(),
-                status: 'DRAFT',
-                withVAT: true,
-                seller : {
-                    name : "",
-                    address : {}
-                },
-                buyer : {
-                    name : "",
-                    address : {}
-                },
-                vats : [],
-                business : {},
-                lines : []
-            });
-        } else {
-            Invoice.get({id:$routeParams.id},
-                function(data) {
-                    loadInvoice(data);
-                    Message.success('message.invoice.load.success');
-                },
-                function() {
-                    $location.url('/');
-                    Message.error('message.invoice.load.error', $routeParams.id);
-                }
-            );
-        }
+        Company.findAll(function(data) {
+            $scope.companies.list = data;
+            if ($scope.newMode) {
+                loadInvoice({
+                    date : new Date().toLocaleDateString(),
+                    status: 'DRAFT',
+                    withVAT: true,
+                    seller : {
+                        name : "",
+                        address : {}
+                    },
+                    buyer : {
+                        name : "",
+                        address : {}
+                    },
+                    vats : [],
+                    business : {},
+                    lines : []
+                });
+            } else {
+                Invoice.get({id:$routeParams.id},
+                    function(data) {
+                        loadInvoice(data);
+                        Message.success('message.invoice.load.success');
+                    },
+                    function() {
+                        $location.url('/');
+                        Message.error('message.invoice.load.error', $routeParams.id);
+                    }
+                );
+            }
+        });
     });
