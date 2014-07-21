@@ -121,7 +121,7 @@
                 <div class="content-infos-project">
                     <div class="header-project">
                         <span class="title-project-content">
-                            <a title="{{invoice.reference}}" ng-click="filter.selectBusinessFromInvoice(invoice)"> {{invoice.reference}}</a>
+                            <a title="{{invoice.object}}" ng-click="filter.selectBusinessFromInvoice(invoice)"> {{invoice.object}}</a>
                             <ul class="invoice-date">
                                 <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}}</li>
                                 <li>{{i18n.translate('dashboard.invoice.expired')}} {{findExpiredInvoice(invoice.date)}}</li>
