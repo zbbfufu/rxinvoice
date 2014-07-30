@@ -65,11 +65,11 @@
                     <td class="currency totalLabel totalGrossAmount"><div rx-translate="invoice.totalGrossAmount"></div></td>
                     <td class="currency totalAmount">{{invoice.grossAmount | currency}}</td>
                 </tr>
-                <tr>
+                <tr ng-show="invoice.withVAT">
                     <td class="currency totalLabel"><div rx-translate="invoice.totalVatAmount"></div></td>
                     <td class="currency totalAmount">{{invoice.totalVatAmount | currency}}</td>
                 </tr>
-                <tr>
+                <tr ng-show="invoice.withVAT">
                     <td class="currency totalLabel"><div rx-translate="invoice.totalAmount"></div></td>
                     <td class="currency totalAmount">{{invoice.netAmount | currency}}</td>
                 </tr>
