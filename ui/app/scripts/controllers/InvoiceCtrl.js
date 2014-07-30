@@ -197,8 +197,8 @@ angular.module('rxinvoiceApp')
         $scope.view = function(id) {
             window.open('/#/invoice_view/' + (id ? id : $routeParams.id));
         };
-        $scope.edit = function() {
-            $location.url('/invoice/' + $routeParams.id);
+        $scope.edit = function(id) {
+            $location.url('/invoice/' + (id ? id : $routeParams.id));
         };
 
         Company.findAll(function(data) {
