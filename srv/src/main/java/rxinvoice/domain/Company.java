@@ -18,6 +18,8 @@ public class Company {
 
     private String legalNotice;
 
+    private Boolean showLegalNoticeForeignBuyer;
+
     private Address address;
 
     private Metrics metrics;
@@ -46,6 +48,10 @@ public class Company {
         return metrics;
     }
 
+    public Boolean getShowLegalNoticeForeignBuyer() {
+        return showLegalNoticeForeignBuyer;
+    }
+
     public List<Business> getBusiness() {
         return business;
     }
@@ -64,8 +70,14 @@ public class Company {
         return this;
     }
 
-    public void setLegalNotice(String legalNotice) {
+    public Company setShowLegalNoticeForeignBuyer(Boolean showLegalNoticeForeignBuyer) {
+        this.showLegalNoticeForeignBuyer = showLegalNoticeForeignBuyer;
+        return this;
+    }
+
+    public Company setLegalNotice(String legalNotice) {
         this.legalNotice = legalNotice;
+        return this;
     }
 
     public Company setAddress(final Address address) {
@@ -94,6 +106,7 @@ public class Company {
                 "key='" + key + '\'' +
                 ", name='" + name + '\'' +
                 ", legalNotice='" + legalNotice + '\'' +
+                ", showLegalNoticeForeignBuyer=" + showLegalNoticeForeignBuyer +
                 ", address=" + address +
                 ", metrics=" + metrics +
                 ", business=" + business +

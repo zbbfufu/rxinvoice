@@ -97,6 +97,7 @@ angular.module('rxinvoiceApp')
                     company._id = selected._id;
                     company.name = selected.name;
                     company.legalNotice = selected.legalNotice;
+                    company.showLegalNoticeForeignBuyer = selected.showLegalNoticeForeignBuyer;
                     company.address.body = selected.address.body;
                     company.address.zipCode = selected.address.zipCode;
                     company.address.city = selected.address.city;
@@ -150,7 +151,9 @@ angular.module('rxinvoiceApp')
                 }
 
             }
+            invoice.totalVatAmount = invoice.netAmount - invoice.grossAmount;
             $scope.invoice = invoice;
+
             $scope.companies.seller = invoice.seller._id;
             $scope.companies.buyer = invoice.buyer._id;
             $scope.companies.business = invoice.business ? invoice.business.reference : null;

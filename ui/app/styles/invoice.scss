@@ -104,7 +104,11 @@
     }
     td.totalLabel {
       border: none;
-      border-top: solid #000000 1px;
+
+      &.totalGrossAmount {
+        border-top: solid #000000 1px;
+      }
+
     }
     td.totalAmount {
       border: solid #000000 1px;
@@ -113,6 +117,15 @@
       text-align: center;
       border: solid #000000 1px;
     }
+  }
+
+  .legalNotice {
+    margin-top:15px;
+  }
+
+  .legalNoticeForeignBuyer {
+    font-style: italic;
+    font-size: 11px;
   }
 
   .invoiceLegalNotice {

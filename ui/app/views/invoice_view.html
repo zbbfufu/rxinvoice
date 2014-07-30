@@ -31,6 +31,9 @@
                 <div>{{invoice.buyer.address.body}}</div>
                 <div>{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}}</div>
                 <div ng-show="invoice.buyer.address.country">{{invoice.buyer.address.country}}</div>
+
+                <div ng-show="invoice.buyer.legalNotice" class="legalNotice">{{invoice.buyer.legalNotice}}</div>
+                <div ng-show="invoice.buyer.showLegalNoticeForeignBuyer" class="legalNoticeForeignBuyer" rx-translate="invoice.legalNoticeForeignBuyer"></div>
             </div>
         </div>
 
@@ -58,6 +61,14 @@
                 </tr>
                 </tbody>
                 <tfoot>
+                <tr>
+                    <td class="currency totalLabel totalGrossAmount"><div rx-translate="invoice.totalGrossAmount"></div></td>
+                    <td class="currency totalAmount">{{invoice.grossAmount | currency}}</td>
+                </tr>
+                <tr>
+                    <td class="currency totalLabel"><div rx-translate="invoice.totalVatAmount"></div></td>
+                    <td class="currency totalAmount">{{invoice.totalVatAmount | currency}}</td>
+                </tr>
                 <tr>
                     <td class="currency totalLabel"><div rx-translate="invoice.totalAmount"></div></td>
                     <td class="currency totalAmount">{{invoice.netAmount | currency}}</td>
