@@ -4,6 +4,11 @@
 .invoice {
   clear: both;
   table {
+
+    th.currency {
+      width:20%;
+    }
+
     td.currency {
       text-align: right;
     }
@@ -129,6 +134,8 @@
   }
 
   .invoiceLegalNotice {
+    margin-top:40px;
+
     div.invoiceLegalNoticeBlock {
       margin-top: 10px;
       pre.legalNotice {

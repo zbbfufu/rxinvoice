@@ -46,7 +46,7 @@
                 <thead>
                 <tr>
                     <th rx-translate="invoice.lines.description">Description</th>
-                    <th rx-translate="invoice.lines.grossAmount">Gross amount</th>
+                    <th rx-translate="invoice.lines.grossAmount" class="currency">Gross amount</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,7 +56,7 @@
                 </tr>
                 <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
                 <tr ng-repeat="line in invoice.vatsAmount">
-                    <td>{{line.vat}}</td>
+                    <td>{{i18n.translate('invoice.lines.vat')}} - {{line.vat}}</td>
                     <td class="currency">{{line.amount | currency}}</td>
                 </tr>
                 </tbody>
