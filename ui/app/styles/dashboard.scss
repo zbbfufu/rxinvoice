@@ -656,7 +656,7 @@
       background-color: $green-buttonHover;
     }
 
-    a {
+    a, div {
       display: block;
       width: 100%;
       height: 100%;
@@ -680,6 +680,13 @@
   height: 15px;
   width: 15px;
   background: url("#{$imagePath}icon-look-16x16.png") no-repeat;
+}
+.small-icon-buttondelete {
+  float: left;
+  margin-right: 8px;
+  height: 15px;
+  width: 15px;
+  background: url("#{$imagePath}icon-delete-16x16.png") no-repeat;
 }
 
 .small-icon-buttonLook {

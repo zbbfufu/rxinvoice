@@ -47,6 +47,17 @@ angular.module('rxinvoiceApp', [
             success: function(key) {
                 var message = getMessage(key);
                 alertify.success(message);
+            },
+            dialog: {
+                alert: function (key) {
+                    alertify.alert(getMessage(key));
+                },
+                confirm: function (key, handler) {
+                    alertify.confirm(getMessage(key), handler);
+                },
+                prompt: function (key, handler) {
+                    alertify.prompt(getMessage(key), handler);
+                }
             }
         }
     })

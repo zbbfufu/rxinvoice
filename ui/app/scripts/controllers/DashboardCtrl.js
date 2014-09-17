@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('DashboardCtrl', function ($scope, $location, $filter, Company, Invoice, i18nUtils) {
+    .controller('DashboardCtrl', function ($scope, $location, $filter, Company, Invoice, i18nUtils, Message) {
 
         $scope.i18n = i18nUtils;
         $scope.companies = [];
@@ -170,11 +170,13 @@ angular.module('rxinvoiceApp')
         $scope.addCompany = function () {
             $location.url('/company/new');
         };
+
         $scope.editCompany = function() {
             if ($scope.filter.companySelected) {
                 $location.url('/company/' + $scope.filter.companySelected);
             }
         };
+
         $scope.addInvoice = function () {
             $location.url('/invoice/new');
         };
@@ -182,7 +184,8 @@ angular.module('rxinvoiceApp')
         $scope.nbCompanies = function () {
             var companies = $filter('filter')($scope.companies, $scope.filter.filterCompanies);
             return companies.length;
-        }
+        };
+
         $scope.nbBusiness = function () {
             var total = 0;
             var companies = $filter('filter')($scope.companies, $scope.filter.filterCompanies);
@@ -193,12 +196,13 @@ angular.module('rxinvoiceApp')
                 }
             }
             return total;
-        }
+        };
 
         $scope.nbInvoices = function () {
             var invoices = $filter('filter')($scope.invoices, $scope.filter.filterInvoices);
             return invoices.length;
-        }
+        };
+
         $scope.totalInvoices = function () {
             var total = 0;
             var invoices = $filter('filter')($scope.invoices, $scope.filter.filterInvoices);
@@ -206,12 +210,12 @@ angular.module('rxinvoiceApp')
                 total += invoices[i].grossAmount;
             }
             return total;
-        }
+        };
 
 
         $scope.getCompanies = function() {
             return $scope.company;
-        }
+        };
 
         $scope.invoicesTableConfig = {
             isPaginationEnabled: false,
@@ -220,7 +224,6 @@ angular.module('rxinvoiceApp')
         };
 
         $scope.$on('selectionChange', function (event, args) {
-            console.log(args);
             $location.url("/invoice/" + args.item._id)
         });
 
@@ -234,4 +237,18 @@ angular.module('rxinvoiceApp')
             {label: $scope.i18n.translate('invoice.lines.grossAmount'), map:"grossAmount",  formatFunction: 'currency', formatParameter: '€', headerClass:"cell-header invoice-grossAmount", cellClass:"cell-content cell-number invoice-grossAmount"}
 
         ];
+
+        $scope.deleteInvoice = function(invoice) {
+            Message.dialog.confirm("message.invoice.delete.confirm", function (answer) {
+                if (answer) {
+                    Invoice.remove({id: invoice._id}, invoice).$promise
+                        .then(function() {
+                            Message.success('message.invoice.delete.success');
+                        })
+                        .catch(function() {
+                            Message.error('message.invoice.delete.error');
+                        });
+                }
+            });
+        }
     });
