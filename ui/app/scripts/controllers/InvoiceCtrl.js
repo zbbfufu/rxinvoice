@@ -77,12 +77,12 @@ angular.module('rxinvoiceApp')
 
         $scope.$watch("companies.seller", function(newValue, oldValue) {
             if ($scope.invoice && newValue) {
-                $scope.companies.load(newValue, $scope.invoice.seller, $scope.newMode);
+                $scope.companies.load(newValue, $scope.invoice.seller, false);
             }
         });
         $scope.$watch("companies.buyer", function(newValue, oldValue) {
             if ($scope.invoice && newValue) {
-                $scope.companies.load(newValue, $scope.invoice.buyer, false);
+                $scope.companies.load(newValue, $scope.invoice.buyer, $scope.newMode);
             }
         });
         $scope.companies = {
