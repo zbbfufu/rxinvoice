@@ -243,7 +243,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= layout.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          src: '{,*/}*.{png,jpg,jpeg}',
           dest: '<%= layout.dist %>/images'
         }]
       }
@@ -309,7 +309,7 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             'bower_components/**/*',
-            'images/{,*/}*.{webp}',
+            'images/{,*/}*.{webp,gif}',
             'fonts/*'
           ]
         }, {
