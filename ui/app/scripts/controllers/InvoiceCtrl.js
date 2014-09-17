@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('InvoiceCtrl', function ($scope, $routeParams, $location, $filter, Invoice, Company, i18nUtils, Message) {
+    .controller('InvoiceCtrl', function ($scope, $routeParams, $location, $filter, Invoice, Company, i18nUtils, Message, Sessions) {
 
         if ($location.url().match('^/invoice_view/*')) {
             angular.element('header').hide();
@@ -86,6 +86,7 @@ angular.module('rxinvoiceApp')
                 $scope.companies.load(newValue, $scope.invoice.buyer, $scope.newMode);
             }
         });
+
         $scope.companies = {
             list: [],
             businessList: [],
@@ -136,7 +137,7 @@ angular.module('rxinvoiceApp')
                 }
                 return null;
             }
-        }
+        };
 
         var findVatByAmount = function(amount) {
             var invoice = $scope.invoice;
@@ -148,6 +149,7 @@ angular.module('rxinvoiceApp')
             }
             return null;
         };
+
         var loadInvoice = function(invoice) {
             for (var index = 0, length = invoice.lines.length; index < length; index++) {
                 var line = invoice.lines[index];
@@ -208,15 +210,30 @@ angular.module('rxinvoiceApp')
 
         Company.findAll(function(data) {
             $scope.companies.list = data;
+
             if ($scope.newMode) {
+                var currentUser = Sessions.getCurrentUser();
+                var defaultCompanyRef = currentUser ? currentUser.companyRef : null;
+                var seller;
+
+                if (!!defaultCompanyRef) {
+                    seller = _.cloneDeep(
+                        _.find(data, function(cmp) {
+                            return cmp._id = defaultCompanyRef;
+                        })
+                    );
+                } else {
+                    seller = {
+                        name : "",
+                        address : {}
+                    };
+                }
+
                 loadInvoice({
                     date : new Date().toLocaleDateString(),
                     status: 'DRAFT',
                     withVAT: true,
-                    seller : {
-                        name : "",
-                        address : {}
-                    },
+                    seller : seller,
                     buyer : {
                         name : "",
                         address : {}
