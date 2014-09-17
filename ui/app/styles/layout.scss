@@ -11,6 +11,11 @@ body {
   background-color: lighten($fsh-darkgrey, 10%);
   font-family: $fsh-main-font;
   font-size: 12px;
+
+  &.print {
+    background: none;
+    background-color: lighten($fsh-darkgrey, 10%);
+  }
 }
 
 .container {

@@ -5,6 +5,7 @@ angular.module('rxinvoiceApp')
 
         if ($location.url().match('^/invoice_view/*')) {
             angular.element('header').hide();
+            angular.element('body').addClass('print');
         }
 
         $scope.newMode = $routeParams.id == 'new';
