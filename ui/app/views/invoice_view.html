@@ -5,9 +5,9 @@
 
         <div class="row">
             <div class="invoiceReference pull-right">
-                <h2 rx-translate="invoice.title"></h2>
-                <div>{{i18n.translate('invoice.view.number')}} {{invoice.reference}}</div>
-                <div>{{i18n.translate('invoice.view.date')}} {{invoice.date | date:'dd/MM/yyyy'}}</div>
+                <h2>Facture</h2>
+                <div>FACTURE Nº {{invoice.reference}}</div>
+                <div>DATE : {{invoice.date | date:'dd/MM/yyyy'}}</div>
             </div>
 
             <div class="invoiceSeller">
@@ -20,20 +20,20 @@
 
         <div class="row">
             <div class="invoiceObject pull-right">
-                <h3 rx-translate="invoice.object.view"></h3>
+                <h3>Objet :</h3>
                 <pre class="invoiceObject">{{invoice.business.name}}
 {{invoice.object}}</pre>
             </div>
 
             <div class="invoiceBuyer">
-                <h3 rx-translate="invoice.buyer.view"></h3>
+                <h3>A l'attention de :</h3>
                 <div>{{invoice.buyer.name}}</div>
                 <div>{{invoice.buyer.address.body}}</div>
                 <div>{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}}</div>
                 <div ng-show="invoice.buyer.address.country">{{invoice.buyer.address.country}}</div>
 
                 <div ng-show="invoice.buyer.legalNotice" class="legalNotice">{{invoice.buyer.legalNotice}}</div>
-                <div ng-show="invoice.buyer.showLegalNoticeForeignBuyer" class="legalNoticeForeignBuyer" rx-translate="invoice.legalNoticeForeignBuyer"></div>
+                <div ng-show="invoice.buyer.showLegalNoticeForeignBuyer" class="legalNoticeForeignBuyer">TVA due par le preneur Article 196 - Directive 2006/112/CE</div>
             </div>
         </div>
 
@@ -45,8 +45,8 @@
             <table class="table table-condensed table-bordered">
                 <thead>
                 <tr>
-                    <th rx-translate="invoice.lines.description">Description</th>
-                    <th rx-translate="invoice.lines.grossAmount" class="currency">Gross amount</th>
+                    <th>Description</th>
+                    <th class="currency">Montant HT</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,15 +62,15 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td class="currency totalLabel totalGrossAmount"><div rx-translate="invoice.totalGrossAmount"></div></td>
+                    <td class="currency totalLabel totalGrossAmount"><div>Total</div></td>
                     <td class="currency totalAmount">{{invoice.grossAmount | currency}}</td>
                 </tr>
                 <tr ng-show="invoice.withVAT">
-                    <td class="currency totalLabel"><div rx-translate="invoice.totalVatAmount"></div></td>
+                    <td class="currency totalLabel"><div>Total TVA</div></td>
                     <td class="currency totalAmount">{{invoice.totalVatAmount | currency}}</td>
                 </tr>
                 <tr ng-show="invoice.withVAT">
-                    <td class="currency totalLabel"><div rx-translate="invoice.totalAmount"></div></td>
+                    <td class="currency totalLabel"><div>Total TTC</div></td>
                     <td class="currency totalAmount">{{invoice.netAmount | currency}}</td>
                 </tr>
                 </tfoot>
@@ -82,7 +82,7 @@
                 <pre class="legalNotice">{{invoice.seller.legalNotice}}</pre>
             </div>
             <div class="invoiceLegalNoticeBlock invoiceLegalNoticeInfo">
-                <div rx-translate="invoice.legal.notice.info"></div>
+                <div>« En cas de retard de paiement, seront exigibles, conformêment à l'article L 441-6 du code de commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros ».</div>
             </div>
         </div>
     </div>
