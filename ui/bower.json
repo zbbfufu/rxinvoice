@@ -34,5 +34,8 @@
       "port": 8080,
       "context": "/api"
     }
-  }
+  },
+    "resolutions": {
+        "angular": "1.2.10"
+    }
 }
