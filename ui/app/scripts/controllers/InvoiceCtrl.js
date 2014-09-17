@@ -77,7 +77,7 @@ angular.module('rxinvoiceApp')
 
         $scope.$watch("companies.seller", function(newValue, oldValue) {
             if ($scope.invoice && newValue) {
-                $scope.companies.load(newValue, $scope.invoice.seller, true);
+                $scope.companies.load(newValue, $scope.invoice.seller, $scope.newMode);
             }
         });
         $scope.$watch("companies.buyer", function(newValue, oldValue) {
@@ -106,7 +106,11 @@ angular.module('rxinvoiceApp')
                     if  (this.businessList.length == 1) {
                         this.business = this.businessList[0].reference;
                     } else {
-                        this.business = null;
+                        if ($scope.invoice.buyer._id === company._id && !!$scope.invoice.business) {
+                            this.business = $scope.invoice.business.reference;
+                        } else {
+                            this.business = null;
+                        }
                     }
                     if (loadDefaultVat) {
                         $scope.invoice.vats = angular.copy(selected.vats);
