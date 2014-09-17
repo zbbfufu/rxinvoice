@@ -16,6 +16,12 @@
     <packaging>war</packaging>
     <name>rxinvoice</name>
 
+    <scm>
+        <connection>scm:git:git://github.com/4sh/rxinvoice.git</connection>
+        <developerConnection>scm:git:git@github.com:4sh/rxinvoice.git</developerConnection>
+        <url>https://github.com/4sh/rxinvoice.git</url>
+    </scm>
+
     <properties>
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.source>1.7</maven.compiler.source>
