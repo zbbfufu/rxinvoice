@@ -228,7 +228,6 @@ angular.module('rxinvoiceApp')
                 Invoice.get({id:$routeParams.id},
                     function(data) {
                         loadInvoice(data);
-                        Message.success('message.invoice.load.success');
                     },
                     function() {
                         $location.url('/');

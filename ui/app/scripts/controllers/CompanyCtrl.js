@@ -72,7 +72,6 @@ angular.module('rxinvoiceApp')
         } else {
             Company.get({id:$routeParams.id},
                 function(data) {
-                    Message.success('message.company.load.success');
                     loadCompany(data);
                 },
                 function() {
