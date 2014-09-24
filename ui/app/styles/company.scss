@@ -27,4 +27,15 @@
       height: 100%;
     }
   }
+
+  label.address {
+    height: 100px;
+    vertical-align: top;
+  }
+  textarea.address {
+    height: 100px;
+    width: 220px;
+    max-width: 305px;
+    line-height: normal;
+  }
 }

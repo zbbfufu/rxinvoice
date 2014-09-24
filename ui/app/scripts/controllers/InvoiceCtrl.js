@@ -115,6 +115,10 @@ angular.module('rxinvoiceApp')
                         }
                     }
                     if (loadDefaultVat) {
+                        if (_.isEmpty(selected.vats)) {
+                            selected.vats = [];
+                        }
+                        selected.vats.push({amount: 20, vat: "Taux normal 20 %"});
                         $scope.invoice.vats = angular.copy(selected.vats);
                     }
                 }
@@ -168,7 +172,7 @@ angular.module('rxinvoiceApp')
         };
 
         $scope.save = function() {
-            var invoice = $scope.invoice;
+            var invoice = _.cloneDeep($scope.invoice);
             invoice.business = $scope.companies.findBusinessByRef($scope.companies.business);
             invoice.date = new Date($scope.date);
             for (var index = 0, length = invoice.lines.length; index < length; index++) {

@@ -43,6 +43,16 @@
     max-width: 305px;
     line-height: normal;
   }
+  label.address {
+    height: 100px;
+    vertical-align: top;
+  }
+  textarea.address {
+    height: 100px;
+    width: 305px;
+    max-width: 305px;
+    line-height: normal;
+  }
 }
 
 .invoiceSeller, .invoiceBuyer, .invoiceComment {

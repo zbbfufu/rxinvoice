@@ -129,6 +129,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="control-group">
                 <label class="control-label label-light" rx-translate="invoice.business">Business</label>
                 <div class="controls">
@@ -141,11 +142,12 @@
 
             <div class="companyAddress">
                 <div class="control-group">
-                    <label class="control-label label-light" rx-translate="company.body">Body</label>
+                    <label class="control-label label-light address" rx-translate="company.body">Body</label>
                     <div class="controls">
-                        <input type="text" ng-model="invoice.buyer.address.body">
+                        <textarea class="address" ng-model="invoice.buyer.address.body"></textarea>
                     </div>
                 </div>
+                <br>
                 <div class="control-group">
                     <label class="control-label label-light" rx-translate="company.zipCode">Zip Code</label>
                     <div class="controls">
@@ -158,6 +160,7 @@
                         <input type="text" ng-model="invoice.buyer.address.city">
                     </div>
                 </div>
+                <br>
                 <div class="control-group">
                     <label class="control-label label-light" rx-translate="company.country">Country</label>
                     <div class="controls">
