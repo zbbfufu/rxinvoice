@@ -40,7 +40,7 @@ public class CompanyResource {
     @RolesAllowed({ADMIN, SELLER})
     @GET("/companies")
     public Iterable<Company> findCompanies() {
-        return companies.get().find().as(Company.class);
+        return companies.get().find().sort("{name: 1}").as(Company.class);
     }
 
     @RolesAllowed({ADMIN, SELLER})
