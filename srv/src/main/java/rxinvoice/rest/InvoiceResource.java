@@ -20,6 +20,8 @@ import rxinvoice.rest.events.InvoiceUpdatedEvent;
 import javax.inject.Named;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -152,7 +154,8 @@ public class InvoiceResource {
                 line.setGrossAmount(line.getQuantity().multiply(line.getUnitCost()));
                 grossAmount = grossAmount.add(line.getGrossAmount());
                 if (line.getVat() != null) {
-                    vatAmountLine = line.getGrossAmount().multiply(line.getVat().getAmount().divide(new BigDecimal(100)));
+                    vatAmountLine = line.getGrossAmount().multiply(line.getVat().getAmount().divide(new BigDecimal(100)))
+                            .setScale(2, RoundingMode.HALF_UP);
                     Invoice.VATAmount vatAmount = vatAmounts.get(line.getVat().getVat());
                     String vat = line.getVat().getVat();
                     if (vatAmount == null) {
@@ -165,10 +168,12 @@ public class InvoiceResource {
             }
         }
 
+        grossAmount = grossAmount.setScale(2, RoundingMode.HALF_UP);
+
         invoice.setVatsAmount(new ArrayList<Invoice.VATAmount>(vatAmounts.values()));
         invoice.setGrossAmount(grossAmount);
         if (invoice.isWithVAT()) {
-            invoice.setNetAmount(netAmount);
+            invoice.setNetAmount(netAmount.setScale(2, RoundingMode.HALF_UP));
         } else {
             invoice.setNetAmount(grossAmount);
         }
