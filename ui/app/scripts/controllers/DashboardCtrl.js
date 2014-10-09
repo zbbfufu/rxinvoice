@@ -110,7 +110,8 @@ angular.module('rxinvoiceApp')
                     (!filter.companySelected || (value.buyer && filter.companySelected == value.buyer._id)) &&
                     (!filter.statusSelected || filter.statusSelected == value.status) &&
                     (!filter.businessSelected || (value.business && filter.businessSelected == value.business.reference)) &&
-                    (filterDate())
+                    (filterDate()) &&
+                    (!filter.reference || value.reference && value.reference.indexOf(filter.reference) > -1)
                 ;
                 return ret;
             }
