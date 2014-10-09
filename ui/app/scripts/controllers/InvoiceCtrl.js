@@ -6,6 +6,7 @@ angular.module('rxinvoiceApp')
         if ($location.url().match('^/invoice_view/*')) {
             angular.element('header').hide();
             angular.element('body').addClass('print');
+            $scope.viewMode = true;
         }
 
         $scope.newMode = $routeParams.id == 'new';
@@ -165,9 +166,11 @@ angular.module('rxinvoiceApp')
             invoice.totalVatAmount = invoice.netAmount - invoice.grossAmount;
             $scope.invoice = invoice;
 
-            $scope.companies.seller = invoice.seller._id;
-            $scope.companies.buyer = invoice.buyer._id;
-            $scope.companies.business = invoice.business ? invoice.business.reference : null;
+            if (!$scope.viewMode) {
+                $scope.companies.seller = invoice.seller._id;
+                $scope.companies.buyer = invoice.buyer._id;
+                $scope.companies.business = invoice.business ? invoice.business.reference : null;
+            }
             $scope.date = $filter('date')(invoice.date, 'yyyy-MM-dd');
         };
 

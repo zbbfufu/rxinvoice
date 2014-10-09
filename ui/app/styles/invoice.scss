@@ -56,7 +56,19 @@
 }
 
 .invoiceSeller, .invoiceBuyer, .invoiceComment {
-    clear: both;
+  clear: both;
+  div.addressBodyBlock {
+    margin-top: 0px;
+    pre.addressBody {
+      border: none;
+      width: 100%;
+      font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+      font-size: 12px;
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
 }
 
 .view {

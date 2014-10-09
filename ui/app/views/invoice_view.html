@@ -12,7 +12,7 @@
 
             <div class="invoiceSeller">
                 <h2>{{invoice.seller.name}}</h2>
-                <div>{{invoice.seller.address.body}}</div>
+                <div class="addressBodyBlock"><pre class="addressBody">{{invoice.seller.address.body}}</pre></div>
                 <div>{{invoice.seller.address.zipCode}} {{invoice.seller.address.city}}</div>
                 <div ng-show="invoice.seller.address.country">{{invoice.seller.address.country}}</div>
             </div>
@@ -28,7 +28,7 @@
             <div class="invoiceBuyer">
                 <h3>A l'attention de :</h3>
                 <div>{{invoice.buyer.name}}</div>
-                <div>{{invoice.buyer.address.body}}</div>
+                <div class="addressBodyBlock"><pre class="addressBody">{{invoice.buyer.address.body}}</pre></div>
                 <div>{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}}</div>
                 <div ng-show="invoice.buyer.address.country">{{invoice.buyer.address.country}}</div>
 
