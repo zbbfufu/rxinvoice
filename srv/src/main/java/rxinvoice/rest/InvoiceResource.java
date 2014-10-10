@@ -113,6 +113,15 @@ public class InvoiceResource {
         return Arrays.asList(Invoice.Status.values());
     }
 
+    @RolesAllowed({ADMIN})
+    @GET("/invoices/update_amounts")
+    public void computeMetrics() {
+        for (Invoice invoice : invoices.get().find().as(Invoice.class)) {
+            updateAmounts(invoice);
+            invoices.get().save(invoice);
+        }
+    }
+
     @GET("/invoices/{key}")
     public Optional<Invoice> findInvoiceByKey(String key) {
         Optional<Invoice> invoice = Optional.fromNullable(invoices.get().findOne(new ObjectId(key)).as(Invoice.class));
