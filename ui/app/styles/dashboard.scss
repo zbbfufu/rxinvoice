@@ -134,7 +134,7 @@
 
   .select2-container {
     margin-right: 10px;
-    width: 100px;
+    width: 150px;
 
     @media (max-width: 1250px) {
       width: 150px !important;
@@ -375,6 +375,13 @@
       background-color: $status-canceled;
       background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
     }
+    .WAITING_VALIDATION {
+      background: $status-waitingValidation;
+      p {
+        left: -52px;
+      }
+    }
+    .VALIDATED {background: $status-validated;}
 
     .btn-edit {
       display: inline-block;

@@ -193,7 +193,7 @@ public class Invoice {
     }
 
     public static enum Status {
-        DRAFT, READY, SENT, LATE, PAID, CANCELLED
+        DRAFT, READY, SENT, LATE, PAID, CANCELLED, WAITING_VALIDATION, VALIDATED
     }
 
     public static class VATAmount {

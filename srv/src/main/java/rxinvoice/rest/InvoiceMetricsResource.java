@@ -105,6 +105,8 @@ public class InvoiceMetricsResource {
                 case LATE: expired = expired.add(invoice.getGrossAmount());break;
                 case READY: expected = expected.add(invoice.getGrossAmount());break;
                 case DRAFT: expected = expected.add(invoice.getGrossAmount());break;
+                case WAITING_VALIDATION: expected = expected.add(invoice.getGrossAmount());break;
+                case VALIDATED: expected = expected.add(invoice.getGrossAmount());break;
             }
         }
 
