@@ -343,7 +343,7 @@
       margin-top: 25px;
       padding: 0 10px 0 10px;
       color: white;
-      background: $status-current;
+      background: $status-draft;
 
       p {
         position: absolute;
@@ -367,12 +367,14 @@
       }
     }
 
-    .PAID {background: $status-closed;}
-    .DRAFT {background: $status-pre;}
-    .SENT {background: $status-draft;}
-    .LATE {background: $status-lost;}
+    .PAID {background: $status-paid;}
+    .DRAFT {background: $status-draft;}
+    .SENT {background: $status-sent;}
+    .LATE {background: $status-late;}
+    .LATE {background: $status-late;}
+    .READY {background: $status-ready;}
     .CANCELLED {
-      background-color: $status-canceled;
+      background-color: $status-cancelled;
       background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
     }
     .WAITING_VALIDATION {
@@ -586,12 +588,12 @@
     border-bottom: 90px solid transparent;
   }
 
-  &.draft {@include colorStatus($status-draft);}
-  &.pre {@include colorStatus($status-pre);}
-  &.contracted {@include colorStatus($status-contracted);}
-  &.current {@include colorStatus($status-current);}
-  &.lost {@include colorStatus($status-lost);}
-  &.closed {@include colorStatus($status-closed);}
+  //&.draft {@include colorStatus($status-draft);}
+  //&.pre {@include colorStatus($status-sent);}
+  //&.contracted {@include colorStatus($status-contracted);}
+  //&.current {@include colorStatus($status-current);}
+  //&.lost {@include colorStatus($status-late);}
+  //&.closed {@include colorStatus($status-paid);}
 
   .status-arrow {
     position: absolute;
