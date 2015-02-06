@@ -78,6 +78,12 @@
                         </select>
                     </div>
                 </div>
+                <div class="control-group">
+                    <label class="control-label label-light" rx-translate="company.fullName">Full Name</label>
+                    <div class="controls">
+                        <input type="text" ng-model="invoice.seller.fullName">
+                    </div>
+                </div>
                 <div class="companyAddress">
                     <div class="control-group">
                         <label class="control-label label-light address" rx-translate="company.body">Body</label>
@@ -108,10 +114,16 @@
             <div class="container-control-group">
                 <div class="control-group">
                     <label class="control-label label-light legalNotice" rx-translate="company.legalNotice"></label>
-                        <div class="controls">
-                    <textarea class="legalNotice" ng-model="invoice.seller.legalNotice"></textarea>
+                    <div class="controls">
+                        <textarea class="legalNotice" ng-model="invoice.seller.legalNotice"></textarea>
+                    </div>
                 </div>
-            </div>
+                <div class="control-group">
+                    <label class="control-label label-light detail" rx-translate="company.detail"></label>
+                    <div class="controls">
+                        <textarea class="detail" ng-model="invoice.seller.detail"></textarea>
+                    </div>
+                </div>
             </div>
         </div>
 

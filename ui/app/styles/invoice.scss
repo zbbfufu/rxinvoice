@@ -20,11 +20,13 @@
 
   label.invoiceObject {
     height: 145px;
+    min-width: 140px;
     vertical-align: top;
   }
 
   textarea.invoiceObject {
     height: 145px;
+    min-width: 140px;
     width: 340px;
     max-width: 340px;
     line-height: normal;
@@ -33,14 +35,17 @@
     width: 332px;
   }
 
-  label.legalNotice {
+  label.legalNotice,
+  label.detail {
     height: 100px;
+    min-width: 140px;
     vertical-align: top;
   }
-  textarea.legalNotice {
+  textarea.legalNotice,
+  textarea.detail {
     height: 100px;
-    width: 305px;
-    max-width: 305px;
+    width: 340px;
+    max-width: 340px;
     line-height: normal;
   }
   label.address {
@@ -171,6 +176,23 @@
     div.invoiceLegalNoticeInfo {
       font-style: italic;
       font-size: 80%;
+    }
+  }
+
+  .footer {
+    border-top: solid 3px red;
+    margin: 10px 0;
+    padding: 0 10px;
+    div.fullName {
+      font-weight: bold;
+    }
+    pre.detail {
+      padding: 0;
+      margin: 0;
+      font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+      font-size: 0.8em;
+      background-color: transparent;
+      border: none;
     }
   }
 }

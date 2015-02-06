@@ -99,6 +99,8 @@ angular.module('rxinvoiceApp')
                 if (selected && company) {
                     company._id = selected._id;
                     company.name = selected.name;
+                    company.fullName = selected.fullName;
+                    company.detail = selected.detail;
                     company.legalNotice = selected.legalNotice;
                     company.showLegalNoticeForeignBuyer = selected.showLegalNoticeForeignBuyer;
                     company.address.body = selected.address.body;

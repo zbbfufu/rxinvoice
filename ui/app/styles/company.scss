@@ -4,11 +4,13 @@
 .company {
   .companyDescription {
     clear: both;
-    label.legalNotice {
+    label.legalNotice,
+    label.detail {
       height: 100px;
       vertical-align: top;
     }
-    textarea.legalNotice {
+    textarea.legalNotice,
+    textarea.detail {
       height: 100px;
       width: 305px;
       max-width: 305px;

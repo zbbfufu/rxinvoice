@@ -16,6 +16,10 @@ public class Company {
 
     private String name;
 
+    private String fullName;
+
+    private String detail;
+
     private String legalNotice;
 
     private Boolean showLegalNoticeForeignBuyer;
@@ -34,6 +38,14 @@ public class Company {
 
     public String getName() {
         return name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getDetail() {
+        return detail;
     }
 
     public String getLegalNotice() {
@@ -67,6 +79,16 @@ public class Company {
 
     public Company setName(final String name) {
         this.name = name;
+        return this;
+    }
+
+    public Company setFullName(final String fullName) {
+        this.fullName = fullName;
+        return this;
+    }
+
+    public Company setDetail(final String detail) {
+        this.detail = detail;
         return this;
     }
 
@@ -105,6 +127,8 @@ public class Company {
         return "Company{" +
                 "key='" + key + '\'' +
                 ", name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", detail='" + detail + '\'' +
                 ", legalNotice='" + legalNotice + '\'' +
                 ", showLegalNoticeForeignBuyer=" + showLegalNoticeForeignBuyer +
                 ", address=" + address +
