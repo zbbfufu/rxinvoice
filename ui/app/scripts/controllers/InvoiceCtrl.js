@@ -211,7 +211,7 @@ angular.module('rxinvoiceApp')
         };
 
         $scope.view = function(id) {
-            window.open('/#/invoice_view/' + (id ? id : $routeParams.id));
+            window.open('/api/print?pageUri=/invoice_view/' + (id ? id : $routeParams.id));
         };
         $scope.edit = function(id) {
             $location.url('/invoice/' + (id ? id : $routeParams.id));
