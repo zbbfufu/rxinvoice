@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('DashboardCtrl', function ($scope, $location, $filter, Company, Invoice, i18nUtils, Message, Filter, OrderBy) {
+    .controller('DashboardCtrl', function ($scope, $location, $filter, $modal, Company, Invoice, i18nUtils, Message, Filter, OrderBy) {
 
         $scope.i18n = i18nUtils;
         $scope.companies = [];
@@ -141,4 +141,55 @@ angular.module('rxinvoiceApp')
                 }
             });
         }
+
+
+
+
+        $scope.open = function (invoice) {
+            var modalInstance = $modal.open({
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                resolve: {
+                    invoice: function() {
+                        return invoice;
+                    },
+                    statusList: function () {
+                        return $scope.filter.statusList;
+                    }
+                }
+            });
+
+            modalInstance.result.then(
+                function (quickEdition) { //OK
+                    invoice.status = quickEdition.statusSelected;
+                    Invoice.update({id:invoice._id}, invoice,
+                        function(data) {
+                            Message.success('message.invoice.update.success');
+                        },
+                        function() {
+                            Message.error('message.invoice.update.error', invoice);
+                        }
+                    );
+                },
+                function () {} //CANCEL
+            );
+        };
+    })
+
+    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, invoice, statusList) {
+
+        $scope.statusList = statusList;
+        $scope.quickEdition = {
+            reference: invoice.reference,
+            statusSelected: invoice.status
+        }
+
+        $scope.ok = function () {
+            $modalInstance.close($scope.quickEdition);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
     });
+;

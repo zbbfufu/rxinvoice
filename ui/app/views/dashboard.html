@@ -141,7 +141,7 @@
                         </div>
                     </div>
                     <div class="desc-project">
-                        <span class="invoices-status {{invoice.status}}"><p>{{translateStatusLabel(invoice.status)}}</p></span>
+                        <span class="invoices-status {{invoice.status}}" ng-click="open(invoice)"><p>{{translateStatusLabel(invoice.status)}}</p></span>
                         <ul class="btn-edit">
                             <li><a ng-href='/api/print?pageUri=/invoice_view/{{invoice._id}}' target="_blank"><span class="small-icon-buttonview"></span>{{i18n.translate('dashboard.view')}}</a></li>
                             <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>{{i18n.translate('dashboard.edit')}}</a></li>
@@ -158,4 +158,25 @@
 
         </div>
     </div>
+
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title"><span rx-translate="dashboard.quickEdition.title"></span> {{quickEdition.reference}}</h3>
+        </div>
+        <div class="modal-body zone-quick-edition">
+            <div class="control-group">
+                <label class="control-label label-light" rx-translate="invoice.status">Status</label>
+                <div class="controls">
+                    <select ui-select2 ng-model="quickEdition.statusSelected" data-placeholder="{{i18n.translate('dashboard.filter.status')}}">
+                        <option value=""></option>
+                        <option ng-repeat="item in statusList" value="{{item._id}}">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="fsh-btn-success" ng-click="ok()"><span class="icon-buttonSav"></span><span rx-translate="invoice.save"></span></button>
+            <button class="fsh-btn-success" ng-click="cancel()"><span class="icon-buttonCancel"></span><span rx-translate="invoice.cancel"></span></button>
+        </div>
+    </script>
 </div>

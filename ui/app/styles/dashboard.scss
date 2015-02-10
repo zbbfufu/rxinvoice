@@ -123,6 +123,22 @@
   }
 }
 
+.zone-quick-edition {
+  margin: 10px;
+  .select2-container {
+    margin-right: 10px;
+    width: 150px;
+
+    .select2-choice {
+      height: 30px;
+    }
+
+    @media (max-width: 1250px) {
+      width: 150px !important;
+    }
+  }
+}
+
 .zone-actions {
   display: block;
 
@@ -335,6 +351,7 @@
     }
 
     .invoices-status {
+      cursor: pointer;
       position: absolute;
       top: -25px;
       right: 0;

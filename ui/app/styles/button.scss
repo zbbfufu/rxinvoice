@@ -234,6 +234,14 @@
     height: 19px;
     width: 19px;
   }
+  .icon-buttonCancel {
+    display: block;
+    float: left;
+    margin-right: 5px;
+    background: url("#{$imagePath}icon-btn-cancel.png") no-repeat;
+    height: 19px;
+    width: 19px;
+  }
 
   &:hover {
     transition: 200ms;
