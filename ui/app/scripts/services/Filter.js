@@ -12,9 +12,9 @@ angular.module('rxFilter', [
                 searchText: '',
                 businessSelected: '',
                 companySelected: '',
-                statusSelected: null,
+                statusSelected: '',
                 dateMin: defaultDateMinFilter,
-                dateMax: null,
+                dateMax: '',
 
                 companiesList: [],
                 businessList: [],
