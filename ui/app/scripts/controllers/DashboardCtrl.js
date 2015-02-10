@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('DashboardCtrl', function ($scope, $location, $filter, Company, Invoice, i18nUtils, Message) {
+    .controller('DashboardCtrl', function ($scope, $location, $filter, Company, Invoice, i18nUtils, Message, Filter, OrderBy) {
 
         $scope.i18n = i18nUtils;
         $scope.companies = [];
@@ -39,119 +39,8 @@ angular.module('rxinvoiceApp')
                 }
             }
         });
-        $scope.filter = {
-            searchText: '',
-            businessSelected: '',
-            companySelected: '',
-            statusSelected: null,
-            dateMin: null,
-            dateMax: null,
-
-            companiesList: [],
-            businessList: [],
-            statusList: [],
-
-
-            selectCompany: function(company) {
-                $scope.filter.companySelected = company._id;
-                $scope.filter.businessSelected = '';
-                $scope.filter.businessList = company.business;
-            },
-            selectBusiness: function(business) {
-                $scope.filter.businessSelected = business.reference;
-            },
-            selectCompanyFromInvoice: function(invoice) {
-                if (invoice && invoice.buyer) {
-                    $scope.filter.companySelected = invoice.buyer._id;
-                    $scope.filter.businessSelected = '';
-                }
-            },
-            selectBusinessFromInvoice: function(invoice) {
-                if (invoice && invoice.business && invoice.business.reference) {
-                    $scope.filter.companySelected = invoice.buyer._id;
-                    $scope.filter.businessSelected = invoice.business.reference;
-                }
-            },
-            clearCompany: function() {
-                $scope.filter.companySelected = '';
-                $scope.filter.businessSelected = '';
-                $scope.filter.businessList = [];
-            },
-            clearStatus: function() {
-                $scope.filter.statusSelected = '';
-                $scope.filter.dateMin = '';
-                $scope.filter.dateMax = '';
-            },
-
-            filterCompanies: function(value) {
-                return !$scope.filter.companySelected || $scope.filter.companySelected == value._id;
-            },
-            filterInvoices: function(value) {
-                var filter = $scope.filter;
-                var getDate = function(date) {
-                    return moment(date).format('YYYYMMDD');
-                }
-                var filterDate = function() {
-                    var compareMin = getDate(value.date) >= getDate(new Date(filter.dateMin));
-                    var compareMax = getDate(value.date) <= getDate(new Date(filter.dateMax));
-                    if (filter.dateMin) {
-                        if (filter.dateMax) {
-                            return compareMin && compareMax;
-                        } else {
-                            return compareMin;
-                        }
-                    } else if (filter.dateMax) {
-                        return compareMax;
-                    } else {
-                        return true;
-                    }
-                }
-                var ret =
-                    (!filter.companySelected || (value.buyer && filter.companySelected == value.buyer._id)) &&
-                    (!filter.statusSelected || filter.statusSelected == value.status) &&
-                    (!filter.businessSelected || (value.business && filter.businessSelected == value.business.reference)) &&
-                    (filterDate()) &&
-                    (!filter.reference || value.reference && value.reference.indexOf(filter.reference) > -1)
-                ;
-                return ret;
-            }
-        };
-        $scope.orderBy = {
-            company: null,
-            companies: [
-                {label: 'A-Z', predicate: 'name', reverse: false, selected: false},
-                {label: 'Nb', predicate: 'metrics.nbInvoices', reverse: true, selected: false}
-            ],
-            byCompany: function(order) {
-                if (this.company) {
-                    this.company.selected = false;
-                    if (this.company.predicate == order.predicate) {
-                        this.company.reverse = !this.company.reverse;
-                    }
-                }
-                this.company = order;
-                this.company.selected = true;
-            },
-
-            invoice: null,
-            invoices: [
-                {label: 'A-Z', predicate: 'reference', reverse: false, selected: false},
-                {label: 'Total', predicate: 'grossAmount', reverse: true, selected: false},
-                {label: 'Date', predicate: 'date', reverse: true, selected: false}
-            ],
-            byInvoice: function(order) {
-                if (this.invoice) {
-                    this.invoice.selected = false;
-                    if (this.invoice.predicate == order.predicate) {
-                        this.invoice.reverse = !this.invoice.reverse;
-                    }
-                }
-                this.invoice = order;
-                this.invoice.selected = true;
-            }
-        }
-        $scope.orderBy.byCompany($scope.orderBy.companies[0]);
-        $scope.orderBy.byInvoice($scope.orderBy.invoices[2]);
+        $scope.filter = Filter.dashboard;
+        $scope.orderBy = OrderBy.dashboard;
 
         Company.findAll(function(data) {
             $scope.filter.companiesList = data;

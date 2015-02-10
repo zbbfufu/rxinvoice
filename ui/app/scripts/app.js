@@ -11,6 +11,7 @@ angular.module('rxinvoiceApp', [
   'rxInvoice',
   'rxCompany',
   'rxI18n',
+  'rxFilter',
   'smartTable.table'
 ])
     .config(function ($routeProvider) {
