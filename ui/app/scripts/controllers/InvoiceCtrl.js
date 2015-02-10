@@ -216,33 +216,55 @@ angular.module('rxinvoiceApp')
         $scope.edit = function(id) {
             $location.url('/invoice/' + (id ? id : $routeParams.id));
         };
+        $scope.copy = function(id) {
+            var copy = {
+                reference: '',
+                date : new Date().toLocaleDateString(),
+                status: 'DRAFT',
+                withVAT: angular.copy($scope.invoice.withVAT),
+                object: angular.copy($scope.invoice.object),
+                comment: angular.copy($scope.invoice.comment),
+                seller :  angular.copy($scope.invoice.seller),
+                buyer : angular.copy($scope.invoice.buyer),
+                vats : angular.copy($scope.invoice.vats),
+                business : angular.copy($scope.invoice.business),
+                lines : angular.copy($scope.invoice.lines)
+            }
+            $scope.newMode = true;
+            loadInvoice(copy);
+        };
+
+        var getUserCompany = function() {
+            var currentUser = Sessions.getCurrentUser();
+            var defaultCompanyRef = currentUser ? currentUser.companyRef : null;
+            var seller;
+
+            if (!!defaultCompanyRef) {
+                seller = _.cloneDeep(
+                    _.find(data, function(cmp) {
+                        return cmp._id == defaultCompanyRef;
+                    })
+                );
+            } else {
+                seller = {
+                    name : "",
+                    address : {}
+                };
+            }
+            return seller;
+        }
 
         Company.findAll(function(data) {
             $scope.companies.list = data;
 
             if ($scope.newMode) {
-                var currentUser = Sessions.getCurrentUser();
-                var defaultCompanyRef = currentUser ? currentUser.companyRef : null;
-                var seller;
 
-                if (!!defaultCompanyRef) {
-                    seller = _.cloneDeep(
-                        _.find(data, function(cmp) {
-                            return cmp._id == defaultCompanyRef;
-                        })
-                    );
-                } else {
-                    seller = {
-                        name : "",
-                        address : {}
-                    };
-                }
 
                 loadInvoice({
                     date : new Date().toLocaleDateString(),
                     status: 'DRAFT',
                     withVAT: true,
-                    seller : seller,
+                    seller : getUserCompany(),
                     buyer : {
                         name : "",
                         address : {}
