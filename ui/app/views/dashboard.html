@@ -104,7 +104,7 @@
             <button class="fsh-btn-add" ng-click="addInvoice()" title="{{i18n.translate('dashboard.add.invoice')}}"><span class="icon-buttonAdd"></span></button>
 
             <select ui-select2 ng-model="filter.statusSelected" data-placeholder="{{i18n.translate('dashboard.filter.status')}}">
-                <option value=""></option>
+                <option value="" rx-translate="dashboard.filter.all">All</option>
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
             </select>
             <input type="date" ng-model="filter.dateMin" placeholder="{{i18n.translate('dashboard.filter.dateMin')}}" class="date"/>
