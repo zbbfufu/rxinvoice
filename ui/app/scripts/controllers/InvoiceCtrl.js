@@ -241,7 +241,7 @@ angular.module('rxinvoiceApp')
 
             if (!!defaultCompanyRef) {
                 seller = _.cloneDeep(
-                    _.find(data, function(cmp) {
+                    _.find($scope.companies.list, function(cmp) {
                         return cmp._id == defaultCompanyRef;
                     })
                 );
