@@ -7,7 +7,7 @@
 
     <hr class="clear"/>
 
-    <div style="margin-left: auto;margin-right: auto; width:100%">
+    <div>
         <div class="control-group">
             <label class="control-label label-light" rx-translate="dashboard.filter.dateMin">min</label>
             <div class="controls">
@@ -21,6 +21,7 @@
                 <input type="date" ng-model="filter.criteria.dateMax" placeholder="{{i18n.translate('dashboard.filter.dateMax')}}" class="date"/>
             </div>
         </div>
+        <a ng-click="filter.resetDatesFilters()"><span class="fsh-btn-refresh"></span></a>
     </div>
 
     <div class="columns-bloc col-type-left">
@@ -47,7 +48,7 @@
                 <option value=""></option>
                 <option ng-repeat="item in filter.businessList" value="{{item.reference}}">{{item.name}}</option>
             </select>
-            <a ng-click="filter.clearCompany()"><span class="fsh-btn-refresh"></span></a>
+            <a ng-click="filter.resetCompaniesFilters()"><span class="fsh-btn-refresh"></span></a>
             <hr class="clear"/>
         </div>
 
@@ -122,7 +123,7 @@
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
             </select>
             <input type="text" ng-model="filter.criteria.reference" placeholder="{{i18n.translate('dashboard.filter.reference')}}" class="ref"/>
-            <a ng-click="filter.clearStatus()"><span class="fsh-btn-refresh"></span></a>
+            <a ng-click="filter.resetInvoicesFilters()"><span class="fsh-btn-refresh"></span></a>
 
 
             <div class="display-mode">

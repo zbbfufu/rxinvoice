@@ -10,7 +10,7 @@ angular.module('rxFilter', [
         var filters = {
             dashboard: {
                 criteria: {
-                    searchText: '',
+                    reference: '',
                     businessSelected: '',
                     companySelected: '',
                     statusSelected: '',
@@ -46,13 +46,16 @@ angular.module('rxFilter', [
                         filters.dashboard.criteria.businessSelected = invoice.business.reference;
                     }
                 },
-                clearCompany: function() {
+                resetCompaniesFilters: function() {
                     filters.dashboard.criteria.companySelected = '';
                     filters.dashboard.criteria.businessSelected = '';
                     filters.dashboard.businessList = [];
                 },
-                clearStatus: function() {
+                resetInvoicesFilters: function() {
                     filters.dashboard.criteria.statusSelected = '';
+                    filters.dashboard.criteria.reference = '';
+                },
+                resetDatesFilters: function() {
                     filters.dashboard.criteria.dateMin = defaultDateMinFilter;
                     filters.dashboard.criteria.dateMax = '';
                 },
