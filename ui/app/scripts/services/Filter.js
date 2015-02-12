@@ -9,54 +9,60 @@ angular.module('rxFilter', [
 
         var filters = {
             dashboard: {
-                searchText: '',
-                businessSelected: '',
-                companySelected: '',
-                statusSelected: '',
-                dateMin: defaultDateMinFilter,
-                dateMax: '',
+                criteria: {
+                    searchText: '',
+                    businessSelected: '',
+                    companySelected: '',
+                    statusSelected: '',
+                    dateMin: defaultDateMinFilter,
+                    dateMax: ''
+                },
 
                 companiesList: [],
+                companiesBuyersList: [],
                 businessList: [],
+                invoicesList: [],
+                invoicesBuyerList: {},
                 statusList: [],
 
 
                 selectCompany: function(company) {
-                    filters.dashboard.companySelected = company._id;
-                    filters.dashboard.businessSelected = '';
+                    filters.dashboard.criteria.companySelected = company._id;
+                    filters.dashboard.criteria.businessSelected = '';
                     filters.dashboard.businessList = company.business;
                 },
                 selectBusiness: function(business) {
-                    filters.dashboard.businessSelected = business.reference;
+                    filters.dashboard.criteria.businessSelected = business.reference;
                 },
                 selectCompanyFromInvoice: function(invoice) {
                     if (invoice && invoice.buyer) {
-                        filters.dashboard.companySelected = invoice.buyer._id;
-                        filters.dashboard.businessSelected = '';
+                        filters.dashboard.criteria.companySelected = invoice.buyer._id;
+                        filters.dashboard.criteria.businessSelected = '';
                     }
                 },
                 selectBusinessFromInvoice: function(invoice) {
                     if (invoice && invoice.business && invoice.business.reference) {
-                        filters.dashboard.companySelected = invoice.buyer._id;
-                        filters.dashboard.businessSelected = invoice.business.reference;
+                        filters.dashboard.criteria.companySelected = invoice.buyer._id;
+                        filters.dashboard.criteria.businessSelected = invoice.business.reference;
                     }
                 },
                 clearCompany: function() {
-                    filters.dashboard.companySelected = '';
-                    filters.dashboard.businessSelected = '';
+                    filters.dashboard.criteria.companySelected = '';
+                    filters.dashboard.criteria.businessSelected = '';
                     filters.dashboard.businessList = [];
                 },
                 clearStatus: function() {
-                    filters.dashboard.statusSelected = '';
-                    filters.dashboard.dateMin = defaultDateMinFilter;
-                    filters.dashboard.dateMax = '';
+                    filters.dashboard.criteria.statusSelected = '';
+                    filters.dashboard.criteria.dateMin = defaultDateMinFilter;
+                    filters.dashboard.criteria.dateMax = '';
                 },
 
                 filterCompanies: function(company) {
-                    return !filters.dashboard.companySelected || filters.dashboard.companySelected == company._id;
+                    return (!filters.dashboard.criteria.companySelected || filters.dashboard.criteria.companySelected == company._id) &&
+                        filters.dashboard.invoicesBuyerList[company._id];
                 },
                 filterInvoices: function(invoice) {
-                    var filter = filters.dashboard;
+                    var filter = filters.dashboard.criteria;
                     var compareDateMin = function(date, min) {
                         if (min && date) {
                             var dateCompare = moment(date).format('YYYYMMDD');

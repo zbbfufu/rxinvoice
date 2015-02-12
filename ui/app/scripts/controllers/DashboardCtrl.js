@@ -3,6 +3,19 @@
 angular.module('rxinvoiceApp')
     .controller('DashboardCtrl', function ($scope, $location, $filter, $modal, Company, Invoice, i18nUtils, Message, Filter, OrderBy) {
 
+        var updateDashboard = function() {
+            $scope.filter.invoicesBuyerList = {};
+            $scope.invoices.splice(0, $scope.invoices.length);
+            angular.forEach( $filter('filter')($scope.filter.invoicesList, $scope.filter.filterInvoices), function(value, key) {
+                this.push(value);
+                $scope.filter.invoicesBuyerList[value.buyer._id] = true;
+            }, $scope.invoices);
+            $scope.companies.splice(0, $scope.companies.length);
+            angular.forEach( $filter('filter')($scope.filter.companiesBuyersList, $scope.filter.filterCompanies), function(value, key) {
+                this.push(value);
+            }, $scope.companies);
+        }
+
         $scope.i18n = i18nUtils;
         $scope.companies = [];
         $scope.invoices = [];
@@ -27,7 +40,7 @@ angular.module('rxinvoiceApp')
             }
         };
 
-        $scope.$watch("filter.companySelected", function(newValue, oldValue) {
+        $scope.$watch("filter.criteria.companySelected", function(newValue, oldValue) {
             if (newValue) {
                 var companies = $scope.filter.companiesList;
                 for (var i = 0, l = companies.length; i < l; i++) {
@@ -39,6 +52,10 @@ angular.module('rxinvoiceApp')
                 }
             }
         });
+        $scope.$watch("filter.criteria", function(newValue, oldValue) {
+            updateDashboard();
+        }, true);
+
         $scope.filter = Filter.dashboard;
         $scope.orderBy = OrderBy.dashboard;
 
@@ -46,10 +63,12 @@ angular.module('rxinvoiceApp')
             $scope.filter.companiesList = data;
         });
         Company.findBuyers(function(data) {
-            $scope.companies = data;
+            $scope.filter.companiesBuyersList = data;
+            updateDashboard();
         })
         Invoice.findAll(function(data) {
-            $scope.invoices = data;
+            $scope.filter.invoicesList = angular.copy(data);
+            updateDashboard();
         });
         Invoice.getAllStatus(function(data) {
             angular.forEach(data, function(value, key) {
@@ -62,8 +81,8 @@ angular.module('rxinvoiceApp')
         };
 
         $scope.editCompany = function() {
-            if ($scope.filter.companySelected) {
-                $location.url('/company/' + $scope.filter.companySelected);
+            if ($scope.filter.criteria.companySelected) {
+                $location.url('/company/' + $scope.filter.criteria.companySelected);
             }
         };
 

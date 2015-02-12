@@ -7,7 +7,21 @@
 
     <hr class="clear"/>
 
+    <div style="margin-left: auto;margin-right: auto; width:100%">
+        <div class="control-group">
+            <label class="control-label label-light" rx-translate="dashboard.filter.dateMin">min</label>
+            <div class="controls">
+                <input type="date" ng-model="filter.criteria.dateMin" placeholder="{{i18n.translate('dashboard.filter.dateMin')}}" class="date"/>
+            </div>
+        </div>
 
+        <div class="control-group">
+            <label class="control-label label-light" rx-translate="dashboard.filter.dateMax">max</label>
+            <div class="controls">
+                <input type="date" ng-model="filter.criteria.dateMax" placeholder="{{i18n.translate('dashboard.filter.dateMax')}}" class="date"/>
+            </div>
+        </div>
+    </div>
 
     <div class="columns-bloc col-type-left">
         <div class="zone-title">
@@ -24,12 +38,12 @@
         </div>
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addCompany()" title="{{i18n.translate('dashboard.add.company')}}"><span class="icon-buttonAdd"></span></button>
-            <button class="fsh-btn-edit" ng-click="editCompany()" title="{{i18n.translate('dashboard.edit.company')}}" ng-show="filter.companySelected"><span class="icon-buttonEdit"></span></button>
-            <select ui-select2 ng-model="filter.companySelected" data-placeholder="{{i18n.translate('dashboard.filter.company')}}" style="width: 200px;">
+            <button class="fsh-btn-edit" ng-click="editCompany()" title="{{i18n.translate('dashboard.edit.company')}}" ng-show="filter.criteria.companySelected"><span class="icon-buttonEdit"></span></button>
+            <select ui-select2 ng-model="filter.criteria.companySelected" data-placeholder="{{i18n.translate('dashboard.filter.company')}}" style="width: 200px;">
                 <option value=""></option>
                 <option ng-repeat="item in filter.companiesList" value="{{item._id}}">{{item.name}}</option>
             </select>
-            <select ui-select2 ng-show="filter.companySelected" ng-model="filter.businessSelected" data-placeholder="{{i18n.translate('dashboard.filter.business')}}" style="width: 200px;">
+            <select ui-select2 ng-show="filter.criteria.companySelected" ng-model="filter.criteria.businessSelected" data-placeholder="{{i18n.translate('dashboard.filter.business')}}" style="width: 200px;">
                 <option value=""></option>
                 <option ng-repeat="item in filter.businessList" value="{{item.reference}}">{{item.name}}</option>
             </select>
@@ -38,7 +52,7 @@
         </div>
 
         <div class="bloc-type" ng-class="{blocTypeOneCompany: $first && $last}"
-             ng-repeat="company in companies | filter:filter.filterCompanies | orderBy:orderBy.company.predicate:orderBy.company.reverse">
+             ng-repeat="company in companies | orderBy:orderBy.company.predicate:orderBy.company.reverse">
             <div class="content-infos">
                 <div class="avatar-project">
                     <img src="../images/no-icon-company.png" width="83" height="83" alt="{{company.name}}">
@@ -103,13 +117,11 @@
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addInvoice()" title="{{i18n.translate('dashboard.add.invoice')}}"><span class="icon-buttonAdd"></span></button>
 
-            <select ui-select2 ng-model="filter.statusSelected" data-placeholder="{{i18n.translate('dashboard.filter.status')}}">
+            <select ui-select2 ng-model="filter.criteria.statusSelected" data-placeholder="{{i18n.translate('dashboard.filter.status')}}">
                 <option value="" rx-translate="dashboard.filter.all">All</option>
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
             </select>
-            <input type="date" ng-model="filter.dateMin" placeholder="{{i18n.translate('dashboard.filter.dateMin')}}" class="date"/>
-            <input type="date" ng-model="filter.dateMax" placeholder="{{i18n.translate('dashboard.filter.dateMax')}}" class="date"/>
-            <input type="text" ng-model="filter.reference" placeholder="{{i18n.translate('dashboard.filter.reference')}}" class="ref"/>
+            <input type="text" ng-model="filter.criteria.reference" placeholder="{{i18n.translate('dashboard.filter.reference')}}" class="ref"/>
             <a ng-click="filter.clearStatus()"><span class="fsh-btn-refresh"></span></a>
 
 
@@ -121,15 +133,15 @@
         </div>
 
         <div class="bloc-type" ng-if="isListDisplayMode()"
-             ng-repeat="invoice in invoices | filter:filter.filterInvoices | orderBy:orderBy.invoice.predicate:orderBy.invoice.reverse">
+             ng-repeat="invoice in invoices | orderBy:orderBy.invoice.predicate:orderBy.invoice.reverse">
             <div class="content-infos content-bloc-invoice">
                 <div class="content-infos-project content-invoice-project">
                     <div class="header-project">
                         <span class="title-project-content invoice">
                             <span ng-show="invoice.reference">[{{invoice.reference}}] </span>
-                            <a title="{{invoice.business.name}} {{invoice.object}}" ng-click="filter.selectBusinessFromInvoice(invoice)">{{invoice.business.name}} {{invoice.object}}</a>
+                            <a title="{{invoice.business.name}} {{invoice.object}}" ng-click="filter.selectBusinessFromInvoice(invoice)">{{invoice.object}}</a>
                             <ul class="invoice-date">
-                                <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}}</li>
+                                <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}} | {{invoice.date}}</li>
                                 <li>{{i18n.translate('dashboard.invoice.expired')}} {{findExpiredInvoice(invoice.date)}}</li>
                                 <li class="tags-business" ng-click="filter.selectCompanyFromInvoice(invoice)" ng-show="invoice.buyer">{{invoice.buyer.name}}</li>
                                 <li class="tags-business" ng-click="filter.selectBusinessFromInvoice(invoice)" ng-show="invoice.business">{{invoice.business.name}}</li>
@@ -154,7 +166,7 @@
 
         <div class="invoice-table" ng-if="isTableDisplayMode()">
 
-            <smart-table config="invoicesTableConfig" rows="invoices | filter:filter.filterInvoices | orderBy:orderBy.invoice.predicate:orderBy.invoice.reverse" columns="invoicesTableColumns"></smart-table>
+            <smart-table config="invoicesTableConfig" rows="invoices | orderBy:orderBy.invoice.predicate:orderBy.invoice.reverse" columns="invoicesTableColumns"></smart-table>
 
         </div>
     </div>
