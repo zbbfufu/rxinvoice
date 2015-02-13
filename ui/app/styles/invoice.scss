@@ -60,23 +60,76 @@
   }
 }
 
-.invoiceSeller, .invoiceBuyer, .invoiceComment {
+.invoiceSeller,
+.invoiceBuyer,
+.invoiceComment {
   clear: both;
-  div.addressBodyBlock {
+
+  .addressBodyBlock {
     margin-top: 0px;
-    pre.addressBody {
-      border: none;
-      width: 100%;
-      font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-      font-size: 12px;
-      background: none;
-      padding: 0;
-      margin: 0;
-    }
+  }
+
+  .addressBody {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    width: 100%;
+    border: none;
+    font-size: 12px;
+    background: none;
+    padding: 0;
+    margin: 0;
   }
 }
 
 .view {
+  position: relative;
+
+  font-size: 16px;
+
+  .invoiceSeller,
+  .invoiceBuyer {
+
+    .buyer-name {
+      font-size: 18px;
+    }
+
+    .addressBodyBlock,
+    .addressBody {
+      font-size: 16px;
+    }
+  }
+
+  .invoiceReference {
+    h2 {
+      padding-top: 10px;
+      font-size: 34px;
+      font-weight: bold;
+    }
+
+    .invoice-ref-row {
+      font-size: 18px;
+    }
+  }
+
+  .invoice-4sh-logo {
+    display: block;
+    width: 3cm;
+    height: 1.5cm;
+  }
+
+  .seller-name {
+    margin-bottom: 0;
+  }
+
+  .attention-to,
+  .invoiceObject h3 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .buyer-row {
+    margin: 50px 0;
+  }
+
   h2, h3 {
     color: black;
     text-transform: uppercase;
@@ -87,67 +140,89 @@
   }
 
   h2 {
-    color: #808080;
+    color: #808080 !important;
   }
+
   h3 {
     font-size: 14px;
   }
 
-  pre.invoiceObject {
+  .invoiceObject {
     border: none;
-    width: 400px;
+    width: 55%;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-size: 12px;
+    font-size: 16px;
     background: none;
     padding: 0;
+
+    .invoiceObject {
+      width: 100%;
+    }
   }
 
-  .invoiceSeller, .invoiceBuyer, .invoiceComment {
+  .invoiceSeller,
+  .invoiceBuyer,
+  .invoiceComment {
     margin-left: 20px;
     clear: none;
   }
-  .invoiceReference, .invoiceObject {
+
+  .invoiceReference,
+  .invoiceObject {
     margin-right: 20px;
   }
+
   .invoiceReference {
     text-align: right;
   }
+
   .invoiceComment {
     margin-top: 20px;
   }
+
   .invoiceLines {
     margin-top: 20px;
+
     table {
       border: none;
-      border-top: solid #000000 2px;
+      border-top: $fsh-black solid 3px;
     }
+
+    thead,
+    tbody {
+      border-left: $fsh-black solid 1px !important; // important needed for overwrite boostrap
+      border-right: $fsh-black solid 1px !important; // important needed for overwrite boostrap
+    }
+
+    tbody {
+      border-bottom: $fsh-black solid 1px;
+    }
+
+    th {
+      text-align: center;
+      border: $fsh-black solid 1px !important; // important needed for overwrite boostrap
+      text-transform: uppercase;
+    }
+
     tr.startVat {
       margin-top: 20px;
     }
     tr {
-      border: none;
+      border: none!important; // important needed for overwrite boostrap
     }
     td {
-      border-left: solid #000000 1px;
-      border-right: solid #000000 1px;
-      border-top: none;
-      border-bottom: none;
+      border: none !important; // important needed for overwrite boostrap
+      border-right: $fsh-black solid 1px !important; // important needed for overwrite boostrap
     }
-    td.totalLabel {
+
+    .totalLabel {
       border: none;
+    }
 
-      &.totalGrossAmount {
-        border-top: solid #000000 1px;
-      }
+    .totalAmount {
+      border: $fsh-black solid 1px !important; // important needed for overwrite boostrap
+    }
 
-    }
-    td.totalAmount {
-      border: solid #000000 1px;
-    }
-    th {
-      text-align: center;
-      border: solid #000000 1px;
-    }
   }
 
   .legalNotice {
@@ -156,44 +231,64 @@
 
   .legalNoticeForeignBuyer {
     font-style: italic;
-    font-size: 11px;
+    font-size: 16px;
+  }
+
+  .invoice-bottom-info {
+    position: fixed;
+    left: 45px;
+    right: 45px;
+    bottom: 0;
   }
 
   .invoiceLegalNotice {
     margin-top:40px;
 
-    div.invoiceLegalNoticeBlock {
+    .invoiceLegalNoticeBlock {
       margin-top: 10px;
-      pre.legalNotice {
+
+      .legalNotice {
         border: none;
         width: 100%;
         font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-        font-size: 12px;
         background: none;
         padding: 0;
+        font-size: 16px;
       }
     }
-    div.invoiceLegalNoticeInfo {
+
+    .invoiceLegalNoticeInfo {
       font-style: italic;
       font-size: 80%;
+      font-size: 14px;
     }
   }
 
   .footer {
-    border-top: solid 3px red;
+    border-top: solid 3px $fsh-red;
     margin: 10px 0;
     padding: 0 10px;
-    div.fullName {
+
+    .fullName {
       font-weight: bold;
+      font-size: 16px;
     }
-    pre.detail {
+
+    .detail {
       padding: 0;
       margin: 0;
       font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-      font-size: 0.8em;
       background-color: transparent;
       border: none;
+      font-size: 12px;
     }
+  }
+}
+
+@media print {
+  html, body, .container, .content, .view {
+    min-height: 100% !important;
+    height: 100% !important;
   }
 }
 

@@ -6,19 +6,26 @@
         <div class="row">
             <div class="invoiceReference pull-right">
                 <h2>Facture</h2>
-                <div>FACTURE Nº {{invoice.reference}}</div>
-                <div>DATE : {{invoice.date | date:'dd/MM/yyyy'}}</div>
+                <div class="invoice-ref-row">FACTURE Nº {{invoice.reference}}</div>
+                <div class="invoice-ref-row">DATE : {{invoice.date | date:'dd/MM/yyyy'}}</div>
             </div>
 
             <div class="invoiceSeller">
-                <h2>{{invoice.seller.name}}</h2>
-                <div class="addressBodyBlock"><pre class="addressBody">{{invoice.seller.address.body}}</pre></div>
-                <div>{{invoice.seller.address.zipCode}} {{invoice.seller.address.city}}</div>
-                <div ng-show="invoice.seller.address.country">{{invoice.seller.address.country}}</div>
+                <h2 class="seller-name">
+                    <span ng-if="invoice.seller.name != '4SH'">{{invoice.seller.name}}</span>
+                    <span ng-if="invoice.seller.name == '4SH'" class="invoice-4sh-logo"
+                          ng-include="'/images/svg/4sh_logo.svg'"></span>
+                </h2>
+
+                <div class="addressBodyBlock">
+                    <pre class="addressBody">{{invoice.seller.address.body}}</pre>
+                </div>
+                <div class="addressBodyBlock">{{invoice.seller.address.zipCode}} {{invoice.seller.address.city}}</div>
+                <div class="addressBodyBlock" ng-show="invoice.seller.address.country">{{invoice.seller.address.country}}</div>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row buyer-row">
             <div class="invoiceObject pull-right">
                 <h3>Objet :</h3>
                 <pre class="invoiceObject">{{invoice.business.name}}
@@ -26,11 +33,11 @@
             </div>
 
             <div class="invoiceBuyer">
-                <h3>A l'attention de :</h3>
-                <div>{{invoice.buyer.name}}</div>
+                <h3 class="attention-to">A l'attention de :</h3>
+                <div class="buyer-name">{{invoice.buyer.name}}</div>
                 <div class="addressBodyBlock"><pre class="addressBody">{{invoice.buyer.address.body}}</pre></div>
-                <div>{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}}</div>
-                <div ng-show="invoice.buyer.address.country">{{invoice.buyer.address.country}}</div>
+                <div class="addressBodyBlock">{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}}</div>
+                <div class="addressBodyBlock" ng-show="invoice.buyer.address.country">{{invoice.buyer.address.country}}</div>
 
                 <div ng-show="invoice.buyer.legalNotice" class="legalNotice">{{invoice.buyer.legalNotice}}</div>
                 <div ng-show="invoice.buyer.showLegalNoticeForeignBuyer" class="legalNoticeForeignBuyer">TVA due par le preneur Article 196 - Directive 2006/112/CE</div>
@@ -45,11 +52,12 @@
             <table class="table table-condensed table-bordered">
                 <thead>
                 <tr>
-                    <th>Description</th>
+                    <th>Désignation</th>
                     <th class="currency">Montant HT</th>
                 </tr>
                 </thead>
                 <tbody>
+                <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
                 <tr ng-repeat="line in invoice.lines">
                     <td>{{line.description}}</td>
                     <td class="currency">{{line.grossAmount | currency}}</td>
@@ -63,7 +71,7 @@
                 </tr>
                 <tr ng-show="invoice.withVAT" ng-repeat="line in invoice.vatsAmount">
                     <td class="currency totalLabel"><div>{{i18n.translate('invoice.lines.vat')}} - {{line.vat}}</div></td>
-                    <td class="currency">{{line.amount | currency}}</td>
+                    <td class="currency totalAmount">{{line.amount | currency}}</td>
                 </tr>
                 <tr ng-show="invoice.withVAT">
                     <td class="currency totalLabel"><div>Total TTC</div></td>
@@ -73,17 +81,19 @@
             </table>
         </div>
 
-        <div class="invoiceLegalNotice">
-            <div class="invoiceLegalNoticeBlock">
-                <pre class="legalNotice">{{invoice.seller.legalNotice}}</pre>
+        <div class="invoice-bottom-info">
+            <div class="invoiceLegalNotice">
+                <div class="invoiceLegalNoticeBlock">
+                    <pre class="legalNotice">{{invoice.seller.legalNotice}}</pre>
+                </div>
+                <div class="invoiceLegalNoticeBlock invoiceLegalNoticeInfo">
+                    <div>« En cas de retard de paiement, seront exigibles, conformêment à l'article L 441-6 du code de commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros ».</div>
+                </div>
             </div>
-            <div class="invoiceLegalNoticeBlock invoiceLegalNoticeInfo">
-                <div>« En cas de retard de paiement, seront exigibles, conformêment à l'article L 441-6 du code de commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros ».</div>
+            <div class="footer">
+                <div class="fullName">{{invoice.seller.fullName}}</div>
+                <pre class="detail">{{invoice.seller.detail}}</pre>
             </div>
-        </div>
-        <div class="footer">
-            <div class="fullName">{{invoice.seller.fullName}}</div>
-            <pre class="detail">{{invoice.seller.detail}}</pre>
         </div>
     </div>
 </div>
