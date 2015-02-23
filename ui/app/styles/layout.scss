@@ -108,7 +108,7 @@ header {
       -webkit-transform:rotate(360deg);
       -moz-transform:rotate(360deg);
       -o-transform:rotate(360deg);
-      background:  url("#{$imagePath}icon-btn-deconnect-hover.png") no-repeat;
+      background:  url(#{$imagePath}icon-btn-deconnect-hover.png) no-repeat;
     }
   }
 
@@ -118,7 +118,7 @@ header {
     top:20px;
     height: 19px;
     width: 19px;
-    background:  url("#{$imagePath}icon-btn-deconnect.png") no-repeat;
+    background:  url(#{$imagePath}icon-btn-deconnect.png) no-repeat;
   }
 }
 

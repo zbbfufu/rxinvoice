@@ -1,5 +1,3 @@
-REM This script is used to build the front app and put it in the dist directory.
-
 npm install
-bower install
+bower --allow-root install
 grunt build

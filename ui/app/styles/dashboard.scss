@@ -99,14 +99,14 @@
       height: 7px;
       width: 11px;
       margin: 0 10px 0 10px;
-      background: url("#{$imagePath}arrow-bottom.png") no-repeat;
+      background: url(#{$imagePath}arrow-bottom.png) no-repeat;
     }
     .arrowTop {
       display: inline-block;
       height: 7px;
       width: 11px;
       margin: 0 10px 0 10px;
-      background: url("#{$imagePath}arrow-top.png") no-repeat;
+      background: url(#{$imagePath}arrow-top.png) no-repeat;
     }
     .selected {
       text-decoration: underline;
@@ -208,10 +208,10 @@
     height: 67px;
     width: 17%;
     margin-top: 8px;
-    background: url("#{$imagePath}cache-avatar.png") no-repeat;
+    background: url(#{$imagePath}cache-avatar.png) no-repeat;
 
     &:after {
-      content: url("#{$imagePath}cache-avatar.png");
+      content: url(#{$imagePath}cache-avatar.png);
       position: absolute;
       top: 0;
       left: 0;
@@ -516,17 +516,17 @@
   margin-right: 5px;
   height: 12px;
   width: 12px;
-  background: url("#{$imagePath}icon-delivery.png") no-repeat;
+  background: url(#{$imagePath}icon-delivery.png) no-repeat;
 }
 
 .icon-start-project {
   @extend .icon-delivery;
-  background: url("#{$imagePath}icon-start-projet.png") no-repeat;
+  background: url(#{$imagePath}icon-start-projet.png) no-repeat;
 }
 
 .icon-current-status {
   @extend .icon-delivery;
-  background: url("#{$imagePath}icon-current-status.png") no-repeat;
+  background: url(#{$imagePath}icon-current-status.png) no-repeat;
 }
 
 .class-project {
@@ -619,7 +619,7 @@
     left: -22px;
     height: 100%;
     width: 22px;
-    background: url("#{$imagePath}status-ongoing.png") no-repeat;
+    background: url(#{$imagePath}status-ongoing.png) no-repeat;
   }
 
 
@@ -651,19 +651,19 @@
   width: 22px;
   float: left;
   margin: 10px 0 0 15px;
-  background: url("#{$imagePath}icon-resources.png") no-repeat;
+  background: url(#{$imagePath}icon-resources.png) no-repeat;
 }
 
 .icon-person-in-charge {
   @extend .icon-resources;
   width: 10px;
-  background: url("#{$imagePath}icon-person-in-charge.png") no-repeat;
+  background: url(#{$imagePath}icon-person-in-charge.png) no-repeat;
 }
 
-.areas-discover { background: url("#{$imagePath}pellet-discover.png") no-repeat !important; }
-.areas-design { background: url("#{$imagePath}pellet-design.png") no-repeat !important; }
-.areas-develop { background: url("#{$imagePath}pellet-develop.png") no-repeat !important;}
-.areas-deploy { background: url("#{$imagePath}pellet-deploy.png") no-repeat !important;}
+.areas-discover { background: url(#{$imagePath}pellet-discover.png) no-repeat !important; }
+.areas-design { background: url(#{$imagePath}pellet-design.png) no-repeat !important; }
+.areas-develop { background: url(#{$imagePath}pellet-develop.png) no-repeat !important;}
+.areas-deploy { background: url(#{$imagePath}pellet-deploy.png) no-repeat !important;}
 
 // BTN EDIT
 
@@ -704,26 +704,26 @@
   margin-right: 8px;
   height: 15px;
   width: 15px;
-  background: url("#{$imagePath}icon-edit-16x16.png") no-repeat;
+  background: url(#{$imagePath}icon-edit-16x16.png) no-repeat;
 }
 .small-icon-buttonview {
   float: left;
   margin-right: 8px;
   height: 15px;
   width: 15px;
-  background: url("#{$imagePath}icon-look-16x16.png") no-repeat;
+  background: url(#{$imagePath}icon-look-16x16.png) no-repeat;
 }
 .small-icon-buttondelete {
   float: left;
   margin-right: 8px;
   height: 15px;
   width: 15px;
-  background: url("#{$imagePath}icon-delete-16x16.png") no-repeat;
+  background: url(#{$imagePath}icon-delete-16x16.png) no-repeat;
 }
 
 .small-icon-buttonLook {
   @extend .small-icon-buttonedit;
-  background: url("#{$imagePath}smallicon-btn-look.png") no-repeat;
+  background: url(#{$imagePath}smallicon-btn-look.png) no-repeat;
 }
 
 // SEPARATOR
@@ -733,7 +733,7 @@
   margin-top: 12px;
   width: 1px;
   height: 124px;
-  background: url("#{$imagePath}sep-bloc.png") no-repeat;
+  background: url(#{$imagePath}sep-bloc.png) no-repeat;
 }
 
 .invoice-table {

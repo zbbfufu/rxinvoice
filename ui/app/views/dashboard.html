@@ -56,7 +56,7 @@
              ng-repeat="company in companies | orderBy:orderBy.company.predicate:orderBy.company.reverse">
             <div class="content-infos">
                 <div class="avatar-project">
-                    <img src="../images/no-icon-company.png" width="83" height="83" alt="{{company.name}}">
+                    <img ng-src="/images/no-icon-company.png" width="83" height="83" alt="{{company.name}}">
                     <btn class="show-all-project" ng-click="filter.selectCompany(company)" rx-translate="dashboard.customer.allBusiness"></btn>
                 </div>
                 <div class="content-infos-project">

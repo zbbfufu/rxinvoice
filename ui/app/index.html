@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="bower_components/alertify/themes/alertify.default.css">
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css({.tmp,app}) styles/main.css -->
+    <!-- build:css({tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
@@ -32,8 +32,8 @@
         <div ng-controller="SessionController">
             <div ng-show="session.getCurrentUser()">
                 <a class="white-button" ng-click="session.logout()"><span class="iconDisconnect"></span>{{i18n.translate('login.logout')}}</a>
-                <img id="avatarUser" class="avatar" alt="{{session.getCurrentUser().name}}"
-                     ng-src="{{session.getCurrentUser().login ? '/images/user/' + session.getCurrentUser().login : '/images/user-avatar' | lowercase}}.png"/>
+                <img id="avatarAnonymous" class="avatar" alt="avatar" ng-src="/images/user-avatar.png" ng-if="!session.getCurrentUser().login"/>
+                <img id="avatarUser" class="avatar" alt="{{session.getCurrentUser().name}}" ng-src="{{'/images/user/' + session.getCurrentUser().login | lowercase}}.png" ng-if="session.getCurrentUser().login"/>
 
                 <span class="user-name" ng-bind="session.getCurrentUser().name"></span>
                 <span class="user-function" ng-show="session.getCurrentUser().roles">- {{i18n.translate('role.' + session.getCurrentUser().roles)}}</span>

@@ -38,7 +38,7 @@
       height: 19px;
       width: 19px;
       margin-right: 10px;
-      background:  url("#{$imagePath}icon-btn-connect.png") no-repeat;
+      background:  url(#{$imagePath}icon-btn-connect.png) no-repeat;
     }
 
     &:hover {
@@ -46,7 +46,7 @@
         transition: 400ms;
         transform:rotate(360deg);
         -webkit-transform:rotate(360deg);
-        background: url("#{$imagePath}icon-btn-connect-hover.png") no-repeat;
+        background: url(#{$imagePath}icon-btn-connect-hover.png) no-repeat;
       }
     }
   }
@@ -57,7 +57,7 @@
   vertical-align: middle;
   height: 21px;
   width: 21px;
-  background: url("#{$imagePath}icon-refresh.png") no-repeat;
+  background: url(#{$imagePath}icon-refresh.png) no-repeat;
   opacity: 0.8;
   cursor: pointer;
 
@@ -95,7 +95,7 @@
   .icon-buttonAdd {
     display: inline-block;
     margin-top: -1px;
-    background: url("#{$imagePath}icon-btn-add.png") no-repeat;
+    background: url(#{$imagePath}icon-btn-add.png) no-repeat;
     height: 16px;
     width: 16px;
     margin-right: 5px;
@@ -127,7 +127,7 @@
   .icon-buttonEdit {
     display: inline-block;
     margin-top: -1px;
-    background: url("#{$imagePath}icon-btn-edit.png") no-repeat;
+    background: url(#{$imagePath}icon-btn-edit.png) no-repeat;
     height: 16px;
     width: 16px;
     margin-right: 5px;
@@ -143,7 +143,7 @@
     height: 19px;
     width: 19px;
     margin-right: 5px;
-    background: url("#{$imagePath}icon-btn-look.png") no-repeat;
+    background: url(#{$imagePath}icon-btn-look.png) no-repeat;
   }
 }
 
@@ -155,7 +155,7 @@
 
   .icon-drag {
     display: block;
-    background: url("#{$imagePath}icon-drag.png") no-repeat;
+    background: url(#{$imagePath}icon-drag.png) no-repeat;
     height: 26px;
     width: 26px;
   }
@@ -168,8 +168,8 @@
   margin: 0 10px 0 10px;
 }
 
-.arrow-bottom  { background: url("#{$imagePath}arrow-bottom.png") no-repeat;}
-.arrow-top  { background: url("#{$imagePath}arrow-top.png") no-repeat;}
+.arrow-bottom  { background: url(#{$imagePath}arrow-bottom.png) no-repeat;}
+.arrow-top  { background: url(#{$imagePath}arrow-top.png) no-repeat;}
 
 .fsh-hide {
     float: right;
@@ -214,7 +214,7 @@
     display: block;
     float: left;
     margin-right: 5px;
-    background: url("#{$imagePath}icon-btn-sav.png") no-repeat;
+    background: url(#{$imagePath}icon-btn-sav.png) no-repeat;
     height: 19px;
     width: 19px;
   }
@@ -222,7 +222,7 @@
     display: block;
     float: left;
     margin-right: 5px;
-    background: url("#{$imagePath}icon-btn-look.png") no-repeat;
+    background: url(#{$imagePath}icon-btn-look.png) no-repeat;
     height: 19px;
     width: 19px;
   }
@@ -230,7 +230,7 @@
     display: block;
     float: left;
     margin-right: 5px;
-    background: url("#{$imagePath}icon-btn-copy.png") no-repeat;
+    background: url(#{$imagePath}icon-btn-copy.png) no-repeat;
     height: 19px;
     width: 19px;
   }
@@ -238,7 +238,7 @@
     display: block;
     float: left;
     margin-right: 5px;
-    background: url("#{$imagePath}icon-btn-cancel.png") no-repeat;
+    background: url(#{$imagePath}icon-btn-cancel.png) no-repeat;
     height: 19px;
     width: 19px;
   }
@@ -272,7 +272,7 @@
   }
 
   .icon-btn-addTask {
-    background: url("#{$imagePath}icon-btn-add.png") no-repeat;
+    background: url(#{$imagePath}icon-btn-add.png) no-repeat;
     height: 19px;
     width: 19px;
     margin-right: 5px;
@@ -324,7 +324,7 @@
     height: 19px;
     width: 19px;
     margin-left: 6px;
-    background: url("#{$imagePath}incon-btn-previousmonth.png") no-repeat;
+    background: url(#{$imagePath}incon-btn-previousmonth.png) no-repeat;
   }
 }
 
@@ -333,7 +333,7 @@
 
   .iconNextmonth {
   @extend .iconPreviousmonth;
-    background: url("#{$imagePath}incon-btn-nextmonth.png") no-repeat;
+    background: url(#{$imagePath}incon-btn-nextmonth.png) no-repeat;
   }
 }
 
@@ -366,7 +366,7 @@
   width: 19px;
   vertical-align: middle;
   margin-right: 5px;
-  background: url("#{$imagePath}icon-btn-cancel.png") no-repeat;
+  background: url(#{$imagePath}icon-btn-cancel.png) no-repeat;
 }
 
 
@@ -378,46 +378,46 @@
   height: 20px;
   width: 30px;
   margin: 3px 3px 0 3px;
-  background:  url("#{$imagePath}btn-addtask.png") no-repeat;
+  background:  url(#{$imagePath}btn-addtask.png) no-repeat;
   cursor: pointer;
   transition: 250ms;
 
   &:hover {
     transition: 250ms;
-    background:  url("#{$imagePath}btn-addtask-hover.png") no-repeat;
+    background:  url(#{$imagePath}btn-addtask-hover.png) no-repeat;
   }
 }
 
 .add-resource-type {
   @extend .add-task;
-  background:  url("#{$imagePath}btn-addrt.png") no-repeat;
+  background:  url(#{$imagePath}btn-addrt.png) no-repeat;
   transition: 250ms;
 
   &:hover {
     transition: 250ms;
-    background:  url("#{$imagePath}btn-addrt-hover.png") no-repeat;
+    background:  url(#{$imagePath}btn-addrt-hover.png) no-repeat;
   }
 }
 
 .add-resource {
   @extend .add-task;
-  background:  url("#{$imagePath}btn-addr.png") no-repeat;
+  background:  url(#{$imagePath}btn-addr.png) no-repeat;
 
   &:hover {
     transition: 250ms;
-    background:  url("#{$imagePath}btn-addr-hover.png") no-repeat;
+    background:  url(#{$imagePath}btn-addr-hover.png) no-repeat;
   }
 }
 
 .delete-line {
   @extend .add-task;
   width: 20px !important;
-  background:  url("#{$imagePath}btn-suppr.png") no-repeat;
+  background:  url(#{$imagePath}btn-suppr.png) no-repeat;
   transition: 250ms;
 
   &:hover {
     transition: 250ms;
-    background:  url("#{$imagePath}btn-suppr-hover.png") no-repeat;
+    background:  url(#{$imagePath}btn-suppr-hover.png) no-repeat;
   }
 }
 
