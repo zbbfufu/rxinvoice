@@ -6,8 +6,20 @@
 
     <groupId>rxinvoice</groupId>
     <artifactId>rxinvoice-parent</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1.13-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <parent>
+        <groupId>fr.4sh.pom-parents</groupId>
+        <artifactId>4sh-uberpom</artifactId>
+        <version>0.8</version>
+    </parent>
+
+    <scm>
+        <connection>scm:git:git://github.com:4sh/rxinvoice.git</connection>
+        <developerConnection>scm:git:git@github.com:4sh/rxinvoice.git</developerConnection>
+        <url>https://github.com/4sh/rxinvoice.git</url>
+    </scm>
 
     <modules>
         <module>ui</module>

@@ -6,8 +6,20 @@
 
     <groupId>rxinvoice</groupId>
     <artifactId>rxinvoice-ui</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1.13-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <parent>
+        <groupId>fr.4sh.pom-parents</groupId>
+        <artifactId>4sh-uberpom</artifactId>
+        <version>0.8</version>
+    </parent>
+
+    <scm>
+        <connection>scm:git:git://github.com:4sh/rxinvoice.git</connection>
+        <developerConnection>scm:git:git@github.com:4sh/rxinvoice.git</developerConnection>
+        <url>https://github.com/4sh/rxinvoice.git</url>
+    </scm>
 
     <build>
         <plugins>
@@ -45,6 +57,31 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>distro-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptorRefs>
+                                <descriptorRef>package-web-dist</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.restx</groupId>
+                        <artifactId>restx-maven-assemblies</artifactId>
+                        <version>1.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
