@@ -15,11 +15,16 @@ angular.module('rxinvoiceApp')
         $scope.invoice = null;
 
         $scope.status = [];
+        $scope.kinds = [];
         Invoice.getAllStatus(function(data) {
             angular.forEach(data, function(value, key) {
                 this.push({_id:value, name:Invoice.translateStatusLabel(value)});
             }, $scope.status);
         });
+
+            angular.forEach(Invoice.getAllKind(), function(value) {
+                this.push({_id:value, name:Invoice.translateKindLabel(value)});
+            }, $scope.kinds);
 
         $scope.$watch("lines.newLine.quantity", function(newValue, oldValue) {
             $scope.lines.updateGrossAmount($scope.lines.newLine);

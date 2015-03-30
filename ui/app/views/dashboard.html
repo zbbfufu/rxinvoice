@@ -144,6 +144,7 @@
                             <ul class="invoice-date">
                                 <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}} | {{invoice.date}}</li>
                                 <li>{{i18n.translate('dashboard.invoice.expired')}} {{findExpiredInvoice(invoice.date)}}</li>
+                                <li class="tags-business" ng-if="invoice.kind != null">{{i18n.translate('invoice.kind.'+invoice.kind)}}</li>
                                 <li class="tags-business" ng-click="filter.selectCompanyFromInvoice(invoice)" ng-show="invoice.buyer">{{invoice.buyer.name}}</li>
                                 <li class="tags-business" ng-click="filter.selectBusinessFromInvoice(invoice)" ng-show="invoice.business">{{invoice.business.name}}</li>
                             </ul>

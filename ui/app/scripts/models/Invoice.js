@@ -34,8 +34,16 @@ angular.module('rxInvoice', [
                     }
                 },
 
+                getAllKind: function() {
+                   return ['SUBCONTRACTING', 'FEE', 'SERVICE', 'BUY_SELL' ];
+                },
+
                 translateStatusLabel: function(status) {
                     return i18nUtils.translate('invoice.status.' + status);
+                },
+
+                translateKindLabel: function(status) {
+                    return i18nUtils.translate('invoice.kind.' + status);
                 }
             });
     }

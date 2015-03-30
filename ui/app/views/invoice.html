@@ -40,6 +40,13 @@
                         <select ng-model="invoice.status" ng-options="i._id as i.name for i in status"></select>
                     </div>
                 </div>
+
+                <div class="control-group">
+                    <label class="control-label label-light" rx-translate="invoice.kind">Type</label>
+                    <div class="controls">
+                        <select ng-model="invoice.kind" ng-options="i._id as i.name for i in kinds"></select>
+                    </div>
+                </div>
                 <div class="control-group">
                     <label class="control-label label-light" rx-translate="invoice.withVAT">With VAT</label>
                     <div class="controls">

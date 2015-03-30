@@ -21,6 +21,7 @@ public class Invoice {
     private boolean withVAT;
     private String object;
     private String comment;
+    private Kind kind;
 
     private Company seller;
     private Company buyer;
@@ -171,6 +172,15 @@ public class Invoice {
         return this;
     }
 
+    public Kind getKind() {
+        return kind;
+    }
+
+    public Invoice setKind(Kind kind) {
+        this.kind = kind;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -194,6 +204,10 @@ public class Invoice {
 
     public static enum Status {
         DRAFT, READY, SENT, LATE, PAID, CANCELLED, WAITING_VALIDATION, VALIDATED
+    }
+
+    public static enum Kind {
+        SUBCONTRACTING, FEE, SERVICE, BUY_SELL
     }
 
     public static class VATAmount {
