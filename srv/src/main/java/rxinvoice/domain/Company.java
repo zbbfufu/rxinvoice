@@ -32,6 +32,8 @@ public class Company {
 
     private List<VATVal> vats = new ArrayList<>();
 
+    private KindCompany kind;
+
     public String getKey() {
         return key;
     }
@@ -122,6 +124,15 @@ public class Company {
         return this;
     }
 
+    public KindCompany getKind() {
+        return kind;
+    }
+
+    public Company setKind(KindCompany kind) {
+        this.kind = kind;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
@@ -202,5 +213,9 @@ public class Company {
                     ", paid=" + paid +
                     '}';
         }
+    }
+
+    public static enum KindCompany {
+        EDITOR, INHOUSE_SOLUTION_EDITOR, MAJOR_ACCOUNT, PME, FINAL_RECIPIENT
     }
 }

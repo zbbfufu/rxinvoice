@@ -9,6 +9,11 @@ angular.module('rxinvoiceApp')
         $scope.newMode = $routeParams.id == 'new';
         $scope.i18n = i18nUtils;
         $scope.company = null;
+        $scope.companyKinds= [];
+
+        angular.forEach(Company.getAllKind(), function(value) {
+            this.push({_id:value, name:Company.translateKindLabel(value)});
+        }, $scope.companyKinds);
 
         $scope.business = {
             reference: '',
