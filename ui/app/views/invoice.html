@@ -8,68 +8,73 @@
         </h1>
     </a>
 
-    <div class="table-fpm">
+    <div class="table-fpm" >
         <div class="pull-right">
             <button class="fsh-btn-success" type="submit" ng-show="!newMode" ng-click="view()"><span class="icon-buttonView"></span>{{i18n.translate('invoice.view')}}</button>
             <button class="fsh-btn-success" type="submit" ng-show="!newMode" ng-click="copy()"><span class="icon-buttonCopy"></span>{{i18n.translate('invoice.copy')}}</button>
-            <button class="fsh-btn-success" type="submit" ng-click="save()"><span class="icon-buttonSav"></span>{{i18n.translate('invoice.save')}}</button>
+            <button class="fsh-btn-success" type="submit" ng-disabled="!invoiceForm.$valid" ng-click="save()"><span class="icon-buttonSav"></span>{{i18n.translate('invoice.save')}}</button>
         </div>
 
-        <div class="invoice">
-            <div class="title-section-invoice">
-                <div class="fsh-hide"><span class="arrow-bottom"></span></div>
-                <h1 class="title-col-onglet"><span class="icon-title icon-invoice"></span>{{i18n.translate('invoice.title')}}</h1>
-            </div>
-            <div class="container-control-group">
-                <div class="control-group">
-                    <label class="control-label label-light" rx-translate="invoice.reference">Reference</label>
-                    <div class="controls">
-                        <input type="text" ng-model="invoice.reference">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label label-light" rx-translate="invoice.date">Date</label>
-                    <div class="controls">
-                        <input type="date" ng-model="date">
-                    </div>
-                </div>
-                <br/>
-                <div class="control-group">
-                    <label class="control-label label-light" rx-translate="invoice.status">Status</label>
-                    <div class="controls">
-                        <select ng-model="invoice.status" ng-options="i._id as i.name for i in status"></select>
-                    </div>
-                </div>
 
-                <div class="control-group">
-                    <label class="control-label label-light" rx-translate="invoice.kind">Type</label>
-                    <div class="controls">
-                        <select ng-model="invoice.kind" ng-options="i._id as i.name for i in kinds"></select>
+        <form novalidate  name="invoiceForm">
+            <div class="invoice">
+                <div class="title-section-invoice">
+                    <div class="fsh-hide"><span class="arrow-bottom"></span></div>
+                    <h1 class="title-col-onglet"><span class="icon-title icon-invoice"></span>{{i18n.translate('invoice.title')}}</h1>
+                </div>
+                <div class="container-control-group">
+                    <div class="control-group">
+                        <label class="control-label label-light" rx-translate="invoice.reference">Reference</label>
+                        <div class="controls">
+                            <input type="text" ng-model="invoice.reference">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label label-light" rx-translate="invoice.date">Date</label>
+                        <div class="controls">
+                            <input type="date" ng-model="date" required name="idate">
+                            <div ng-show="invoiceForm.idate.$error.required">Indiquez une date</div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="control-group">
+                        <label class="control-label label-light" rx-translate="invoice.status">Status</label>
+                        <div class="controls">
+                            <select ng-model="invoice.status" ng-options="i._id as i.name for i in status"></select>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label label-light" rx-translate="invoice.kind">Type</label>
+                        <div class="controls">
+                            <select ng-model="invoice.kind" ng-options="i._id as i.name for i in kinds"></select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label label-light" rx-translate="invoice.withVAT">With VAT</label>
+                        <div class="controls">
+                            <input type="checkbox" ng-model="invoice.withVAT">
+                        </div>
                     </div>
                 </div>
-                <div class="control-group">
-                    <label class="control-label label-light" rx-translate="invoice.withVAT">With VAT</label>
-                    <div class="controls">
-                        <input type="checkbox" ng-model="invoice.withVAT">
+                <div class="container-control-group">
+                    <div class="control-group">
+                        <label class="control-label label-light invoiceObject" rx-translate="invoice.object">Object</label>
+                        <div class="controls">
+                            <textarea class="invoiceObject" rows="3" ng-model="invoice.object"></textarea>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="control-group">
+                        <label class="control-label label-light" rx-translate="invoice.comment">Comment</label>
+                        <div class="controls">
+                            <input class="invoiceComment" type="text" ng-model="invoice.comment">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="container-control-group">
-                <div class="control-group">
-                    <label class="control-label label-light invoiceObject" rx-translate="invoice.object">Object</label>
-                    <div class="controls">
-                        <textarea class="invoiceObject" rows="3" ng-model="invoice.object"></textarea>
-                    </div>
-                </div>
-                <br/>
-                <div class="control-group">
-                    <label class="control-label label-light" rx-translate="invoice.comment">Comment</label>
-                    <div class="controls">
-                        <input class="invoiceComment" type="text" ng-model="invoice.comment">
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        </form>
 
         <div class="invoiceSeller">
             <div class="title-section-invoice">
