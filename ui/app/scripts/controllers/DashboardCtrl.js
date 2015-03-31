@@ -207,6 +207,7 @@ angular.module('rxinvoiceApp')
             modalInstance.result.then(
                 function (quickEdition) { //OK
                     invoice.status = quickEdition.statusSelected;
+                    invoice.comment = quickEdition.comment;
                     Invoice.update({id:invoice._id}, invoice,
                         function(data) {
                             Message.success('message.invoice.update.success');
@@ -226,7 +227,8 @@ angular.module('rxinvoiceApp')
         $scope.statusList = statusList;
         $scope.quickEdition = {
             reference: invoice.reference,
-            statusSelected: invoice.status
+            statusSelected: invoice.status,
+            comment : invoice.comment
         }
 
         $scope.ok = function () {

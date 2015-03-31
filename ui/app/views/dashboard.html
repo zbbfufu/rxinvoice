@@ -143,6 +143,7 @@
                         <span class="title-project-content invoice">
                             <span ng-show="invoice.reference">[{{invoice.reference}}] </span>
                             <a title="{{invoice.business.name}} {{invoice.object}}" ng-click="filter.selectBusinessFromInvoice(invoice)">{{invoice.object}}</a>
+                            <div ng-if="invoice.comment != null" style="background-color: #5e5e5e" class="icon-title icon-comment" ng-click="open(invoice)"></div>
                             <ul class="invoice-date">
                                 <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}} | {{invoice.date}}</li>
                                 <li>{{i18n.translate('dashboard.invoice.expired')}} {{findExpiredInvoice(invoice.date)}}</li>
@@ -159,6 +160,7 @@
                     </div>
                     <div class="desc-project">
                         <span class="invoices-status {{invoice.status}}" ng-click="open(invoice)"><p>{{translateStatusLabel(invoice.status)}}</p></span>
+
                         <ul class="btn-edit">
                             <li><a ng-href='/api/print?pageUri=/invoice_view/{{invoice._id}}' target="_blank"><span class="small-icon-buttonview"></span>{{i18n.translate('dashboard.view')}}</a></li>
                             <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>{{i18n.translate('dashboard.edit')}}</a></li>
@@ -188,6 +190,14 @@
                         <option value=""></option>
                         <option ng-repeat="item in statusList" value="{{item._id}}">{{item.name}}</option>
                     </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body zone-quick-edition">
+            <div class="control-group">
+            <label class="control-label label-light" rx-translate="invoice.comment"></label>
+                <div class="controls">
+                    <textarea style="width: 393px; height: 129px;" ng-model="quickEdition.comment"></textarea>
                 </div>
             </div>
         </div>
