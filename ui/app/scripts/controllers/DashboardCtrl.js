@@ -21,22 +21,22 @@ angular.module('rxinvoiceApp')
         $scope.invoices = [];
         $scope.translateStatusLabel = Invoice.translateStatusLabel;
 
-        var displayMode = "list";
+        $scope.displayMode = "list";
 
         $scope.isListDisplayMode = function() {
-            return displayMode === "list";
+            return $scope.displayMode === "list";
         };
 
         $scope.isTableDisplayMode = function() {
-            return displayMode === "table";
+            return $scope.displayMode === "table";
         };
 
 
         $scope.toggleDisplayMode = function() {
-            if (displayMode === "list") {
-                displayMode = "table";
-            } else if (displayMode === "table") {
-                displayMode = "list";
+            if ($scope.displayMode === "list") {
+                $scope.displayMode = "table";
+            } else if ($scope.displayMode === "table") {
+                $scope.displayMode = "list";
             }
         };
 
@@ -71,6 +71,7 @@ angular.module('rxinvoiceApp')
             updateDashboard();
         });
         Invoice.getAllStatus(function(data) {
+            $scope.filter.statusList = [];
             angular.forEach(data, function(value, key) {
                 this.push({_id:value, name:$scope.translateStatusLabel(value)});
             }, $scope.filter.statusList);
@@ -137,13 +138,14 @@ angular.module('rxinvoiceApp')
         });
 
         $scope.invoicesTableColumns = [
+            {label: $scope.i18n.translate('invoice.reference.short'), map: "reference", headerClass:"cell-header invoice-reference", cellClass: "cell-content invoice-reference"},
             {label: $scope.i18n.translate('invoice.buyer'), map: "buyer.name", headerClass:"cell-header invoice-buyer", cellClass: "cell-content invoice-buyer"},
             {label: $scope.i18n.translate('invoice.business'), map: "business.name", headerClass:"cell-header invoice-business", cellClass: "cell-content invoice-business"},
             {label: $scope.i18n.translate('invoice.object'), map: "object", headerClass:"cell-header invoice-object", cellClass: "cell-content invoice-object"},
-            {label: $scope.i18n.translate('invoice.reference.short'), map:"reference", headerClass:"cell-header invoice-reference", cellClass: "cell-content invoice-reference"},
             {label: $scope.i18n.translate('invoice.date'), map: "date", formatFunction: 'date', formatParameter : 'dd/MM/yyyy', headerClass:"cell-header invoice-date", cellClass: "cell-content invoice-date"},
             {label: $scope.i18n.translate('invoice.status'), map:"status", formatFunction: $scope.translateStatusLabel, headerClass:"cell-header invoice-status", cellClass: "cell-content invoice-status"},
-            {label: $scope.i18n.translate('invoice.lines.grossAmount'), map:"grossAmount",  formatFunction: 'currency', formatParameter: '€', headerClass:"cell-header invoice-grossAmount", cellClass:"cell-content cell-number invoice-grossAmount"}
+            {label: $scope.i18n.translate('invoice.lines.grossAmount'), map:"grossAmount",  formatFunction: 'currency', formatParameter: '€', headerClass:"cell-header invoice-grossAmount", cellClass:"cell-content cell-number invoice-grossAmount"},
+            {label: $scope.i18n.translate('invoice.lines.netAmount'), map:"netAmount",  formatFunction: 'currency', formatParameter: '€', headerClass:"cell-header invoice-netAmount", cellClass:"cell-content cell-number invoice-netAmount"}
 
         ];
 
@@ -159,10 +161,34 @@ angular.module('rxinvoiceApp')
                         });
                 }
             });
-        }
+        },
 
+            $scope.exportData = function () {
+                var compelteData
+                    var row = ""
+                angular.forEach( $scope.invoicesTableColumns, function(item){
+                     row += item.label + ',';
+                });
+                compelteData += row + '\r\n';
+                angular.forEach($scope.invoices, function(item){
+                    row = "";
+                    row += item.reference + ',';
+                    row += item.buyer.name + ',';
+                    row += item.business.name + ',';
+                    row += item.object.replace(/(\r\n|\n|\r)/gm,"").replace(',', ' ') + ',';
+                    row += item.date + ',';
+                    row += item.status + ',';
+                    row += item.grossAmount + ',';
+                    row += item.netAmount ;
+                    compelteData += row + '\r\n';
+                });
 
-
+                $scope.toJSON = angular.toJson($scope.invoices);
+                var blob = new Blob([compelteData], {
+                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+                });
+                saveAs(blob, "Report.xls");
+            },
 
         $scope.open = function (invoice) {
             var modalInstance = $modal.open({

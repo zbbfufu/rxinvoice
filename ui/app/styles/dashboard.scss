@@ -66,13 +66,13 @@
 
 .col-type-left {
   float: left;
-  width: 48%;
+  width: 35%;
   height: auto;
 }
 
 .col-type-right {
   float: right;
-  width: 48%;
+  width: 64%;
   height: auto;
 }
 
@@ -186,7 +186,7 @@
 .bloc-type {
   position: relative;
   background-color: #ffffff;
-  height: 130px;
+  height: 150px;
   width: 100%;
   margin-bottom: 15px;
   padding: 10px;
@@ -405,7 +405,7 @@
 
     .btn-edit {
       display: inline-block;
-      margin: 30px 5px 0 0;
+      margin: 55px 5px 0 0;
       padding: 0;
       color: white;
       text-transform: uppercase;
@@ -764,26 +764,30 @@
 
 
   .invoice-buyer {
-    width: 5%;
+    width: 10%;
     cursor: pointer;
   }
   .invoice-business {
-    width: 25%;
-  }
-  .invoice-object {
     width: 15%;
+  }
+
+  .invoice-object {
+    width: 25%;
   }
   .invoice-reference {
     width: 10%;
   }
   .invoice-date {
-    width: 15%;
+    width: 10%;
   }
   .invoice-status {
-    width: 15%;
+    width: 10%;
   }
   .invoice-grossAmount {
-    width: 15%;
+    width: 10%;
+  }
+  .invoice-netAmount {
+    width: 10%;
   }
 
   .cell-number {

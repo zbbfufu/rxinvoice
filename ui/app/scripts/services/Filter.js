@@ -54,6 +54,8 @@ angular.module('rxFilter', [
                 resetInvoicesFilters: function() {
                     filters.dashboard.criteria.statusSelected = '';
                     filters.dashboard.criteria.reference = '';
+                    filters.dashboard.criteria.priceMin = null;
+                    filters.dashboard.criteria.priceMax = null;
                 },
                 resetDatesFilters: function() {
                     filters.dashboard.criteria.dateMin = defaultDateMinFilter;
@@ -102,13 +104,20 @@ angular.module('rxFilter', [
                             return true;
                         }
                     }
+
+                    var filterAmount = function(){
+                        return (!filter.priceMin || filter.priceMin < invoice.netAmount)  &&
+                            (!filter.priceMax || filter.priceMax > invoice.netAmount);
+                    }
                     var ret =
                             (!filter.companySelected || (invoice.buyer && filter.companySelected == invoice.buyer._id)) &&
                             (!filter.statusSelected || filter.statusSelected == invoice.status) &&
                             (!filter.businessSelected || (invoice.business && filter.businessSelected == invoice.business.reference)) &&
-                            (filterDate()) &&
+                            (filterDate()) && filterAmount() &&
                             (!filter.reference || invoice.reference && invoice.reference.indexOf(filter.reference) > -1)
                         ;
+
+
                     return ret;
                 }
             }

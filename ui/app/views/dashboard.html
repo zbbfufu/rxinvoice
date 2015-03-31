@@ -123,6 +123,8 @@
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
             </select>
             <input type="text" ng-model="filter.criteria.reference" placeholder="{{i18n.translate('dashboard.filter.reference')}}" class="ref"/>
+            <input type="text" ng-model="filter.criteria.priceMin" placeholder="{{i18n.translate('dashboard.filter.price.min')}}" class="ref"/>
+            <input type="text" ng-model="filter.criteria.priceMax" placeholder="{{i18n.translate('dashboard.filter.price.max')}}" class="ref"/>
             <a ng-click="filter.resetInvoicesFilters()"><span class="fsh-btn-refresh"></span></a>
 
 
@@ -152,6 +154,7 @@
                         <div class="invoices-number">
                             <h2 rx-translate="dashboard.invoice.total"></h2>
                             <h1>{{invoice.grossAmount | currency}} HT</h1>
+                            <h1>{{invoice.netAmount | currency}} TTC</h1>
                         </div>
                     </div>
                     <div class="desc-project">
@@ -166,9 +169,9 @@
             </div>
         </div>
 
-        <div class="invoice-table" ng-if="isTableDisplayMode()">
-
-            <smart-table config="invoicesTableConfig" rows="invoices | orderBy:orderBy.invoice.predicate:orderBy.invoice.reverse" columns="invoicesTableColumns"></smart-table>
+        <div class="invoice-table" ng-if="isTableDisplayMode()" id="exportable">
+            <button ng-click="exportData()">{{i18n.translate('dashboard.download.csv')}}</button>
+            <smart-table config="invoicesTableConfig" rows="invoices" columns="invoicesTableColumns"></smart-table>
 
         </div>
     </div>
