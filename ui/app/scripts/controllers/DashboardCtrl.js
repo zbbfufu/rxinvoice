@@ -31,6 +31,22 @@ angular.module('rxinvoiceApp')
             return $scope.displayMode === "table";
         };
 
+        var fiscalMonth = 3;
+        $scope.setCurrentFiscalYear = function() {
+            if (moment().isBefore(moment().month(fiscalMonth).date(1))) {
+                $scope.filter.criteria.dateMin = moment().month(fiscalMonth).date(1).subtract(1, 'year').toDate();
+                $scope.filter.criteria.dateMax = moment().month(fiscalMonth).date(1).toDate();
+            } else {
+                $scope.filter.criteria.dateMin = moment().month(fiscalMonth).date(1).toDate();
+                $scope.filter.criteria.dateMax = moment().month(fiscalMonth).date(1).add(1, 'year').toDate();
+            }
+        };
+
+        $scope.setCurrentMonth = function() {
+            $scope.filter.criteria.dateMin = moment().startOf('month').toDate();
+            $scope.filter.criteria.dateMax = moment().add(1, 'month').startOf('month').toDate();
+        };
+
 
         $scope.toggleDisplayMode = function() {
             if ($scope.displayMode === "list") {

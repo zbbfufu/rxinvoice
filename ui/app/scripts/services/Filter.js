@@ -69,25 +69,10 @@ angular.module('rxFilter', [
                 filterInvoices: function(invoice) {
                     var filter = filters.dashboard.criteria;
                     var compareDateMin = function(date, min) {
-                        if (min && date) {
-                            var dateCompare = moment(date).format('YYYYMMDD');
-                            var minCompare = moment(min, "DD/MM/YYYY").format('YYYYMMDD');
-                            if (dateCompare == 'Invalid date' || minCompare == 'Invalid date') {
-                                return false;
-                            }
-                            return dateCompare >= minCompare;
-                        }
-                        return false;
+                        return moment(min).isBefore(date);
                     }
                     var compareDateMax = function(date, max) {
-                        if (max && date) {
-                            var dateCompare = moment(date).format('YYYYMMDD');
-                            var maxCompare = moment(max, "DD/MM/YYYY").format('YYYYMMDD');
-                            if (dateCompare == 'Invalid date' || minCompare == 'Invalid date') {
-                                return false;
-                            }
-                            return dateCompare <= maxCompare;
-                        }
+                        return moment(max).isAfter(date);
                     }
                     var filterDate = function() {
                         var compareMin = compareDateMin(invoice.date, filter.dateMin);

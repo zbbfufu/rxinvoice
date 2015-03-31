@@ -9,6 +9,25 @@
 
     <div>
         <div class="control-group">
+            <button class="fsh-btn small" ng-click="setCurrentFiscalYear()">Exercice =</button>
+            <button class="fsh-btn small" ng-click="setCurrentMonth()">Mois =</button>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Date de début</label>
+            <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="filter.criteria.dateMin"
+                   is-open="fromOpened" close-text="Close" placeholder="Depuis" id="from"
+                   max="{{filter.criteria.dateMax}}" ng-required="true"/>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Date de fin</label>
+            <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="filter.criteria.dateMax"
+                   is-open="UntilOpened" close-text="Close" min="{{filter.criteria.dateMin}}" placeholder="Jusqu'à"
+                   id="untill" ng-required="true"/>
+        </div>
+
+        <!--<div class="control-group">
             <label class="control-label label-light" rx-translate="dashboard.filter.dateMin">min</label>
             <div class="controls">
                 <input type="date" ng-model="filter.criteria.dateMin" placeholder="{{i18n.translate('dashboard.filter.dateMin')}}" class="date"/>
@@ -20,7 +39,7 @@
             <div class="controls">
                 <input type="date" ng-model="filter.criteria.dateMax" placeholder="{{i18n.translate('dashboard.filter.dateMax')}}" class="date"/>
             </div>
-        </div>
+        </div>-->
         <a ng-click="filter.resetDatesFilters()"><span class="fsh-btn-refresh"></span></a>
     </div>
 
