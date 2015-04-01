@@ -69,10 +69,10 @@ angular.module('rxFilter', [
                 filterInvoices: function(invoice) {
                     var filter = filters.dashboard.criteria;
                     var compareDateMin = function(date, min) {
-                        return moment(min).isBefore(date);
+                        return angular.isUndefined(min) || moment(min).isBefore(date);
                     }
                     var compareDateMax = function(date, max) {
-                        return moment(max).isAfter(date);
+                        return angular.isUndefined(max) || moment(max).isAfter(date);
                     }
                     var filterDate = function() {
                         var compareMin = compareDateMin(invoice.date, filter.dateMin);
