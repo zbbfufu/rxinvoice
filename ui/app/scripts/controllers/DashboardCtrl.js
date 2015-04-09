@@ -21,6 +21,11 @@ angular.module('rxinvoiceApp')
         $scope.invoices = [];
         $scope.translateStatusLabel = Invoice.translateStatusLabel;
 
+        $scope.formatTVAValue = function(vatsAmount){
+            if(vatsAmount.length == 1)
+            return $filter('currency')(vatsAmount[0].amount);
+        }
+
         $scope.displayMode = "list";
 
         $scope.isListDisplayMode = function() {
@@ -155,13 +160,15 @@ angular.module('rxinvoiceApp')
 
         $scope.invoicesTableColumns = [
             {label: $scope.i18n.translate('invoice.reference.short'), map: "reference", headerClass:"cell-header invoice-reference", cellClass: "cell-content invoice-reference"},
+            {label: $scope.i18n.translate('invoice.kind'), map: "kind", formatFunction: Invoice.translateKindLabel, headerClass:"cell-header invoice-reference", cellClass: "cell-content invoice-reference"},
             {label: $scope.i18n.translate('invoice.buyer'), map: "buyer.name", headerClass:"cell-header invoice-buyer", cellClass: "cell-content invoice-buyer"},
             {label: $scope.i18n.translate('invoice.business'), map: "business.name", headerClass:"cell-header invoice-business", cellClass: "cell-content invoice-business"},
             {label: $scope.i18n.translate('invoice.object'), map: "object", headerClass:"cell-header invoice-object", cellClass: "cell-content invoice-object"},
             {label: $scope.i18n.translate('invoice.date'), map: "date", formatFunction: 'date', formatParameter : 'dd/MM/yyyy', headerClass:"cell-header invoice-date", cellClass: "cell-content invoice-date"},
-            {label: $scope.i18n.translate('invoice.status'), map:"status", formatFunction: $scope.translateStatusLabel, headerClass:"cell-header invoice-status", cellClass: "cell-content invoice-status"},
+            {label: $scope.i18n.translate('invoice.status'), map:"status", formatFunction: Invoice.translateStatusLabel, headerClass:"cell-header invoice-status", cellClass: "cell-content invoice-status"},
             {label: $scope.i18n.translate('invoice.lines.grossAmount'), map:"grossAmount",  formatFunction: 'currency', formatParameter: '€', headerClass:"cell-header invoice-grossAmount", cellClass:"cell-content cell-number invoice-grossAmount"},
-            {label: $scope.i18n.translate('invoice.lines.netAmount'), map:"netAmount",  formatFunction: 'currency', formatParameter: '€', headerClass:"cell-header invoice-netAmount", cellClass:"cell-content cell-number invoice-netAmount"}
+            {label: $scope.i18n.translate('invoice.lines.netAmount'), map:"netAmount",  formatFunction: 'currency', formatParameter: '€', headerClass:"cell-header invoice-netAmount", cellClass:"cell-content cell-number invoice-netAmount"},
+            {label: $scope.i18n.translate('invoice.lines.vat'), map:"vatsAmount",  formatFunction: $scope.formatTVAValue, formatParameter: '€', headerClass:"cell-header invoice-netAmount", cellClass:"cell-content cell-number invoice-netAmount"}
 
         ];
 
@@ -183,23 +190,25 @@ angular.module('rxinvoiceApp')
                 var compelteData
                     var row = ""
                 angular.forEach( $scope.invoicesTableColumns, function(item){
-                     row += item.label + ',';
+                     row += item.label + ';';
                 });
                 compelteData += row + '\r\n';
                 angular.forEach($scope.invoices, function(item){
                     row = "";
-                    row += item.reference + ',';
-                    row += item.buyer.name + ',';
-                    row += item.business.name + ',';
-                    row += item.object.replace(/(\r\n|\n|\r)/gm,"").replace(',', ' ') + ',';
-                    row += item.date + ',';
-                    row += item.status + ',';
-                    row += item.grossAmount + ',';
-                    row += item.netAmount ;
+                    row += item.reference + ';';
+                    row += Invoice.translateKindLabel(item.kind) + ';';
+                    row += item.buyer.name + ';';
+                    row += item.business.name + ';';
+                    row += (angular.isDefined(item.object) && item.object !== null) ? item.object.replace(/(\r\n|\n|\r)/gm,"").replace(';', ' ') + ';' : ' ;' ;
+                    row += $filter('date')(item.date, 'dd/MM/yyyy') + ';';
+                    row += Invoice.translateStatusLabel(item.status) + ';';
+                    row += $filter('currency')(item.grossAmount) + ';';
+                    row += $filter('currency')(item.netAmount) + ';';
+                    row += (angular.isDefined(item.vatsAmount) && item.vatsAmount.length > 0) ?  $filter('currency')(item.vatsAmount[0].amount) : '';
                     compelteData += row + '\r\n';
                 });
 
-                $scope.toJSON = angular.toJson($scope.invoices);
+                //$scope.toJSON = angular.toJson($scope.invoices);
                 var blob = new Blob([compelteData], {
                     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
                 });

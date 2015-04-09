@@ -42,8 +42,11 @@ angular.module('rxInvoice', [
                     return i18nUtils.translate('invoice.status.' + status);
                 },
 
-                translateKindLabel: function(status) {
-                    return i18nUtils.translate('invoice.kind.' + status);
+                translateKindLabel: function(kind) {
+                    if(!kind){
+                        return null;
+                    }
+                    return i18nUtils.translate('invoice.kind.' + kind);
                 }
             });
     }

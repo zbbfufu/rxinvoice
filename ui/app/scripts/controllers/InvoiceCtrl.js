@@ -13,6 +13,7 @@ angular.module('rxinvoiceApp')
         $scope.i18n = i18nUtils;
 
         $scope.invoice = null;
+        $scope.translateKindLabel = Invoice.translateKindLabel;
 
         $scope.status = [];
         $scope.kinds = [];
@@ -266,7 +267,7 @@ angular.module('rxinvoiceApp')
 
 
                 loadInvoice({
-                    date : new Date().toLocaleDateString(),
+                    date : moment().toDate(),
                     status: 'DRAFT',
                     withVAT: true,
                     seller : getUserCompany(),

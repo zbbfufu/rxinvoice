@@ -5,7 +5,7 @@ angular.module('rxFilter', [
     ])
 
     .service('Filter', function() {
-        var defaultDateMinFilter = moment().subtract(1, 'month').format('DD/MM/YYYY');
+        var defaultDateMinFilter = moment().toDate();
 
         var filters = {
             dashboard: {
@@ -91,8 +91,8 @@ angular.module('rxFilter', [
                     }
 
                     var filterAmount = function(){
-                        return (!filter.priceMin || filter.priceMin < invoice.netAmount)  &&
-                            (!filter.priceMax || filter.priceMax > invoice.netAmount);
+                        return (!filter.priceMin || filter.priceMin < invoice.grossAmount)  &&
+                            (!filter.priceMax || filter.priceMax > invoice.grossAmount);
                     }
                     var ret =
                             (!filter.companySelected || (invoice.buyer && filter.companySelected == invoice.buyer._id)) &&

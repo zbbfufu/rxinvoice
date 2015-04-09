@@ -34,6 +34,9 @@ angular.module('rxinvoiceApp')
             amount: '',
             add: function() {
                 if (this.vat && this.amount) {
+                    if(angular.isUndefined($scope.company.vats)){
+                        $scope.company.vats = [];
+                    }
                     $scope.company.vats.push({vat: this.vat, amount: this.amount});
                     this.vat = '';
                     this.amount = '';

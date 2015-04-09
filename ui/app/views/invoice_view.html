@@ -8,6 +8,7 @@
                 <h2>Facture</h2>
                 <div class="invoice-ref-row">FACTURE Nº {{invoice.reference}}</div>
                 <div class="invoice-ref-row">DATE : {{invoice.date | date:'dd/MM/yyyy'}}</div>
+                <div class="invoice-ref-row">{{translateKindLabel(invoice.kind)}}</div>
             </div>
 
             <div class="invoiceSeller">
@@ -85,9 +86,11 @@
                 <div class="invoiceLegalNoticeBlock">
                     <pre class="legalNotice">{{invoice.seller.legalNotice}}</pre>
                 </div>
+                <br>
                 <div class="invoiceLegalNoticeBlock invoiceLegalNoticeInfo">
-                    <div>« En cas de retard de paiement, seront exigibles, conformêment à l'article L 441-6 du code de commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros ».</div>
+                    <div>« En cas de retard de paiement, seront exigibles, conformément à l'article L 441-6 du code de commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros ».</div>
                 </div>
+                <br>
             </div>
             <div class="footer">
                 <div class="fullName">{{invoice.seller.fullName}}</div>
