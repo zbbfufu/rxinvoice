@@ -159,10 +159,11 @@
             <div class="content-infos content-bloc-invoice">
                 <div class="content-infos-project content-invoice-project">
                     <div class="header-project">
+                        <div ng-if="invoice.comment != null && invoice.comment != ''" style="background-color: #5e5e5e" class="icon-title icon-comment" ng-click="open(invoice)"></div>
                         <span class="title-project-content invoice">
                             <span ng-show="invoice.reference">[{{invoice.reference}}] </span>
                             <a title="{{invoice.business.name}} {{invoice.object}}" ng-click="filter.selectBusinessFromInvoice(invoice)">{{invoice.object}}</a>
-                            <div ng-if="invoice.comment != null" style="background-color: #5e5e5e" class="icon-title icon-comment" ng-click="open(invoice)"></div>
+
                             <ul class="invoice-date">
                                 <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}} | {{invoice.date}}</li>
                                 <li>{{i18n.translate('dashboard.invoice.expired')}} {{findExpiredInvoice(invoice.date)}}</li>
