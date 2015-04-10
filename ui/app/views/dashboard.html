@@ -141,6 +141,11 @@
                 <option value="" rx-translate="dashboard.filter.all">All</option>
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
             </select>
+
+            <select ui-select2 ng-model="filter.criteria.kindSelected" data-placeholder="{{i18n.translate('dashboard.filter.kind')}}">
+                <option value="" rx-translate="dashboard.filter.all">All</option>
+                <option ng-repeat="item in filter.kindList" value="{{item._id}}">{{item.name}}</option>
+            </select>
             <input type="text" ng-model="filter.criteria.reference" placeholder="{{i18n.translate('dashboard.filter.reference')}}" class="ref"/>
             <input type="text" ng-model="filter.criteria.priceMin" placeholder="{{i18n.translate('dashboard.filter.price.min')}}" class="ref"/>
             <input type="text" ng-model="filter.criteria.priceMax" placeholder="{{i18n.translate('dashboard.filter.price.max')}}" class="ref"/>

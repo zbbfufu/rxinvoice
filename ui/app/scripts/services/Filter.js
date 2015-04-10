@@ -14,6 +14,7 @@ angular.module('rxFilter', [
                     businessSelected: '',
                     companySelected: '',
                     statusSelected: '',
+                    kindSelected: '',
                     dateMin: defaultDateMinFilter,
                     dateMax: ''
                 },
@@ -24,6 +25,7 @@ angular.module('rxFilter', [
                 invoicesList: [],
                 invoicesBuyerList: {},
                 statusList: [],
+                kindList: [],
 
 
                 selectCompany: function(company) {
@@ -97,6 +99,7 @@ angular.module('rxFilter', [
                     var ret =
                             (!filter.companySelected || (invoice.buyer && filter.companySelected == invoice.buyer._id)) &&
                             (!filter.statusSelected || filter.statusSelected == invoice.status) &&
+                            (!filter.kindSelected || filter.kindSelected == invoice.kind) &&
                             (!filter.businessSelected || (invoice.business && filter.businessSelected == invoice.business.reference)) &&
                             (filterDate()) && filterAmount() &&
                             (!filter.reference || invoice.reference && invoice.reference.indexOf(filter.reference) > -1)
