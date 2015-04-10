@@ -204,7 +204,7 @@ angular.module('rxinvoiceApp')
                     row += Invoice.translateKindLabel(item.kind) + ';';
                     row += item.buyer.name + ';';
                     row += item.business.name + ';';
-                    row += (angular.isDefined(item.object) && item.object !== null) ? item.object.replace(/(\r\n|\n|\r)/gm,"").replace(';', ' ') + ';' : "' ' ;" ;
+                    row += (angular.isDefined(item.object) && item.object !== null && item.object !== '') ? item.object.replace(/(\r\n|\n|\r)/gm," ").replace(';', ' ') + ';' : " ;" ;
                     row += $filter('date')(item.date, 'dd/MM/yyyy') + ';';
                     row += Invoice.translateStatusLabel(item.status) + ';';
                     row += $filter('currency')(item.grossAmount) + ';';
