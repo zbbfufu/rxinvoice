@@ -4,7 +4,7 @@
 
     <groupId>rxinvoice</groupId>
     <artifactId>rxinvoice-ui</artifactId>
-    <version>0.1.15-SNAPSHOT</version>
+    <version>0.1.15</version>
     <packaging>pom</packaging>
 
     <parent>

@@ -10,7 +10,7 @@
 
     <groupId>rxinvoice</groupId>
     <artifactId>rxinvoice</artifactId>
-    <version>0.1.15-SNAPSHOT</version>
+    <version>0.1.15</version>
     <packaging>war</packaging>
     <name>rxinvoice</name>
 
