@@ -35,7 +35,7 @@ angular.module('rxInvoice', [
                 },
 
                 getAllKind: function() {
-                   return ['SUBCONTRACTING', 'FEE', 'SERVICE', 'BUY_SELL' ];
+                   return ['SUBCONTRACTING', 'FEE', 'SERVICE', 'BUY_SELL', 'TRAINING'];
                 },
 
                 translateStatusLabel: function(status) {

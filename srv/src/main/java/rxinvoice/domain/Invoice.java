@@ -207,7 +207,7 @@ public class Invoice {
     }
 
     public static enum Kind {
-        SUBCONTRACTING, FEE, SERVICE, BUY_SELL
+        SUBCONTRACTING, FEE, SERVICE, BUY_SELL, TRAINING
     }
 
     public static class VATAmount {
