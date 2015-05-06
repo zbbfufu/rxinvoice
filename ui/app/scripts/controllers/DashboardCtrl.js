@@ -23,8 +23,11 @@ angular.module('rxinvoiceApp')
         $scope.generatePdfFilename = Invoice.generatePdfFilename;
 
         $scope.formatTVAValue = function(vatsAmount){
-            if(vatsAmount.length == 1)
-            return $filter('currency')(vatsAmount[0].amount);
+            var amount = 0;
+            for (var i = 0; i < vatsAmount.length; i++) {
+                amount += vatsAmount[i].amount;
+            }
+            return $filter('currency')(amount);
         }
 
         $scope.displayMode = "list";
@@ -192,34 +195,43 @@ angular.module('rxinvoiceApp')
             });
         },
 
-            $scope.exportData = function () {
-                var compelteData
-                    var row = ""
-                angular.forEach( $scope.invoicesTableColumns, function(item){
-                     row += item.label + ';';
-                });
-                compelteData += row + '\r\n';
-                angular.forEach($scope.invoices, function(item){
-                    row = "";
-                    row += item.reference + ';';
-                    row += Invoice.translateKindLabel(item.kind) + ';';
-                    row += item.buyer.name + ';';
-                    row += item.business.name + ';';
-                    row += (angular.isDefined(item.object) && item.object !== null && item.object !== '') ? item.object.replace(/(\r\n|\n|\r)/gm," ").replace(';', ' ') + ';' : " ;" ;
-                    row += $filter('date')(item.date, 'dd/MM/yyyy') + ';';
-                    row += Invoice.translateStatusLabel(item.status) + ';';
-                    row += $filter('currency')(item.grossAmount) + ';';
-                    row += $filter('currency')(item.netAmount) + ';';
-                    row += (angular.isDefined(item.vatsAmount) && item.vatsAmount.length > 0) ?  $filter('currency')(item.vatsAmount[0].amount) : '';
-                    compelteData += row + '\r\n';
-                });
+        $scope.exportData = function () {
+            var formatAmount = function(amount) {
+                return amount.toLocaleString('fr-FR').replace(/\s/g, '');
+            };
 
-                //$scope.toJSON = angular.toJson($scope.invoices);
-                var blob = new Blob([compelteData], {
-                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
-                });
-                saveAs(blob, "Report.xls");
-            },
+            var completeData = '';
+            angular.forEach( $scope.invoicesTableColumns, function(item){
+                completeData += item.label + ';';
+            });
+            completeData += '\r\n';
+            var row;
+            angular.forEach($scope.invoices, function(item){
+                var invoiceKind = Invoice.translateKindLabel(item.kind);
+                var vatsAmount = 0;
+                for (var i = 0; i < item.vatsAmount.length; i++) {
+                    vatsAmount += item.vatsAmount[i].amount;
+                }
+                row = '';
+                row += (item.reference ? item.reference : '') + ';';
+                row += (invoiceKind ? invoiceKind : '') + ';';
+                row += item.buyer.name + ';';
+                row += item.business.name + ';';
+                row += (angular.isDefined(item.object) && item.object !== null && item.object !== '') ? item.object.replace(/(\r\n|\n|\r)/gm," ").replace(';', ' ') + ';' : " ;" ;
+                row += $filter('date')(item.date, 'dd/MM/yyyy') + ';';
+                row += Invoice.translateStatusLabel(item.status) + ';';
+                row += formatAmount(item.grossAmount, '') + ';';
+                row += formatAmount(item.netAmount) + ';';
+                row += formatAmount(vatsAmount);
+                completeData += row + '\r\n';
+            });
+
+            //$scope.toJSON = angular.toJson($scope.invoices);
+            var blob = new Blob([completeData], {
+                type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+            });
+            saveAs(blob, "Report.xls");
+        },
 
         $scope.open = function (invoice) {
             var modalInstance = $modal.open({
