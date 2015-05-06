@@ -65,7 +65,7 @@ angular.module('rxInvoice', [
                             if (filename) {
                                 filename += "_";
                             }
-                            filename += $filter('date')(invoice.date, "yyyyMMdd");
+                            filename += $filter('date')(invoice.date, "MMMM yyyy");
                         }
                     }
                     if (!filename) {

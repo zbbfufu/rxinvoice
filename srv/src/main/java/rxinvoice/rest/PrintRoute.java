@@ -2,6 +2,7 @@ package rxinvoice.rest;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import restx.*;
@@ -50,7 +51,7 @@ public class PrintRoute extends StdRoute {
         }
         if (pageUri.isPresent() ) {
             if (filename.isPresent()) {
-                resp.setHeader("Content-Disposition", "attachment; filename=\"" + filename.get() + "\"");
+                resp.setHeader("Content-Disposition", "attachment; filename=\"" + StringUtils.stripAccents(filename.get()) + "\"");
             }
             resp.setStatus(HttpStatus.OK);
             resp.setContentType("application/pdf");
