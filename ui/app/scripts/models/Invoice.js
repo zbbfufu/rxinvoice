@@ -5,7 +5,7 @@ angular.module('rxInvoice', [
     ])
 
 
-    .factory('Invoice', function ($resource, $http, i18nUtils) {
+    .factory('Invoice', function ($resource, $http, $filter, i18nUtils) {
         var res = $resource('/api/invoices/:id', {'id': '@_id'}, {update: {method:'PUT'}, 'get':  {method:'GET', isArray:false}});
         var status = null;
 
@@ -47,6 +47,31 @@ angular.module('rxInvoice', [
                         return null;
                     }
                     return i18nUtils.translate('invoice.kind.' + kind);
+                },
+
+                generatePdfFilename: function(invoice) {
+                    var filename = "";
+                    if (invoice) {
+                        if (invoice.reference) {
+                            filename = invoice.reference;
+                        }
+                        if (invoice.business && invoice.business.name) {
+                            if (filename) {
+                                filename += "_";
+                            }
+                            filename += invoice.business.name;
+                        }
+                        if (invoice.date) {
+                            if (filename) {
+                                filename += "_";
+                            }
+                            filename += $filter('date')(invoice.date, "yyyyMMdd");
+                        }
+                    }
+                    if (!filename) {
+                        filename = "print_invoice";
+                    }
+                    return filename + ".pdf";
                 }
             });
     }

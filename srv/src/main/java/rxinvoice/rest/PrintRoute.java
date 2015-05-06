@@ -41,6 +41,7 @@ public class PrintRoute extends StdRoute {
     @Override
     public void handle(RestxRequestMatch match, RestxRequest req, RestxResponse resp, RestxContext ctx) throws IOException {
         Optional<String> pageUri = req.getQueryParam("pageUri");
+        Optional<String> filename = req.getQueryParam("filename");
 
         OutputStream outputStream = resp.getOutputStream();
         if(Strings.isNullOrEmpty(baseUrl)) {
@@ -48,6 +49,9 @@ public class PrintRoute extends StdRoute {
             this.baseUrl = req.getBaseUri().substring(0,  req.getBaseUri().indexOf("api"));
         }
         if (pageUri.isPresent() ) {
+            if (filename.isPresent()) {
+                resp.setHeader("Content-Disposition", "attachment; filename=\"" + filename.get() + "\"");
+            }
             resp.setStatus(HttpStatus.OK);
             resp.setContentType("application/pdf");
             printService.exportUriToPdf(baseUrl, sessionFilter, pageUri.get(), outputStream);

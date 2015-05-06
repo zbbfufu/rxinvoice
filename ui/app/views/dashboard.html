@@ -187,7 +187,7 @@
                         <span class="invoices-status {{invoice.status}}" ng-click="open(invoice)"><p>{{translateStatusLabel(invoice.status)}}</p></span>
 
                         <ul class="btn-edit">
-                            <li><a ng-href='/api/print?pageUri=/invoice_view/{{invoice._id}}' target="_blank"><span class="small-icon-buttonview"></span>{{i18n.translate('dashboard.view')}}</a></li>
+                            <li><a ng-href='/api/print?pageUri=/invoice_view/{{invoice._id}}&filename={{generatePdfFilename(invoice)}}' target="_blank"><span class="small-icon-buttonview"></span>{{i18n.translate('dashboard.view')}}</a></li>
                             <li><a ng-href='/#/invoice/{{invoice._id}}'><span class="small-icon-buttonedit"></span>{{i18n.translate('dashboard.edit')}}</a></li>
                             <li><div ng-click="deleteInvoice(invoice)"><span class="small-icon-buttondelete"></span>{{i18n.translate('dashboard.delete')}}</div></li>
                         </ul>

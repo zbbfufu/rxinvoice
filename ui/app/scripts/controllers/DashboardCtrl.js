@@ -20,6 +20,7 @@ angular.module('rxinvoiceApp')
         $scope.companies = [];
         $scope.invoices = [];
         $scope.translateStatusLabel = Invoice.translateStatusLabel;
+        $scope.generatePdfFilename = Invoice.generatePdfFilename;
 
         $scope.formatTVAValue = function(vatsAmount){
             if(vatsAmount.length == 1)
