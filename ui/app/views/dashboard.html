@@ -137,25 +137,30 @@
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addInvoice()" title="{{i18n.translate('dashboard.add.invoice')}}"><span class="icon-buttonAdd"></span></button>
 
-            <select ui-select2 ng-model="filter.criteria.statusSelected" data-placeholder="{{i18n.translate('dashboard.filter.status')}}">
-                <option value="" rx-translate="dashboard.filter.all">All</option>
+            <select ui-select2 ng-model="filter.criteria.statusSelected">
+                <option value="" rx-translate="dashboard.filter.all.statuses">All</option>
                 <option ng-repeat="item in filter.statusList" value="{{item._id}}">{{item.name}}</option>
             </select>
-
-            <select ui-select2 ng-model="filter.criteria.kindSelected" data-placeholder="{{i18n.translate('dashboard.filter.kind')}}">
-                <option value="" rx-translate="dashboard.filter.all">All</option>
+            <select ui-select2 ng-model="filter.criteria.kindSelected">
+                <option value="" rx-translate="dashboard.filter.all.kinds">All</option>
                 <option ng-repeat="item in filter.kindList" value="{{item._id}}">{{item.name}}</option>
             </select>
-            <input type="text" ng-model="filter.criteria.reference" placeholder="{{i18n.translate('dashboard.filter.reference')}}" class="ref"/>
-            <input type="text" ng-model="filter.criteria.priceMin" placeholder="{{i18n.translate('dashboard.filter.price.min')}}" class="ref"/>
-            <input type="text" ng-model="filter.criteria.priceMax" placeholder="{{i18n.translate('dashboard.filter.price.max')}}" class="ref"/>
+            <select ui-select2 ng-model="filter.criteria.vat">
+                <option value="" rx-translate="dashboard.filter.all.vats">All</option>
+                <option ng-repeat="item in filter.vatList" value="{{item.amount}}">{{i18n.translate('dashboard.filter.vat.'+item.key)}}</option>
+            </select>
+
             <a ng-click="filter.resetInvoicesFilters()"><span class="fsh-btn-refresh"></span></a>
-
-
             <div class="display-mode">
                 <span ng-show="isListDisplayMode()" ng-click="toggleDisplayMode()">{{i18n.translate('dashboard.table')}}</span>
                 <span ng-show="isTableDisplayMode()" ng-click="toggleDisplayMode()">{{i18n.translate('dashboard.list')}}</span>
             </div>
+
+            <br>
+            <input type="text" ng-model="filter.criteria.reference" placeholder="{{i18n.translate('dashboard.filter.reference')}}" class="input-container ref"/>
+            <input type="text" ng-model="filter.criteria.priceMin" placeholder="{{i18n.translate('dashboard.filter.price.min')}}" class="input-container ref"/>
+            <input type="text" ng-model="filter.criteria.priceMax" placeholder="{{i18n.translate('dashboard.filter.price.max')}}" class="input-container ref"/>
+
             <hr class="clear"/>
         </div>
 

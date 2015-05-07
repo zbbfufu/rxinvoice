@@ -141,6 +141,7 @@
 
 .zone-actions {
   display: block;
+  min-height: 65px;
 
   .display-mode {
     cursor: pointer;
@@ -151,11 +152,15 @@
 
   .select2-container {
     margin-right: 10px;
+    margin-bottom: 5px;
     width: 150px;
 
     @media (max-width: 1250px) {
       width: 150px !important;
     }
+  }
+  .input-container {
+    margin-right: 10px;
   }
 
   .date {

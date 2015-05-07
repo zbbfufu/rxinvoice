@@ -16,7 +16,8 @@ angular.module('rxFilter', [
                     statusSelected: '',
                     kindSelected: '',
                     dateMin: defaultDateMinFilter,
-                    dateMax: ''
+                    dateMax: '',
+                    vat: null
                 },
 
                 companiesList: [],
@@ -26,6 +27,7 @@ angular.module('rxFilter', [
                 invoicesBuyerList: {},
                 statusList: [],
                 kindList: [],
+                vatList: [{key:'20', amount:20},{key:'8.5', amount:8.5},{key:'without', amount:0}],
 
 
                 selectCompany: function(company) {
@@ -92,17 +94,36 @@ angular.module('rxFilter', [
                         }
                     }
 
-                    var filterAmount = function(){
+                    var filterAmount = function() {
                         return (!filter.priceMin || filter.priceMin < invoice.grossAmount)  &&
                             (!filter.priceMax || filter.priceMax > invoice.grossAmount);
                     }
+
+                    var filterVat = function() {
+                        if (filter.vat) {
+                            if (filter.vat == 0) {
+                                return !invoice.withVAT;
+                            } else {
+                                if (invoice.withVAT) {
+                                    for (var i = 0; i < invoice.vats.length; i++) {
+                                        if (invoice.vats[i].amount == filter.vat) {
+                                            return true;
+                                        }
+                                    }
+                                }
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+
                     var ret =
                             (!filter.companySelected || (invoice.buyer && filter.companySelected == invoice.buyer._id)) &&
                             (!filter.statusSelected || filter.statusSelected == invoice.status) &&
                             (!filter.kindSelected || filter.kindSelected == invoice.kind) &&
                             (!filter.businessSelected || (invoice.business && filter.businessSelected == invoice.business.reference)) &&
-                            (filterDate()) && filterAmount() &&
-                            (!filter.reference || invoice.reference && invoice.reference.indexOf(filter.reference) > -1)
+                            (filterDate()) && filterAmount() && filterVat() &&
+                            (!filter.reference || invoice.reference && invoice.reference.indexOf(filter.reference) > -1);
                         ;
 
 
