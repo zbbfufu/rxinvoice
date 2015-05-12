@@ -216,7 +216,7 @@ angular.module('rxinvoiceApp')
                 row += (item.reference ? item.reference : '') + ';';
                 row += (invoiceKind ? invoiceKind : '') + ';';
                 row += item.buyer.name + ';';
-                row += item.business.name + ';';
+                row += (item.business ? item.business.name : '') + ';';
                 row += (angular.isDefined(item.object) && item.object !== null && item.object !== '') ? item.object.replace(/(\r\n|\n|\r)/gm," ").replace(';', ' ') + ';' : " ;" ;
                 row += $filter('date')(item.date, 'dd/MM/yyyy') + ';';
                 row += Invoice.translateStatusLabel(item.status) + ';';
