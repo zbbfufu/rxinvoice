@@ -113,6 +113,11 @@ public class InvoiceResource {
         return Arrays.asList(Invoice.Status.values());
     }
 
+    @GET("/invoices/activities")
+    public Iterable<Invoice.Activity> findInvoiceActivities() {
+        return Arrays.asList(Invoice.Activity.values());
+    }
+
     @RolesAllowed({ADMIN})
     @GET("/invoices/update_amounts")
     public void computeMetrics() {

@@ -180,6 +180,8 @@ angular.module('rxinvoiceApp')
                 $scope.companies.business = invoice.business ? invoice.business.reference : null;
             }
             $scope.date = $filter('date')(invoice.date, 'yyyy-MM-dd');
+
+            $scope.activities.load(invoice);
         };
 
         $scope.save = function() {
@@ -193,6 +195,7 @@ angular.module('rxinvoiceApp')
                     line.vat = findVatByAmount(line.vat);
                 }
             }
+            $scope.activities.save(invoice);
             if ($scope.newMode) {
                 Invoice.save(invoice,
                     function(data) {
@@ -292,5 +295,92 @@ angular.module('rxinvoiceApp')
                     }
                 );
             }
+        });
+
+        $scope.activities = {
+            mode: 'NONE',
+            data: [],
+            new: {
+                activityId: null,
+                value: 100
+            },
+
+            load: function(invoice) {
+                if (invoice.activities) {
+                    if (invoice.activities.length > 1) {
+                        $scope.activities.modeMulti();
+                    } else if (invoice.activities.length == 1) {
+                        $scope.activities.modeSingle();
+                        $scope.activities.new.activityId = invoice.activities[0].activity;
+                    } else {
+                        $scope.activities.modeSingle();
+                    }
+                } else {
+                    $scope.activities.modeSingle();
+                }
+            },
+            save: function(invoice) {
+                if ($scope.activities.mode == 'SINGLE') {
+                    invoice.activities = [{activity: $scope.activities.new.activityId, value:100}]
+                }
+            },
+            modeMulti: function() {
+                $scope.activities.mode = 'MULTI';
+                $scope.activities.new.value = 100 - $scope.activities.total();
+            },
+            modeSingle: function() {
+                $scope.activities.mode = 'SINGLE';
+                $scope.activities.new.value = 100;
+            },
+            translate: function(activityId) {
+                return Invoice.translateActivityLabel(activityId);
+            },
+            total: function() {
+                var total = 0;
+                angular.forEach($scope.invoice.activities, function(value, key) {
+                    total += value.value;
+                });
+                return total;
+            },
+            findById: function(id) {
+                var activity = null;
+                for (var index = 0; index < $scope.activities.data.length; index++) {
+                    activity = $scope.activities.data[index];
+                    if (activity._id == id) {
+                        return activity;
+                    }
+                }
+                return null;
+            },
+            add: function() {
+                var activity = $scope.activities.new.activityId;
+                var value = Number($scope.activities.new.value);
+                if (!activity || !value) {
+                    return;
+                }
+                var total = $scope.activities.total();
+                console.log((total + value));
+                console.log(100 < (total + value));
+                if (100 < (total + value)) {
+                    return;
+                }
+                if (!$scope.invoice.activities) {
+                    $scope.invoice.activities = [];
+                }
+                $scope.invoice.activities.push({activity: activity, value: value});
+                $scope.activities.new = {
+                    activityId: null,
+                    value: 100 - $scope.activities.total()
+                };
+            },
+            remove: function(index) {
+                $scope.invoice.activities.splice(index, 1);
+                $scope.activities.new.value = 100 - $scope.activities.total();
+            }
+        };
+        Invoice.getAllActivities(function(data) {
+            angular.forEach(data, function(value, key) {
+                this.push({_id:value, name:Invoice.translateActivityLabel(value)});
+            }, $scope.activities.data);
         });
     });

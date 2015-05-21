@@ -8,6 +8,7 @@ angular.module('rxInvoice', [
     .factory('Invoice', function ($resource, $http, $filter, i18nUtils) {
         var res = $resource('/api/invoices/:id', {'id': '@_id'}, {update: {method:'PUT'}, 'get':  {method:'GET', isArray:false}});
         var status = null;
+        var activities = null;
 
         return  angular.extend(res,
             {
@@ -34,12 +35,30 @@ angular.module('rxInvoice', [
                     }
                 },
 
+                getAllActivities: function(callback) {
+                    if (!activities) {
+                        $http.get('/api/invoices/activities')
+                            .success(function(data) {
+                                activities = data;
+                                if (callback) {
+                                    callback(data);
+                                }
+                            });
+                    } else if (callback) {
+                        callback(activities);
+                    }
+                },
+
                 getAllKind: function() {
                    return ['SUBCONTRACTING', 'FEE', 'SERVICE', 'BUY_SELL', 'TRAINING'];
                 },
 
                 translateStatusLabel: function(status) {
                     return i18nUtils.translate('invoice.status.' + status);
+                },
+
+                translateActivityLabel: function(activity) {
+                    return i18nUtils.translate('invoice.activity.' + activity);
                 },
 
                 translateKindLabel: function(kind) {

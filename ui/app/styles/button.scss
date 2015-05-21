@@ -102,7 +102,37 @@
     vertical-align: middle;
   }
 }
+.fsh-btn-csv {
+  display: inline-block;
+  border: none;
+  background: $fsh-lightgrey;
+  height: 25px;
+  padding: 3px 15px 0px 5px;
+  margin-bottom: 15px;
+  border-radius: $global-radius;
+  -webkit-border-radius: $global-radius;
+  color: $fsh-black;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
 
+  &:hover {
+    transition: 200ms;
+    background: $green-buttonHover;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .icon-buttonCSV {
+    display: inline-block;
+    margin-top: -1px;
+    background: url(#{$imagePath}icon-btn-xls.png) no-repeat;
+    height: 16px;
+    width: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+}
 .fsh-btn-edit {
   display: inline-block;
   border: none;

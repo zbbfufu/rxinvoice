@@ -193,7 +193,7 @@ angular.module('rxinvoiceApp')
                         });
                 }
             });
-        },
+        };
 
         $scope.exportData = function () {
             var formatAmount = function(amount) {
@@ -231,7 +231,7 @@ angular.module('rxinvoiceApp')
                 type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
             });
             saveAs(blob, "Report.xls");
-        },
+        };
 
         $scope.open = function (invoice) {
             var modalInstance = $modal.open({

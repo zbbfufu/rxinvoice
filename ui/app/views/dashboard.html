@@ -9,19 +9,19 @@
 
     <div>
         <div class="control-group">
-            <button class="fsh-btn small" ng-click="setCurrentFiscalYear()">Exercice =</button>
-            <button class="fsh-btn small" ng-click="setCurrentMonth()">Mois =</button>
+            <button class="fsh-btn small" ng-click="setCurrentFiscalYear()" rx-translate="dashboard.filter.financialYear">Financial year =</button>
+            <button class="fsh-btn small" ng-click="setCurrentMonth()" rx-translate="dashboard.filter.currentMonth">Month =</button>
         </div>
 
         <div class="control-group">
-            <label class="control-label">Date de début</label>
+            <label class="control-label" rx-translate="dashboard.filter.fromDate">From date</label>
             <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="filter.criteria.dateMin"
                    is-open="fromOpened" close-text="Close" placeholder="Depuis" id="from"
                    max="{{filter.criteria.dateMax}}" ng-required="true"/>
         </div>
 
         <div class="control-group">
-            <label class="control-label">Date de fin</label>
+            <label class="control-label" rx-translate="dashboard.filter.toDate">To date</label>
             <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="filter.criteria.dateMax"
                    is-open="UntilOpened" close-text="Close" min="{{filter.criteria.dateMin}}" placeholder="Jusqu'à"
                    id="untill" ng-required="true"/>
@@ -136,6 +136,7 @@
         </div>
         <div class="zone-actions">
             <button class="fsh-btn-add" ng-click="addInvoice()" title="{{i18n.translate('dashboard.add.invoice')}}"><span class="icon-buttonAdd"></span></button>
+            <button class="fsh-btn-csv" ng-click="exportData()"><span class="icon-buttonCSV"></span>{{i18n.translate('dashboard.download.xls')}}</button>
 
             <select ui-select2 ng-model="filter.criteria.statusSelected">
                 <option value="" rx-translate="dashboard.filter.all.statuses">All</option>
@@ -202,9 +203,7 @@
         </div>
 
         <div class="invoice-table" ng-if="isTableDisplayMode()" id="exportable">
-            <button ng-click="exportData()">{{i18n.translate('dashboard.download.xls')}}</button>
             <smart-table config="invoicesTableConfig" rows="invoices" columns="invoicesTableColumns"></smart-table>
-
         </div>
     </div>
 

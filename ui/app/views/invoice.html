@@ -56,6 +56,55 @@
                             <input type="checkbox" ng-model="invoice.withVAT">
                         </div>
                     </div>
+                    <div class="control-group" ng-show="activities.mode=='SINGLE'">
+                        <label class="control-label label-light" rx-translate="invoice.activity.label">Activity</label>
+                        <div class="controls">
+                            <select ui-select2 ng-model="activities.new.activityId" data-placeholder="{{i18n.translate('invoice.activity.placeholder')}}" style="width: 220px;">
+                                <option value=""></option>
+                                <option ng-repeat="item in activities.data" value="{{item._id}}">{{item.name}}</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-xs" title="{{i18n.translate('invoice.activity.mode.multi')}}" ng-click="activities.modeMulti()"><span class="glyphicon glyphicon-plus"></span></button>
+                    </div>
+                    <div style="margin-right: 30px;" ng-show="activities.mode=='MULTI'">
+                        <button class="btn btn-xs" title="{{i18n.translate('invoice.activity.mode.single')}}" ng-click="activities.modeSingle()"><span class="glyphicon glyphicon-minus"></span></button>
+                        <table class="table table-condensed table-bordered table-bg-accent">
+                            <thead>
+                            <tr class="active">
+                                <th rx-translate="invoice.activity.label">Activity</th>
+                                <th rx-translate="invoice.activity.value">Percent</th>
+                                <th rx-translate="invoice.activity.actions">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in invoice.activities">
+                                <td>{{activities.translate(item.activity)}}</td>
+                                <td><input type="number" ng-model="item.value"></td>
+                                <td>
+                                    <button class="btn btn-danger btn-xs" ng-click="activities.remove($index)" title="{{i18n.translate('invoice.activity.actions.remove')}}">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr class="success">
+                                <td>
+                                    <select ui-select2 ng-model="activities.new.activityId" data-placeholder="{{i18n.translate('invoice.activity.placeholder')}}" style="width: 220px;">
+                                        <option value=""></option>
+                                        <option ng-repeat="item in activities.data" value="{{item._id}}">{{item.name}}</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" ng-model="activities.new.value"/></td>
+                                <td>
+                                    <button class="btn btn-success btn-xs" ng-click="activities.add()" title="{{i18n.translate('invoice.activity.actions.add')}}">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
                 <div class="container-control-group">
                     <div class="control-group">
@@ -202,7 +251,7 @@
             </div>
             <table class="table table-condensed table-bordered">
                 <thead>
-                <tr>
+                <tr class="active">
                     <th rx-translate="invoice.lines.description">Description</th>
                     <th rx-translate="invoice.lines.quantity">Quantity</th>
                     <th rx-translate="invoice.lines.unitCost">Unit cost</th>
@@ -257,7 +306,7 @@
             </div>
             <table class="table table-condensed table-bordered">
                 <thead>
-                <tr>
+                <tr class="active">
                     <th rx-translate="invoice.vats.vat">VAT</th>
                     <th rx-translate="invoice.vats.amount">Amount</th>
                     <th rx-translate="invoice.vats.actions"></th>

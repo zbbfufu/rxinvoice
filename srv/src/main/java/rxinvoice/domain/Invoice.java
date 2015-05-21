@@ -37,6 +37,8 @@ public class Invoice {
 
     private List<Line> lines = new ArrayList<>();
 
+    private List<ActivityValue> activities = new ArrayList<>();
+
     public String getKey() {
         return key;
     }
@@ -95,6 +97,10 @@ public class Invoice {
 
     public List<VATAmount> getVatsAmount() {
         return vatsAmount;
+    }
+
+    public List<ActivityValue> getActivities() {
+        return activities;
     }
 
     public Invoice setKey(final String key) {
@@ -172,6 +178,11 @@ public class Invoice {
         return this;
     }
 
+    public Invoice setActivities(List<ActivityValue> activities) {
+        this.activities = activities;
+        return this;
+    }
+
     public Kind getKind() {
         return kind;
     }
@@ -191,6 +202,7 @@ public class Invoice {
                 ", withVAT=" + withVAT +
                 ", object='" + object + '\'' +
                 ", comment='" + comment + '\'' +
+                ", kind=" + kind +
                 ", seller=" + seller +
                 ", buyer=" + buyer +
                 ", grossAmount=" + grossAmount +
@@ -199,6 +211,7 @@ public class Invoice {
                 ", vatsAmount=" + vatsAmount +
                 ", business=" + business +
                 ", lines=" + lines +
+                ", activities=" + activities +
                 '}';
     }
 
@@ -208,6 +221,11 @@ public class Invoice {
 
     public static enum Kind {
         SUBCONTRACTING, FEE, SERVICE, BUY_SELL, TRAINING
+    }
+
+    public static enum Activity {
+        AUDIT, CONSULTING, TRAINING, POC, SPECIFICATION, GRAPHIC, MONITORING, DEVELOPMENT,
+        MAINTENANCE, HOSTING, INDUSTRIALISATION_SUPPORT, INTEGRATION_SUPPORT, UNKNOWN
     }
 
     public static class VATAmount {
@@ -239,6 +257,40 @@ public class Invoice {
             return "VATAmount{" +
                     "vat='" + vat + '\'' +
                     ", amount=" + amount +
+                    '}';
+        }
+    }
+
+    public static class ActivityValue {
+
+        private Activity activity;
+
+        @FixedPrecision(2)
+        private BigDecimal value;
+
+        public Activity getActivity() {
+            return activity;
+        }
+
+        public BigDecimal getValue() {
+            return value;
+        }
+
+        public ActivityValue setActivity(final Activity activity) {
+            this.activity = activity;
+            return this;
+        }
+
+        public ActivityValue setValue(final BigDecimal value) {
+            this.value = value;
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return "ActivityValue{" +
+                    "activity=" + activity +
+                    ", value=" + value +
                     '}';
         }
     }
