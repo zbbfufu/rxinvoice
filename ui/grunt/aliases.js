@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
 
     grunt.registerTask('style', [
-        'compass',
+        'sass',
         'autoprefixer'
     ]);
 
