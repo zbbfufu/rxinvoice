@@ -6,21 +6,19 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import restx.admin.AdminModule;
+import restx.factory.Module;
+import restx.factory.Provides;
 import restx.i18n.SupportedLocale;
 import restx.jongo.JongoCollection;
 import restx.mongo.MongoModule;
 import restx.security.*;
-import restx.factory.Module;
-import restx.factory.Provides;
 import rxinvoice.domain.User;
 import rxinvoice.rest.AppUserRepository;
-import rxinvoice.rest.UserResource;
 import rxinvoice.util.MD5;
 
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -88,6 +86,9 @@ public class AppModule {
                     return Optional.of(ADMIN_RESTX_PRINCIPAL);
                 }
                 User user = users.get().findOne("{name: #}", name).as(User.class);
+                if (user == null) {
+                    return Optional.absent();
+                }
                 return Optional.of(user);
             }
 
@@ -98,6 +99,9 @@ public class AppModule {
                     return Optional.of(ADMIN_RESTX_PRINCIPAL);
                 }
                 User user = users.get().findOne("{login: #, password: #}", name, MD5.getSaltPassword(passwordHash)).as(User.class);
+                if (user == null) {
+                    return Optional.absent();
+                }
                 return Optional.of(user);
             }
         };
