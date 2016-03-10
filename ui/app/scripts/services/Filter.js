@@ -6,6 +6,7 @@ angular.module('rxFilter', [
 
     .service('Filter', function() {
         var defaultDateMinFilter = moment().toDate();
+        var defaultDateMaxFilter = null;
 
         var filters = {
             dashboard: {
@@ -16,7 +17,7 @@ angular.module('rxFilter', [
                     statusSelected: '',
                     kindSelected: '',
                     dateMin: defaultDateMinFilter,
-                    dateMax: '',
+                    dateMax: null,
                     vat: null
                 },
 
@@ -63,7 +64,7 @@ angular.module('rxFilter', [
                 },
                 resetDatesFilters: function() {
                     filters.dashboard.criteria.dateMin = defaultDateMinFilter;
-                    filters.dashboard.criteria.dateMax = '';
+                    filters.dashboard.criteria.dateMax = defaultDateMaxFilter;
                 },
 
                 filterCompanies: function(company) {
@@ -74,30 +75,15 @@ angular.module('rxFilter', [
                     var filter = filters.dashboard.criteria;
                     var compareDateMin = function(date, min) {
                         return angular.isUndefined(min) || moment(min).isBefore(date);
-                    }
+                    };
                     var compareDateMax = function(date, max) {
                         return angular.isUndefined(max) || moment(max).isAfter(date);
-                    }
-                    var filterDate = function() {
-                        var compareMin = compareDateMin(invoice.date, filter.dateMin);
-                        var compareMax = compareDateMax(invoice.date, filter.dateMax);
-                        if (filter.dateMin) {
-                            if (filter.dateMax) {
-                                return compareMin && compareMax;
-                            } else {
-                                return compareMin;
-                            }
-                        } else if (filter.dateMax) {
-                            return compareMax;
-                        } else {
-                            return true;
-                        }
-                    }
+                    };
 
                     var filterAmount = function() {
                         return (!filter.priceMin || filter.priceMin < invoice.grossAmount)  &&
                             (!filter.priceMax || filter.priceMax > invoice.grossAmount);
-                    }
+                    };
 
                     var filterVat = function() {
                         if (filter.vat) {
@@ -115,19 +101,15 @@ angular.module('rxFilter', [
                             }
                         }
                         return true;
-                    }
+                    };
 
-                    var ret =
-                            (!filter.companySelected || (invoice.buyer && filter.companySelected == invoice.buyer._id)) &&
+                    return  (!filter.companySelected || (invoice.buyer && filter.companySelected == invoice.buyer._id)) &&
                             (!filter.statusSelected || filter.statusSelected == invoice.status) &&
                             (!filter.kindSelected || filter.kindSelected == invoice.kind) &&
                             (!filter.businessSelected || (invoice.business && filter.businessSelected == invoice.business.reference)) &&
-                            (filterDate()) && filterAmount() && filterVat() &&
+                            filterAmount() && filterVat() &&
                             (!filter.reference || invoice.reference && invoice.reference.indexOf(filter.reference) > -1);
-                        ;
 
-
-                    return ret;
                 }
             }
         };

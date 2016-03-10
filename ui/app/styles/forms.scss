@@ -111,13 +111,20 @@ div[contenteditable="true"] {
   color: #fff;
   background: #3f3f3f;
   -webkit-border-radius: 3px 0 0 3px!important;
-  border-radius: 3px 0 0 3px!important
+  border-radius: 3px 0 0 3px!important;
 }
 
 .label-light {
   background: #a2a2a2!important;
 }
 
+.input-group-label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  background: #3f3f3f;
+  border-color: #3f3f3f;
+}
 
 /* PASSWORD */
 .login-row {

@@ -1,7 +1,31 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('DashboardCtrl', function ($scope, $location, $filter, $modal, Company, Invoice, i18nUtils, Message, Filter, OrderBy) {
+    .controller('DashboardCtrl', function ($scope, $location, $filter, $uibModal, Company, Invoice, i18nUtils, Message, Filter, OrderBy) {
+
+        $scope.dates = {
+            fromDate: {
+                opened: false,
+                open: function() {
+                    $scope.dates.fromDate.opened = true
+                }
+            },
+            toDate: {
+                opened: false,
+                open: function() {
+                    $scope.dates.toDate.opened = true
+                }
+            },
+            options: {
+                formatYear: 'yy',
+                startingDay: 1
+            },
+            format: 'yyyy-MM-dd',
+            disabled: function(date, mode) {
+                return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+            }
+        };
+
 
         var updateDashboard = function() {
             $scope.filter.invoicesBuyerList = {};
@@ -14,7 +38,7 @@ angular.module('rxinvoiceApp')
             angular.forEach( $filter('filter')($scope.filter.companiesBuyersList, $scope.filter.filterCompanies), function(value, key) {
                 this.push(value);
             }, $scope.companies);
-        }
+        };
 
         $scope.i18n = i18nUtils;
         $scope.companies = [];
@@ -90,10 +114,6 @@ angular.module('rxinvoiceApp')
         Company.findBuyers(function(data) {
             $scope.filter.companiesBuyersList = data;
             updateDashboard();
-        })
-        Invoice.findAll(function(data) {
-            $scope.filter.invoicesList = angular.copy(data);
-            updateDashboard();
         });
         Invoice.getAllStatus(function(data) {
             $scope.filter.statusList = [];
@@ -101,6 +121,19 @@ angular.module('rxinvoiceApp')
                 this.push({_id:value, name:$scope.translateStatusLabel(value)});
             }, $scope.filter.statusList);
         });
+        $scope.findInvoicesInProgress = false;
+        $scope.findInvoices = function() {
+            $scope.filter.invoicesList = [];
+            $scope.invoices.splice(0, $scope.invoices.length);
+            $scope.companies.splice(0, $scope.companies.length);
+            $scope.findInvoicesInProgress = true;
+            Invoice.findByDates(Filter.dashboard.criteria.dateMin, Filter.dashboard.criteria.dateMax, function(data) {
+                $scope.filter.invoicesList = data;
+                updateDashboard();
+                $scope.findInvoicesInProgress = false;
+            });
+        };
+        $scope.findInvoices();
 
         $scope.filter.kindList = [];
         angular.forEach(Invoice.getAllKind(), function (value, key) {
@@ -234,7 +267,7 @@ angular.module('rxinvoiceApp')
         };
 
         $scope.open = function (invoice) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: 'myModalContent.html',
                 controller: 'ModalInstanceCtrl',
                 resolve: {
@@ -265,7 +298,7 @@ angular.module('rxinvoiceApp')
         };
     })
 
-    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, invoice, statusList) {
+    .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, invoice, statusList) {
 
         $scope.statusList = statusList;
         $scope.quickEdition = {
@@ -275,11 +308,11 @@ angular.module('rxinvoiceApp')
         }
 
         $scope.ok = function () {
-            $modalInstance.close($scope.quickEdition);
+            $uibModalInstance.close($scope.quickEdition);
         };
 
         $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
     });
-;
+

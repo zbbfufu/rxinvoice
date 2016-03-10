@@ -12,9 +12,17 @@ angular.module('rxInvoice', [
 
         return  angular.extend(res,
             {
-                findAll: function(callback) {
-                    $http.get('/api/invoices')
-                        .success(function(data) {
+                findByDates: function(minDate, maxDate, callback) {
+                    var params = {
+                        minDate: moment(minDate).format('YYYY-MM-DD')
+                    };
+                    if (maxDate) {
+                        params.maxDate = moment(maxDate).format('YYYY-MM-DD')
+                    }
+                    $resource('/api/invoices/dates/:minDate/:maxDate')
+                        .query(params)
+                        .$promise
+                        .then(function(data) {
                             if (callback) {
                                 callback(data);
                             }

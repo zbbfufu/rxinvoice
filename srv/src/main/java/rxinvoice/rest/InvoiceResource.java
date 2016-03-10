@@ -3,13 +3,15 @@ package rxinvoice.rest;
 import com.google.common.base.Optional;
 import com.google.common.eventbus.EventBus;
 import org.bson.types.ObjectId;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import restx.http.HttpStatus;
 import restx.Status;
 import restx.WebException;
 import restx.annotations.*;
 import restx.factory.Component;
+import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
@@ -18,14 +20,9 @@ import rxinvoice.domain.User;
 import rxinvoice.rest.events.InvoiceUpdatedEvent;
 
 import javax.inject.Named;
-
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static restx.common.MorePreconditions.checkEquals;
 import static rxinvoice.AppModule.Roles.ADMIN;
@@ -105,6 +102,46 @@ public class InvoiceResource {
         } else {
             return invoices.get().find("{ $or: [ { seller._id: #}, { buyer._id: #}]}",
                     new ObjectId(user.getCompanyRef()), new ObjectId(user.getCompanyRef())).as(Invoice.class);
+        }
+    }
+
+
+    @GET("/invoices/dates/{startDate}")
+    public Iterable<Invoice> findInvoicesByDates(String startDate) {
+        Date start = LocalDate.parse(startDate).toDateTime(LocalTime.MIDNIGHT).toDate();
+        User user = AppModule.currentUser();
+        if (user.getPrincipalRoles().contains(ADMIN)) {
+            return invoices.get().find(
+                    "{ date : {$gte:#} }",
+                    start
+            ).as(Invoice.class);
+        } else {
+            return invoices.get().find(
+                    "{ $and: [ { date : {$gte:#} }, { $or: [ { seller._id: #}, { buyer._id: #} ] } ] }",
+                    start, new ObjectId(user.getCompanyRef()), new ObjectId(user.getCompanyRef())
+            ).as(Invoice.class);
+        }
+    }
+    @GET("/invoices/dates/{startDate}/{endDate}")
+    public Iterable<Invoice> findInvoicesByDates(String startDate, String endDate) {
+        Date start = LocalDate.parse(startDate).toDateTime(LocalTime.MIDNIGHT).toDate();
+        Date end = LocalDate.parse(endDate).toDateTime(LocalTime.MIDNIGHT)
+                .withHourOfDay(23)
+                .withMinuteOfHour(59)
+                .withSecondOfMinute(59)
+                .withMillisOfSecond(999)
+                .toDate();
+        User user = AppModule.currentUser();
+        if (user.getPrincipalRoles().contains(ADMIN)) {
+            return invoices.get().find(
+                    "{ $and: [ { date : {$gte:#} }, { date : {$lte:#} } ] }",
+                    start, end
+            ).as(Invoice.class);
+        } else {
+            return invoices.get().find(
+                    "{ $and: [ { date : {$gte:#} }, { date : {$lte:#} } , { $or: [ { seller._id: #}, { buyer._id: #} ] } ] }",
+                    start, end, new ObjectId(user.getCompanyRef()), new ObjectId(user.getCompanyRef())
+            ).as(Invoice.class);
         }
     }
 

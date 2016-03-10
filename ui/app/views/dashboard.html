@@ -6,42 +6,79 @@
     </h1>
 
     <hr class="clear"/>
+    <form novalidate name="searchInvoicesForm">
+        <div class="row">
+            <div class="col-md-3">
+                <p class="input-group">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="setCurrentFiscalYear()">
+                        <i class="glyphicon glyphicon-euro"></i>
+                        <span rx-translate="dashboard.filter.financialYear">Financial year</span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" ng-click="setCurrentMonth()">
+                        <i class="glyphicon glyphicon-th"></i>
+                        <span rx-translate="dashboard.filter.currentMonth">Month</span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" ng-click="filter.resetDatesFilters()">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                        <span rx-translate="dashboard.filter.default">Default</span>
+                    </button>
+                </p>
+            </div>
+            <div class="col-md-3">
+                <p class="input-group">
+                    <span class="input-group-addon input-group-label" rx-translate="dashboard.filter.fromDate">From date</span>
+                    <input type="text" class="form-control"
+                           ng-model="filter.criteria.dateMin" ng-required="true"
+                           uib-datepicker-popup="{{dates.format}}"
+                           is-open="dates.fromDate.opened"
+                           datepicker-options="dates.dateOptions"
+                           date-disabled="dates.disabled(date, mode)"
+                           current-text="{{i18n.translate('dashboard.filter.datepicker.current')}}"
+                           clear-text="{{i18n.translate('dashboard.filter.datepicker.clear')}}"
+                           close-text="{{i18n.translate('dashboard.filter.datepicker.close')}}"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="dates.fromDate.open($event)">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                </p>
+            </div>
+            <div class="col-md-3">
+                <p class="input-group">
+                    <span class="input-group-addon input-group-label" rx-translate="dashboard.filter.toDate">To date</span>
+                    <input type="text" class="form-control"
+                           ng-model="filter.criteria.dateMax" ng-required="true"
+                           uib-datepicker-popup="{{dates.format}}"
+                           is-open="dates.toDate.opened"
+                           datepicker-options="{{dates.options}}"
+                           date-disabled="dates.disabled(date, mode)"
+                           current-text="{{i18n.translate('dashboard.filter.datepicker.current')}}"
+                           clear-text="{{i18n.translate('dashboard.filter.datepicker.clear')}}"
+                           close-text="{{i18n.translate('dashboard.filter.datepicker.close')}}"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="dates.toDate.open($event)">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                </p>
+            </div>
 
-    <div>
-        <div class="control-group">
-            <button class="fsh-btn small" ng-click="setCurrentFiscalYear()" rx-translate="dashboard.filter.financialYear">Financial year =</button>
-            <button class="fsh-btn small" ng-click="setCurrentMonth()" rx-translate="dashboard.filter.currentMonth">Month =</button>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" rx-translate="dashboard.filter.fromDate">From date</label>
-            <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="filter.criteria.dateMin"
-                   is-open="fromOpened" close-text="Close" placeholder="Depuis" id="from"
-                   max="filter.criteria.dateMax" ng-required="true"/>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" rx-translate="dashboard.filter.toDate">To date</label>
-            <input type="text" class="form-control" datepicker-popup="{{'dd/MM/yyyy'}}" ng-model="filter.criteria.dateMax"
-                   is-open="UntilOpened" close-text="Close" min="filter.criteria.dateMin" placeholder="Jusqu'à"
-                   id="untill" ng-required="true"/>
-        </div>
-
-        <!--<div class="control-group">
-            <label class="control-label label-light" rx-translate="dashboard.filter.dateMin">min</label>
-            <div class="controls">
-                <input type="date" ng-model="filter.criteria.dateMin" placeholder="{{i18n.translate('dashboard.filter.dateMin')}}" class="date"/>
+            <div class="col-md-3">
+                <p class="input-group">
+                    <span class="btn btn-default btn-sm" ng-if="findInvoicesInProgress">
+                        <img src="images/ajax-loader.gif"/>
+                    </span>
+                    <button type="submit" class="btn btn-default btn-sm"
+                            ng-click="findInvoices()" ng-if="!findInvoicesInProgress">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <span rx-translate="dashboard.filter.search">Search</span>
+                    </button>
+                </p>
             </div>
         </div>
-
-        <div class="control-group">
-            <label class="control-label label-light" rx-translate="dashboard.filter.dateMax">max</label>
-            <div class="controls">
-                <input type="date" ng-model="filter.criteria.dateMax" placeholder="{{i18n.translate('dashboard.filter.dateMax')}}" class="date"/>
-            </div>
-        </div>-->
-        <a ng-click="filter.resetDatesFilters()"><span class="fsh-btn-refresh"></span></a>
-    </div>
+    </form>
 
     <div class="columns-bloc col-type-left">
         <div class="zone-title">
@@ -71,7 +108,7 @@
             <hr class="clear"/>
         </div>
 
-        <div class="bloc-type" ng-class="{blocTypeOneCompany: $first && $last}"
+        <div class="bloc-type" ng-class="{blocTypeOneCompany: $first && $last}" ng-if="!findInvoicesInProgress"
              ng-repeat="company in companies | orderBy:orderBy.company.predicate:orderBy.company.reverse">
             <div class="content-infos">
                 <div class="avatar-project">
@@ -176,7 +213,7 @@
                             <a title="{{invoice.business.name}} {{invoice.object}}" ng-click="filter.selectBusinessFromInvoice(invoice)">{{invoice.object}}</a>
 
                             <ul class="invoice-date">
-                                <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}} | {{invoice.date}}</li>
+                                <li>{{i18n.translate('dashboard.invoice.from')}} {{invoice.date | date:'dd/MM/yyyy'}}</li>
                                 <li>{{i18n.translate('dashboard.invoice.expired')}} {{findExpiredInvoice(invoice.date)}}</li>
                                 <li class="tags-business" ng-if="invoice.kind != null">{{i18n.translate('invoice.kind.'+invoice.kind)}}</li>
                                 <li class="tags-business" ng-click="filter.selectCompanyFromInvoice(invoice)" ng-show="invoice.buyer">{{invoice.buyer.name}}</li>

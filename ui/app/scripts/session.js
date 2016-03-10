@@ -4,23 +4,6 @@ angular.module('rxSession', [
         'ngResource',
         'angular-md5'
     ])
-
-    .config(function($httpProvider) {
-        $httpProvider.responseInterceptors.push('SecurityHttpInterceptor');
-    })
-
-    .factory('SecurityHttpInterceptor', function($q, $location) {
-        return function(promise) {
-            return promise.then(function(response) {
-                return response;
-            }, function(response) {
-                if (response.status == 401 || response.status == 403) {
-                    $location.path('/login');
-                }
-                return $q.reject(response);
-            });
-        }
-    })
     .factory('Sessions', function($resource, $http, md5) {
         var res = $resource('/api/sessions/:sessionKey', {sessionKey: 'current'});
         var currentUser = null;
