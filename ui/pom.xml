@@ -2,56 +2,57 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>rxinvoice</groupId>
+        <artifactId>rxinvoice-parent</artifactId>
+        <version>0.1.19.2-SNAPSHOT</version>
+    </parent>
+
     <groupId>rxinvoice</groupId>
     <artifactId>rxinvoice-ui</artifactId>
     <version>0.1.19.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <parent>
-        <groupId>fr.4sh.pom-parents</groupId>
-        <artifactId>4sh-uberpom</artifactId>
-        <version>0.8</version>
-    </parent>
 
-    <scm>
-        <connection>scm:git:git://github.com:4sh/rxinvoice.git</connection>
-        <developerConnection>scm:git:git@github.com:4sh/rxinvoice.git</developerConnection>
-        <url>https://github.com/4sh/rxinvoice.git</url>
-    </scm>
+    <profiles>
+        <profile>
+            <id>Windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <script.extension>bat</script.extension>
+            </properties>
+        </profile>
+        <profile>
+            <id>unix</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <script.extension>sh</script.extension>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <version>2.0</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
                 <executions>
                     <execution>
                         <phase>compile</phase>
                         <goals>
-                            <goal>execute</goal>
+                            <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <properties>
-                                <basedir>${project.basedir}</basedir>
-                                <buildScript>build</buildScript>
-                            </properties>
-                            <source><![CDATA[
-                            def basedir = new File(properties['basedir'])
-                            def buildScript = properties['buildScript']
-
-                            def isWindows = { System.properties['os.name'].toLowerCase().contains('windows') }
-
-                            if (!new File(basedir, buildScript).exists()) {
-                                buildScript = buildScript + (isWindows() ? '.bat' : '.sh')
-                            }
-
-                            def cmd = isWindows() ? "cmd /c $buildScript" : "sh $buildScript"
-                            println ">> " + cmd
-                            def process = new ProcessBuilder(cmd.split(' ')).directory(basedir) .redirectErrorStream(true).start()
-                            process.in.eachLine { line -> println line }
-                            ]]>
-                            </source>
+                            <executable>./build.${script.extension}</executable>
                         </configuration>
                     </execution>
                 </executions>

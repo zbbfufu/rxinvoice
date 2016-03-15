@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fr.4sh.pom-parents</groupId>
-        <artifactId>4sh-uberpom</artifactId>
-        <version>0.8</version>
+        <groupId>rxinvoice</groupId>
+        <artifactId>rxinvoice-parent</artifactId>
+        <version>0.1.19.2-SNAPSHOT</version>
     </parent>
 
     <groupId>rxinvoice</groupId>
@@ -13,12 +13,6 @@
     <version>0.1.19.2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>rxinvoice</name>
-
-    <scm>
-        <connection>scm:git:git://github.com:4sh/rxinvoice.git</connection>
-        <developerConnection>scm:git:git@github.com:4sh/rxinvoice.git</developerConnection>
-        <url>https://github.com/4sh/rxinvoice.git</url>
-    </scm>
 
     <properties>
         <maven.compiler.target>1.7</maven.compiler.target>
