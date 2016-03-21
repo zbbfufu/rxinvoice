@@ -44,3 +44,9 @@
 .txt-justify {
   text-align: justify;
 }
+
+@media print {
+  .alertify-notifier {
+    display: none;
+  }
+}
