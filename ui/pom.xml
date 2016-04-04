@@ -5,12 +5,12 @@
     <parent>
         <groupId>rxinvoice</groupId>
         <artifactId>rxinvoice-parent</artifactId>
-        <version>0.1.19.4-SNAPSHOT</version>
+        <version>0.1.20</version>
     </parent>
 
     <groupId>rxinvoice</groupId>
     <artifactId>rxinvoice-ui</artifactId>
-    <version>0.1.19.4-SNAPSHOT</version>
+    <version>0.1.20</version>
     <packaging>pom</packaging>
 
 
