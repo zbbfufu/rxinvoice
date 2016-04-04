@@ -17,6 +17,7 @@ import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Invoice;
 import rxinvoice.domain.User;
+import rxinvoice.domain.enumeration.Activity;
 import rxinvoice.rest.events.InvoiceUpdatedEvent;
 
 import javax.inject.Named;
@@ -146,13 +147,13 @@ public class InvoiceResource {
     }
 
     @GET("/invoices/status")
-    public Iterable<Invoice.Status> findInvoiceStatus() {
-        return Arrays.asList(Invoice.Status.values());
+    public Iterable<rxinvoice.domain.enumeration.Status> findInvoiceStatus() {
+        return Arrays.asList(rxinvoice.domain.enumeration.Status.values());
     }
 
     @GET("/invoices/activities")
-    public Iterable<Invoice.Activity> findInvoiceActivities() {
-        return Arrays.asList(Invoice.Activity.values());
+    public Iterable<Activity> findInvoiceActivities() {
+        return Arrays.asList(Activity.values());
     }
 
     @RolesAllowed({ADMIN})

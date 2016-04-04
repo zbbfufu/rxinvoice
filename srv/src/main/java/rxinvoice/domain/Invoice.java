@@ -4,6 +4,9 @@ import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 import restx.jackson.FixedPrecision;
+import rxinvoice.domain.enumeration.Activity;
+import rxinvoice.domain.enumeration.Kind;
+import rxinvoice.domain.enumeration.Status;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -213,19 +216,6 @@ public class Invoice {
                 ", lines=" + lines +
                 ", activities=" + activities +
                 '}';
-    }
-
-    public static enum Status {
-        DRAFT, READY, SENT, LATE, PAID, CANCELLED, WAITING_VALIDATION, VALIDATED
-    }
-
-    public static enum Kind {
-        SUBCONTRACTING, FEE, SERVICE, BUY_SELL, TRAINING
-    }
-
-    public static enum Activity {
-        AUDIT, CONSULTING, TRAINING, POC, SPECIFICATION, GRAPHIC, MONITORING, DEVELOPMENT,
-        MAINTENANCE, HOSTING, INDUSTRIALISATION_SUPPORT, INTEGRATION_SUPPORT, UNKNOWN
     }
 
     public static class VATAmount {

@@ -12,6 +12,7 @@ import restx.security.RolesAllowed;
 import rxinvoice.domain.Business;
 import rxinvoice.domain.Company;
 import rxinvoice.domain.Invoice;
+import rxinvoice.domain.enumeration.Activity;
 import rxinvoice.domain.report.InvoiceActivity;
 
 import javax.inject.Named;
@@ -100,7 +101,7 @@ public class CorsResource {
         Iterable<Invoice> invoicesFound = invoices.get().find("{ $and: [ { date: { $gte: # } } , { date: { $lte: # } } ] }", fromDate, toDate).as(Invoice.class);
         for (Invoice invoice : invoicesFound) {
             if (invoice.getActivities() == null || invoice.getActivities().isEmpty()) {
-                results.add(compute(cacheCompanyKind, invoice, Invoice.Activity.UNKNOWN, new BigDecimal(100)));
+                results.add(compute(cacheCompanyKind, invoice, Activity.UNKNOWN, new BigDecimal(100)));
             } else {
                 for (Invoice.ActivityValue activityValue : invoice.getActivities()) {
                     results.add(compute(cacheCompanyKind, invoice, activityValue.getActivity(), activityValue.getValue()));
@@ -112,7 +113,7 @@ public class CorsResource {
         return results;
     }
 
-    private InvoiceActivity compute(Map<String, String> cacheCompanyKind, Invoice invoice, Invoice.Activity activity, BigDecimal value) {
+    private InvoiceActivity compute(Map<String, String> cacheCompanyKind, Invoice invoice, Activity activity, BigDecimal value) {
         BigDecimal percent = value.divide(new BigDecimal(100));
         BigDecimal activityGrossAmount = invoice.getGrossAmount().multiply(percent);
         BigDecimal activityNetAmount = invoice.getNetAmount().multiply(percent);
