@@ -24,6 +24,7 @@ public class Invoice {
     private boolean withVAT;
     private String object;
     private String comment;
+    private String customerInvoiceRef;
     private Kind kind;
 
     private Company seller;
@@ -192,6 +193,15 @@ public class Invoice {
 
     public Invoice setKind(Kind kind) {
         this.kind = kind;
+        return this;
+    }
+
+    public String getCustomerInvoiceRef() {
+        return customerInvoiceRef;
+    }
+
+    public Invoice setCustomerInvoiceRef(final String customerInvoiceRef) {
+        this.customerInvoiceRef = customerInvoiceRef;
         return this;
     }
 

@@ -30,6 +30,8 @@
             <div class="invoiceObject pull-right">
                 <h3>Objet :</h3>
                 <pre class="invoiceObject">{{invoice.object}}</pre>
+
+                <pre class="invoiceObject" ng-if="invoice.customerInvoiceRef">Ref. commande client : {{invoice.customerInvoiceRef}}</pre>
             </div>
 
             <div class="invoiceBuyer">
