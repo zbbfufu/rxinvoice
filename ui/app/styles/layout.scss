@@ -132,6 +132,13 @@ header {
   background: url(#{$imagePath}logo-4sh.png) 0 0 no-repeat transparent;
 }
 
+.invoice-ref-access {
+  display: inline-block;
+  margin-right: 90px;
+  margin-top: 15px;
+  float: right;
+}
+
 .table-fpm {
   background-color: $fsh-lightgrey;
   border-radius: $global-radius;

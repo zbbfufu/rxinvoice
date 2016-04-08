@@ -37,11 +37,16 @@ angular.module('rxSession', [
         });
     })
 
-    .controller('SessionController', function($scope, Sessions, i18nUtils) {
+    .controller('SessionController', function($scope, Sessions, i18nUtils, $location) {
         $scope.i18n = i18nUtils;
         $scope.session = Sessions;
         $scope.openPasswordPopup = function() {
             alertify.log('TODO : Not implemented');
+        };
+
+        $scope.editInvoice = function (invoiceReference) {
+            $location.url('/invoice/' + 'REF-' + invoiceReference);
+            $scope.invoiceReference = null;
         };
     })
     .controller('LoginCtrl', function ($scope, $location, Sessions, i18nUtils) {

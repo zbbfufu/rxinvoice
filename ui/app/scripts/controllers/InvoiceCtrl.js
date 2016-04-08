@@ -207,7 +207,7 @@ angular.module('rxinvoiceApp')
                     }
                 );
             } else {
-                Invoice.update({id:$routeParams.id}, invoice,
+                Invoice.update({id:invoice._id}, invoice,
                     function(data) {
                         $scope.edit(data._id);
                         Message.success('message.invoice.update.success');

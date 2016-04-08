@@ -167,7 +167,16 @@ public class InvoiceResource {
 
     @GET("/invoices/{key}")
     public Optional<Invoice> findInvoiceByKey(String key) {
-        Optional<Invoice> invoice = Optional.fromNullable(invoices.get().findOne(new ObjectId(key)).as(Invoice.class));
+        String referencePrefix = "REF-";
+        Optional<Invoice> invoice;
+
+        if (key.startsWith(referencePrefix)) {
+            invoice = Optional.fromNullable(invoices.get()
+                    .findOne("{ reference : # }", key.substring(referencePrefix.length())).as(Invoice.class));
+        } else {
+            invoice = Optional.fromNullable(invoices.get().findOne(new ObjectId(key)).as(Invoice.class));
+        }
+
         if (invoice.isPresent()) {
             User user = AppModule.currentUser();
             if (!user.getPrincipalRoles().contains(ADMIN)) {
@@ -177,6 +186,7 @@ public class InvoiceResource {
                 }
             }
         }
+
         return invoice;
     }
 

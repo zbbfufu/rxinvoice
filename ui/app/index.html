@@ -41,6 +41,15 @@
                 <span class="user-function" ng-hide="true"> - <a ng-click="openPasswordPopup()">Modifier Mon mot de passe</a></span>
 
                 <span class="company-logo"></span>
+
+                <form class="invoice-ref-access" ng-submit="editInvoice(invoiceReference)">
+                  <div class="control-group">
+                    <label class="control-label label-light" rx-translate="invoice.reference">Reference</label>
+                    <div class="controls">
+                      <input type="text" ng-model="invoiceReference" placeholder="Accès direct par référence"/>
+                    </div>
+                  </div>
+                </form>
             </div>
         </div>
     </header>
