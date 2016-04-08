@@ -30,10 +30,12 @@ angular.module('rxinvoiceApp')
         var updateDashboard = function() {
             $scope.filter.invoicesBuyerList = {};
             $scope.invoices.splice(0, $scope.invoices.length);
+
             angular.forEach( $filter('filter')($scope.filter.invoicesList, $scope.filter.filterInvoices), function(value, key) {
                 this.push(value);
                 $scope.filter.invoicesBuyerList[value.buyer._id] = true;
             }, $scope.invoices);
+
             $scope.companies.splice(0, $scope.companies.length);
             angular.forEach( $filter('filter')($scope.filter.companiesBuyersList, $scope.filter.filterCompanies), function(value, key) {
                 this.push(value);
@@ -96,6 +98,7 @@ angular.module('rxinvoiceApp')
                     var company = companies[i];
                     if (company._id == newValue) {
                         $scope.filter.businessList = company.business;
+                        $scope.filter.businessList.unshift({name: "Toutes", reference: "ALL"});
                         break;
                     }
                 }

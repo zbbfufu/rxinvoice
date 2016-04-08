@@ -35,6 +35,7 @@ angular.module('rxFilter', [
                     filters.dashboard.criteria.companySelected = company._id;
                     filters.dashboard.criteria.businessSelected = '';
                     filters.dashboard.businessList = company.business;
+                    filters.dashboard.businessList.unshift({name: "Toutes", reference: "ALL"});
                 },
                 selectBusiness: function(business) {
                     filters.dashboard.criteria.businessSelected = business.reference;
@@ -106,7 +107,7 @@ angular.module('rxFilter', [
                     return  (!filter.companySelected || (invoice.buyer && filter.companySelected == invoice.buyer._id)) &&
                             (!filter.statusSelected || filter.statusSelected == invoice.status) &&
                             (!filter.kindSelected || filter.kindSelected == invoice.kind) &&
-                            (!filter.businessSelected || (invoice.business && filter.businessSelected == invoice.business.reference)) &&
+                            (!filter.businessSelected || filter.businessSelected == 'ALL' || (invoice.business && filter.businessSelected == invoice.business.reference)) &&
                             filterAmount() && filterVat() &&
                             (!filter.reference || invoice.reference && invoice.reference.indexOf(filter.reference) > -1);
 
