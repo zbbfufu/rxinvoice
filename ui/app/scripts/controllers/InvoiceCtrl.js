@@ -179,7 +179,7 @@ angular.module('rxinvoiceApp')
                 $scope.companies.buyer = invoice.buyer._id;
                 $scope.companies.business = invoice.business ? invoice.business.reference : null;
             }
-            $scope.date = $filter('date')(invoice.date, 'yyyy-MM-dd');
+            $scope.date = moment(invoice.date).toDate();
 
             $scope.activities.load(invoice);
         };
