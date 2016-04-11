@@ -1,0 +1,13 @@
+<div class="dashboard" ng-controller="TasksCtrl">
+    <h1 class="title-page">
+        <span class="title-logo"></span>
+        <span class="smallSeparator"></span>
+        <span class="title-page-content" rx-translate="tasks.title"></span>
+    </h1>
+
+    <div class="columns-bloc">
+        <div class="invoice-table" id="exportable">
+            <smart-table config="invoicesTableConfig" rows="invoices" columns="invoicesTableColumns"></smart-table>
+        </div>
+    </div>
+</div>

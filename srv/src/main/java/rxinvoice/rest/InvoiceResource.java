@@ -1,10 +1,17 @@
 package rxinvoice.rest;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
+import com.mongodb.QueryBuilder;
 import org.bson.types.ObjectId;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.slf4j.Logger;
@@ -32,6 +39,7 @@ import java.util.*;
 import static restx.common.MorePreconditions.checkEquals;
 import static rxinvoice.AppModule.Roles.ADMIN;
 import static rxinvoice.AppModule.Roles.SELLER;
+import static rxinvoice.domain.enumeration.Status.*;
 
 /**
  */
@@ -114,59 +122,74 @@ public class InvoiceResource {
     }
 
     @GET("/invoices")
-    public Iterable<Invoice> findInvoices() {
+    public Iterable<Invoice> findInvoices(Optional<String> startDate, Optional<String> endDate, Optional<String> statuses) {
         User user = AppModule.currentUser();
-        if (user.getPrincipalRoles().contains(ADMIN)) {
-            return invoices.get().find().as(Invoice.class);
-        } else {
-            return invoices.get().find("{ $or: [ { seller._id: #}, { buyer._id: #}]}",
-                    new ObjectId(user.getCompanyRef()), new ObjectId(user.getCompanyRef())).as(Invoice.class);
+
+        QueryBuilder builder = QueryBuilder.start();
+
+        if (!user.getPrincipalRoles().contains(ADMIN)) {
+            builder.or(
+                    QueryBuilder.start("seller._id").is(new ObjectId(user.getCompanyRef())).get(),
+                    QueryBuilder.start("buyer._id").is(new ObjectId(user.getCompanyRef())).get()
+            );
         }
+
+        if (startDate.isPresent()) {
+            Date start = LocalDate.parse(startDate.get()).toDateTime(LocalTime.MIDNIGHT).toDate();
+
+            builder.and("date").greaterThanEquals(start);
+        }
+
+        if (endDate.isPresent()) {
+            Date end = LocalDate.parse(endDate.get()).toDateTime(LocalTime.MIDNIGHT)
+                    .withHourOfDay(23)
+                    .withMinuteOfHour(59)
+                    .withSecondOfMinute(59)
+                    .withMillisOfSecond(999)
+                    .toDate();
+
+            builder.and("date").lessThanEquals(end);
+        }
+
+        if (statuses.isPresent()) {
+            String[] statusList = statuses.get().split(", ");
+            builder.and("status").in(statusList);
+        }
+
+        return invoices.get().find(builder.get().toString()).as(Invoice.class);
     }
 
+    @GET("/invoices/tasks")
+    public List<Invoice> findTasks(String maxDate) {
+        Iterable<Invoice> invoices = findInvoices(Optional.<String>absent(), Optional.of(maxDate),
+                Optional.of(Joiner.on(", ").join(Lists.newArrayList(DRAFT, WAITING_VALIDATION, SENT))));
 
-    @GET("/invoices/dates/{startDate}")
-    public Iterable<Invoice> findInvoicesByDates(String startDate) {
-        Date start = LocalDate.parse(startDate).toDateTime(LocalTime.MIDNIGHT).toDate();
-        User user = AppModule.currentUser();
-        if (user.getPrincipalRoles().contains(ADMIN)) {
-            return invoices.get().find(
-                    "{ date : {$gte:#} }",
-                    start
-            ).as(Invoice.class);
-        } else {
-            return invoices.get().find(
-                    "{ $and: [ { date : {$gte:#} }, { $or: [ { seller._id: #}, { buyer._id: #} ] } ] }",
-                    start, new ObjectId(user.getCompanyRef()), new ObjectId(user.getCompanyRef())
-            ).as(Invoice.class);
-        }
-    }
-    @GET("/invoices/dates/{startDate}/{endDate}")
-    public Iterable<Invoice> findInvoicesByDates(String startDate, String endDate) {
-        Date start = LocalDate.parse(startDate).toDateTime(LocalTime.MIDNIGHT).toDate();
-        Date end = LocalDate.parse(endDate).toDateTime(LocalTime.MIDNIGHT)
+        final DateTime parsedMaxDate = LocalDate.parse(maxDate).toDateTime(LocalTime.MIDNIGHT)
                 .withHourOfDay(23)
                 .withMinuteOfHour(59)
                 .withSecondOfMinute(59)
-                .withMillisOfSecond(999)
-                .toDate();
-        User user = AppModule.currentUser();
-        if (user.getPrincipalRoles().contains(ADMIN)) {
-            return invoices.get().find(
-                    "{ $and: [ { date : {$gte:#} }, { date : {$lte:#} } ] }",
-                    start, end
-            ).as(Invoice.class);
-        } else {
-            return invoices.get().find(
-                    "{ $and: [ { date : {$gte:#} }, { date : {$lte:#} } , { $or: [ { seller._id: #}, { buyer._id: #} ] } ] }",
-                    start, end, new ObjectId(user.getCompanyRef()), new ObjectId(user.getCompanyRef())
-            ).as(Invoice.class);
-        }
+                .withMillisOfSecond(999);
+
+        return Lists.newLinkedList(Iterables.filter(invoices, new Predicate<Invoice>() {
+            @Override
+            public boolean apply(Invoice invoice) {
+                return !invoice.getStatus().equals(SENT) || Days.daysBetween(invoice.getDate(), parsedMaxDate).getDays() > 45;
+            }
+        }));
+    }
+
+    @GET("/invoices/dates/{startDate}")
+    public Iterable<Invoice> findInvoicesByDates(String startDate) {
+        return findInvoices(Optional.of(startDate), Optional.<String>absent(), Optional.<String>absent());
+    }
+    @GET("/invoices/dates/{startDate}/{endDate}")
+    public Iterable<Invoice> findInvoicesByDates(String startDate, String endDate) {
+        return findInvoices(Optional.of(startDate), Optional.of(endDate), Optional.<String>absent());
     }
 
     @GET("/invoices/status")
     public Iterable<rxinvoice.domain.enumeration.Status> findInvoiceStatus() {
-        return Arrays.asList(rxinvoice.domain.enumeration.Status.values());
+        return Arrays.asList(values());
     }
 
     @GET("/invoices/activities")

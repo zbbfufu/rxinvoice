@@ -32,6 +32,9 @@ angular.module('rxinvoiceApp', [
             .when('/invoice_view/:id', {
                 templateUrl: 'views/invoice_view.html'
             })
+            .when('/tasks', {
+                templateUrl: 'views/tasks.html'
+            })
             .otherwise({
                 redirectTo: '/'
             });

@@ -491,5 +491,12 @@ h1 {
   }
 }
 
+.warning {
+  width: 100%;
+  height: 100%;
+  background: url(#{$imagePath}danger.png) no-repeat;
+  display: inline-block;
+}
+
 
 

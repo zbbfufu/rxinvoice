@@ -29,6 +29,21 @@ angular.module('rxInvoice', [
                         });
                 },
 
+                findTasks: function(maxDate, callback) {
+                    var params = {
+                        maxDate: moment(maxDate).format('YYYY-MM-DD')
+                    };
+
+                    $resource('/api/invoices/tasks')
+                        .query(params)
+                        .$promise
+                        .then(function(data) {
+                            if (callback) {
+                                callback(data);
+                            }
+                        });
+                },
+
                 getAllStatus: function(callback) {
                     if (!status) {
                         $http.get('/api/invoices/status')
