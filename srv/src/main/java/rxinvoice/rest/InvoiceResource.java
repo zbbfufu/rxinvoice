@@ -1,6 +1,8 @@
 package rxinvoice.rest;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Collections2;
 import com.google.common.eventbus.EventBus;
 import org.bson.types.ObjectId;
 import org.joda.time.LocalDate;
@@ -10,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import restx.Status;
 import restx.WebException;
 import restx.annotations.*;
+import restx.common.MorePreconditions;
 import restx.factory.Component;
 import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
+import rxinvoice.domain.Blob;
 import rxinvoice.domain.Invoice;
 import rxinvoice.domain.User;
 import rxinvoice.domain.enumeration.Activity;
@@ -36,14 +40,16 @@ public class InvoiceResource {
     private static final Logger logger = LoggerFactory.getLogger(InvoiceResource.class);
 
     private final JongoCollection invoices;
+    private final BlobService blobService;
     private Optional<EventBus> eventBus;
     private final CompanyResource companyResource;
 
     public InvoiceResource(CompanyResource companyResource, Optional<EventBus> eventBus,
-                           @Named("invoices") JongoCollection invoices) {
+                           @Named("invoices") JongoCollection invoices, BlobService blobService) {
         this.companyResource = companyResource;
         this.eventBus = eventBus;
         this.invoices = invoices;
+        this.blobService = blobService;
     }
 
     @RolesAllowed({ADMIN, SELLER})
@@ -77,12 +83,24 @@ public class InvoiceResource {
         User user = AppModule.currentUser();
         if (!user.getPrincipalRoles().contains(ADMIN)) {
             Invoice invoiceFromDB = invoiceByKey.get();
+
             if (invoiceFromDB.getSeller() == null || invoiceFromDB.getSeller().getKey() == null
                     || !invoiceFromDB.getSeller().getKey().equals(user.getCompanyRef())) {
                 logger.warn("a seller is trying to update an invoice from a different company: user: {} - invoice: {}",
                         user.getName(), key);
                 // we don't send a forbidden to avoid guessing existing invoice keys
                 throw new WebException(HttpStatus.NOT_FOUND);
+            }
+
+            List<Blob> attachments = invoiceFromDB.getAttachments();
+            List<Blob> newAttachments = invoice.getAttachments();
+
+            Collection<Blob> attachmentsToRemove = Collections2.filter(attachments, Predicates.not(Predicates.in(newAttachments)));
+
+            if (!attachmentsToRemove.isEmpty()) {
+                for (Blob blob : attachmentsToRemove) {
+                    blobService.definitiveDelete(blob.getId());
+                }
             }
         }
 
@@ -239,5 +257,13 @@ public class InvoiceResource {
         } else {
             invoice.setNetAmount(grossAmount);
         }
+    }
+
+    public Invoice addAttachments(String invoiceId, List<Blob> blobs) {
+        Invoice invoice = MorePreconditions.checkPresent(findInvoiceByKey(invoiceId), "Invoice %s not found", invoiceId);
+
+        invoice.addAttachments(blobs);
+
+        return updateInvoice(invoiceId, invoice);
     }
 }

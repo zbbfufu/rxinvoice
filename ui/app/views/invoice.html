@@ -342,5 +342,27 @@
                 </tfoot>
             </table>
         </div>
+
+        <div ng-show="invoice._id">
+            <div class="title-section-invoice">
+                <div class="fsh-hide"><span class="arrow-bottom"></span></div>
+                <h1 class="title-col-onglet"><span class="icon-title icon-attachments"></span>{{i18n.translate('invoice.attachments')}}</h1>
+            </div>
+
+            <div ng-repeat="attachment in invoice.attachments">
+                <a ng-href="/api/download/{{attachment._id}}" target="_blank">{{attachment.fileName}}</a>
+                <button class="fsh-btn"
+                        ng-click="removeAttachment(attachment)">
+                    {{i18n.translate('invoice.removeAttachment')}}
+                </button>
+            </div>
+
+            <div class="space-top-10">
+                <button class="fsh-btn-success"
+                        ng-file-select="addAttachments($files)" multiple>
+                    {{i18n.translate('invoice.addAttachments')}}
+                </button>
+            </div>
+        </div>
     </div>
 </div>

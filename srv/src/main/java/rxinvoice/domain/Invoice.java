@@ -1,5 +1,6 @@
 package rxinvoice.domain;
 
+import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
@@ -42,6 +43,20 @@ public class Invoice {
     private List<Line> lines = new ArrayList<>();
 
     private List<ActivityValue> activities = new ArrayList<>();
+
+    private List<Blob> attachments = new ArrayList<>();
+
+    public Invoice addAttachments(List<Blob> newAttachements) {
+        if (this.attachments == null) {
+            this.attachments = Lists.newLinkedList();
+        }
+
+        this.attachments.addAll(newAttachements);
+
+        return this;
+    }
+
+    // Getters and setters
 
     public String getKey() {
         return key;
@@ -205,6 +220,15 @@ public class Invoice {
         return this;
     }
 
+    public List<Blob> getAttachments() {
+        return attachments;
+    }
+
+    public Invoice setAttachments(final List<Blob> attachments) {
+        this.attachments = attachments;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -215,6 +239,7 @@ public class Invoice {
                 ", withVAT=" + withVAT +
                 ", object='" + object + '\'' +
                 ", comment='" + comment + '\'' +
+                ", customerInvoiceRef='" + customerInvoiceRef + '\'' +
                 ", kind=" + kind +
                 ", seller=" + seller +
                 ", buyer=" + buyer +
@@ -225,6 +250,7 @@ public class Invoice {
                 ", business=" + business +
                 ", lines=" + lines +
                 ", activities=" + activities +
+                ", attachments=" + attachments +
                 '}';
     }
 

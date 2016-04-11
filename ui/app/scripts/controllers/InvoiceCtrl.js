@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('InvoiceCtrl', function ($scope, $routeParams, $location, $filter, Invoice, Company, i18nUtils, Message, Sessions) {
+    .controller('InvoiceCtrl', function ($scope, $routeParams, $location, $filter, Invoice, Company, i18nUtils, Message, Sessions, $upload, $q) {
 
         if ($location.url().match('^/invoice_view/*')) {
             angular.element('header').hide();
@@ -184,10 +184,46 @@ angular.module('rxinvoiceApp')
             $scope.activities.load(invoice);
         };
 
+        var saveAttachments = function (attachments) {
+            var allPromises = [];
+
+            if (!_.isEmpty(attachments)) {
+                for (var i = 0; i < attachments.length; i++) {
+                    var file = attachments[i].file;
+                    var defer = $q.defer();
+                    $upload.upload({
+                        url: '/api/invoices/' + $scope.invoice._id + '/attachments',
+                        method: "POST",
+                        file: file,
+                        data: {comments: attachments[i].comments}
+                    }).success(function (data, status, headers, config) {
+                        defer.resolve(data[0]);
+                    });
+
+                    allPromises.push(defer.promise);
+                }
+            }
+
+            return $q.all(allPromises);
+        };
+
+        $scope.addAttachments = function (files) {
+            _.each(files, function (file) {
+                $scope.invoice.attachments = $scope.invoice.attachments || [];
+                $scope.invoice.attachments.push({fileName: file.name, file: file});
+            });
+        };
+
+        $scope.removeAttachment = function (attachment) {
+            _.remove($scope.invoice.attachments, attachment);
+        };
+
         $scope.save = function() {
             var invoice = _.cloneDeep($scope.invoice);
+
             invoice.business = $scope.companies.findBusinessByRef($scope.companies.business);
             invoice.date = new Date($scope.date);
+
             for (var index = 0, length = invoice.lines.length; index < length; index++) {
                 var line = invoice.lines[index];
                 if (!angular.isObject(line.vat)) {
@@ -195,12 +231,29 @@ angular.module('rxinvoiceApp')
                     line.vat = findVatByAmount(line.vat);
                 }
             }
+
             $scope.activities.save(invoice);
+
+            var attachmentsToSave = [];
+
+            if (!_.isEmpty(invoice.attachments)) {
+                attachmentsToSave = _.remove(invoice.attachments, function (attachment) {
+                    return !attachment._id;
+                })
+            }
+
             if ($scope.newMode) {
                 Invoice.save(invoice,
                     function(data) {
                         $scope.edit(data._id);
-                        Message.success('message.invoice.create.success');
+
+                        saveAttachments(attachmentsToSave).then(function (attachments) {
+                            invoice.attachments = invoice.attachments.concat(attachments);
+                            $scope.invoice = invoice;
+                            Message.success('message.invoice.create.success');
+                        }, function () {
+                            Message.error('message.invoice.create.attachments.error', invoice);
+                        });
                     },
                     function() {
                         Message.error('message.invoice.create.error', invoice);
@@ -210,7 +263,14 @@ angular.module('rxinvoiceApp')
                 Invoice.update({id:invoice._id}, invoice,
                     function(data) {
                         $scope.edit(data._id);
-                        Message.success('message.invoice.update.success');
+
+                        saveAttachments(attachmentsToSave).then(function (attachments) {
+                            invoice.attachments = invoice.attachments.concat(attachments);
+                            $scope.invoice = invoice;
+                            Message.success('message.invoice.update.success');
+                        }, function () {
+                            Message.error('message.invoice.update.attachments.error', invoice);
+                        })
                     },
                     function() {
                         Message.error('message.invoice.update.error', invoice);
@@ -269,8 +329,6 @@ angular.module('rxinvoiceApp')
             $scope.companies.list = data;
 
             if ($scope.newMode) {
-
-
                 loadInvoice({
                     date : moment().toDate(),
                     status: 'DRAFT',
