@@ -68,6 +68,22 @@ public class Blob {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Blob blob = (Blob) o;
+
+        return id != null ? id.equals(blob.id) : blob.id == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
     public String toString() {
         return "Blob{" +
                 "id='" + id + '\'' +
