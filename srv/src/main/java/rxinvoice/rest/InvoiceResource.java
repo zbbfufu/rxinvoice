@@ -89,8 +89,8 @@ public class InvoiceResource {
         }
 
         User user = AppModule.currentUser();
+        Invoice invoiceFromDB = invoiceByKey.get();
         if (!user.getPrincipalRoles().contains(ADMIN)) {
-            Invoice invoiceFromDB = invoiceByKey.get();
 
             if (invoiceFromDB.getSeller() == null || invoiceFromDB.getSeller().getKey() == null
                     || !invoiceFromDB.getSeller().getKey().equals(user.getCompanyRef())) {
@@ -113,6 +113,10 @@ public class InvoiceResource {
         }
 
         updateAmounts(invoice);
+
+        if (invoice.getStatus() != invoiceFromDB.getStatus()) {
+            invoice.addStatusChange(invoiceFromDB.getStatus(), user, invoice.getComment());
+        }
 
         invoices.get().save(invoice);
         if (eventBus.isPresent()) {

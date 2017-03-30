@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('InvoiceCtrl', function ($scope, $routeParams, $location, $filter, Invoice, Company, i18nUtils, Message, Sessions, $upload, $q) {
+    .controller('InvoiceCtrl', function ($scope, $routeParams, $location, $filter, Invoice, Company, i18nUtils, Message, Sessions, $upload, $q, InvoiceQuickEdit) {
 
         if ($location.url().match('^/invoice_view/*')) {
             angular.element('header').hide();
@@ -441,4 +441,8 @@ angular.module('rxinvoiceApp')
                 this.push({_id:value, name:Invoice.translateActivityLabel(value)});
             }, $scope.activities.data);
         });
+
+        $scope.quickEdit = function() {
+            InvoiceQuickEdit.open($scope.invoice);
+        };
     });

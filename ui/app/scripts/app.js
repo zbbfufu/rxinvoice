@@ -13,7 +13,8 @@ angular.module('rxinvoiceApp', [
   'rxI18n',
   'rxFilter',
   'smartTable.table',
-  'angularFileUpload'
+  'angularFileUpload',
+  'rxInvoiceQuickEdit'
 ])
     .config(function ($routeProvider) {
         $routeProvider
