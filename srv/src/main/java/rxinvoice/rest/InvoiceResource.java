@@ -75,6 +75,7 @@ public class InvoiceResource {
         invoices.get().save(invoice);
         if (eventBus.isPresent()) {
             eventBus.get().post(new InvoiceUpdatedEvent(invoice));
+            eventBus.get().post(rxinvoice.domain.Activity.newCreate(invoice, AppModule.currentUser()));
         }
         return invoice;
     }
@@ -117,6 +118,7 @@ public class InvoiceResource {
         invoices.get().save(invoice);
         if (eventBus.isPresent()) {
             eventBus.get().post(new InvoiceUpdatedEvent(invoice));
+            eventBus.get().post(rxinvoice.domain.Activity.newUpdate(invoiceByKey.get(), AppModule.currentUser()));
         }
         return invoice;
     }
@@ -239,6 +241,7 @@ public class InvoiceResource {
             invoices.get().remove(new ObjectId(key));
             if (eventBus.isPresent()) {
                 eventBus.get().post(new InvoiceUpdatedEvent(invoice.get()));
+                eventBus.get().post(rxinvoice.domain.Activity.newDelete(invoice.get(), AppModule.currentUser()));
             }
             return Status.of("deleted");
         } else {

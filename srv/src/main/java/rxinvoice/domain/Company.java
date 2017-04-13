@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  */
-public class Company {
+public class Company implements Auditable {
     @Id @ObjectId
     private String key;
 
@@ -72,6 +72,11 @@ public class Company {
 
     public List<VATVal> getVats() {
         return vats;
+    }
+
+    @Override
+    public String getBusinessKey() {
+        return getName();
     }
 
     public Company setKey(final String key) {
