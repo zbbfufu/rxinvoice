@@ -132,7 +132,13 @@ public class InvoiceResource {
             return;
         }
 
-        Company buyer = companyResource.findCompanyByKey(invoice.getBuyer().getKey()).get();
+        Optional<Company> buyerOpt = companyResource.findCompanyByKey(invoice.getBuyer().getKey());
+        if (!buyerOpt.isPresent()) {
+            logger.warn("unable to find buyer for invoice {}", invoice);
+            return;
+        }
+
+        Company buyer = buyerOpt.get();
         if (invoice.getStatus() == SENT) {
             buyer.setLastSendDate(DateTime.now());
             buyer.setLastSentInvoice(new Company.InvoiceInfo(invoice));
