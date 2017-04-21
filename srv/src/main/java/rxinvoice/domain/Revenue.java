@@ -1,33 +1,33 @@
 package rxinvoice.domain;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import restx.jackson.FixedPrecision;
 
 import java.math.BigDecimal;
 
 public class Revenue {
-    private DateTime from;
-    private DateTime to;
+    private LocalDate from;
+    private LocalDate to;
     private PeriodType periodType;
     @FixedPrecision(2)
     private BigDecimal invoiced = BigDecimal.ZERO;
     @FixedPrecision(2)
     private BigDecimal paid = BigDecimal.ZERO;
 
-    public DateTime getFrom() {
+    public LocalDate getFrom() {
         return from;
     }
 
-    public Revenue setFrom(DateTime from) {
+    public Revenue setFrom(LocalDate from) {
         this.from = from;
         return this;
     }
 
-    public DateTime getTo() {
+    public LocalDate getTo() {
         return to;
     }
 
-    public Revenue setTo(DateTime to) {
+    public Revenue setTo(LocalDate to) {
         this.to = to;
         return this;
     }

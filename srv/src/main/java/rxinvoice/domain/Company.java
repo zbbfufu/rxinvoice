@@ -1,6 +1,6 @@
 package rxinvoice.domain;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 import restx.jackson.FixedPrecision;
@@ -233,48 +233,49 @@ public class Company {
     }
 
     public static class FiscalYear {
-        private DateTime start;
-        private DateTime end;
+        private LocalDate start;
+        private LocalDate end;
 
         public static final FiscalYear DEFAULT = new FiscalYear()
                 .setStart(firstDayOfYear())
-                .setEnd(lastDayOfYear());
+                .setEnd(lastDayOfYear())
+                .current();
 
-        public DateTime getStart() {
+        public LocalDate getStart() {
             return start;
         }
 
-        public FiscalYear setStart(DateTime start) {
+        public FiscalYear setStart(LocalDate start) {
             this.start = start;
             return this;
         }
 
-        public DateTime getEnd() {
+        public LocalDate getEnd() {
             return end;
         }
 
-        public FiscalYear setEnd(DateTime end) {
+        public FiscalYear setEnd(LocalDate end) {
             this.end = end;
             return this;
         }
 
-        private static DateTime firstDayOfYear() {
-            return DateTime.now().withMonthOfYear(1).withDayOfMonth(1);
+        private static LocalDate firstDayOfYear() {
+            return LocalDate.now().withMonthOfYear(1).withDayOfMonth(1);
         }
 
-        private static DateTime lastDayOfYear() {
-            return DateTime.now().withMonthOfYear(12).withDayOfMonth(31);
+        private static LocalDate lastDayOfYear() {
+            return LocalDate.now().withMonthOfYear(12).withDayOfMonth(31);
         }
 
         public FiscalYear current() {
-            DateTime start = this.start.withYear(DateTime.now().getYear());
-            DateTime end = this.end.withYear(DateTime.now().getYear());
+            LocalDate start = this.start.withYear(LocalDate.now().getYear());
+            LocalDate end = this.end.withYear(LocalDate.now().getYear());
 
-            if (DateTime.now().isBefore(start)) {
+            if (LocalDate.now().isBefore(start)) {
                 start = start.minusYears(1);
             }
 
-            if (DateTime.now().isAfter(end)) {
+            if (LocalDate.now().isAfter(end)) {
                 end = end.plusYears(1);
             }
 

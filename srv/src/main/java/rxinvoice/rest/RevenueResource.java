@@ -1,7 +1,7 @@
 package rxinvoice.rest;
 
 import com.google.common.base.Optional;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import restx.annotations.GET;
 import restx.annotations.RestxResource;
 import restx.factory.Component;
@@ -40,9 +40,9 @@ public class RevenueResource {
     }
 
     @GET("/revenues/monthly")
-    public Iterable<Revenue> getMonthlyRevenues(Optional<DateTime> from, Optional<DateTime> to) {
-        DateTime fromMonth = from.or(DateTime.now().minusMonths(6)).withDayOfMonth(1);
-        DateTime toMonth = to.or(DateTime.now());
+    public Iterable<Revenue> getMonthlyRevenues(Optional<LocalDate> from, Optional<LocalDate> to) {
+        LocalDate fromMonth = from.or(LocalDate.now().minusMonths(5)).withDayOfMonth(1);
+        LocalDate toMonth = to.or(LocalDate.now());
         List<Revenue> revenues = new ArrayList<>();
 
         while (fromMonth.isBefore(toMonth)) {
@@ -53,12 +53,12 @@ public class RevenueResource {
         return revenues;
     }
 
-    private Revenue computeRevenue(DateTime from, DateTime to, Revenue.PeriodType periodType) {
+    private Revenue computeRevenue(LocalDate from, LocalDate to, Revenue.PeriodType periodType) {
         Revenue revenue = new Revenue()
                 .setFrom(from)
                 .setTo(to)
                 .setPeriodType(periodType);
-        Iterable<Invoice> invoices = invoiceResource.findInvoicesByDates(from.toLocalDate().toString(), to.toLocalDate().toString());
+        Iterable<Invoice> invoices = invoiceResource.findInvoicesByDates(from.toString(), to.toString());
         for (Invoice invoice : invoices) {
             switch (invoice.getStatus()) {
                 case PAID:
