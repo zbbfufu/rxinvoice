@@ -37,7 +37,13 @@
                             <div ng-show="invoiceForm.idate.$error.required">Indiquez une date</div>
                         </div>
                     </div>
-                    <br/>
+                    <div class="control-group">
+                        <label class="control-label label-light" rx-translate="invoice.dueDate">Due</label>
+                        <div class="controls">
+                            <input type="date" ng-model="dueDate" name="dueDate" ng-required="isDueDateRequired(invoice)">
+                            <div ng-show="invoiceForm.dueDate.$error.required">Indiquez une date</div>
+                        </div>
+                    </div>
                     <div class="control-group">
                         <label class="control-label label-light" rx-translate="invoice.status">Status</label>
                         <div class="controls">

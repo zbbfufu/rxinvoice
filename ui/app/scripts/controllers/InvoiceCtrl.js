@@ -180,6 +180,7 @@ angular.module('rxinvoiceApp')
                 $scope.companies.business = invoice.business ? invoice.business.reference : null;
             }
             $scope.date = moment(invoice.date).toDate();
+            $scope.dueDate = moment(invoice.dueDate).toDate();
 
             $scope.activities.load(invoice);
         };
@@ -223,6 +224,7 @@ angular.module('rxinvoiceApp')
 
             invoice.business = $scope.companies.findBusinessByRef($scope.companies.business);
             invoice.date = new Date($scope.date);
+            invoice.dueDate = new Date($scope.dueDate);
 
             for (var index = 0, length = invoice.lines.length; index < length; index++) {
                 var line = invoice.lines[index];
@@ -445,4 +447,12 @@ angular.module('rxinvoiceApp')
         $scope.quickEdit = function() {
             InvoiceQuickEdit.open($scope.invoice);
         };
+
+        $scope.isDueDateRequired = function (invoice) {
+            if (invoice) {
+                return ['READY', 'SENT', 'LATE', 'PAID', 'WAITING_VALIDATION', 'VALIDATED'].indexOf(invoice.status) > -1;
+            }
+
+            return false;
+        }
     });
