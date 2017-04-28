@@ -21,6 +21,7 @@ public class Invoice {
 
     private String reference;
     private DateTime date;
+    private DateTime dueDate;
     private Status status;
     private boolean withVAT;
     private String object;
@@ -68,6 +69,10 @@ public class Invoice {
 
     public DateTime getDate() {
         return date;
+    }
+
+    public DateTime getDueDate() {
+        return dueDate;
     }
 
     public Status getStatus() {
@@ -134,6 +139,11 @@ public class Invoice {
 
     public Invoice setDate(final DateTime date) {
         this.date = date;
+        return this;
+    }
+
+    public Invoice setDueDate(DateTime dueDate) {
+        this.dueDate = dueDate;
         return this;
     }
 
@@ -235,6 +245,7 @@ public class Invoice {
                 "key='" + key + '\'' +
                 ", reference='" + reference + '\'' +
                 ", date=" + date +
+                ", dueDate=" + dueDate +
                 ", status=" + status +
                 ", withVAT=" + withVAT +
                 ", object='" + object + '\'' +
