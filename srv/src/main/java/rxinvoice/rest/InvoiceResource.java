@@ -26,6 +26,7 @@ import restx.jongo.JongoCollection;
 import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Blob;
+import rxinvoice.domain.Company;
 import rxinvoice.domain.Invoice;
 import rxinvoice.domain.User;
 import rxinvoice.domain.enumeration.Activity;
@@ -90,8 +91,8 @@ public class InvoiceResource {
         }
 
         User user = AppModule.currentUser();
+        Invoice invoiceFromDB = invoiceByKey.get();
         if (!user.getPrincipalRoles().contains(ADMIN)) {
-            Invoice invoiceFromDB = invoiceByKey.get();
 
             if (invoiceFromDB.getSeller() == null || invoiceFromDB.getSeller().getKey() == null
                     || !invoiceFromDB.getSeller().getKey().equals(user.getCompanyRef())) {
@@ -115,12 +116,46 @@ public class InvoiceResource {
 
         updateAmounts(invoice);
 
+        if (invoice.getStatus() != invoiceFromDB.getStatus()) {
+            // as client doesn't supply status changes we set it from the database before adding the new status change.
+            invoice.setStatusChanges(invoiceFromDB.getStatusChanges());
+            invoice.addStatusChange(invoiceFromDB.getStatus(), user, invoice.getComment());
+        }
+
         invoices.get().save(invoice);
         if (eventBus.isPresent()) {
             eventBus.get().post(new InvoiceUpdatedEvent(invoice));
             eventBus.get().post(rxinvoice.domain.Activity.newUpdate(invoiceByKey.get(), AppModule.currentUser()));
         }
+
+        if (invoice.getStatus() != invoiceFromDB.getStatus()) {
+            handleStatusChange(invoice);
+        }
+
         return invoice;
+    }
+
+    private void handleStatusChange(Invoice invoice) {
+        if (invoice.getBuyer() == null || invoice.getBuyer().getKey() == null) {
+            return;
+        }
+
+        Optional<Company> buyerOpt = companyResource.findCompanyByKey(invoice.getBuyer().getKey());
+        if (!buyerOpt.isPresent()) {
+            logger.warn("unable to find buyer for invoice {}", invoice);
+            return;
+        }
+
+        Company buyer = buyerOpt.get();
+        if (invoice.getStatus() == SENT) {
+            buyer.setLastSendDate(DateTime.now());
+            buyer.setLastSentInvoice(new Company.InvoiceInfo(invoice));
+            companyResource.updateCompany(buyer.getKey(), buyer);
+        } else if (invoice.getStatus() == PAID) {
+            buyer.setLastPaymentDate(DateTime.now());
+            buyer.setLastPaidInvoice(new Company.InvoiceInfo(invoice));
+            companyResource.updateCompany(buyer.getKey(), buyer);
+        }
     }
 
     @GET("/invoices")

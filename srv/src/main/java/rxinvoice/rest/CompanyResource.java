@@ -4,6 +4,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.eventbus.EventBus;
 import org.bson.types.ObjectId;
+import org.joda.time.DateTime;
 import org.jongo.Distinct;
 import restx.Status;
 import restx.WebException;
@@ -112,6 +113,7 @@ public class CompanyResource {
     @RolesAllowed({ADMIN, SELLER})
     @POST("/companies")
     public Company createCompany(Company company) {
+        company = company.setCreationDate(DateTime.now());
         saveCompany(company);
         eventBus.post(Activity.newCreate(company, AppModule.currentUser()));
         return company;

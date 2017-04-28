@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rxinvoiceApp')
-    .controller('DashboardCtrl', function ($scope, $location, $filter, $uibModal, Company, Invoice, i18nUtils, Message, Filter, OrderBy) {
+    .controller('DashboardCtrl', function ($scope, $location, $filter, $uibModal, Company, Invoice, i18nUtils, Message, Filter, OrderBy, InvoiceQuickEdit) {
 
         $scope.dates = {
             fromDate: {
@@ -269,53 +269,5 @@ angular.module('rxinvoiceApp')
             saveAs(blob, "Report.xls");
         };
 
-        $scope.open = function (invoice) {
-            var modalInstance = $uibModal.open({
-                templateUrl: 'myModalContent.html',
-                controller: 'ModalInstanceCtrl',
-                resolve: {
-                    invoice: function() {
-                        return invoice;
-                    },
-                    statusList: function () {
-                        return $scope.filter.statusList;
-                    }
-                }
-            });
-
-            modalInstance.result.then(
-                function (quickEdition) { //OK
-                    invoice.status = quickEdition.statusSelected;
-                    invoice.comment = quickEdition.comment;
-                    Invoice.update({id:invoice._id}, invoice,
-                        function(data) {
-                            Message.success('message.invoice.update.success');
-                        },
-                        function() {
-                            Message.error('message.invoice.update.error', invoice);
-                        }
-                    );
-                },
-                function () {} //CANCEL
-            );
-        };
-    })
-
-    .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, invoice, statusList) {
-
-        $scope.statusList = statusList;
-        $scope.quickEdition = {
-            reference: invoice.reference,
-            statusSelected: invoice.status,
-            comment : invoice.comment
-        }
-
-        $scope.ok = function () {
-            $uibModalInstance.close($scope.quickEdition);
-        };
-
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
+        $scope.open = InvoiceQuickEdit.open;
     });
-

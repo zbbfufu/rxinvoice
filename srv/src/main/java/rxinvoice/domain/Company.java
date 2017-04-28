@@ -1,5 +1,6 @@
 package rxinvoice.domain;
 
+import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 import restx.jackson.FixedPrecision;
@@ -33,6 +34,18 @@ public class Company implements Auditable {
     private List<VATVal> vats = new ArrayList<>();
 
     private KindCompany kind;
+
+    private DateTime creationDate;
+
+    private String emailAddress;
+
+    private DateTime lastSendDate;
+
+    private DateTime lastPaymentDate;
+
+    private InvoiceInfo lastSentInvoice;
+
+    private InvoiceInfo lastPaidInvoice;
 
     public String getKey() {
         return key;
@@ -77,6 +90,30 @@ public class Company implements Auditable {
     @Override
     public String getBusinessKey() {
         return getName();
+    }
+  
+    public DateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public DateTime getLastSendDate() {
+        return lastSendDate;
+    }
+
+    public DateTime getLastPaymentDate() {
+        return lastPaymentDate;
+    }
+
+    public InvoiceInfo getLastSentInvoice() {
+        return lastSentInvoice;
+    }
+
+    public InvoiceInfo getLastPaidInvoice() {
+        return lastPaidInvoice;
     }
 
     public Company setKey(final String key) {
@@ -129,6 +166,36 @@ public class Company implements Auditable {
         return this;
     }
 
+    public Company setCreationDate(DateTime creationDate) {
+        this.creationDate = creationDate;
+        return this;
+    }
+
+    public Company setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+        return this;
+    }
+
+    public Company setLastSendDate(DateTime lastSendDate) {
+        this.lastSendDate = lastSendDate;
+        return this;
+    }
+
+    public Company setLastPaymentDate(DateTime lastPaymentDate) {
+        this.lastPaymentDate = lastPaymentDate;
+        return this;
+    }
+
+    public Company setLastSentInvoice(InvoiceInfo lastSentInvoice) {
+        this.lastSentInvoice = lastSentInvoice;
+        return this;
+    }
+
+    public Company setLastPaidInvoice(InvoiceInfo lastPaidInvoice) {
+        this.lastPaidInvoice = lastPaidInvoice;
+        return this;
+    }
+
     public KindCompany getKind() {
         return kind;
     }
@@ -150,7 +217,12 @@ public class Company implements Auditable {
                 ", address=" + address +
                 ", metrics=" + metrics +
                 ", business=" + business +
-                ", vats=" + vats +
+                ", creationDate=" + creationDate +
+                ", emailAddress=" + emailAddress +
+                ", lastSendDate=" + lastSendDate +
+                ", lastPaymentDate=" + lastPaymentDate +
+                ", lastSentInvoice=" + lastSentInvoice +
+                ", lastPaidInvoice=" + lastPaidInvoice +
                 '}';
     }
 
@@ -222,5 +294,58 @@ public class Company implements Auditable {
 
     public static enum KindCompany {
         EDITOR, INHOUSE_SOLUTION_EDITOR, MAJOR_ACCOUNT, PME, FINAL_RECIPIENT
+    }
+
+    public static class InvoiceInfo {
+        private String ref;
+        @FixedPrecision(2)
+        private BigDecimal grossAmount;
+        @FixedPrecision(2)
+        private BigDecimal netAmount;
+
+        public InvoiceInfo() {
+        }
+
+        public InvoiceInfo(Invoice invoice) {
+            ref = invoice.getKey();
+            grossAmount = invoice.getGrossAmount();
+            netAmount = invoice.getNetAmount();
+        }
+
+        public String getRef() {
+            return ref;
+        }
+
+        public InvoiceInfo setRef(String ref) {
+            this.ref = ref;
+            return this;
+        }
+
+        public BigDecimal getGrossAmount() {
+            return grossAmount;
+        }
+
+        public InvoiceInfo setGrossAmount(BigDecimal grossAmount) {
+            this.grossAmount = grossAmount;
+            return this;
+        }
+
+        public BigDecimal getNetAmount() {
+            return netAmount;
+        }
+
+        public InvoiceInfo setNetAmount(BigDecimal netAmount) {
+            this.netAmount = netAmount;
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return "InvoiceInfo{" +
+                    "ref='" + ref + '\'' +
+                    ", grossAmount=" + grossAmount +
+                    ", netAmount=" + netAmount +
+                    '}';
+        }
     }
 }
