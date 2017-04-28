@@ -47,6 +47,8 @@ public class Invoice {
 
     private List<Blob> attachments = new ArrayList<>();
 
+    private List<StatusChange> statusChanges = new ArrayList<>();
+
     public Invoice addAttachments(List<Blob> newAttachements) {
         if (this.attachments == null) {
             this.attachments = Lists.newLinkedList();
@@ -239,6 +241,30 @@ public class Invoice {
         return this;
     }
 
+    public List<StatusChange> getStatusChanges() {
+        return statusChanges;
+    }
+
+    public Invoice setStatusChanges(List<StatusChange> statusChanges) {
+        this.statusChanges = statusChanges;
+        return this;
+    }
+
+    public Invoice addStatusChange(Status previous, User user, String comment) {
+        StatusChange.UserInfo userInfo = new StatusChange.UserInfo()
+                .setUserRef(user.getKey())
+                .setName(user.getName())
+                .setEmail(user.getEmail());
+        StatusChange statusChange = new StatusChange()
+                .setFrom(previous)
+                .setTo(status)
+                .setBy(userInfo)
+                .setComment(comment)
+                .setTimestamp(DateTime.now());
+        statusChanges.add(statusChange);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Invoice{" +
@@ -397,6 +423,112 @@ public class Invoice {
                     ", grossAmount=" + grossAmount +
                     ", vat=" + vat +
                     '}';
+        }
+    }
+
+    public static class StatusChange {
+        private Status from;
+        private Status to;
+        private UserInfo by;
+        private String comment;
+        private DateTime timestamp;
+
+        public Status getFrom() {
+            return from;
+        }
+
+        public StatusChange setFrom(Status from) {
+            this.from = from;
+            return this;
+        }
+
+        public Status getTo() {
+            return to;
+        }
+
+        public StatusChange setTo(Status to) {
+            this.to = to;
+            return this;
+        }
+
+        public UserInfo getBy() {
+            return by;
+        }
+
+        public StatusChange setBy(UserInfo by) {
+            this.by = by;
+            return this;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+
+        public StatusChange setComment(String comment) {
+            this.comment = comment;
+            return this;
+        }
+
+        public DateTime getTimestamp() {
+            return timestamp;
+        }
+
+        public StatusChange setTimestamp(DateTime timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return "StatusChange{" +
+                    "from='" + from + '\'' +
+                    ", to=" + to +
+                    ", by=" + by +
+                    ", comment=" + comment +
+                    ", timestamp=" + timestamp +
+                    '}';
+        }
+
+        public static class UserInfo {
+            private String userRef;
+            private String name;
+            private String email;
+
+            public String getUserRef() {
+                return userRef;
+            }
+
+            public UserInfo setUserRef(String userRef) {
+                this.userRef = userRef;
+                return this;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public UserInfo setName(String name) {
+                this.name = name;
+                return this;
+            }
+
+            public String getEmail() {
+                return email;
+            }
+
+            public UserInfo setEmail(String email) {
+                this.email = email;
+                return this;
+            }
+
+            @Override
+            public String toString() {
+                return "UserInfo{" +
+                        "userRef='" + userRef + '\'' +
+                        ", name=" + name +
+                        ", email=" + email +
+                        '}';
+            }
         }
     }
 }

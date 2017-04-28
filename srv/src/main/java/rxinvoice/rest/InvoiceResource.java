@@ -115,6 +115,12 @@ public class InvoiceResource {
 
         updateAmounts(invoice);
 
+        if (invoice.getStatus() != invoiceFromDB.getStatus()) {
+            // as client doesn't supply status changes we set it from the database before adding the new status change.
+            invoice.setStatusChanges(invoiceFromDB.getStatusChanges());
+            invoice.addStatusChange(invoiceFromDB.getStatus(), user, invoice.getComment());
+        }
+
         invoices.get().save(invoice);
         if (eventBus.isPresent()) {
             eventBus.get().post(new InvoiceUpdatedEvent(invoice));
