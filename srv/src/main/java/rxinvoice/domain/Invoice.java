@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  */
-public class Invoice {
+public class Invoice implements Auditable {
     @Id @ObjectId
     private String key;
 
@@ -127,6 +127,11 @@ public class Invoice {
 
     public List<ActivityValue> getActivities() {
         return activities;
+    }
+
+    @Override
+    public String getBusinessKey() {
+        return getReference();
     }
 
     public Invoice setKey(final String key) {

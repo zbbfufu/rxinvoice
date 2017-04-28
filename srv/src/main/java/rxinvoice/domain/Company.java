@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  */
-public class Company {
+public class Company implements Auditable {
     @Id @ObjectId
     private String key;
 
@@ -87,6 +87,11 @@ public class Company {
         return vats;
     }
 
+    @Override
+    public String getBusinessKey() {
+        return getName();
+    }
+  
     public DateTime getCreationDate() {
         return creationDate;
     }

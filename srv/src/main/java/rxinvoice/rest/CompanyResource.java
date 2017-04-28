@@ -2,6 +2,7 @@ package rxinvoice.rest;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import com.google.common.eventbus.EventBus;
 import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.jongo.Distinct;
@@ -13,6 +14,7 @@ import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
+import rxinvoice.domain.Activity;
 import rxinvoice.domain.Business;
 import rxinvoice.domain.Company;
 import rxinvoice.domain.User;
@@ -32,10 +34,13 @@ import static rxinvoice.AppModule.Roles.SELLER;
 public class CompanyResource {
     private final JongoCollection companies;
     private final JongoCollection invoices;
+    private final EventBus eventBus;
 
-    public CompanyResource(@Named("companies") JongoCollection companies, @Named("invoices") JongoCollection invoices) {
+    public CompanyResource(@Named("companies") JongoCollection companies, @Named("invoices") JongoCollection invoices,
+                           EventBus eventBus) {
         this.companies = companies;
         this.invoices = invoices;
+        this.eventBus = eventBus;
     }
 
     @RolesAllowed({ADMIN, SELLER})
@@ -110,6 +115,7 @@ public class CompanyResource {
     public Company createCompany(Company company) {
         company = company.setCreationDate(DateTime.now());
         saveCompany(company);
+        eventBus.post(Activity.newCreate(company, AppModule.currentUser()));
         return company;
     }
 
@@ -127,6 +133,7 @@ public class CompanyResource {
     public Company updateCompany(String key, Company company) {
         checkEquals("key", key, "company.key", company.getKey());
         saveCompany(company);
+        eventBus.post(Activity.newUpdate(company, AppModule.currentUser()));
         return company;
     }
 
@@ -136,6 +143,7 @@ public class CompanyResource {
         // TODO check that company is not referenced by users
 
         companies.get().remove(new ObjectId(key));
+        eventBus.post(Activity.newDelete(new Company().setKey(key), AppModule.currentUser()));
         return Status.of("deleted");
     }
 
