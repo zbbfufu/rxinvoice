@@ -180,6 +180,7 @@ angular.module('rxinvoiceApp')
                 $scope.companies.business = invoice.business ? invoice.business.reference : null;
             }
             $scope.date = moment(invoice.date).toDate();
+            $scope.dueDate = moment(invoice.dueDate).toDate();
 
             $scope.activities.load(invoice);
         };
