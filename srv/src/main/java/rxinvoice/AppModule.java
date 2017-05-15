@@ -5,9 +5,13 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import org.jongo.Mapper;
+import org.jongo.marshall.jackson.JacksonMapper;
 import restx.factory.Module;
 import restx.factory.Provides;
 import restx.i18n.SupportedLocale;
+import restx.jackson.BsonJodaTimeModule;
+import restx.jackson.Views;
 import restx.jongo.JongoCollection;
 import restx.mongo.MongoModule;
 import restx.security.*;
@@ -96,6 +100,16 @@ public class AppModule {
                 .setPathMatcher(Predicates.contains(Pattern.compile("^/cors")))
                 .setAllowedMethods(ImmutableList.of("OPTIONS", "GET", "POST"))
                 .setAllowedHeaders(ImmutableList.of("accept", "authorization", "content-type"))
+                .build();
+    }
+
+    @Provides
+    @Named("Mapper")
+    public Mapper mapper() {
+        return new JacksonMapper.Builder()
+                .registerModule(new BsonJodaTimeModule())
+                .registerModule(new BsonJodaTimeMoreModule())
+                .withView(Views.Private.class)
                 .build();
     }
 }
