@@ -39,6 +39,7 @@ if (script) {
     delete userPrint.password;
     delete userPrint.login;
 
+    userPrint.name = 'print';
     userPrint.email = null;
 
     db.getCollection('users').save(userPrint);
