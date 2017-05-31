@@ -1,5 +1,10 @@
 @import '../styles/base-component';
 
 @include new('container') {
-    display: flex;
+  display: flex;
+}
+
+@include new('main') {
+  flex: 2;
+  padding: rem-calc(0 15px);
 }
