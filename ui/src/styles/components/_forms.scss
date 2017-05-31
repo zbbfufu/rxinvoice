@@ -1,0 +1,411 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the FORM component.
+// -----------------------------------------------------------------------------
+
+// ================ //
+// Input General Style (adjust style in foundation-variables.scss)
+// ================ //
+
+input[type='text'],
+input[type='password'],
+input[type='date'],
+input[type='datetime'],
+input[type='datetime-local'],
+input[type='month'],
+input[type='week'],
+input[type='email'],
+input[type='number'],
+input[type='search'],
+input[type='tel'],
+input[type='time'],
+input[type='url'],
+input[type='color'],
+textarea,
+select {
+  background-color: $white;
+
+  &:disabled {
+    background-color: darken($light-grey, 3%);
+    cursor: not-allowed;
+
+    &.ng-invalid-required.ng-empty {
+      background-color: darken($light-grey, 3%) !important;
+    }
+  }
+
+  &:focus + i {
+    color: $primary;
+  }
+}
+
+select:disabled {
+  background-color: darken($light-grey, 3%) !important;
+}
+
+.form-label {
+  display: inline-block;
+  letter-spacing: rem-calc(1px);
+  margin-bottom: rem-calc(6px);
+
+  i {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: rem-calc(5px);
+  }
+}
+
+// ~ ==== Utils
+
+.label-nb {
+  height: rem-calc(28px);
+  min-width: rem-calc(34px);
+  margin-right: rem-calc(5px);
+  padding: rem-calc(3px 10px);
+  border-radius: 10px;
+  background-color: $green;
+  color: $white;
+  font-weight: bold;
+  text-align: center;
+}
+
+label {
+  &.fix-wrap {
+    white-space: nowrap;
+  }
+}
+
+label.middle {
+  padding: rem-calc(5px 0);
+}
+
+.input-has-icon-left {
+  position: relative;
+
+  &.adapt-with-no-padding {
+    i {
+      left: rem-calc(10px);
+    }
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    padding-left: rem-calc(40px);
+  }
+
+  i {
+    position: absolute;
+    top: rem-calc(7px);
+    left: rem-calc(12px);
+    font-size: rem-calc(18px);
+    color: $medium-grey;
+  }
+
+  &.with-label-top {
+    i {
+      top: rem-calc(28px);
+    }
+  }
+}
+
+.input-has-icon-right {
+  position: relative;
+
+  &.adapt-with-no-padding {
+    i {
+      right: rem-calc(10px);
+    }
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    padding-right: rem-calc(36px);
+  }
+
+  i {
+    position: absolute;
+    top: rem-calc(7px);
+    right: rem-calc(26px);
+    font-size: rem-calc(18px);
+    color: $medium-grey;
+  }
+
+  &.with-label-top {
+    i {
+      top: rem-calc(32px);
+    }
+  }
+}
+
+ul {
+  form {
+    .input-search {
+
+      &:after {
+        top: rem-calc(4px);
+      }
+    }
+  }
+}
+
+.with-icon:focus + label {
+  color: $primary;
+}
+
+.read-only {
+  padding: 10px;
+  background-color: lighten($light-grey, 3%);
+  border-radius: rem-calc(5px);
+  border: rem-calc(1px) solid $light-grey;
+
+  &.text {
+    color: $dark-grey;
+    font-size: rem-calc(13px);
+  }
+}
+
+// ---- Actions for Input
+
+.btn-autocomplete {
+  float: right;
+  height: rem-calc(26px);
+  width: auto;
+  padding: rem-calc(0 10px);
+  margin-right: rem-calc(2px);
+  border-radius: rem-calc(5px 5px 0 0);
+  background-color: $special-grey;
+  color: $white;
+  cursor: pointer;
+  transition: 240ms;
+
+  i {
+    margin-right: rem-calc(10px);
+  }
+
+  &:hover, &:focus {
+    transition: 240ms;
+    background-color: darken($special-grey, 5%);
+  }
+}
+
+// ---- Style for input Required
+
+select.ng-valid-required,
+select.ng-invalid-required {
+  background: url($img-main-path + "png/select-icon-required.png") no-repeat;
+  background-position: right rem-calc(10px) center;
+  background-size: rem-calc(30px);
+  padding-right: rem-calc(30px);
+  transition: 250ms;
+}
+
+input.ng-invalid-required {
+  background: url($img-main-path + "png/input-icon-required.png") no-repeat;
+  background-position: right rem-calc(10px) center;
+  background-size: rem-calc(15px);
+  padding-right: rem-calc(30px);
+  transition: 250ms;
+
+  &.ng-empty {
+    background: url($img-main-path + "png/input-icon-required.png") no-repeat !important;
+    background-position: right rem-calc(10px) center !important;
+    background-size: rem-calc(15px) !important;
+    padding-right: rem-calc(30px) !important;
+    transition: 250ms !important;
+  }
+}
+
+input[required] {
+  background: url($img-main-path + "png/input-icon-required.png") no-repeat;
+  background-position: right rem-calc(10px) center;
+  background-size: rem-calc(15px);
+  padding-right: rem-calc(30px);
+  transition: 250ms;
+}
+
+input.ng-invalid {
+  background: url($img-main-path + "png/input-icon-invalide.png") no-repeat;
+  background-position: right rem-calc(10px) center;
+  background-size: rem-calc(15px);
+  padding-right: rem-calc(30px);
+
+  &.ng-empty {
+    background: transparent;
+  }
+}
+
+// ================ //
+// Textarea Styles
+// ================ //
+
+textarea {
+  line-height: 1.4;
+
+  &.fix-height-94 {
+    min-height: rem-calc(94px);
+  }
+
+  &.large {
+    min-height: rem-calc(150px);
+  }
+}
+
+// ================ //
+// Select Styles
+// ================ //
+
+select {
+  &:invalid {
+    color: $light-grey;
+  }
+}
+
+// ================ //
+// Checkbox & Radio Style
+// ================ //
+
+.checkbox, .radio {
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="radio"] + span,
+input[type="checkbox"] + span {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  height: rem-calc(25px);
+  width: rem-calc(25px);
+  margin-left: rem-calc(10px);
+  cursor: pointer;
+  line-height: rem-calc(31px);
+}
+
+input[type="radio"] + span:before,
+input[type="checkbox"] + span:before {
+  display: block;
+  content: '';
+  height: rem-calc(24px);
+  width: rem-calc(24px);
+  border: rem-calc(2px) solid $line-grey;
+  border-radius: 100%;
+}
+
+input[type="radio"]:disabled + span:before,
+input[type="checkbox"]:disabled + span:before {
+  border: rem-calc(2px) solid $line-grey;
+  border-radius: 100%;
+  background: $line-grey;
+  cursor: not-allowed;
+}
+
+input[type="checkbox"] + span:after {
+  position: absolute;
+  font-family: wms;
+  content: '\4c';
+  top: rem-calc(-3px);
+  left: rem-calc(4px);
+  color: $primary;
+  font-size: rem-calc(16px);
+  transform: scale(0) !important;
+  transition: 200ms;
+}
+
+input[type="radio"] + span:after {
+  position: absolute;
+  font-family: wms;
+  content: '';
+  height: 14px;
+  width: 14px;
+  top: rem-calc(-3.5px);
+  left: 20%;
+  background-color: $primary;
+  font-size: rem-calc(16px);
+  transform: scale(0) !important;
+  transition: 200ms;
+}
+
+input[type="radio"]:checked + span:before,
+input[type="checkbox"]:checked + span:before {
+  position: relative;
+  display: block;
+  font-family: wms;
+  content: '';
+  height: rem-calc(24px);
+  width: rem-calc(24px);
+  border: rem-calc(2px) solid $primary;
+  border-radius: 100%;
+}
+
+input[type="radio"]:checked:disabled + span:before,
+input[type="checkbox"]:checked:disabled + span:before {
+  border: rem-calc(2px) solid $line-grey;
+  border-radius: 100%;
+  background: $line-grey;
+  cursor: not-allowed;
+}
+
+input[type="checkbox"]:checked + span:after {
+  position: absolute;
+  font-family: wms;
+  content: '\4c';
+  top: rem-calc(-3px);
+  left: rem-calc(4px);
+  color: $primary;
+  font-size: rem-calc(16px);
+  transform: scale(1) !important;
+  transition: 200ms;
+}
+
+input[type="checkbox"]:checked:disabled + span:after {
+  color: $light-grey;
+  cursor: not-allowed;
+}
+
+input[type="radio"]:checked + span:after {
+  position: absolute;
+  content: '';
+  height: 14px;
+  width: 14px;
+  top: rem-calc(5px);
+  left: 20%;
+  background-color: $primary;
+  font-size: rem-calc(16px);
+  transform: scale(1) !important;
+  border-radius: 100%;
+  transition: 200ms;
+}
+
+input[type="radio"]:checked:disabled + span:after {
+  color: $light-grey;
+  cursor: not-allowed;
+}
+
+.custom-checkbox, .custom-radio {
+  margin-left: 0 !important;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox,
+input[type="radio"]:checked + .custom-radio {
+  height: 24px;
+  width: 24px;
+  border-radius: 100%;
+  animation: checkAnim 200ms ease-in-out;
+}
+
+@-webkit-keyframes checkAnim {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+    box-shadow: 0 0 6px 0 $primary;
+  }
+  100% {
+    transform: scale(1);
+  }
+}

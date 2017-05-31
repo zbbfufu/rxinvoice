@@ -1,0 +1,15 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>N° Facture</th>
+            <th>Client</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!--<div (click)="" [ngClass]=""></div>-->
+        <tr *ngFor="let invoice of invoices">
+            <td>{{ invoice.number }}</td>
+            <td>{{ invoice.client }}</td>
+        </tr>
+    </tbody>
+</table>

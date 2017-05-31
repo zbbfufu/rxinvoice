@@ -1,0 +1,39 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the SWEET ALERT CUSTOM component.
+// -----------------------------------------------------------------------------
+
+
+// ==== Custom Color Icons
+
+.swal2-icon.swal2-warning {
+  color: $primary !important;
+  border-color: $primary !important;
+}
+
+// ==== Custom Btn
+
+.swal2-buttonswrapper {
+  margin-top: rem-calc(25px) !important;
+}
+
+.swal2-modal .swal2-styled {
+  display: inline-block;
+  vertical-align: middle;
+  margin: rem-calc(0 5px) !important;
+  padding: 0.85em 1em !important;
+  border: 1px solid transparent;
+  border-radius: 0.25rem !important;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out ;
+  font-size: 0.9rem !important;
+  line-height: 1;
+  text-align: center;
+
+  &.swal2-confirm {
+    background-color: $primary !important;
+  }
+
+  &.swal2-cancel {
+    filter: alpha(opacity=50);
+    background-color: $dark-grey !important;
+  }
+}

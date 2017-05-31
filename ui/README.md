@@ -1,54 +1,28 @@
-Angular - Bootstrap - Bower - Grunt seed
+# Ui
 
-Initial commit generated with yo generator-angular 0.7.1, with all default answers.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 
-Reviewed to be used more easily with a REST server, especially a [RESTX](http://restx.io/) one.
+## Development server
 
-All changes made to this generator can be checked by looking at git history since initial commit.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## How to use
+## Code scaffolding
 
-You can bootstrap your project with this seed in one of the following way:
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
 
-* clone this repo (optionally fork it before), rename your app in package.json file, setup your backend REST server and
-  configure its host and port in bower.json, and start hacking
-* use restx to bootstrap your app, server and ui, and select `angular-bootstrap-grunt-bower` ui seed, and everything
-  will be ready.
+## Build
 
-## Code organization
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-This app sources are located in the app directory, and test sources are in the test directory.
+## Running unit tests
 
-## Building / running
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-### Pre requisites:
-Install npm, grunt, bower, sass and compass.
+## Running end-to-end tests
 
-### Preparing
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
 
-Run `npm install` once to install the components described in `package.json`, required to run `grunt`.
+## Further help
 
-Run `bower install` to download your web app dependencies described in bower.json to `app/bower_components`.
-
-### Running
-
-Note: You need to have your backend server running.
-
-To run the app:
-
-`grunt serve`
-
-It will:
-
- - build your sass assets,
- - run a server to serve your web app static assets on port 9000, with a reverse proxy to your backend server on port
-  8000, a file watching mechanism to rebuild your sass assets, and live reload support so that your browser is
-  refreshed whenever you make changes to your sources
-
-### Testing
-
-Run `grunt test` to run karma tests.
-
-### Building
-
-Run `grunt build` to prepare your web assets in the `dist` directory.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

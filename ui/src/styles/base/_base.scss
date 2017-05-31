@@ -1,0 +1,25 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the BASE base.
+// -----------------------------------------------------------------------------
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  color: $dark-gray !important;
+  font-size: rem-calc(16px) !important;
+}
+
+* {
+  font-family: $text-font !important;
+}
+
+hr {
+  border-bottom: rem-calc(1px) solid grey;
+  max-width: inherit;
+}
+
+p {
+  line-height: 1.5;
+}

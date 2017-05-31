@@ -1,0 +1,64 @@
+// ==== Define Colors Status
+$state-progress :  $state-progress-color;
+$state-yes :       $state-yes-color;
+$state-no :        $state-no-color ;
+$state-error :     $state-error-color ;
+
+
+// STATE YES
+
+.state-yes {
+  &.status-table { background-color: $state-yes;}
+
+  .status-circle {
+    border: none !important;
+    background-color: $state-yes !important;
+  }
+  .status-type {
+    color: $state-yes !important;
+  }
+}
+
+// STATE NO
+
+.state-no {
+  &.status-table { background-color: $state-no;}
+
+  .status-circle {
+    border: none !important;
+    background-color: $state-no !important;
+  }
+  .status-type {
+    color: $state-no  !important;
+  }
+}
+
+// STATE PROGRESS
+
+.state-progress {
+  &.status-table { background-color: $state-progress;}
+
+  .status-circle {
+    border: none !important;
+    background-color: $state-progress !important;
+  }
+  .status-type {
+    color: $state-progress !important;
+  }
+}
+
+// STATE ERROR
+
+.state-error {
+  &.status-table { background-color:  $state-error;}
+
+  .status-circle {
+    border: none !important;
+    background-color: $state-error !important;
+  }
+  .status-type {
+    color: $state-error !important;
+  }
+}
+
+

@@ -1,0 +1,236 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the DATE PICKER component.
+// -----------------------------------------------------------------------------
+
+.ngui-datetime-picker-wrapper {
+
+  .close-button {
+    position: absolute;
+    top: rem-calc(-37px);
+    right: rem-calc(0) !important;
+    height: rem-calc(37px) !important;
+    width: rem-calc(34px) !important;
+    background-color: $primary;
+    text-align: center;
+
+    &:before {
+      content: '\e0b8' !important;
+      color: white !important;
+      font-size: rem-calc(14px);
+    }
+  }
+
+  input {
+    width: 100%;
+    height: rem-calc(39px);
+    margin: 0 0 1rem;
+    padding: 0.5rem;
+    border-radius: rem-calc(3px);
+    border: rem-calc(1px) solid $line-grey;
+    color: $dark-grey;
+    cursor: pointer;
+    transition: 240ms;
+
+    &.smallFontSizeDatePicker {
+
+      &.ng-dirty {
+        font-size: rem-calc(12px) !important;
+      }
+    }
+
+    &.ng-dirty {
+      background: none;
+
+      @media screen and (max-width: 1024px) {
+        font-size: rem-calc(12px);
+      }
+    }
+
+    &:focus {
+      transition: 240ms;
+      box-shadow: 0 0 5px $primary;
+      border-color: $primary;
+    }
+  }
+
+  .ngui-datetime-picker {
+
+    .month {
+      background-color: $primary;
+      color: white;
+
+      .prev, .next {
+        position: relative;
+        top: -4px;
+        color: white;
+        opacity: 0.6;
+        transition: 240ms;
+
+        &:hover, &:focus {
+          transition: 240ms;
+          background: transparent;
+          opacity: 1;
+        }
+      }
+    }
+
+    .days {
+      padding: 0;
+
+      .day-of-week { color: $primary;}
+
+      .day {
+        &.today {
+          background-color: transparent;
+          border: rem-calc(1px) solid $primary;
+          color: $primary;
+        }
+
+        &.selected {
+          position: relative;
+          background-color: $primary;
+          color: white;
+
+          &:after {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            height: 10px;
+            width: 10px;
+            background-color: lighten($primary, 30%);
+            content: '';
+            z-index: -1;
+            border-radius: 100%;
+            animation: ondeDatePicker 300ms ease-out 1;
+          }
+        }
+      }
+    }
+
+    @keyframes ondeDatePicker {
+      from { opacity: 0;      transform: translate(-50%,-50%) scale(1); }
+      50% { opacity: 1;      transform: translate(-50%,-50%) scale(5);}
+      to { opacity: 0;      transform: translate(-50%,-50%) scale(0);}
+    }
+
+    .select-current-time {
+      display: none;
+    }
+
+    .time {
+      padding: rem-calc(0 13px);
+
+      label {
+        color: $primary;
+      }
+
+      .timeLabel {
+        text-align: center;
+      }
+
+      .timeValue {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding-bottom: rem-calc(10px);
+        border-bottom: rem-calc(1px) solid $medium-grey;
+        font-size: rem-calc(16px);
+        font-weight: bold;
+        color: $dark-grey;
+      }
+
+      input[type=range] {
+        -webkit-appearance: none;
+        margin: 18px 0;
+        width: 100%;
+        border: none;
+        background: none;
+      }
+      input[type=range]:focus {
+        outline: none;
+      }
+      input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: rem-calc(6px);
+        cursor: pointer;
+        animate: 0.2s;
+        background: $medium-grey;
+        border-radius: rem-calc(10px);
+      }
+      input[type=range]::-webkit-slider-thumb {
+        height: rem-calc(22px);
+        width: rem-calc(22Px);
+        background: $primary;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -9px;
+        border-radius: 100%;
+
+        &:hover {
+          transition: 140ms;
+          border: rem-calc(4px) solid lighten($primary, 10%);
+        }
+      }
+      input[type=range]:focus::-webkit-slider-runnable-track {
+        background: $primary;
+      }
+      input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 8.4px;
+        cursor: pointer;
+        animate: 0.2s;
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        background: $primary;
+        border-radius: 1.3px;
+        border: 0.2px solid #010101;
+      }
+      input[type=range]::-moz-range-thumb {
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        border: 1px solid #000000;
+        height: 36px;
+        width: 16px;
+        border-radius: 3px;
+        background: #ffffff;
+        cursor: pointer;
+      }
+      input[type=range]::-ms-track {
+        width: 100%;
+        height: 8.4px;
+        cursor: pointer;
+        animate: 0.2s;
+        background: transparent;
+        border-color: transparent;
+        border-width: 16px 0;
+        color: transparent;
+      }
+      input[type=range]::-ms-fill-lower {
+        background: $primary;
+        border: 0.2px solid #010101;
+        border-radius: 2.6px;
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+      }
+      input[type=range]::-ms-fill-upper {
+        background: $primary;
+        border: 0.2px solid #010101;
+        border-radius: 2.6px;
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+      }
+      input[type=range]::-ms-thumb {
+        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        border: 1px solid #000000;
+        height: 36px;
+        width: 16px;
+        border-radius: 3px;
+        background: #ffffff;
+        cursor: pointer;
+      }
+      input[type=range]:focus::-ms-fill-lower {
+        background: $primary;
+      }
+      input[type=range]:focus::-ms-fill-upper {
+        background: $primary;
+      }
+    }
+  }
+}

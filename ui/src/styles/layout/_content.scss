@@ -1,0 +1,88 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the CONTENT layout.
+// -----------------------------------------------------------------------------
+
+// ================ //
+// Global Layout
+// ================ //
+
+.general-container {
+  width: 100%;
+  height: 100%;
+  padding-top: $height-header;;
+}
+
+.general-view-container {
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin-bottom: rem-calc(-5px);
+  background-color: $secondary;
+  background-size: 100%;
+  background-position: top center;
+  background-repeat: no-repeat;
+  transition-duration: 400ms;
+}
+
+.general-view-content {
+  height: 100%;
+  width: 100%;
+  margin-bottom: rem-calc(-70px);
+}
+
+.view-content {
+  height: 100%;
+  padding: rem-calc($height-breadcrumb $space-view-content $space-view-content $space-view-content);
+}
+
+// ================ //
+// Global Layout
+// ================ //
+
+.block-container {
+  position: relative;
+  box-shadow: 0.3px 0.4px 1.5px 0 rgba(0, 0, 0, 0.06);
+  border: rem-calc(1px) solid $light-grey;
+  background-color: white;
+  border-radius: rem-calc(4px);
+
+  &.block-full-height {
+    height: 100%;
+  }
+
+  &.block-has-footer {
+    height: calc(100% - 50px);
+  }
+
+  &.block-has-inner-footer {
+    padding-bottom: $height-inner-footer;
+  }
+
+  .block-container-table {
+    overflow-y: auto;
+  }
+}
+
+.block-inner-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: $height-inner-footer;
+}
+
+.has-tabs-bar {
+  height: calc(100% - #{$height-tabs-bar} - 15px);
+}
+
+.has-filters-bar {
+  height: calc(100% - #{$height-filters-bar} - 15px);
+
+  &.has-action-bar {
+    height: calc(100% - #{$height-filters-bar} - 55px);
+  }
+}
+
+.has-action-bar {
+  height: calc(100% - #{$height-filters-bar} - 25px);
+}
