@@ -1,0 +1,5 @@
+@import '../styles/base-component';
+
+@include new('container') {
+    display: flex;
+}

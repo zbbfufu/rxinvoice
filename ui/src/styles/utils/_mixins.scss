@@ -1,3 +1,136 @@
-// -----------------------------------------------------------------------------
-// This file contains all styles related to the MIXINS utils.
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------- >
+// ~ Humanified-BEM mixins - BLOCK ELEMENT MODIFIER
+// ---------------------------------------------------------------------- >
+// ==== BLOCK PART
+// Create a BEM 'Block'
+// @param {blockName} - Block name's who generated CSS class.
+// @content = CSS content of your block
+// Inspired by @HugoGiraudel : http://www.sitepoint.com/structuring-css-class-selectors-with-sass/ (Humanified-BEM mixins section)
+// And @tarhpaleo : http://www.alsacreations.com/article/lire/1641-bonnes-pratiques-en-css-bem-et-oocss.html#une-syntaxe-bem-jolie
+// Use case :
+//
+//  @include new('block') {
+//    // my CSS declarations to style my block.
+//  }
+//
+//  Output CSS :
+//
+//  .block {
+//    // my CSS declarations to style my block.
+//  }
+
+@mixin new($block) {
+  @at-root .#{$block} {
+    @content;
+  }
+}
+
+// ==== ELEMENT PART
+// Create a BEM 'Element',
+// @param {ElementName} - Element name's who generated CSS class.
+// @content = CSS content of your element
+// Use case : use in a block mixin.
+//
+//  @include new('block') {
+//    // my CSS declarations to style my block.
+//
+//    @include has('blockElement') {
+//      // my CSS declarations to style my element.
+//    }
+//  }
+//
+//  Output CSS :
+//
+//  .block {
+//    // my CSS declarations to style my block.
+//  }
+//
+//  .block-blockElement {
+//    // my CSS declarations to style my element.
+//  }
+//
+
+@mixin has($element) {
+  &-#{$element} {
+    @content;
+  }
+}
+
+// ==== Modifier PART
+// Create a BEM 'Modifier',
+// @param {ModifierName} - Modifier name's who generated CSS class.
+// @content = CSS content of your modifier
+// Use case : use in a block or element mixin.
+//
+//  @include new('block') {
+//    // my CSS declarations to style my block.
+//
+//    @include has('blockElement') {
+//      // my CSS declarations to style my element.
+//
+//      @include when('blockElementModifier') {
+//        // my CSS declarations to style my element modifier
+//      }
+//    }
+//
+//    @include when('blockModifier') {
+//      // my CSS declarations to style my block modifier
+//    }
+//  }
+//
+//  Output CSS :
+//
+//  .block {}
+//  .block-blockElement {}
+//  .block-blockElement.blockElementModifier {}
+//  .block.blockModifier {}
+//
+
+@mixin when($modifier) {
+  &.#{$modifier} {
+    @content;
+  }
+}
+
+// ==== Impact - by AGY.
+// Allow to skip BEM all elems need modifier rule (Ex : put 'on-left' class only on block and not on all elems.)
+// In other words : when block modifier has a 'impact' on child, you can use this mixin and only in this case.
+// @param {blockName} - Block 'context' who the modifier impact child. Use for generate selector
+// @param {childName} - Child name who's impact by parent modifier
+// @content = CSS content
+// Use case : use when your modifier has impact on child.
+// Use sparingly, try to make maximum use of BEM rules
+//
+//  @include new('block') {
+//    // my CSS declarations to style my block.
+//
+//    @include has('blockElement') {
+//      // my CSS declarations to style my element.
+//    }
+//
+//    @include when('blockModifier') {
+//      // my CSS declarations to style my block modifier
+//
+//      @include impact('block', 'blockElement') {
+//        // my CSS declarations
+//      }
+//    }
+//  }
+//
+//  Output CSS :
+//
+//  .block {}
+//  .block-blockElement {}
+//  .block.blockModifier {}
+//  .block.blockModifier .block-blockElement {}
+//
+
+@mixin impact($block, $child) {
+  & .#{$block}-#{$child} {
+    @content;
+  }
+}
+
+// < ----------------------------------------------------------------------
+// ~ Humanified-BEM mixins - BLOCK ELEMENT MODIFIER END
+// < ----------------------------------------------------------------------

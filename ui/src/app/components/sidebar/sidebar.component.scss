@@ -1,0 +1,31 @@
+@import '../../../styles/base-component';
+
+@include new('sidebar') {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  @include has('logo') {
+    background-color: darkblue;
+    color: white;
+    padding: 0 rem-calc(15px);
+  }
+
+  @include has('menu') {
+    flex: 2;
+    background-color: #8a8a8a;
+    overflow-y: auto;
+    padding: 0 rem-calc(15px);
+
+    @include has('item') {
+      display: block;
+
+    }
+  }
+
+  @include has('logout') {
+    background-color: darkblue;
+    color: white;
+    padding: 0 rem-calc(15px);
+  }
+}

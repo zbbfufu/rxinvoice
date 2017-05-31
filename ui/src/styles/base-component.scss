@@ -1,5 +1,4 @@
-@import 'base-style';
-
-:host {
-  width: 100%;
-}
+@import '../../node_modules/foundation-sites/scss/util/util';
+@import './utils/mixins';
+@import './utils/variables';
+@import './utils/placeholders';
