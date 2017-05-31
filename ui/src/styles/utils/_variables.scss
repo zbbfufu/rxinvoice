@@ -1,59 +1,74 @@
-// -----------------------------------------------------------------------------
-// This file contains all styles related to the VARIABLES vendors.
-// -----------------------------------------------------------------------------
+// ---------------------------------------------------------------------- >
+// ~ SEARCH HELP
+// ---------------------------------------------------------------------- >
+// Hierarchy :
+// ~  : High level section. Title is in summary, separate by "arrow" at the begin and the end (except search help and summary).
+// ==== : Upper level in a section
+// == : Sub level in a section
+// = : Lower level in a section
 
-// ==== Define Fonts ==== //
-$text-font: 'Fira Sans', Helvetica, Roboto, Arial, sans-serif !default;
+// ---------------------------------------------------------------------- >
+// ~ SUMMARY
+// ---------------------------------------------------------------------- >
+// 1 - MISC
 
-// == General
+// ---------------------------------------------------------------------- >
+// ~ MISC
+// ---------------------------------------------------------------------- >
 
-$primary: #e96c2f;
-$primary-gradient: linear-gradient(to bottom, $primary 0%,darken($primary, 5%) 100%);;
-$primary-dark: #9f481e;
+// ==== Define Fonts
+//$body-font : 'Open Sans', sans-serif;
 
-$secondary: #48b1c7;
-$secondary-dark: #1b7689;
+// ==== Define Colors
+// == Colors by name (based on : http://chir.ag/projects/name-that-color/)
+// USE ONLY TO DEFINE COLORS BY FUNCTION, don't use in others vars declaration.
 
-$blue: #48b1c7;
-$green: #8fd61e;
-$yellow: #fcc91a;
-$red: #fc1a1a;
+$wedgewood :                                     #478199 !default;
+$blue-dianne :                                   #285162 !default;
+$tiber :                                         #082f3f !default;
+$golden-bell :                                   #e57e10 !default;
 
-$special-grey: #f0f3f9 !default;
-$special-light-grey:  darken($special-grey, 2%) !default;
-$special-medium-grey: darken($special-grey, 5%) !default;
-$special-dark-grey: darken($special-grey, 25%) !default;
-$white-grey: #fbfbfb !default;
-$hover-grey: #f5f8fa !default;
-$light-grey: #edf0f2 !default;
-$line-grey: #cad2dd !default;
-$medium-grey: #8da4c3 !default;
-$dark-grey: #434f5f !default;
+$silver-rust :                                   #cdcdcd !default;
 
-$dark-grey-gradient: linear-gradient(to bottom, $dark-grey 0%,darken($dark-grey, 5%) 100%);
+$shiraz :                                        #b01032 !default;
+$la-palma :                                      #10B016 !default;
+$yellow-sea :                                    #ffa806 !default;
 
 
-$state-progress-color :                              $blue !default;
-$state-yes-color :                                   $green !default;
-$state-no-color :                                    $yellow !default;
-$state-error-color :                                 $red !default;
 
-$font-main-path: '/assets/fonts/' !default;
-$img-main-path: '/assets/images/' !default;
+// == Colors by function
+// = General
+$app-light-color :                                $wedgewood !default;
+$app-main-color :                                 $blue-dianne !default;
+$app-sub-color :                                  $golden-bell !default;
+$app-dark-color :                                 $tiber !default;
 
-// ================ //
-// Variables for sass
-// ================ //
+$app-disabled-color :                             $silver-rust !default;
 
-// === Define base color
+$app-error-color :                                $shiraz !default;
+$app-warning-color :                              $yellow-sea !default;
+$app-success-color :                              $la-palma !default;
 
-// === Define base metrics
-$height-header: 70px !default;
-$width-side-bar: 280px !default;
-$height-breadcrumb: 54px !default;
-$space-view-content: 28px !default;
-$height-tabs-bar: 54px !default;
-$height-filters-bar: 80px !default;
-$height-inner-footer: 70px !default;
+// = Fonts color
+$body-font-color :                              $app-dark-color !default;
 
-// === Define images
+// ==== PATHS
+//$img-path :                                     '../images/' !default;
+//$svg-path :                                     '../images/svg/' !default;
+
+//$font-path :                                    '../fonts/' !default;
+
+// < ----------------------------------------------------------------------
+// ~ MISC END
+// < ----------------------------------------------------------------------
+
+
+// ---------------------------------------------------------------------- >
+// ~ HEADER
+// ---------------------------------------------------------------------- >
+
+
+
+// < ----------------------------------------------------------------------
+// ~ HEADER END
+// < ----------------------------------------------------------------------

@@ -36,32 +36,6 @@
   cursor: pointer;
 }
 
-// Utils class for Border
-
-.no-border {
-  border: none;
-}
-
-.border {
-  border: rem-calc(1px) solid $light-grey;
-}
-
-.border-left {
-  border-left: rem-calc(1px) solid $light-grey;
-}
-
-.border-right {
-  border-right: rem-calc(1px) solid $light-grey;
-}
-
-.border-top {
-  border-top: rem-calc(1px) solid $light-grey;
-}
-
-.border-bottom {
-  border-bottom: rem-calc(1px) solid $light-grey;
-}
-
 // Utils class for position ELEMENTS
 
 .text-right {
