@@ -3,6 +3,7 @@
 @include new('appHeader') {
   display: flex;
   height: rem-calc($appHeader-height);
+  background-color: $appHeader-bg-color;
 
   @include has('search') {
     flex: 1;
@@ -20,6 +21,7 @@
     justify-content: center;
     align-items: center;
     width: rem-calc($appHeader-height);
+    background-color: $white;
   }
 
   @include has('actuality') {
@@ -27,5 +29,6 @@
     justify-content: center;
     align-items: center;
     width: rem-calc($appHeader-height);
+    background-color: $button-actuality-color;
   }
 }

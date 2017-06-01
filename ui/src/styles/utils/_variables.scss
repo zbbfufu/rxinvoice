@@ -23,12 +23,24 @@
 // == Colors by name (based on : http://chir.ag/projects/name-that-color/)
 // USE ONLY TO DEFINE COLORS BY FUNCTION, don't use in others vars declaration.
 
-$wedgewood :                                     #478199 !default;
-$blue-dianne :                                   #285162 !default;
-$tiber :                                         #082f3f !default;
-$golden-bell :                                   #e57e10 !default;
+$san-juan :                                      #344C67 !default;
+$shakespeare :                                   #3CA3D2 !default;
+$blue-bayoux :                                   #4c637b !default;
+$catskill-white :                                #E3EAF3 !default;
 
+$regent-gray :                                   #7B8C9C !default;
+$geyser :                                        #CCD4DA !default;
 $silver-rust :                                   #cdcdcd !default;
+$black-squeeze :                                 #F2F6FA !default;
+
+
+$sushi :                                        #67BA2F !default;
+
+$bright-sun :                                   #ffde45 !default;
+
+
+$white :                                        #ffffff !default;
+
 
 $shiraz :                                        #b01032 !default;
 $la-palma :                                      #10B016 !default;
@@ -38,10 +50,11 @@ $yellow-sea :                                    #ffa806 !default;
 
 // == Colors by function
 // = General
-$app-light-color :                                $wedgewood !default;
-$app-main-color :                                 $blue-dianne !default;
-$app-sub-color :                                  $golden-bell !default;
-$app-dark-color :                                 $tiber !default;
+$app-main-color:                                  $blue-bayoux !default;
+$app-main-light-color:                            $shakespeare !default;
+$app-main-dark-color :                            $san-juan !default;
+$app-sub-color :                                  $regent-gray !default;
+$app-sub-light-color :                            $catskill-white !default;
 
 $app-disabled-color :                             $silver-rust !default;
 
@@ -50,7 +63,15 @@ $app-warning-color :                              $yellow-sea !default;
 $app-success-color :                              $la-palma !default;
 
 // = Fonts color
-$body-font-color :                              $app-dark-color !default;
+$body-font-color :                                $regent-gray !default;
+$body-light-font-color :                          $geyser !default;
+
+// = Status color
+$status-tovalidate-color :                        $bright-sun !default;
+
+// = Buttons color
+$button-filter-color :                            $black-squeeze !default;
+$button-actuality-color :                              $sushi !default;
 
 // ==== PATHS
 //$img-path :                                     '../images/' !default;
@@ -62,12 +83,25 @@ $body-font-color :                              $app-dark-color !default;
 // ~ MISC END
 // < ----------------------------------------------------------------------
 
+// ---------------------------------------------------------------------- >
+// ~ SIDEBAR
+// ---------------------------------------------------------------------- >
+
+$sidebar-bg-color :                                 $app-main-color !default;
+$sidebar-item-bg-color :                            $app-main-light-color !default;
+
+
+// < ----------------------------------------------------------------------
+// ~ SIDEBAR END
+// < ----------------------------------------------------------------------
+
 
 // ---------------------------------------------------------------------- >
 // ~ HEADER
 // ---------------------------------------------------------------------- >
 
-$appHeader-height: 60px !default;
+$appHeader-height:                                    50px !default;
+$appHeader-bg-color :                                 $app-sub-light-color   !default;
 
 
 // < ----------------------------------------------------------------------

@@ -1,15 +1,21 @@
 <div class="sidebar">
   <div class="sidebar-logo">
-    4sh
+    <img src="assets/images/4sh_logo_white.svg">
   </div>
 
   <nav class="sidebar-menu">
-    <a routerLink="/" class="sidebar-menu-item">Accueil</a>
-    <a routerLink="/customers" class="sidebar-menu-item">Clients</a>
-    <a routerLink="/invoices" class="sidebar-menu-item">Factures</a>
+    <a routerLink="/dashboard" [routerLinkActive]="['isActive']" class="sidebar-menu-item toto">
+      <img class="sidebar-menu-icon" src="assets/images/icon_home.svg">Accueil
+    </a>
+    <a routerLink="/customers" [routerLinkActive]="['isActive']" class="sidebar-menu-item">
+      <img class="sidebar-menu-icon" src="assets/images/icon_client.svg">Clients
+    </a>
+    <a routerLink="/invoices" [routerLinkActive]="['isActive']" class="sidebar-menu-item">
+      <img class="sidebar-menu-icon" src="assets/images/icon_invoice.svg">Factures
+    </a>
   </nav>
 
-  <div class="sidebar-logout">
-    <button>Déconnexion</button>
-  </div>
+  <a class="sidebar-logout">
+      <img class="sidebar-logout-icon" src="assets/images/icon_logout.svg">Déconnexion
+  </a>
 </div>

@@ -7,26 +7,70 @@
   min-height: 100vh;
 
   @include has('logo') {
-    background-color: darkblue;
-    color: white;
-    padding: 0 rem-calc(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $app-main-dark-color;
+    height: rem-calc($appHeader-height);
+
+    img {
+      max-width: 60%;
+      max-height: 60%;
+    }
   }
 
   @include has('menu') {
     flex: 2;
-    background-color: #8a8a8a;
+    background-color: $sidebar-bg-color;
     overflow-y: auto;
-    padding: 0 rem-calc(15px);
 
     @include has('item') {
-      display: block;
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+      color: white;
+      padding: rem-calc(15px 20px);
+      cursor: pointer;
 
+      &:hover,
+      &:focus {
+        background-color: mix($sidebar-bg-color, $sidebar-item-bg-color, 50%);
+      }
+
+      @include when('isActive') {
+        background-color: $sidebar-item-bg-color;
+      }
+    }
+
+    @include has('icon') {
+      position: relative;
+      top: rem-calc(-1px);
+      width: rem-calc(30px);
+      margin-right: rem-calc(12px);
     }
   }
 
   @include has('logout') {
-    background-color: darkblue;
-    color: white;
-    padding: 0 rem-calc(15px);
+    display: flex;
+    align-items: center;
+    background-color: $app-main-dark-color;
+    text-transform: uppercase;
+    color: $white;
+    height: rem-calc(50px);
+    padding: 0 rem-calc(20px);
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: $sidebar-item-bg-color;
+    }
+
+    @include has('icon') {
+      position: relative;
+      top: rem-calc(-1px);
+      left: rem-calc(-2px);
+      width: rem-calc(30px);
+      margin-right: rem-calc(10px);
+    }
   }
 }
