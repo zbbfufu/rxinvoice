@@ -1,0 +1,31 @@
+@import '../../../styles/base-component';
+
+@include new('appHeader') {
+  display: flex;
+  height: rem-calc($appHeader-height);
+
+  @include has('search') {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    input {
+      margin-bottom: 0;
+    }
+
+  }
+
+  @include has('user') {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: rem-calc($appHeader-height);
+  }
+
+  @include has('actuality') {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: rem-calc($appHeader-height);
+  }
+}

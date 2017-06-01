@@ -3,6 +3,7 @@
 @include new('sidebar') {
   display: flex;
   flex-direction: column;
+  width: 15vw;
   min-height: 100vh;
 
   @include has('logo') {
