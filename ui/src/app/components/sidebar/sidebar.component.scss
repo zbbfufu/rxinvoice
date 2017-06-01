@@ -5,6 +5,7 @@
   flex-direction: column;
   width: 15vw;
   min-height: 100vh;
+  box-shadow: 4px 0px 12px #aaa;
 
   @include has('logo') {
     display: flex;
@@ -15,7 +16,7 @@
 
     img {
       max-width: 60%;
-      max-height: 60%;
+      max-height: 50%;
     }
   }
 

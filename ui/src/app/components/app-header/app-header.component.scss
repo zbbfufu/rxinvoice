@@ -1,34 +1,43 @@
 @import '../../../styles/base-component';
 
+
 @include new('appHeader') {
   display: flex;
   height: rem-calc($appHeader-height);
   background-color: $appHeader-bg-color;
+  box-shadow: rem-calc(4px 0px 12px) #aaa;
 
   @include has('search') {
     flex: 1;
     display: flex;
     align-items: center;
+    margin-left: rem-calc(15px);
+    max-width: 50vw;
 
     input {
       margin-bottom: 0;
     }
-
   }
 
-  @include has('user') {
+  @include has('menu') {
+    flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: rem-calc($appHeader-height);
-    background-color: $white;
-  }
+    justify-content: flex-end;
 
-  @include has('actuality') {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: rem-calc($appHeader-height);
-    background-color: $button-actuality-color;
+    @include has('user') {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: rem-calc($appHeader-height);
+      background-color: $white;
+    }
+
+    @include has('actuality') {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: rem-calc($appHeader-height);
+      background-color: $button-actuality-color;
+    }
   }
 }
