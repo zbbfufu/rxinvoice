@@ -22,8 +22,8 @@
       border-bottom: 2px solid $body-dark-font-color;
       box-shadow: none;
       background-color: $appHeader-bg-color;
-      background-image: url("../../../#{$img-path}icon_search.svg");
-      background-size: rem-calc(50px 50px);
+      background-image: url("../../../#{$svg-path}icon_search.svg");
+      background-size: rem-calc(70px 70px);
       background-repeat: no-repeat;
       background-position: left center;
       font-weight: 500;
