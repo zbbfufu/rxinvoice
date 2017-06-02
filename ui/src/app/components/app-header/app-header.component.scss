@@ -16,6 +16,19 @@
 
     input {
       margin-bottom: 0;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: 2px solid $body-dark-font-color;
+      box-shadow: none;
+      background-color: $appHeader-bg-color;
+      background-image: url("../../../#{$img-path}icon_search.svg");
+      background-size: rem-calc(50px 50px);
+      background-repeat: no-repeat;
+      background-position: left center;
+      font-weight: 500;
+      color: $body-light-font-color;
+      padding-left: rem-calc(60px);
     }
   }
 
@@ -29,6 +42,8 @@
       justify-content: center;
       align-items: center;
       width: rem-calc($appHeader-height);
+      font-weight: 600;
+      color: $body-dark-font-color;
       background-color: $white;
     }
 
@@ -38,6 +53,12 @@
       align-items: center;
       width: rem-calc($appHeader-height);
       background-color: $button-actuality-color;
+
+      &:hover,
+      &:focus {
+        background-color: mix($button-actuality-color, $white, 70%);
+      }
     }
   }
 }
+

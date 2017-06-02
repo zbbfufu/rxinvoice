@@ -63,7 +63,7 @@ $app-warning-color :                              $yellow-sea !default;
 $app-success-color :                              $la-palma !default;
 
 // = Fonts color
-$body-font-color :                                $regent-gray !default;
+$body-dark-font-color :                                $regent-gray !default;
 $body-light-font-color :                          $geyser !default;
 
 // = Status color
@@ -74,8 +74,8 @@ $button-filter-color :                            $black-squeeze !default;
 $button-actuality-color :                              $sushi !default;
 
 // ==== PATHS
-//$img-path :                                     '../images/' !default;
-//$svg-path :                                     '../images/svg/' !default;
+$img-path :                                     'assets/images/' !default;
+$svg-path :                                     'assets/images/svg/' !default;
 
 //$font-path :                                    '../fonts/' !default;
 

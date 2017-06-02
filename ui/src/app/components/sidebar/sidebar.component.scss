@@ -15,7 +15,7 @@
     height: rem-calc($appHeader-height);
 
     img {
-      max-width: 60%;
+      max-width: 40%;
       max-height: 50%;
     }
   }
@@ -46,7 +46,7 @@
     @include has('icon') {
       position: relative;
       top: rem-calc(-1px);
-      width: rem-calc(30px);
+      width: rem-calc(20px);
       margin-right: rem-calc(12px);
     }
   }
@@ -70,7 +70,7 @@
       position: relative;
       top: rem-calc(-1px);
       left: rem-calc(-2px);
-      width: rem-calc(30px);
+      width: rem-calc(20px);
       margin-right: rem-calc(10px);
     }
   }
