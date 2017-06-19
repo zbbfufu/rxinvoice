@@ -1,15 +1,87 @@
-<table class="table">
-    <thead>
+<div class="invoiceFilter">
+  <div class="invoiceFilter-label">
+    <div class="invoiceFilter-label-name">Tri</div>
+    <div class="invoiceFilter-label-component">
+      <div class="invoiceFilter-label-component-item isActive">
+        <a href="#">Réf</a>
+      </div>
+      <div class="invoiceFilter-label-component-item">
+        <a href="#">Date</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="invoiceFilter-search">
+    <input type="text" placeholder="Recherche">
+  </div>
+
+  <div class="invoiceFilter-button">
+    <a href="#" class="invoiceFilter-button-new">Nouvelle facture</a>
+    <a href="#" class="invoiceFilter-button-excel">Excel</a>
+  </div>
+</div>
+
+<table class="invoiceList">
+    <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
         <tr>
-            <th>N° Facture</th>
-            <th>Client</th>
+          <td>
+            <div class="invoiceList-item-label">Référence client</div>
+          </td>
+          <td>
+            <span class="invoiceList-item-label">Date :</span>
+            <span class="invoiceList-item-value">{{invoice.invoiceDate}}</span>
+          </td>
+          <td>
+            <span class="invoiceList-item-label">Affaire :</span>
+            <span class="invoiceList-item-value">{{invoice.deal}}</span>
+          </td>
+          <td>
+            <span class="invoiceList-item-label">Montant HT :</span>
+            <span class="invoiceList-item-value">{{invoice.amount}}</span>
+          </td>
+          <td>
+            <div class="invoiceList-item-label">TVA</div>
+          </td>
+          <td>
+            <span class="invoiceList-item-label"><img src="assets/images/svg/icon_comments.svg"></span>
+            <span class="invoiceList-item-value">{{invoice.comments.length}}</span>
+          </td>
+          <td>
+            <div class="invoiceList-item-label">Statut</div>
+          </td>
+          <td rowspan="2">
+            <div class="invoiceList-button">
+              <a class="link grey-link" href="#">4PM</a>
+            </div>
+          </td>
         </tr>
-    </thead>
-    <tbody>
-        <!--<div (click)="" [ngClass]=""></div>-->
-        <tr *ngFor="let invoice of invoices">
-            <td>{{ invoice.number }}</td>
-            <td>{{ invoice.client }}</td>
+
+        <tr>
+          <td>
+            <div class="invoiceList-item-value text blue-text">{{invoice.number}} - {{invoice.client}} </div>
+          </td>
+          <td>
+            <span class="invoiceList-item-label">Échéance :</span>
+            <span class="invoiceList-item-value">{{invoice.deadlineDate}}</span>
+          </td>
+          <td>
+            <span class="invoiceList-item-label">Type :</span>
+            <span class="invoiceList-item-value">{{invoice.type}}</span>
+          </td>
+          <td>
+            <span class="invoiceList-item-label">Montant TTC :</span>
+            <span class="invoiceList-item-value">{{invoice.freeTaxAmount}}</span>
+          </td>
+          <td>
+            <div class="invoiceList-item-value">{{invoice.tax}}</div>
+          </td>
+          <td>
+            <span class="invoiceList-item-label"><img src="assets/images/svg/icon_attachments.svg"></span>
+            <span class="invoiceList-item-value">{{invoice.attachments.length}}</span>
+          </td>
+          <td>
+            <div class="invoiceList-item-value status is-{{invoice.status}}">{{getStatusLabel(invoice.status)}}</div>
+          </td>
         </tr>
     </tbody>
 </table>

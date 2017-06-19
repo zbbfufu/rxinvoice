@@ -2,3 +2,35 @@
 // This file contains all styles related to the TYPOGRAPHY base.
 // -----------------------------------------------------------------------------
 
+
+// Link
+
+.link {
+
+  i {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+
+  &.primary-link { color: $shakespeare;}
+  &.grey-link {
+    color: $regent-gray;
+
+    &:hover,
+    &:focus {
+      color: white;
+    }
+  }
+
+  &.blue-link { color: $app-main-light-color;}
+}
+
+// Text
+
+.text {
+  &.blue-text { color: $app-main-light-color !important;}
+}
+
+
+

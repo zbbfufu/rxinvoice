@@ -19,16 +19,16 @@
       border-top: none;
       border-left: none;
       border-right: none;
-      border-bottom: 2px solid $body-dark-font-color;
+      border-bottom: 1px solid $body-dark-font-color;
       box-shadow: none;
       background-color: $appHeader-bg-color;
       background-image: url("../../../#{$svg-path}icon_search.svg");
-      background-size: rem-calc(70px 70px);
+      background-size: rem-calc(20px);
       background-repeat: no-repeat;
       background-position: left center;
       font-weight: 500;
       color: $body-light-font-color;
-      padding-left: rem-calc(60px);
+      padding-left: rem-calc(40px);
     }
   }
 
@@ -53,6 +53,7 @@
       align-items: center;
       width: rem-calc($appHeader-height);
       background-color: $button-actuality-color;
+      background-image: url("../../../#{$svg-path}icon_menu.svg");
 
       &:hover,
       &:focus {

@@ -15,4 +15,24 @@ export class InvoicesListComponent implements OnInit {
     ngOnInit() {
         this.invoices = this.invoiceService.fetchInvoices();
     }
+
+    public getStatusLabel(status:string){
+      switch (status) {
+        case "toBeRelaunched" :
+          return "À relancer";
+
+        case "toSend" :
+          return "À envoyer";
+
+        case "toBeValidated" :
+          return "À valider";
+
+        case "toPrepare" :
+          return "À préparer";
+
+        default :
+          return status;
+      }
+    }
+
 }
