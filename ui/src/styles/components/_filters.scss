@@ -1,0 +1,81 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the FILTERS component.
+// -----------------------------------------------------------------------------
+
+// ================ //
+// Filter Style
+// ================ //
+
+// --- Types --- //
+
+
+
+// - Circle button -
+
+.list-filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: rem-calc(10px);
+  border-spacing: 0;
+
+  .item-filter {
+    display: inline-block;
+    border-radius:100%;
+    width:rem-calc(40px);
+    height:rem-calc(40px);
+    margin-right: rem-calc(5px);
+    border: 2px solid $button-light-circle-color;
+    text-align: center;
+    font-size: small;
+    transition: 340ms;
+
+    &:hover,
+    &:focus {
+      transition: 340ms;
+      border-color:$sushi;
+    }
+
+    .item-filter-link {
+      display: block;
+      line-height: rem-calc(36px);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    // === States
+
+    .isActive {
+      border: 2px solid $sushi;
+    }
+  }
+}
+
+
+// - Large button -
+
+.button-filter {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+
+  .more-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    border: 1px solid $button-light-circle-color;
+    border-radius: rem-calc(6px);
+    box-shadow: 0px 0px 2px #E8EAED;
+    padding: rem-calc(10px 20px);
+    text-align: center;
+    background-color: $sushi;
+    color: $white;
+    font-weight: 500;
+
+    &:hover,
+    &:focus {
+      background-color: mix($button-actuality-color, black, 85%);
+    }
+  }
+}

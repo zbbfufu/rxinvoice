@@ -1,0 +1,31 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the FORMS component.
+// -----------------------------------------------------------------------------
+
+// ================ //
+// Input Style
+// ================ //
+
+// --- Types
+
+.input-search {
+  margin-bottom: 0;
+  border-radius: rem-calc(6px);
+  border: 2px solide $button-light-circle-color;
+  box-shadow: none;
+  padding-left: rem-calc(40px);
+  font-weight: 500;
+  background-image: url("../#{$svg-path}icon_search.svg");
+  background-size: rem-calc(20px);
+  background-repeat: no-repeat;
+  background-position: rem-calc(10px);
+}
+
+// ================ //
+// Select Style
+// ================ //
+
+select {
+  background-color: $black-squeeze;
+  border-radius: rem-calc(3px);
+}

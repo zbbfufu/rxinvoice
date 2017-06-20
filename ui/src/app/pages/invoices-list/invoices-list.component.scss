@@ -1,6 +1,8 @@
 @import '../../../styles/base-component';
 
 
+// ---- Invoice List Filter
+
 @include new('invoiceFilter') {
   display: flex;
   flex-direction: row;
@@ -19,157 +21,78 @@
       font-weight: 500;
       padding-right: rem-calc(15px);
     }
-
-    @include has('component') {
-
-      @include has('item') {
-        display: inline-block;
-        border-radius:100%;
-        width:rem-calc(40px);
-        height:rem-calc(40px);
-        border: 2px solid $button-light-circle-color;
-        text-align: center;
-        font-size: small;
-
-        a{
-          display: block;
-          line-height: rem-calc(36px);
-          text-align: center;
-          font-weight: 500;
-        }
-
-        @include when('isActive') {
-          border: 2px solid $sushi;
-        }
-
-        &:hover,
-        &:focus {
-          border-color:$sushi;
-        }
-      }
-    }
   }
 
   @include has('search') {
-    margin-left: rem-calc(50px);
-    max-width: 25vw;
-
-    input {
-      margin-bottom: 0;
-      border-radius: rem-calc(6px);
-      border: 2px solide $button-light-circle-color;
-      box-shadow: none;
-      padding-left: rem-calc(40px);
-      font-weight: 500;
-      background-image: url("../../../#{$svg-path}icon_search.svg");
-      background-size: rem-calc(20px);
-      background-repeat: no-repeat;
-      background-position: left center;
-    }
-  }
-
-  @include has('button') {
     flex: 1;
     display: flex;
-    justify-content: flex-end;
+    margin-left: rem-calc(50px);
+    max-width: 20vw;
+  }
 
-    @include has('new') {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-right: 15px;
-      border: 1px solid $button-light-circle-color;
-      border-radius: rem-calc(6px);
-      box-shadow: 0px 0px 2px #E8EAED;
-      padding: rem-calc(10px 20px);
-      text-align: center;
-      background-color: $sushi;
-      color: $white;
 
-      &:hover,
-      &:focus {
-        background-color: mix($button-actuality-color, black, 85%);
+  // ---- Invoice List Table
+
+  @include new('invoiceList') {
+    margin-top: rem-calc(20px);
+    padding: rem-calc(10px);
+    border-spacing: 0;
+
+    @include has('row') {
+      background-color: $content-dark-list-color;
+
+      &:nth-child(even) {
+        background-color: $content-light-list-color;
+      }
+
+      tr {
+        background-color: transparent;
+
+        td {
+          padding: 0;
+          padding-top: rem-calc(10px);
+        }
+
+        + tr td {
+          padding-top: 0;
+          padding-bottom: rem-calc(15px);
+        }
       }
     }
 
-    @include has('excel') {
-      border-radius:100%;
-      width:rem-calc(40px);
-      height:rem-calc(40px);
-      line-height: rem-calc(36px);
-      margin-right: rem-calc(30px);
-      border: 2px solid $button-light-circle-color;
-      text-align: center;
-      font-size: small;
+    @include has('button') {
+      border-radius: 100%;
+      width: rem-calc(45px);
+      height: rem-calc(45px);
+      border: lightskyblue;
+      box-shadow: 0 3px 8px #aaa, inset 0 2px 3px #fff;
 
-      a{
+      a {
         display: block;
+        line-height: rem-calc(45px);
+        vertical-align: middle;
         text-align: center;
         font-weight: 500;
       }
-    }
-  }
-}
-
-@include new('invoiceList') {
-  margin-top: rem-calc(20px);
-  padding: rem-calc(10px);
-  border-spacing: 0;
-
-  @include has('row') {
-    background-color: $content-dark-list-color;
-
-    &:nth-child(even){
-      background-color: $content-light-list-color;
-    }
-
-    tr {
-      background-color: transparent;
-
-      td {
-        padding: 0;
-        padding-top: rem-calc(10px);
-      }
-
-      + tr td {
-        padding-top: 0;
-        padding-bottom: rem-calc(15px);
-      }
-    }
-  }
-
-  @include has('button') {
-    border-radius:100%;
-    width:rem-calc(45px);
-    height:rem-calc(45px);
-    border: lightskyblue;
-    box-shadow: 0 3px 8px #aaa, inset 0 2px 3px #fff;
-
-    a {
-      display: block;
-      line-height: rem-calc(45px);
-      vertical-align: middle;
-      text-align: center;
-      font-weight: 500;
-    }
 
       &:hover,
       &:focus {
         background-color: mix($button-dark-circle-color, $white, 70%);
+      }
     }
-  }
 
-  @include has('item-label') {
-    color: $body-light-font-color;
-    font-weight: 500;
+    @include has('item-label') {
+      color: $body-light-font-color;
+      font-weight: 500;
 
-    img {
-      width: rem-calc(15px);
+      img {
+        width: rem-calc(15px);
+      }
     }
-  }
 
-  @include has('item-value') {
-    color: $body-dark-font-color;
-    font-weight: 500;
+    @include has('item-value') {
+      color: $body-dark-font-color;
+      font-weight: 500;
+    }
   }
 }
