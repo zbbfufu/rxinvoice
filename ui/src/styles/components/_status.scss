@@ -1,10 +1,11 @@
 @include new('status') {
   border: 1px solid #E8EAED;
-  border-radius: rem-calc(3px);
+  border-radius: rem-calc(4px);
   box-shadow: 0px 0px 2px #E8EAED;
   width: rem-calc(130px);
   padding: rem-calc(3px 0);
   text-align: center;
+  font-size: rem-calc(12px);
   color: white !important;
 
 

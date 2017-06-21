@@ -60,27 +60,6 @@
       }
     }
 
-    @include has('button') {
-      border-radius: 100%;
-      width: rem-calc(45px);
-      height: rem-calc(45px);
-      border: lightskyblue;
-      box-shadow: 0 3px 8px #aaa, inset 0 2px 3px #fff;
-
-      a {
-        display: block;
-        line-height: rem-calc(45px);
-        vertical-align: middle;
-        text-align: center;
-        font-weight: 500;
-      }
-
-      &:hover,
-      &:focus {
-        background-color: mix($button-dark-circle-color, $white, 70%);
-      }
-    }
-
     @include has('item-label') {
       color: $body-light-font-color;
       font-weight: 500;

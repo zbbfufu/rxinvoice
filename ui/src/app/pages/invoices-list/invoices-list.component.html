@@ -1,39 +1,37 @@
 <div class="invoiceFilter">
   <div class="invoiceFilter-label">
     <div class="invoiceFilter-label-name">Tri</div>
-      <ul class="list-filter">
-        <li class="item-filter isActive">
+      <div class="list-filter">
+        <div class="item-filter isActive">
           <a class="item-filter-link" href="#">Réf</a>
-        </li>
-        <li class="item-filter">
+        </div>
+        <div class="item-filter">
           <a  class="item-filter-link" href="#">Date</a>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
-  </div>
 
   <div class="invoiceFilter-search">
     <input class="input-search" type="text" placeholder="Recherche">
   </div>
 
-  <div class="button-filter">
-    <a href="#" class="more-filter">Nouvelle facture</a>
+  <div class="button-large">
+    <a href="#" class="button">Nouvelle facture</a>
   </div>
 
-  <div class="invoiceFilter-label">
-    <div class="item-filter">
-        <a href="#" class="item-filter-link"><img class="invoiceFilter-label-component-item-excel" src="assets/images/png/icon_excel.png"></a>
+  <div class="list-filter">
+    <div class="item-filter isActive">
+      <a href="#" class="item-filter-link"><img class="item-filter-table " src="assets/images/png/icon_excel.png"></a>
     </div>
-    </div>
+  </div>
 </div>
 
-
-<select name="one">
+<!--<select name="one">
   <option value="">Select…</option>
   <option value="1">Option #1</option>
   <option value="2">Option #2</option>
   <option value="3">Option #3</option>
-</select>
+</select>-->
 
 <table class="invoiceList">
     <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
@@ -64,8 +62,8 @@
             <div class="invoiceList-item-label">Statut</div>
           </td>
           <td rowspan="2">
-            <div class="invoiceList-button">
-              <a class="link grey-link" href="#">4PM</a>
+            <div class="button-small">
+              <a class="button" href="#">4PM</a>
             </div>
           </td>
         </tr>

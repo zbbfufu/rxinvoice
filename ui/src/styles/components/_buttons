@@ -1,0 +1,70 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the BUTTONS component.
+// -----------------------------------------------------------------------------
+
+// ================ //
+// Buttons Style
+// ================ //
+
+// --- Small size --- //
+
+.button-small {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 0.1rem;
+    margin-right: 20px;
+    border-radius: rem-calc(4px);
+    box-shadow: 0px 0px 2px #E8EAED;
+    text-align: center;
+    background-color: $button-access-color;
+    color: $white;
+    font-size: rem-calc(12px);
+    font-weight: 500;
+
+    &:hover,
+    &:focus {
+      transition: 340ms;
+      background-color: mix($button-access-color, $shakespeare, 40%);
+    }
+  }
+}
+
+
+// --- Large size --- //
+
+.button-large {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    border-radius: rem-calc(4px);
+    box-shadow: 0 0 2px #E8EAED;
+    text-align: center;
+    background-color: $sushi;
+    color: $white;
+    font-size: rem-calc(12px);
+    font-weight: 500;
+
+    &:hover,
+    &:focus {
+      transition: 340ms;
+      background-color: mix($sushi, black, 80%);
+    }
+  }
+}
+
+
+
+
