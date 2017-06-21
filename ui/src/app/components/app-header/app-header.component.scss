@@ -29,6 +29,11 @@
       font-weight: 500;
       color: $body-light-font-color;
       padding-left: rem-calc(40px);
+
+      &:focus {
+        border-color:#3CA3D2;
+      }
+
     }
   }
 

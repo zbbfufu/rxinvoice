@@ -25,4 +25,9 @@
   @include when('is-toSend') {
     background-color: $status-tosend-color;
   }
+
+  @include when('isActive') {
+
+
+  }
 }

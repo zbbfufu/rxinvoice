@@ -28,6 +28,12 @@
     display: flex;
     margin-left: rem-calc(50px);
     max-width: 20vw;
+    border-color: 1px solid #008ABF;
+
+    &:focus{
+      transition: 0.35s ease;
+      color: #3CA3D2;
+    }
   }
 
 

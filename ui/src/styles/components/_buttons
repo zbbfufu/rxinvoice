@@ -17,10 +17,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 0.1rem;
     margin-right: 20px;
+    padding: 13px 21px;
     border-radius: rem-calc(4px);
-    box-shadow: 0px 0px 2px #E8EAED;
+    box-shadow: 0 0 2px #E8EAED;
     text-align: center;
     background-color: $button-access-color;
     color: $white;
