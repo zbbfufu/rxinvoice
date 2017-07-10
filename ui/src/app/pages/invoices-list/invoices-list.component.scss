@@ -8,6 +8,7 @@
   flex-direction: row;
   align-items: center;
   margin-top: rem-calc(20px);
+  margin-left: rem-calc(20px);
   padding: rem-calc(10px);
   border-spacing: 0;
 
@@ -33,6 +34,19 @@
     &:focus{
       transition: 0.35s ease;
       color: #3CA3D2;
+    }
+  }
+
+  @include new('invoiceSelect') {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: rem-calc(20px);
+    padding: rem-calc(10px);
+
+    @include has('select') {
+      display: flex;
+      margin-left: rem-calc(50px);
     }
   }
 
@@ -80,4 +94,8 @@
       font-weight: 500;
     }
   }
+}
+
+@include new('invoiceNumber') {
+  margin: rem-calc(20px 0 0 30px);
 }

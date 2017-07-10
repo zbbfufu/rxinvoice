@@ -1,7 +1,7 @@
 @import '../../../styles/base-component';
 
 
-// ---- Invoice List Filter
+// ---- Customer List Filter
 
 @include new('customerFilter') {
   display: flex;
@@ -40,6 +40,34 @@
 
 @include new('customerNumber') {
   margin: rem-calc(20px 0 0 30px);
+}
 
+// ---- Invoice List Table
 
+@include new('invoiceList') {
+  margin-top: rem-calc(20px);
+  padding: rem-calc(10px);
+  border-spacing: 0;
+
+  @include has('row') {
+    background-color: $content-dark-list-color;
+
+    &:nth-child(even) {
+      background-color: $content-light-list-color;
+    }
+
+    tr {
+      background-color: transparent;
+
+      td {
+        padding: 0;
+        padding-top: rem-calc(10px);
+      }
+
+      + tr td {
+        padding-top: 0;
+        padding-bottom: rem-calc(15px);
+      }
+    }
+  }
 }

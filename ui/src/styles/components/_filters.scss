@@ -6,7 +6,7 @@
 // Filter Style
 // ================ //
 
-// --- Circle Button --- //
+// --- Select Circle Button --- //
 
 .list-filter {
   display: flex;
@@ -25,11 +25,11 @@
     border: 2px solid $button-light-circle-color;
     text-align: center;
     font-size: small;
-    transition: 340ms;
+    transition: 300ms;
 
     &:hover,
     &:focus {
-      transition: 340ms;
+      transition: 300ms;
       border-color:$sushi;
     }
 
@@ -52,4 +52,19 @@
     }
   }
 }
+
+
+.invoiceFilter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: rem-calc(10px);
+  border-spacing: 0;
+  margin-left: rem-calc(-12px);
+
+  .customer-filter {
+    border-radius: 10px;
+  }
+}
+
 

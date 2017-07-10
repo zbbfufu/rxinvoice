@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     margin-right: 20px;
-    padding: 13px 21px;
+    padding: 8px 12px;
     border-radius: rem-calc(4px);
     box-shadow: 0 0 2px #E8EAED;
     text-align: center;
@@ -64,6 +64,44 @@
     }
   }
 }
+
+
+// --- Button Circle --- //
+
+ .circle-button {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   padding: rem-calc(10px);
+   border-spacing: 0;
+   margin-right: rem-calc(-18px);
+
+   .circle-button-item {
+     display: inline-block;
+     border-radius: 100%;
+     width: rem-calc(40px);
+     height: rem-calc(40px);
+     margin-right: rem-calc(5px);
+     border: 2px solid $button-light-circle-color;
+     text-align: center;
+     font-size: small;
+     transition: 340ms;
+
+     &:hover,
+     &:focus {
+       transition: 340ms;
+       color: white;
+       background-color: $button-main-fonctionality;
+     }
+
+     .circle-button-link {
+       display: block;
+       line-height: rem-calc(36px);
+       text-align: center;
+       font-weight: 500;
+     }
+   }
+ }
 
 
 

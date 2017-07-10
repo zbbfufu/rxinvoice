@@ -28,6 +28,18 @@
 // ================ //
 
 select {
-  background-color: $black-squeeze;
-  border-radius: rem-calc(3px);
+  border: 1px solid $black-squeeze;
+  box-shadow: 1px 1px 12px 0px $black-squeeze;
+}
+.position {
+  margin-right: rem-calc(20px);
+}
+
+.invoiceSelect {
+  margin-bottom: 0;
+  border-radius: rem-calc(6px);
+  border: 2px solide $button-light-circle-color;
+  box-shadow: none;
+  padding-left: rem-calc(40px);
+  font-weight: 500;
 }

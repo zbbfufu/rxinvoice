@@ -1,3 +1,4 @@
+<!-- [HEADER] -->
 <div class="invoiceFilter">
   <div class="invoiceFilter-label">
     <div class="invoiceFilter-label-name">Tri</div>
@@ -26,12 +27,42 @@
   </div>
 </div>
 
-<!--<select name="one">
-  <option value="">Select…</option>
-  <option value="1">Option #1</option>
-  <option value="2">Option #2</option>
-  <option value="3">Option #3</option>
-</select>-->
+<!-- Select input -->
+
+<div class="invoiceSelect">
+    <div class="date-select position">
+      <input type="date">
+    </div>
+
+  <div class="client-select position">
+      <select>
+        <option value="client">- Selection client -</option>
+      </select>
+  </div>
+
+  <div class="status-filter position">
+    <select>
+      <option value="status">- Tous les statuts -</option>
+    </select>
+  </div>
+
+  <div class="types-filter position">
+    <select>
+      <option value="types">- Tous les types -</option>
+    </select>
+  </div>
+</div>
+
+<!-- Invoice number -->
+
+<div class="invoiceNumber">
+  <h6>04 factures pour un nombre total de 00,000€</h6>
+</div>
+
+<!-- [END HEADER] -->
+
+
+<!-- [INVOICE LIST] -->
 
 <table class="invoiceList">
     <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
@@ -62,8 +93,10 @@
             <div class="invoiceList-item-label">Statut</div>
           </td>
           <td rowspan="2">
-            <div class="invoiceList-item-button button-small">
-              <a class="button" href="#">4PM</a>
+            <div class="invoiceList-item-button circle-button">
+              <div class="circle-button-item isActive">
+                <a class="circle-button-link" href="#">4PM</a>
+              </div>
             </div>
           </td>
         </tr>
@@ -97,3 +130,5 @@
         </tr>
     </tbody>
 </table>
+
+<!-- [END INVOICE LIST] -->
