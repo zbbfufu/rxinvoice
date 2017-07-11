@@ -1,6 +1,5 @@
 @import '../../../styles/base-component';
 
-// ---- Invoice List Filter
 
 @include new('invoiceFilter') {
   padding: rem-calc(20px);
@@ -20,7 +19,6 @@
 // ---- Invoice List Table
 
 @include new('invoiceList') {
-  margin-top: rem-calc(20px);
   padding: rem-calc(10px);
   border-spacing: 0;
 
@@ -62,5 +60,5 @@
 }
 
 @include new('invoiceNumber') {
-  margin: rem-calc(20px 0 0 0);
+  margin: rem-calc(35px 0 0 0);
 }

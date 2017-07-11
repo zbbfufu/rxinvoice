@@ -28,55 +28,59 @@
             </div>
         </div>
 
-        <div class="columns shrink">
-            <div class="button-large">
-                <a href="#" class="button">Nouvelle facture</a>
+        <div class="row">
+            <div class="columns shrink largeButton">
+                <a> {{'invoices.newInvoice' | translate}} </a>
             </div>
 
-            <div class="listFilter">
-                <div class="listFilter-item">
-                    <a href="#" class="listFilter-item-link">
-                        <img class="listFilter" src="assets/images/png/icon_excel.png">
-                    </a>
-                </div>
+            <div class="columns shrink circleButton">
+                <a><img class="icon" src="assets/images/png/icon_excel.png"></a>
             </div>
         </div>
     </div>
-
 
     <!-- Select input -->
 
-    <div class="invoiceSelect">
-        <div class="date-select position">
-            <input type="date">
-        </div>
+        <div class="invoiceSelect row">
+            <div class="columns shrink">
+                <div class="invoiceSelect-date">
+                    <input type="date">
+                </div>
+            </div>
 
-        <div class="client-select position">
-            <select>
-                <option value="client">- Selection client -</option>
-            </select>
-        </div>
+            <div class="columns shrink">
+                <div class="invoiceSelect-client">
+                    <select>
+                        <option value="status">- Tous les clients -</option>
+                    </select>
+                </div>
+            </div>
 
-        <div class="status-filter position">
-            <select>
-                <option value="status">- Tous les statuts -</option>
-            </select>
-        </div>
+            <div class="columns shrink">
+                <div class="invoiceSelect-status">
+                    <select>
+                        <option value="status">- Tous les statuts -</option>
+                    </select>
+                </div>
+            </div>
 
-        <div class="types-filter position">
-            <select>
-                <option value="types">- Tous les types -</option>
-            </select>
-        </div>
-    </div>
+            <div class="columns shrink">
+                <div class="invoiceSelect-types">
+                    <select>
+                        <option value="types">- Tous les types -</option>
+                    </select>
+                </div>
+            </div>
+         </div>
+
 
     <!-- Invoice number -->
 
     <div class="invoiceNumber">
         <h6>04 factures pour un nombre total de 00,000€</h6>
     </div>
-
 </div>
+
 <!-- [END HEADER] -->
 
 

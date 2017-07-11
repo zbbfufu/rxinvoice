@@ -2,107 +2,47 @@
 // This file contains all styles related to the BUTTONS component.
 // -----------------------------------------------------------------------------
 
-// ================ //
-// Buttons Style
-// ================ //
 
-// --- Small size --- //
+//---- Button types ---- //
 
-.button-small {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
 
-  .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 20px;
-    padding: 8px 12px;
-    border-radius: rem-calc(4px);
-    box-shadow: 0 0 2px #E8EAED;
-    text-align: center;
-    background-color: $button-access-color;
-    color: $white;
-    font-size: rem-calc(12px);
-    font-weight: 500;
+@include new('largeButton') {
+  font-size: 1.2rem;
+  border-radius: rem-calc(4px);
+  background-color: $sushi;
+  margin-right: rem-calc(10px);
+  padding: rem-calc(10px 30px);
+  cursor: pointer;
 
-    &:hover,
-    &:focus {
-      transition: 340ms;
-      background-color: mix($button-access-color, $shakespeare, 40%);
-    }
+  a {
+    color: white;
   }
-}
-
-
-// --- Large size --- //
-
-.button-large {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-
-
-  .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 20px;
-    border-radius: rem-calc(4px);
-    box-shadow: 0 0 2px #E8EAED;
-    text-align: center;
-    background-color: $sushi;
-    color: $white;
-    font-size: rem-calc(12px);
-    font-weight: 500;
 
     &:hover,
     &:focus {
-      transition: 340ms;
       background-color: mix($sushi, black, 80%);
     }
   }
-}
 
+  @include new('circleButton') {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: rem-calc(40px);
+    height: rem-calc(40px);
+    border: rem-calc(2px) solid $button-light-circle-color;
+    font-size: rem-calc(12px);
+    color: $body-dark-font-color;
+    transition: all 300ms;
+    border-radius: rem-calc(40px);
+    cursor: pointer;
 
-// --- Button Circle --- //
+    &:hover,
+    &:focus {
+      border-color: $sushi;
+    }
 
- .circle-button {
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-   padding: rem-calc(10px);
-   border-spacing: 0;
-   margin-right: rem-calc(-18px);
-
-   .circle-button-item {
-     display: inline-block;
-     border-radius: 100%;
-     width: rem-calc(40px);
-     height: rem-calc(40px);
-     margin-right: rem-calc(5px);
-     border: 2px solid $button-light-circle-color;
-     text-align: center;
-     font-size: small;
-     transition: 340ms;
-
-     &:hover,
-     &:focus {
-       transition: 340ms;
-       color: white;
-       background-color: $button-main-fonctionality;
-     }
-
-     .circle-button-link {
-       display: block;
-       line-height: rem-calc(36px);
-       text-align: center;
-       font-weight: 500;
-     }
-   }
- }
-
-
-
-
+    a img {
+      width: rem-calc(22px);
+    }
+  }
