@@ -1,64 +1,82 @@
 <!-- [HEADER] -->
+
 <div class="invoiceFilter">
-  <div class="invoiceFilter-label">
-    <div class="invoiceFilter-label-name">Tri</div>
-      <div class="list-filter">
-        <div class="item-filter isActive">
-          <a class="item-filter-link" href="#">Réf</a>
+    <div class="row">
+        <div class="columns shrink">
+            <div class="row align-middle listFilter">
+                <div class="columns shrink listFilter-label">
+                    Tri
+                </div>
+
+                <div class="columns">
+                    <div class="listFilter-item isActive">
+                        Réf
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="listFilter-item">
+                        Date
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="item-filter">
-          <a  class="item-filter-link" href="#">Date</a>
+
+        <div class="columns">
+            <div class="invoiceFilter-search">
+                <input class="input-search" type="text" placeholder="Recherche">
+            </div>
         </div>
-      </div>
+
+        <div class="columns shrink">
+            <div class="button-large">
+                <a href="#" class="button">Nouvelle facture</a>
+            </div>
+
+            <div class="listFilter">
+                <div class="listFilter-item">
+                    <a href="#" class="listFilter-item-link">
+                        <img class="listFilter" src="assets/images/png/icon_excel.png">
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-  <div class="invoiceFilter-search">
-    <input class="input-search" type="text" placeholder="Recherche">
-  </div>
 
-  <div class="button-large">
-    <a href="#" class="button">Nouvelle facture</a>
-  </div>
+    <!-- Select input -->
 
-  <div class="list-filter">
-    <div class="item-filter isActive">
-      <a href="#" class="item-filter-link"><img class="item-filter-table " src="assets/images/png/icon_excel.png"></a>
+    <div class="invoiceSelect">
+        <div class="date-select position">
+            <input type="date">
+        </div>
+
+        <div class="client-select position">
+            <select>
+                <option value="client">- Selection client -</option>
+            </select>
+        </div>
+
+        <div class="status-filter position">
+            <select>
+                <option value="status">- Tous les statuts -</option>
+            </select>
+        </div>
+
+        <div class="types-filter position">
+            <select>
+                <option value="types">- Tous les types -</option>
+            </select>
+        </div>
     </div>
-  </div>
-</div>
 
-<!-- Select input -->
+    <!-- Invoice number -->
 
-<div class="invoiceSelect">
-    <div class="date-select position">
-      <input type="date">
+    <div class="invoiceNumber">
+        <h6>04 factures pour un nombre total de 00,000€</h6>
     </div>
 
-  <div class="client-select position">
-      <select>
-        <option value="client">- Selection client -</option>
-      </select>
-  </div>
-
-  <div class="status-filter position">
-    <select>
-      <option value="status">- Tous les statuts -</option>
-    </select>
-  </div>
-
-  <div class="types-filter position">
-    <select>
-      <option value="types">- Tous les types -</option>
-    </select>
-  </div>
 </div>
-
-<!-- Invoice number -->
-
-<div class="invoiceNumber">
-  <h6>04 factures pour un nombre total de 00,000€</h6>
-</div>
-
 <!-- [END HEADER] -->
 
 
@@ -66,68 +84,66 @@
 
 <table class="invoiceList">
     <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
-        <tr>
-          <td>
+    <tr>
+        <td>
             <div class="invoiceList-item-label">Référence client</div>
-          </td>
-          <td>
+        </td>
+        <td>
             <span class="invoiceList-item-label">Date :</span>
             <span class="invoiceList-item-value">{{invoice.invoiceDate}}</span>
-          </td>
-          <td>
+        </td>
+        <td>
             <span class="invoiceList-item-label">Affaire :</span>
             <span class="invoiceList-item-value">{{invoice.deal}}</span>
-          </td>
-          <td>
+        </td>
+        <td>
             <span class="invoiceList-item-label">Montant HT :</span>
             <span class="invoiceList-item-value">{{invoice.amount}}</span>
-          </td>
-          <td>
+        </td>
+        <td>
             <div class="invoiceList-item-label">TVA</div>
-          </td>
-          <td>
+        </td>
+        <td>
             <span class="invoiceList-item-label"><img src="assets/images/svg/icon_comments.svg"></span>
             <span class="invoiceList-item-value">{{invoice.comments.length}}</span>
-          </td>
-          <td>
+        </td>
+        <td>
             <div class="invoiceList-item-label">Statut</div>
-          </td>
-          <td rowspan="2">
-            <div class="invoiceList-item-button circle-button">
-              <div class="circle-button-item isActive">
-                <a class="circle-button-link" href="#">4PM</a>
-              </div>
-            </div>
-          </td>
-        </tr>
+        </td>
+        <td rowspan="2">
+            <a class="invoiceList-item-button circleButton small primary">
+                4PM
+            </a>
+        </td>
+    </tr>
 
-        <tr>
-          <td>
-            <div class="invoiceList-item-value text blue-text">{{invoice.number}} - {{invoice.client}} </div>
-          </td>
-          <td>
+    <tr>
+        <td>
+            <div class="invoiceList-item-value text blue-text">{{invoice.number}} - {{invoice.client}}</div>
+        </td>
+        <td>
             <span class="invoiceList-item-label">Échéance :</span>
             <span class="invoiceList-item-value">{{invoice.deadlineDate}}</span>
-          </td>
-          <td>
+        </td>
+        <td>
             <span class="invoiceList-item-label">Type :</span>
             <span class="invoiceList-item-value">{{invoice.type}}</span>
-          </td>
-          <td>
+        </td>
+        <td>
             <span class="invoiceList-item-label">Montant TTC :</span>
             <span class="invoiceList-item-value">{{invoice.freeTaxAmount}}</span>
-          </td>
-          <td>
+        </td>
+        <td>
             <div class="invoiceList-item-value">{{invoice.tax}}</div>
-          </td>
-          <td>
+        </td>
+        <td>
             <span class="invoiceList-item-label"><img src="assets/images/svg/icon_attachments.svg"></span>
             <span class="invoiceList-item-value">{{invoice.attachments.length}}</span>
-          </td>
-          <td>
+        </td>
+        <td>
             <div class="invoiceList-item-value status is-{{invoice.status}}">{{getStatusLabel(invoice.status)}}</div>
-          </td>
-        </tr>
+        </td>
+    </tr>
     </tbody>
 </table>
 

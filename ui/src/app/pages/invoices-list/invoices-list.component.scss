@@ -1,101 +1,66 @@
 @import '../../../styles/base-component';
 
-
 // ---- Invoice List Filter
 
 @include new('invoiceFilter') {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: rem-calc(20px);
-  margin-left: rem-calc(20px);
-  padding: rem-calc(10px);
-  border-spacing: 0;
-
-  @include has('label') {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @include has('name') {
-      color: $body-dark-font-color;
-      font-weight: 500;
-      padding-right: rem-calc(15px);
-    }
-  }
+  padding: rem-calc(20px);
 
   @include has('search') {
-    flex: 1;
-    display: flex;
     margin-left: rem-calc(50px);
     max-width: 20vw;
-    border-color: 1px solid #008ABF;
 
-    &:focus{
+    &:focus {
       transition: 0.35s ease;
+      // TODO : use variable
       color: #3CA3D2;
-    }
-  }
-
-  @include new('invoiceSelect') {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: rem-calc(20px);
-    padding: rem-calc(10px);
-
-    @include has('select') {
-      display: flex;
-      margin-left: rem-calc(50px);
-    }
-  }
-
-
-  // ---- Invoice List Table
-
-  @include new('invoiceList') {
-    margin-top: rem-calc(20px);
-    padding: rem-calc(10px);
-    border-spacing: 0;
-
-    @include has('row') {
-      background-color: $content-dark-list-color;
-
-      &:nth-child(even) {
-        background-color: $content-light-list-color;
-      }
-
-      tr {
-        background-color: transparent;
-
-        td {
-          padding: 0;
-          padding-top: rem-calc(10px);
-        }
-
-        + tr td {
-          padding-top: 0;
-          padding-bottom: rem-calc(15px);
-        }
-      }
-    }
-
-    @include has('item-label') {
-      color: $body-light-font-color;
-      font-weight: 500;
-
-      img {
-        width: rem-calc(15px);
-      }
-    }
-
-    @include has('item-value') {
-      color: $body-dark-font-color;
-      font-weight: 500;
     }
   }
 }
 
+// ---- Invoice List Table
+
+@include new('invoiceList') {
+  margin-top: rem-calc(20px);
+  padding: rem-calc(10px);
+  border-spacing: 0;
+
+  @include has('row') {
+    background-color: $content-dark-list-color;
+
+    &:nth-child(even) {
+      background-color: $content-light-list-color;
+    }
+
+    tr {
+      background-color: transparent;
+
+      td {
+        padding: 0;
+        padding-top: rem-calc(10px);
+      }
+
+      + tr td {
+        padding-top: 0;
+        padding-bottom: rem-calc(15px);
+      }
+    }
+  }
+
+  @include has('item-label') {
+    color: $body-light-font-color;
+    font-weight: 500;
+
+    img {
+      width: rem-calc(15px);
+    }
+  }
+
+  @include has('item-value') {
+    color: $body-dark-font-color;
+    font-weight: 500;
+  }
+}
+
 @include new('invoiceNumber') {
-  margin: rem-calc(20px 0 0 30px);
+  margin: rem-calc(20px 0 0 0);
 }
