@@ -5,17 +5,17 @@
 
   <nav class="sidebar-menu">
     <a routerLink="/dashboard" [routerLinkActive]="['isActive']" class="sidebar-menu-item toto">
-      <img class="sidebar-menu-icon" src="assets/images/svg/icon_home.svg">Accueil
+      <img class="sidebar-menu-icon" src="assets/images/icon_home.svg">{{'nav.home' | translate}}
     </a>
     <a routerLink="/customers" [routerLinkActive]="['isActive']" class="sidebar-menu-item">
-      <img class="sidebar-menu-icon" src="assets/images/svg/icon_client.svg">Clients
+      <img class="sidebar-menu-icon" src="assets/images/icon_client.svg">{{'nav.customers' | translate}}
     </a>
     <a routerLink="/invoices" [routerLinkActive]="['isActive']" class="sidebar-menu-item">
-      <img class="sidebar-menu-icon" src="assets/images/svg/icon_invoice.svg">Factures
+      <img class="sidebar-menu-icon" src="assets/images/icon_invoice.svg">{{'nav.invoices' | translate}}
     </a>
   </nav>
 
   <a class="sidebar-logout">
-      <img class="sidebar-logout-icon" src="assets/images/svg/icon_logout.svg">Déconnexion
+      <img class="sidebar-logout-icon" src="assets/images/icon_logout.svg">{{'common.logout' | translate}}
   </a>
 </div>
