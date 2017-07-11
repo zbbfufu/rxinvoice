@@ -6,24 +6,9 @@
     margin-top: rem-calc(20px);
 
   @include has('number') {
-    display: flex;
     line-height: rem-calc(50px);
     margin-left: rem-calc(20px);
     color: white;
-  }
-
-  @include has('status') {
-      display: flex;
-      align-content: center;
-
-    &:hover,
-    &:focus {
-
-    }
-
-    @include has('isActive') {
-      border-bottom: 2px solid deeppink;
-      }
   }
 
 

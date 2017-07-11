@@ -1,3 +1,21 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the STATUS component.
+// -----------------------------------------------------------------------------
+
+// --- Skin Status DASHBOARD Invoice List
+
+@include new('invoiceListHome-status') {
+
+
+  @include has('isActive') {
+    border-bottom: 2px solid deeppink;
+  }
+}
+
+
+
+// --- Skin Status INVOICE Invoice List
+
 @include new('status') {
   border: 1px solid #E8EAED;
   border-radius: rem-calc(4px);
