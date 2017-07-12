@@ -2,11 +2,8 @@
 // This file contains all styles related to the FILTERS component.
 // -----------------------------------------------------------------------------
 
-// ================ //
-// Filter Style
-// ================ //
 
-// --- Select Circle Button --- //
+// --- Circle Filter --- //
 
 @include new('listFilter') {
 
@@ -21,7 +18,7 @@
     align-items: center;
     width:rem-calc(40px);
     height:rem-calc(40px);
-    border: rem-calc(2px) solid $button-light-circle-color;
+    border: rem-calc(2px) solid $button-border-light-color ;
     font-size: rem-calc(12px);
     color: $body-dark-font-color;
     transition: all 300ms;
@@ -30,12 +27,25 @@
 
     &:hover,
     &:focus {
-      border-color: $sushi;
+      border-color: $button-primary-color;
     }
 
     @include when('isActive') {
       color: white;
-      background-color: $sushi;
+      background-color: $button-primary-color;
     }
   }
 }
+
+
+// --- MultiSelect Filter --- //
+
+@include new('invoiceSelect') {
+  margin-top: rem-calc(30px);
+}
+
+select {
+  border: 1px solid $black-squeeze;
+  box-shadow: 1px 1px 12px 0px $black-squeeze;
+}
+

@@ -2,18 +2,21 @@
 
 
 @include new('invoiceFilter') {
-  padding: rem-calc(20px);
+  padding: rem-calc(20px 20px 0 20px);
 
   @include has('search') {
     margin-left: rem-calc(50px);
     max-width: 20vw;
 
     &:focus {
-      transition: 0.35s ease;
-      // TODO : use variable
-      color: #3CA3D2;
+      transition: 0.30s ease;
+      color: $input-border-color;
     }
   }
+}
+
+@include new('invoiceNumber') {
+  margin: rem-calc(35px 0 0 0);
 }
 
 // ---- Invoice List Table
@@ -59,6 +62,4 @@
   }
 }
 
-@include new('invoiceNumber') {
-  margin: rem-calc(35px 0 0 0);
-}
+

@@ -4,47 +4,26 @@
 // ---- Customer List Filter
 
 @include new('customerFilter') {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: rem-calc(20px);
-  padding: rem-calc(10px);
-  border-spacing: 0;
-
-  @include has('label') {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    @include has('name') {
-      color: $body-dark-font-color;
-      font-weight: 500;
-      padding-right: rem-calc(15px);
-      margin-left: 20px;
-    }
-  }
+  padding: rem-calc(20px 20px 0 20px);
 
   @include has('search') {
-    flex: 1;
-    display: flex;
     margin-left: rem-calc(50px);
     max-width: 20vw;
-    border-color: 1px solid #008ABF;
 
     &:focus {
-      transition: 0.35s ease;
-      color: #3CA3D2;
+      transition: 0.30s ease;
+      color: $input-border-color;
     }
   }
 }
 
 @include new('customerNumber') {
-  margin: rem-calc(20px 0 0 30px);
+  margin: rem-calc(35px 0 0 0);
 }
 
 // ---- Invoice List Table
 
-@include new('invoiceList') {
+@include new('customerList') {
   margin-top: rem-calc(20px);
   padding: rem-calc(10px);
   border-spacing: 0;
@@ -69,5 +48,15 @@
         padding-bottom: rem-calc(15px);
       }
     }
+  }
+
+  @include has('item-label') {
+    color: $body-light-font-color;
+    font-weight: 500;
+  }
+
+  @include has('item-value') {
+  color: $body-dark-font-color;
+  font-weight: 500;
   }
 }

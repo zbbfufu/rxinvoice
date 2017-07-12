@@ -65,6 +65,10 @@ $app-error-color :                                $shiraz !default;
 $app-warning-color :                              $yellow-sea !default;
 $app-success-color :                              $la-palma !default;
 
+// = Content color
+$content-dark-list-color :                        $catskill-light !default;
+$content-light-list-color :                       $alice-blue !default;
+
 // = Fonts color
 $body-dark-font-color :                           $regent-gray !default;
 $body-light-font-color :                          $geyser !default;
@@ -74,20 +78,21 @@ $status-tovalidate-color :                        $sunshade !default;
 $status-toprepare-color :                         $bright-sun !default;
 $status-toberelaunched-color :                    $red-orange  !default;
 $status-tosend-color :                            $lima  !default;
+$status-border-light-color :                      $geyser !default;
 
-  // = Buttons color
-$button-main-fonctionality :                       $shakespeare !default;
+// = Buttons color
+$button-primary-color:                            $sushi !default;
+$button-secondary-color :                         $shakespeare !default;
 $button-filter-color :                            $black-squeeze !default;
-$button-actuality-color :                         $sushi !default;
-$button-dark-circle-color :                       $regent-gray !default;
-$button-light-circle-color :                      $geyser !default;
+$button-border-dark-color :                       $regent-gray !default;
+$button-border-light-color :                      $geyser !default;
 $button-access-color :                            $regent-gray !default;
 
-// = Content color
-$content-dark-list-color :                        $catskill-light !default;
-$content-light-list-color :                       $alice-blue !default;
+// = Input color
+$input-border-color :                             $geyser !default;
 
-  // ==== PATHS
+
+// = PATHS
 $img-path :                                     'assets/images/' !default;
 $svg-path :                                     'assets/images/svg/' !default;
 

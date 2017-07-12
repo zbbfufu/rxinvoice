@@ -57,12 +57,12 @@
       justify-content: center;
       align-items: center;
       width: rem-calc($appHeader-height);
-      background-color: $button-actuality-color;
+      background-color: $button-primary-color;
       background-image: url("../../../#{$svg-path}icon_menu.svg");
 
       &:hover,
       &:focus {
-        background-color: mix($button-actuality-color, $white, 70%);
+        background-color: mix($button-primary-color, $white, 70%);
       }
     }
   }

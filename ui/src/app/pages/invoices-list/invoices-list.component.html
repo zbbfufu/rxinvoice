@@ -51,7 +51,7 @@
             <div class="columns shrink">
                 <div class="invoiceSelect-client">
                     <select>
-                        <option value="status">- Tous les clients -</option>
+                        <option value="status">{{'invoices.filter.client' | translate}}</option>
                     </select>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             <div class="columns shrink">
                 <div class="invoiceSelect-status">
                     <select>
-                        <option value="status">- Tous les statuts -</option>
+                        <option value="status">{{'invoices.filter.status' | translate}}</option>
                     </select>
                 </div>
             </div>
@@ -67,7 +67,7 @@
             <div class="columns shrink">
                 <div class="invoiceSelect-types">
                     <select>
-                        <option value="types">- Tous les types -</option>
+                        <option value="types">{{'invoices.filter.types' | translate}}</option>
                     </select>
                 </div>
             </div>
@@ -77,7 +77,7 @@
     <!-- Invoice number -->
 
     <div class="invoiceNumber">
-        <h6>04 factures pour un nombre total de 00,000€</h6>
+        <h6>{{'invoices.total.number' | translate}} pour un nombre total de {{'invoices.total.euros' | translate}}</h6>
     </div>
 </div>
 
@@ -90,33 +90,33 @@
     <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
     <tr>
         <td>
-            <div class="invoiceList-item-label">Référence client</div>
+            <div class="invoiceList-item-label">{{'invoices.label.client.ref' | translate}}</div>
         </td>
         <td>
-            <span class="invoiceList-item-label">Date :</span>
+            <span class="invoiceList-item-label">{{'invoices.label.date' | translate}}:</span>
             <span class="invoiceList-item-value">{{invoice.invoiceDate}}</span>
         </td>
         <td>
-            <span class="invoiceList-item-label">Affaire :</span>
+            <span class="invoiceList-item-label">{{'invoices.label.deal' | translate}}:</span>
             <span class="invoiceList-item-value">{{invoice.deal}}</span>
         </td>
         <td>
-            <span class="invoiceList-item-label">Montant HT :</span>
+            <span class="invoiceList-item-label">{{'invoices.label.amount' | translate}}:</span>
             <span class="invoiceList-item-value">{{invoice.amount}}</span>
         </td>
         <td>
-            <div class="invoiceList-item-label">TVA</div>
+            <div class="invoiceList-item-label">{{'invoices.label.tva' | translate}}</div>
         </td>
         <td>
             <span class="invoiceList-item-label"><img src="assets/images/svg/icon_comments.svg"></span>
             <span class="invoiceList-item-value">{{invoice.comments.length}}</span>
         </td>
         <td>
-            <div class="invoiceList-item-label">Statut</div>
+            <div class="invoiceList-item-label">{{'invoices.label.status' | translate}}</div>
         </td>
         <td rowspan="2">
-            <a class="invoiceList-item-button circleButton small primary">
-                4PM
+            <a class="invoiceList-item-button circleButton blue isActive">
+                {{'invoices.label.4pm' | translate}}
             </a>
         </td>
     </tr>
@@ -126,15 +126,15 @@
             <div class="invoiceList-item-value text blue-text">{{invoice.number}} - {{invoice.client}}</div>
         </td>
         <td>
-            <span class="invoiceList-item-label">Échéance :</span>
+            <span class="invoiceList-item-label">{{'invoices.label.deadlineDate' | translate}}:</span>
             <span class="invoiceList-item-value">{{invoice.deadlineDate}}</span>
         </td>
         <td>
-            <span class="invoiceList-item-label">Type :</span>
+            <span class="invoiceList-item-label">{{'invoices.label.type' | translate}}:</span>
             <span class="invoiceList-item-value">{{invoice.type}}</span>
         </td>
         <td>
-            <span class="invoiceList-item-label">Montant TTC :</span>
+            <span class="invoiceList-item-label">{{'invoices.label.freeTaxAmount' | translate}}:</span>
             <span class="invoiceList-item-value">{{invoice.freeTaxAmount}}</span>
         </td>
         <td>

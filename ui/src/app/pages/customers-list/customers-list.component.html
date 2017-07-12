@@ -1,32 +1,49 @@
 <div class="customerFilter">
-  <div class="customerFilter-label">
-    <div class="customerFilter-label-name">Tri</div>
-    <div class="list-filter">
-      <div class="item-filter isActive">
-        <a class="item-filter-link" href="#">A-Z</a>
-      </div>
-      <div class="item-filter">
-        <a  class="item-filter-link" href="#">Date</a>
-      </div>
-      <div class="item-filter">
-        <a  class="item-filter-link" href="#">CA</a>
-      </div>
+    <div class="class row">
+        <div class="columns shrink">
+            <div class="row align-middle listFilter">
+                <div class="columns shrink listFilter-label">
+                    {{'customers.filter.title' | translate}}
+                </div>
+
+                <div class="columns">
+                    <div class="listFilter-item isActive">
+                        {{'customers.filter.az' | translate}}
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="listFilter-item">
+                        {{'customers.filter.date' | translate}}
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="listFilter-item">
+                        {{'customers.filters.ca' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="customerFilter-search">
+                <input class="input-search" type="text" placeholder="Recherche">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="columns shrink largeButton">
+                <a> {{'customers.filter.client' | translate}} </a>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="customerFilter-search">
-    <input class="input-search" type="text" placeholder="Recherche">
-  </div>
-
-  <div class="button-large">
-    <a href="#" class="button">Nouveau client</a>
-  </div>
-</div>
 
 <!-- Invoice number -->
 
-<div class="customerNumber">
-  <h6>19 clients pour un nombre total de 147 affaires</h6>
+    <div class="customerNumber">
+        <h6> {{'customers.total.client' | translate}} pour un nombre total de {{'customers.total.deal' | translate}}</h6>
+    </div>
 </div>
 
 <!-- [END HEADER] -->
@@ -34,64 +51,63 @@
 
 <!-- [INVOICE LIST] -->
 
-<table class="invoiceList">
-    <tbody class="invoiceList-row">
+<table class="customerList">
+    <tbody class="customerList-row">
         <tr>
             <td>
-                <div class="invoiceList-item-label">Nom client :</div>
+                <div class="customerList-item-label">{{'customers.label.name' | translate}} :</div>
             </td>
             <td>
-                <span class="invoiceList-item-label">Date : </span>
+                <span class="customerList-item-label">{{'customers.label.date' | translate}}: </span>
             </td>
             <td>
-                <span class="invoiceList-item-label">Dernier envoi : </span>
-                <span class="invoiceList-item-value">00 Mois 2017</span>
+                <span class="customerList-item-label">{{'customers.label.lastSend' | translate}} : </span>
+                <span class="customerList-item-value">{{'customers.value.lastSend' | translate}}</span>
             </td>
             <td>
-                <span class="invoiceList-item-label">Contact</span>
+                <span class="customerList-item-label">{{'customers.label.contact' | translate}}</span>
             </td>
             <td>
-                <div class="invoiceList-item-label">Nb</div>
-                <span class="invoiceList-item-label">Exercice N-1 : </span>
-                <span class="invoiceList-item-value">00 Mois 2017</span>
+                <div class="customerList-item-label">{{'customers.label.number' | translate}}</div>
+                <span class="customerList-item-label">{{'customers.label.lastExercice' | translate}}: </span>
+                <span class="customerList-item-value">{{'customers.value.lastExercice' | translate}}</span>
             </td>
             <td>
-                <div class="invoiceList-item-label">CA</div>
-                <span class="invoiceList-item-label">00.000€</span>
+                <div class="customerList-item-label">{{'customers.label.ca' | translate}}</div>
+                <span class="customerList-item-value">{{'customers.value.lastCa' | translate}}</span>
             </td>
         </tr>
 
         <tr>
             <td rowspan="2">
-                <div class="invoiceList-item-value text blue-text">Client name</div>
+                <div class="customerList-item-value">{{'customers.value.name' | translate}}</div>
             </td>
             <td rowspan="2">
-                <span class="invoiceList-item-label">00 Mois 2017</span>
+                <span class="customerList-item-value">{{'customers.value.lastSend' | translate}}</span>
             </td>
             <td rowspan="2">
-                <span class="invoiceList-item-label">Dernier paiement : </span>
-                <span class="invoiceList-item-value">00 Mois 2017</span>
+                <span class="customerList-item-label">{{'customers.label.lastPayment' | translate}}: </span>
+                <span class="customerList-item-value">{{'customers.value.lastPayment' | translate}}</span>
             </td>
             <td rowspan="2">
-                <span class="invoiceList-item-value">mail@adress-client.fr</span>
+                <span class="customerList-item-value">{{'customers.value.mailContact' | translate}}</span>
             </td>
             <td>
-                <span class="invoiceList-item-label">Exercice N : </span>
-                <span class="invoiceList-item-value">00 Mois 2017</span>
+                <span class="customerList-item-label">{{'customers.label.Exercice' | translate}}: </span>
+                <span class="customerList-item-value">{{'customers.value.Exercice' | translate}}</span>
             </td>
             <td>
-                <span class="invoiceList-item-label">00.000€</span>
+                <span class="customerList-item-value">{{'customers.value.lastCa' | translate}}</span>
             </td>
         </tr>
 
         <tr>
             <td>
-                <span class="invoiceList-item-label">Exercice N+1 : </span>
-                <span class="invoiceList-item-value">00 Mois 2017</span>
+                <span class="customerList-item-label">{{'customers.label.nextExercice' | translate}}:</span>
+                <span class="customerList-item-value">{{'customers.value.nextExercice' | translate}}</span>
             </td>
             <td>
-                <span class="invoiceList-item-label">CA : </span>
-                <span class="invoiceList-item-value">000.000€</span>
+                <span class="customerList-item-value">{{'customers.value.nextCa' | translate}}</span>
             </td>
         </tr>
     </tbody>

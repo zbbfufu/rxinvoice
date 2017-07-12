@@ -17,9 +17,9 @@
 // --- Skin Status INVOICE Invoice List
 
 @include new('status') {
-  border: 1px solid #E8EAED;
+  border: 1px solid $status-border-light-color;
   border-radius: rem-calc(4px);
-  box-shadow: 0px 0px 2px #E8EAED;
+  box-shadow: 0px 0px 2px $status-border-light-color;
   width: rem-calc(80px);
   padding: rem-calc(6px);
   text-align: center;
