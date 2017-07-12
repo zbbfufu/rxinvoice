@@ -4,13 +4,30 @@
 
 // --- Skin Status DASHBOARD Invoice List
 
-@include new('invoiceListHome-status') {
+@include new('statusButton') {
+  font-size: 1.2rem;
+  border-radius: rem-calc(2px);
+  background-color: $app-main-color;
+  color: white;
+  padding: rem-calc(12px 30px);
+  cursor: pointer;
 
+    @include when('is-toPrepare') {
+      border-bottom: 2px solid $status-toprepare-color;
+    }
 
-  @include has('isActive') {
-    border-bottom: 2px solid deeppink;
+    @include when('is-toBeValidated') {
+      border-bottom: 2px solid $status-tovalidate-color ;
+    }
+
+    @include when('is-toBeRelaunched') {
+      border-bottom: 2px solid $status-toberelaunched-color;
+    }
+
+    @include when('is-toSend') {
+      border-bottom: 2px solid $status-tosend-color;
+    }
   }
-}
 
 
 
@@ -42,10 +59,5 @@
 
   @include when('is-toSend') {
     background-color: $status-tosend-color;
-  }
-
-  @include when('isActive') {
-
-
   }
 }

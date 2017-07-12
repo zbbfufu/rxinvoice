@@ -10,86 +10,90 @@ DASHBOARD
 
 <!-- [INVOICE LIST] -->
 
-<div class="invoiceListHome row">
-  <div class="invoiceListHome-number column">
-    <b>Factures</b> (00) - 00.000 €
-  </div>
-  <div class="invoiceListHome-status shrink column align-center">
-    <a href="#" class="button isActive">À préparer</a>
-    <a href="#" class="button">À valider</a>
-    <a href="#" class="button">À envoyer</a>
-    <a href="#" class="button">À relancer</a>
-  </div>
-  <div class="button shrink column">
-    <a href="#" class="button-large">Valider</a>
-  </div>
+<div class="invoiceListHome">
+    <div class="row align-middle">
+        <div class="columns shrink">
+            <div class="invoiceListHome-number">
+                <b>Factures</b> (00) - 00.000 €
+            </div>
+        </div>
+
+        <div class="columns">
+            <a class="statusButton isActive is-toPrepare">À préparer</a>
+            <a class="statusButton is-toBeValidated">À valider</a>
+            <a class="statusButton is-toBeRelaunched">À envoyer</a>
+            <a class="statusButton is-toSend">À relancer</a>
+        </div>
+
+        <div class="columns shrink">
+             <a class="largeButton">Valider</a>
+        </div>
+    </div>
 </div>
 
 <table class="invoiceList">
-  <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
-  <tr>
-    <td>
-      <div class="invoiceList-item-label">Référence client</div>
-    </td>
-    <td>
-      <span class="invoiceList-item-label">Date :</span>
-      <span class="invoiceList-item-value">{{invoice.invoiceDate}}</span>
-    </td>
-    <td>
-      <span class="invoiceList-item-label">Affaire :</span>
-      <span class="invoiceList-item-value">{{invoice.deal}}</span>
-    </td>
-    <td>
-      <span class="invoiceList-item-label">Montant HT :</span>
-      <span class="invoiceList-item-value">{{invoice.amount}}</span>
-    </td>
-    <td>
-      <div class="invoiceList-item-label">TVA</div>
-    </td>
-    <td>
-      <span class="invoiceList-item-label"><img src="assets/images/svg/icon_comments.svg"></span>
-      <span class="invoiceList-item-value">{{invoice.comments.length}}</span>
-    </td>
-    <td>
-      <div class="invoiceList-item-label">Statut</div>
-    </td>
-    <td rowspan="2">
-      <div class="invoiceList-item-button circle-button">
-        <div class="circle-button-item isActive">
-          <a class="circle-button-link" href="#">4PM</a>
-        </div>
-      </div>
-    </td>
-  </tr>
+    <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
+    <tr>
+        <td>
+            <div class="invoiceList-item-label">{{'invoices.label.client.ref' | translate}}</div>
+        </td>
+        <td>
+            <span class="invoiceList-item-label">{{'invoices.label.date' | translate}}:</span>
+            <span class="invoiceList-item-value">{{invoice.invoiceDate}}</span>
+        </td>
+        <td>
+            <span class="invoiceList-item-label">{{'invoices.label.deal' | translate}}:</span>
+            <span class="invoiceList-item-value">{{invoice.deal}}</span>
+        </td>
+        <td>
+            <span class="invoiceList-item-label">{{'invoices.label.amount' | translate}}:</span>
+            <span class="invoiceList-item-value">{{invoice.amount}}</span>
+        </td>
+        <td>
+            <div class="invoiceList-item-label">{{'invoices.label.tva' | translate}}</div>
+        </td>
+        <td>
+            <span class="invoiceList-item-label"><img src="assets/images/svg/icon_comments.svg"></span>
+            <span class="invoiceList-item-value">{{invoice.comments.length}}</span>
+        </td>
+        <td>
+            <div class="invoiceList-item-label">{{'invoices.label.status' | translate}}</div>
+        </td>
+        <td rowspan="2">
+            <a class="invoiceList-item-button circleButton blue isActive">
+                {{'invoices.label.4pm' | translate}}
+            </a>
+        </td>
+    </tr>
 
-  <tr>
-    <td>
-      <div class="invoiceList-item-value text blue-text">{{invoice.number}} - {{invoice.client}} </div>
-    </td>
-    <td>
-      <span class="invoiceList-item-label">Échéance :</span>
-      <span class="invoiceList-item-value">{{invoice.deadlineDate}}</span>
-    </td>
-    <td>
-      <span class="invoiceList-item-label">Type :</span>
-      <span class="invoiceList-item-value">{{invoice.type}}</span>
-    </td>
-    <td>
-      <span class="invoiceList-item-label">Montant TTC :</span>
-      <span class="invoiceList-item-value">{{invoice.freeTaxAmount}}</span>
-    </td>
-    <td>
-      <div class="invoiceList-item-value">{{invoice.tax}}</div>
-    </td>
-    <td>
-      <span class="invoiceList-item-label"><img src="assets/images/svg/icon_attachments.svg"></span>
-      <span class="invoiceList-item-value">{{invoice.attachments.length}}</span>
-    </td>
-    <td>
-      <div class="invoiceList-item-value status is-{{invoice.status}}">{{getStatusLabel(invoice.status)}}</div>
-    </td>
-  </tr>
-  </tbody>
+    <tr>
+        <td>
+            <div class="invoiceList-item-value text blue-text">{{invoice.number}} - {{invoice.client}}</div>
+        </td>
+        <td>
+            <span class="invoiceList-item-label">{{'invoices.label.deadlineDate' | translate}}:</span>
+            <span class="invoiceList-item-value">{{invoice.deadlineDate}}</span>
+        </td>
+        <td>
+            <span class="invoiceList-item-label">{{'invoices.label.type' | translate}}:</span>
+            <span class="invoiceList-item-value">{{invoice.type}}</span>
+        </td>
+        <td>
+            <span class="invoiceList-item-label">{{'invoices.label.freeTaxAmount' | translate}}:</span>
+            <span class="invoiceList-item-value">{{invoice.freeTaxAmount}}</span>
+        </td>
+        <td>
+            <div class="invoiceList-item-value">{{invoice.tax}}</div>
+        </td>
+        <td>
+            <span class="invoiceList-item-label"><img src="assets/images/svg/icon_attachments.svg"></span>
+            <span class="invoiceList-item-value">{{invoice.attachments.length}}</span>
+        </td>
+        <td>
+            <div class="invoiceList-item-value status is-{{invoice.status}}">{{getStatusLabel(invoice.status)}}</div>
+        </td>
+    </tr>
+    </tbody>
 </table>
 
 <!-- [END INVOICE LIST] -->

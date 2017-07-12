@@ -1,20 +1,70 @@
 @import '../../../styles/base-component';
 
 @include new('invoiceListHome') {
-    background-color:  $app-main-dark-color;
-    height: rem-calc(50px);
-    margin-top: rem-calc(20px);
+  background-color: $app-main-dark-color;
+  height: rem-calc(50px);
+  padding: rem-calc(0 20px 0 20px);
+  margin-top: rem-calc(20px);
+
 
   @include has('number') {
     line-height: rem-calc(50px);
-    margin-left: rem-calc(20px);
     color: white;
   }
 
-
-  @include has('button-large') {
+  @include has('status') {
     display: flex;
-    align-content: flex-end;
-    line-height: rem-calc(50px);
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+
+  @include has('action') {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+// ---- Invoice List Table
+
+@include new('invoiceList') {
+  padding: rem-calc(10px);
+  border-spacing: 0;
+
+  @include has('row') {
+    background-color: $content-dark-list-color;
+
+    &:nth-child(even) {
+      background-color: $content-light-list-color;
+    }
+
+    tr {
+      background-color: transparent;
+
+      td {
+        padding: 0;
+        padding-top: rem-calc(10px);
+      }
+
+      + tr td {
+        padding-top: 0;
+        padding-bottom: rem-calc(15px);
+      }
+    }
+  }
+
+  @include has('item-label') {
+    color: $body-light-font-color;
+    font-weight: 500;
+
+    img {
+      width: rem-calc(15px);
+    }
+  }
+
+  @include has('item-value') {
+    color: $body-dark-font-color;
+    font-weight: 500;
   }
 }

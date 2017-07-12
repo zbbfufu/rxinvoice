@@ -2,10 +2,9 @@
 // This file contains all styles related to the BUTTONS component.
 // -----------------------------------------------------------------------------
 
+//---- Medium Button ---- //
 
-//---- Large Button ---- //
-
-@include new('largeButton') {
+@include new('mediumButton') {
   font-size: 1.2rem;
   border-radius: rem-calc(4px);
   background-color: $button-primary-color;
@@ -17,47 +16,66 @@
     color: white;
   }
 
-    &:hover,
-    &:focus {
-      background-color: mix($button-primary-color, black, 80%);
-    }
+  &:hover,
+  &:focus {
+    background-color: mix($button-primary-color, black, 80%);
   }
+}
+
+//---- Large Button ---- //
+
+@include new('largeButton') {
+  font-size: 1.2rem;
+  color: white;
+  border-radius: rem-calc(4px);
+  background-color: $button-primary-color;
+  padding: rem-calc(12px 30px);
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: white;
+    background-color: mix($button-primary-color, black, 80%);
+  }
+}
 
 
 //---- Circle Button ---- //
 
-  @include new('circleButton') {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: rem-calc(40px);
-    height: rem-calc(40px);
-    border: rem-calc(2px) solid $button-border-light-color ;
-    font-size: rem-calc(12px);
-    color: $body-dark-font-color;
-    transition: all 300ms;
-    border-radius: rem-calc(40px);
-    cursor: pointer;
+@include new('circleButton') {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: rem-calc(40px);
+  height: rem-calc(40px);
+  border: rem-calc(2px) solid $button-border-light-color ;
+  font-size: rem-calc(12px);
+  color: $body-dark-font-color;
+  transition: all 300ms;
+  border-radius: rem-calc(40px);
+  cursor: pointer;
 
+  &:hover,
+  &:focus {
+    border-color: $button-primary-color;
+  }
+
+  a img {
+    width: rem-calc(22px);
+  }
+}
+
+@include new('blue') {
+  border-color: $button-border-light-color;
+
+  @include when('isActive') {
     &:hover,
     &:focus {
-      border-color: $button-primary-color;
-    }
-
-    a img {
-      width: rem-calc(22px);
+      border-color: $button-secondary-color;
+      background-color: $button-secondary-color;
+      color: white;
     }
   }
+}
 
-  @include new('blue') {
-    border-color: $button-border-light-color;
 
-    @include when('isActive') {
-      &:hover,
-      &:focus {
-        border-color: $button-secondary-color;
-        background-color: $button-secondary-color;
-        color: white;
-      }
-    }
-  }
