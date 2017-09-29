@@ -4,6 +4,15 @@
   </div>
   <div class="appHeader-menu">
     <div class="appHeader-menu-user">ESE</div>
-    <a class="appHeader-menu-actuality"></a>
+
+    <div class="history" [ngClass]="{'isOpen' : activityMenuOpen}"
+            (click)="activityMenuOpen = !activityMenuOpen">
+
+        <div class="history-detail" [hidden]="!activityMenuOpen"></div>
+
+    </div>
   </div>
 </header>
+
+
+<!--<a class="appHeader-menu-actuality"></a> -->

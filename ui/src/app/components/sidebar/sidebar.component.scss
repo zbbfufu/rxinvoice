@@ -37,10 +37,6 @@
       &:focus {
         background-color: mix($sidebar-bg-color, $sidebar-item-bg-color, 50%);
       }
-
-      @include when('isActive') {
-        background-color: $sidebar-item-bg-color;
-      }
     }
 
     @include has('icon') {

@@ -1,6 +1,5 @@
 @import '../../../styles/base-component';
 
-
 @include new('appHeader') {
   display: flex;
   height: rem-calc($appHeader-height);
@@ -31,7 +30,7 @@
       padding-left: rem-calc(40px);
 
       &:focus {
-        border-color:#3CA3D2;
+        border-color: #3CA3D2;
       }
 
     }
@@ -52,19 +51,50 @@
       background-color: $white;
     }
 
-    @include has('actuality') {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: rem-calc($appHeader-height);
-      background-color: $button-primary-color;
-      background-image: url("../../../#{$svg-path}icon_menu.svg");
+    // TODO ESE Clean after skin
 
-      &:hover,
-      &:focus {
-        background-color: mix($button-primary-color, $white, 70%);
-      }
-    }
   }
 }
 
+@include new('history') {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: rem-calc($appHeader-height);
+  background-color: $button-primary-color;
+  background-image: url("../../../#{$svg-path}icon_menu.svg");
+  cursor: pointer;
+
+  @include when('isOpen') {
+    background-image: url("../../../#{$svg-path}icon_cross.svg");
+  }
+
+  button {
+    margin-bottom: 0;
+    border-radius: 0;
+    border: 1px solid white;
+    width: 100%;
+    height: 64px;
+
+    @include when('button-retract') {
+      width: 64px;
+    }
+  }
+
+  @include has('detail') {
+    display: block;
+    position: absolute;
+    top: $appHeader-height;
+    right: 0;
+    width: 400px;
+    height: calc(100vh - #{$appHeader-height});
+    background-color: $content-light-list-color;
+    box-shadow: 4px 0 40px -8px lightgrey;
+    border: 2px solid rgba(211, 211, 211, 0.29);
+
+
+    &[hidden] {
+      display: none !important;
+    }
+  }
+}
