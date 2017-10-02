@@ -26,11 +26,12 @@
       background-repeat: no-repeat;
       background-position: left center;
       font-weight: 500;
-      color: $body-light-font-color;
+      color: $body-dark-font-color;
       padding-left: rem-calc(40px);
 
       &:focus {
-        border-color: #3CA3D2;
+        border-bottom: 2px solid #3CA3D2;
+
       }
 
     }
@@ -88,7 +89,7 @@
     right: 0;
     width: 400px;
     height: calc(100vh - #{$appHeader-height});
-    background-color: $content-light-list-color;
+    background-color: $content-medium-list-color;
     box-shadow: 4px 0 40px -8px lightgrey;
     border: 2px solid rgba(211, 211, 211, 0.29);
 
