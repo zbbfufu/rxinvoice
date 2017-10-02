@@ -14,9 +14,7 @@
 
   @include has('status') {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
+    position: relative;
   }
 
   @include has('action') {

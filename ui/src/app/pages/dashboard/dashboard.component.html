@@ -18,15 +18,17 @@ DASHBOARD
             </div>
         </div>
 
-        <div class="columns">
-            <a class="statusButton isActive is-toPrepare">À préparer</a>
-            <a class="statusButton is-toBeValidated">À valider</a>
-            <a class="statusButton is-toBeRelaunched">À envoyer</a>
-            <a class="statusButton is-toSend">À relancer</a>
+        <div class="columns invoiceListHome-status">
+            <a class="statusButton toPrepare" [routerLinkActive]="['isActive']">{{'invoice.status.PREPARE' |
+                translate}}</a>
+            <a class="statusButton toValidated">{{'invoice.status.VALIDATE' | translate}}</a>
+            <a class="statusButton toRelaunched">{{'invoice.status.SENT' | translate}}</a>
+            <a class="statusButton toSend">{{'invoice.status.REVIVE' | translate}}</a>
+            <div class="statusNotif">12</div>
         </div>
 
         <div class="columns shrink">
-             <a class="largeButton">Valider</a>
+             <a class="largeButton">{{'invoice.status.VALIDATED' | translate}}</a>
         </div>
     </div>
 </div>
