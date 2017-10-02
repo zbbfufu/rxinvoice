@@ -3,9 +3,9 @@
 @include new('sidebar') {
   display: flex;
   flex-direction: column;
-  width: 15vw;
+  width: 12vw;
   min-height: 100vh;
-  box-shadow: 4px 0px 12px #aaa;
+  box-shadow: 2px 0 8px #aaa;
 
   @include has('logo') {
     display: flex;
@@ -28,14 +28,38 @@
     @include has('item') {
       display: flex;
       align-items: center;
+      position: relative;
       text-transform: uppercase;
       color: white;
-      padding: rem-calc(15px 20px);
+      padding: rem-calc(16px 24px);
       cursor: pointer;
 
       &:hover,
       &:focus {
         background-color: mix($sidebar-bg-color, $sidebar-item-bg-color, 50%);
+      }
+
+      @include when('isActive') {
+          background-color: $app-main-light-color;
+      }
+
+      @include has('notif') {
+        display: block;
+        position: absolute;
+        top: 13px;
+        right: 32px;
+        height: 24px;
+        min-width: 24px;
+        padding: 3px;
+        border-radius: 16px;
+        text-align: center;
+        font-size: 10px;
+        font-weight: bold;
+        line-height: 16px;
+        color: white;
+        background-color: $app-notif-color ;
+        cursor: pointer;
+        animation: pulse 1s infinite;
       }
     }
 
