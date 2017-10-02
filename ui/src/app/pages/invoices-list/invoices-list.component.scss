@@ -2,11 +2,11 @@
 
 
 @include new('invoiceFilter') {
-  padding: rem-calc(20px 20px 0 20px);
+  padding: rem-calc(20px 20px 0 12px);
+
 
   @include has('search') {
     margin-left: rem-calc(50px);
-    max-width: 20vw;
 
     &:focus {
       transition: 0.30s ease;
@@ -17,6 +17,17 @@
 
 @include new('invoiceNumber') {
   margin: rem-calc(35px 0 0 0);
+  padding-left: 8px;
+}
+
+// ---- Invoice Select Table
+
+@include new('invoiceSelect') {
+    cursor: pointer;
+
+  @include has('item') {
+    cursor: pointer;
+  }
 }
 
 // ---- Invoice List Table
@@ -24,30 +35,40 @@
 @include new('invoiceList') {
   padding: rem-calc(10px);
   border-spacing: 0;
+  cursor: pointer;
 
   @include has('row') {
     background-color: $content-dark-list-color;
+    padding-left: 4px;
+
+    &:hover {
+      background-color: $content-hover-list-color;
+      box-shadow: 0 0 8px -2px #aaa;
+    }
 
     &:nth-child(even) {
       background-color: $content-light-list-color;
+
+      &:hover {
+        background-color: $content-hover-list-color;
+        box-shadow: 0 0 8px -2px #aaa;
+      }
     }
 
     tr {
       background-color: transparent;
 
       td {
-        padding: 0;
-        padding-top: rem-calc(10px);
+        padding: 16px 0 0 8px;
       }
 
       + tr td {
-        padding-top: 0;
-        padding-bottom: rem-calc(15px);
+        padding: 2px 0 8px 8px;
       }
     }
   }
 
-  @include has('item-label') {
+  @include has('label') {
     color: $body-light-font-color;
     font-weight: 500;
 
@@ -56,7 +77,7 @@
     }
   }
 
-  @include has('item-value') {
+  @include has('value') {
     color: $body-dark-font-color;
     font-weight: 500;
   }
