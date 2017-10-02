@@ -2,47 +2,57 @@
 // This file contains all styles related to the BUTTONS component.
 // -----------------------------------------------------------------------------
 
-//---- Medium Button ---- //
 
-@include new('mediumButton') {
-  font-size: 1.2rem;
+// STANDARD BUTTON
+//
+
+.mediumButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: rem-calc(8px);
+  padding: 0 16px;
   border-radius: rem-calc(4px);
-  background-color: $button-primary-color;
-  margin-right: rem-calc(10px);
-  padding: rem-calc(10px 30px);
-  cursor: pointer;
-
-  a {
-    color: white;
-  }
-
-  &:hover,
-  &:focus {
-    background-color: mix($button-primary-color, black, 80%);
-  }
-}
-
-//---- Large Button ---- //
-
-@include new('largeButton') {
-  font-size: 1.2rem;
+  border: 2px solid $button-primary-color;
   color: white;
-  border-radius: rem-calc(4px);
   background-color: $button-primary-color;
-  padding: rem-calc(12px 30px);
   cursor: pointer;
+  transition: all 300ms ease-in-out;
 
-  &:hover,
-  &:focus {
-    color: white;
-    background-color: mix($button-primary-color, black, 80%);
+  &:hover {
+    color: $button-primary-color;
+    border-color:  $button-primary-color;
+    background-color: transparent;
   }
 }
 
 
-//---- Circle Button ---- //
+.largeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: rem-calc(8px);
+  padding: 4px 32px;
+  border-radius: rem-calc(4px);
+  border: 2px solid $button-primary-color;
+  color: white;
+  background-color: $button-primary-color;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
 
-@include new('circleButton') {
+  &:hover {
+    color: $button-primary-color;
+    border-color:  $button-primary-color;
+    background-color: transparent;
+  }
+}
+
+
+
+// CIRCLE BUTTON
+//
+
+.circleButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,17 +75,16 @@
   }
 }
 
-@include new('blue') {
+.blue {
   border-color: $button-border-light-color;
 
-  @include when('isActive') {
     &:hover,
     &:focus {
       border-color: $button-secondary-color;
       background-color: $button-secondary-color;
       color: white;
+      transition: all 300ms ease-in-out;
     }
   }
-}
 
 

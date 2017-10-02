@@ -5,7 +5,8 @@
 
 //---- Search input ---- //
 
-@include new('input-search') {
+.input-search {
+  width: 28vw;
   margin-bottom: 0;
   border-radius: rem-calc(6px);
   border: 2px solide $button-border-light-color ;
@@ -16,6 +17,14 @@
   background-size: rem-calc(20px);
   background-repeat: no-repeat;
   background-position: rem-calc(10px);
+}
+
+.select {
+  cursor: pointer;
+}
+
+.input {
+  border-radius: 4px;
 }
 
 

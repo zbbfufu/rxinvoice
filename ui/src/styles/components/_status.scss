@@ -2,50 +2,90 @@
 // This file contains all styles related to the STATUS component.
 // -----------------------------------------------------------------------------
 
-// --- Skin Status DASHBOARD Invoice List
+// SKIN STATUS "DASHBOARD"
+//
 
 .statusButton {
-  font-size: 1.2rem;
-  border-radius: rem-calc(2px);
-  background-color: $app-main-color;
+  position: relative;
+  padding: 8px 16px;
+  margin: 0 8px;
+  border-radius: 2px;
   color: white;
-  padding: rem-calc(12px 30px);
-  cursor: pointer;
+  background-color: $app-main-color;
+}
 
-  &:hover {
+//--- To Prepare status --//
 
-    .is-toPrepare {
-      border-bottom: 2px solid $status-toprepare-color;
-    }
+.toPrepare:after {
+  position: absolute;
+  content: '';
+  color: $status-toprepare-color;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  border-bottom: 2px solid $status-toprepare-color;
+  transition: 300ms;
+}
 
-    .is-toBeValidated {
-      border-bottom: 2px solid $status-tovalidate-color;
-    }
-  }
+.toPrepare:hover:after {
+  width: 100%;
+  text-decoration: none;
+}
 
+//--- To Validated status --//
+
+.toValidated:after {
+  position: absolute;
+  content: '';
+  color: $status-tovalidate-color;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  border-bottom: 2px solid $status-tovalidate-color;
+  transition: 0.4s;
+}
+
+.toValidated:hover:after {
+  width: 100%;
+}
+
+//--- To Relaunched status --//
+
+.toRelaunched:after {
+  position: absolute;
+  content: '';
+  color: $status-torelaunched-color;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  border-bottom: 2px solid $status-torelaunched-color;
+  transition: 0.4s;
+}
+
+.toRelaunched:hover:after {
+  width: 100%;
+}
+
+//--- To Send status --//
+
+.toSend:after {
+  position: absolute;
+  content: '';
+  color: $status-tosend-color;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  border-bottom: 2px solid $status-tosend-color;
+  transition: 0.4s;
+}
+
+.toSend:hover:after {
+  width: 100%;
 }
 
 
-/*
-    @include has('is-toPrepare') {
-      border-bottom: 2px solid $status-toprepare-color;
-    }
-
-    @include has('is-toBeValidated') {
-      border-bottom: 2px solid $status-tovalidate-color ;
-    }
-
-    @include has('is-toBeRelaunched') {
-      border-bottom: 2px solid $status-toberelaunched-color;
-    }
-
-    @include has('is-toSend') {
-      border-bottom: 2px solid $status-tosend-color;
-    }
-  }*/
-
-
-// --- Skin Status INVOICE Invoice List
+// Skin Status INVOICE Invoice List
+//
 
 @include new('status') {
   border: 1px solid $status-border-light-color;
@@ -66,9 +106,6 @@
     background-color: $status-tovalidate-color ;
   }
 
-  @include when('is-toBeRelaunched') {
-    background-color: $status-toberelaunched-color;
-  }
 
   @include when('is-toSend') {
     background-color: $status-tosend-color;
