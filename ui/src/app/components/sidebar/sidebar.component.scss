@@ -3,7 +3,7 @@
 @include new('sidebar') {
   display: flex;
   flex-direction: column;
-  width: 12vw;
+  min-width: 12vw;
   min-height: 100vh;
   box-shadow: 2px 0 8px #aaa;
 
@@ -46,8 +46,8 @@
       @include has('notif') {
         display: block;
         position: absolute;
-        top: 13px;
-        right: 32px;
+        top: 16px;
+        right: 24px;
         height: 24px;
         min-width: 24px;
         padding: 3px;

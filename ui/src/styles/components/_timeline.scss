@@ -1,0 +1,42 @@
+@include new('timeline') {
+  position: relative;
+  margin:80px 48px;
+
+  @include has('item') {
+    padding-left: 24px;
+    border-left: 2px solid $body-light-font-color;
+
+    @include has('date') {
+      color: $body-light-font-color;
+    }
+
+    @include has('content') {
+      padding-bottom: 8px;
+    }
+
+    @include has('marker') {
+      position: absolute;
+      left:-5px;
+      content: '';
+      height: 12px;
+      width: 12px;
+      border-radius: 50px;
+      background-color: $content-medium-list-color;
+      border: 2px solid $body-light-font-color ;
+    }
+
+    @include has('title') {
+      font-weight: 500;
+    }
+
+    @include has('desc') {
+      line-height: rem-calc(6px);
+      color: $body-dark-font-color;
+
+      @include has('blue') {
+        color: $app-main-light-color;
+      }
+
+    }
+  }
+}

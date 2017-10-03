@@ -51,9 +51,6 @@
       color: $body-dark-font-color;
       background-color: $white;
     }
-
-    // TODO ESE Clean after skin
-
   }
 }
 
@@ -65,8 +62,10 @@
   background-color: $button-primary-color;
   background-image: url("../../../#{$svg-path}icon_menu.svg");
   cursor: pointer;
+  transition: all 360ms ease-in-out;
 
   @include when('isOpen') {
+    position: relative;
     background-image: url("../../../#{$svg-path}icon_cross.svg");
   }
 
@@ -87,15 +86,21 @@
     position: absolute;
     top: $appHeader-height;
     right: 0;
-    width: 400px;
+    width: 20vw;
     height: calc(100vh - #{$appHeader-height});
     background-color: $content-medium-list-color;
     box-shadow: 4px 0 40px -8px lightgrey;
     border: 2px solid rgba(211, 211, 211, 0.29);
 
-
     &[hidden] {
       display: none !important;
     }
+
+      @include has('title') {
+          position: absolute;
+          padding: 32px 0 24px 32px;
+          font-weight: 500;
+          color: $body-dark-font-color;
+      }
+    }
   }
-}
