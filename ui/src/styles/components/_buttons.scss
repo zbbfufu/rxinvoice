@@ -2,89 +2,297 @@
 // This file contains all styles related to the BUTTONS component.
 // -----------------------------------------------------------------------------
 
+// ================ //
+// Button Style Round
+// ================ //
 
-// STANDARD BUTTON
-//
+// ================ //
+// Button Specific Style
+// ================ //
+.btn-loader {
+  position: relative;
+  &.on-load {
+    padding-top: rem-calc(10px);
+    opacity: 1;
+    &:hover {
+      transform: scale(1);
+      box-shadow: none;
+    }
+  }
+}
+// ================ //
+// Adjust Style Foundation
+// ================ //
+button[type='file'] {
+  width: auto;
+}
 
-.mediumButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: rem-calc(8px);
-  padding: 0 16px;
-  border-radius: rem-calc(4px);
-  border: 2px solid $button-primary-color;
-  color: white;
-  background-color: $button-primary-color;
-  cursor: pointer;
-  transition: all 300ms ease-in-out;
+.button {
+  margin: 0;
+  white-space: nowrap;
+  transition: 240ms;
 
   &:hover {
-    color: $button-primary-color;
-    border-color:  $button-primary-color;
-    background-color: transparent;
-  }
-}
-
-
-.largeButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: rem-calc(8px);
-  padding: 4px 32px;
-  border-radius: rem-calc(4px);
-  border: 2px solid $button-primary-color;
-  color: white;
-  background-color: $button-primary-color;
-  cursor: pointer;
-  transition: all 300ms ease-in-out;
-
-  &:hover {
-    color: $button-primary-color;
-    border-color:  $button-primary-color;
-    background-color: transparent;
-  }
-}
-
-
-
-// CIRCLE BUTTON
-//
-
-.circleButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: rem-calc(40px);
-  height: rem-calc(40px);
-  border: rem-calc(2px) solid $button-border-light-color ;
-  font-size: rem-calc(12px);
-  color: $body-dark-font-color;
-  transition: all 300ms;
-  border-radius: rem-calc(40px);
-  cursor: pointer;
-
-  &:hover,
-  &:focus {
-    border-color: $button-primary-color;
+    transition: 540ms;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
+    transform: scale(1.05);
   }
 
-  a img {
-    width: rem-calc(22px);
+  // ---- Adjust Size
+  &.small {
+    padding-bottom: rem-calc(8px);
+    i {
+       font-size: rem-calc(16px);
+       margin: 0;
+    }
   }
-}
+  &.medium {
+    font-size: 12px;
 
-.blue {
-  border-color: $button-border-light-color;
-
-    &:hover,
-    &:focus {
-      border-color: $button-secondary-color;
-      background-color: $button-secondary-color;
-      color: white;
-      transition: all 300ms ease-in-out;
+    i {
+      padding-right: 6px;
     }
   }
 
+  &.large {
+    padding: 0.85em 1em 0.75em 1em;
+  }
+
+  // ---- Adjust Type
+
+  &.circle {
+    border-radius: 100%;
+    padding: 0.9em !important;
+    &.xsmall {
+      position: relative;
+      width: rem-calc(22px);
+      height: rem-calc(22px);
+      font-size: rem-calc(9px) !important;
+      i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &.small {
+      position: relative;
+      width: rem-calc(28px);
+      height: rem-calc(28px);
+      font-size: rem-calc(14px) !important;
+      &.adapt-size-icon {
+        font-size: rem-calc(16px) !important;
+      }
+      &.adapt-pos-icon {
+        top: calc(50% + 1px);
+      }
+      i {
+        position: absolute;
+        top: calc(50% + 2px);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        @-moz-document url-prefix() {
+          top: calc(50% + 1px);
+        }
+      }
+    }
+
+    &.medium {
+      position: relative;
+      width: rem-calc(38px);
+      height: rem-calc(38px);
+      i {
+        position: absolute;
+        top: 50%;
+        left: 58%;
+        font-size: 26px;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &.large {
+      position: relative;
+      width: rem-calc(44px);
+      height: rem-calc(44px);
+
+      i {
+        position: absolute;
+        top: calc(50% + 2px);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 26px;
+      }
+    }
+  }
+
+  // ---- Define Color
+  &.stroke {
+    background: transparent;
+    &.grey {
+      border: 2px solid $regent-gray;
+      color: $regent-gray;
+      &:hover, &:focus {
+        border-color: $app-main-color;
+        color: $app-main-color;
+      }
+    }
+    &.white {
+      border: 2px solid white;
+      color: $geyser ;
+    }
+  }
+
+  &.white {
+    background: white;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    color: $app-main-color;
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 1;
+      filter: alpha(opacity=50);
+      background-color: white;
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+    &:disabled {
+      background-color: $white;
+      color: $app-main-color;
+    }
+  }
+
+  &.primary {
+    background-color: $app-main-color;
+    color: white;
+
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 0.8;
+      filter: alpha(opacity=50);
+      background-color: $app-main-color;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: $app-main-color !important;
+    }
+  }
+
+  &.secondary {
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 0.8;
+      filter: alpha(opacity=50);
+      background-color: $regent-gray;
+    }
+    &:disabled {
+      background-color: $regent-gray !important;
+    }
+  }
+
+  &.green {
+    background-color: $button-primary-color;
+    color: white;
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 0.8;
+      filter: alpha(opacity=50);
+      background-color: $button-primary-color;
+    }
+    &:disabled {
+      background-color: $button-primary-color !important;
+    }
+  }
+
+  &.red {
+    background-color: $button-red;
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 0.8;
+      filter: alpha(opacity=50);
+      background-color: $button-red;
+    }
+    &:disabled {
+      background-color: $button-red !important;
+    }
+  }
+
+  &.yellow {
+    background-color: $button-yellow;
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 0.8;
+      filter: alpha(opacity=50);
+      background-color: $button-yellow;
+    }
+    &:disabled {
+      background-color: $button-yellow !important;
+    }
+  }
+}
+// ================ //
+// Utils Buttons Styles
+// ================ //
+// ---- Material Btn Effect
+.ripple {
+  position: relative;
+  overflow: hidden;
+  &.ripple-dark {
+    &:after {
+      background-image: radial-gradient(circle, $regent-gray 10%, transparent 2%);
+    }
+  }
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, white 10%, transparent 5%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+  }
+  &:active:after {
+    transform: scale(0, 0);
+    opacity: .2;
+    transition: 0s;
+  }
+}
+.has-icon-left {
+  padding-top: rem-calc(10px) !important;
+  i {
+    position: relative;
+    top: 2px;
+    margin-right: rem-calc(8px);
+  }
+}
+.has-icon-right {
+  padding-top: rem-calc(10px) !important;
+  i {
+    position: relative;
+    top: 2px;
+    margin-left: rem-calc(8px);
+  }
+}
+.btn-card-title {
+  right: rem-calc(15px);
+  top: 0;
+}
+// ==== Label Btn Responsive
+.label-btn {
+  @media screen and (max-width: 1430px) {
+    display: none;
+  }
+}
+.checked {
+  background-color: $button-primary-color !important;
+  color: $geyser !important;
+}
 

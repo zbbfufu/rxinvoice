@@ -5,109 +5,61 @@
 // SKIN STATUS "DASHBOARD"
 //
 
-.statusButton {
+.status {
   position: relative;
-  padding: 8px 16px;
-  margin: 0 8px;
+  padding: 10px 8px;
+  margin: 0 6px;
   border-radius: 2px;
   color: white;
   background-color: $app-main-color;
-}
-
-//--- To Prepare status --//
-
-.toPrepare:after {
-  position: absolute;
-  content: '';
-  color: $status-toprepare-color;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  border-bottom: 2px solid $status-toprepare-color;
-  transition: 300ms;
-}
-
-.toPrepare:hover:after {
-  width: 100%;
-  text-decoration: none;
-}
-
-//--- To Validated status --//
-
-.toValidated:after {
-  position: absolute;
-  content: '';
-  color: $status-tovalidate-color;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  border-bottom: 2px solid $status-tovalidate-color;
-  transition: 0.4s;
-}
-
-.toValidated:hover:after {
-  width: 100%;
-}
-
-//--- To Relaunched status --//
-
-.toRelaunched:after {
-  position: absolute;
-  content: '';
-  color: $status-torelaunched-color;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  border-bottom: 2px solid $status-torelaunched-color;
-  transition: 0.4s;
-}
-
-.toRelaunched:hover:after {
-  width: 100%;
-}
-
-//--- To Send status --//
-
-.toSend:after {
-  position: absolute;
-  content: '';
-  color: $status-tosend-color;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  border-bottom: 2px solid $status-tosend-color;
-  transition: 0.4s;
-}
-
-.toSend:hover:after {
-  width: 100%;
-}
-
-
-// Skin Status INVOICE Invoice List
-//
-
-@include new('status') {
-  border: 1px solid $status-border-light-color;
-  border-radius: rem-calc(4px);
   box-shadow: 0 0 2px $status-border-light-color;
-  width: rem-calc(80px);
-  padding: rem-calc(6px);
+  width: rem-calc(120px);
   text-align: center;
   font-size: rem-calc(12px);
-  color: white !important;
 
+  &:hover {
+    &.toPrepare { color: $status-toprepare-color; }
+    &.toValidated { color: $status-tovalidate-color; }
+    &.toRelaunched { color: $status-torelaunched-color; }
+    &.toSend { color: $status-tosend-color; }
 
-  @include when('is-toPrepare') {
-    background-color: $status-toprepare-color;
+    &.toPrepare:after,
+    &.toValidated:after,
+    &.toRelaunched:after,
+    &.toSend:after {
+      width: 100%;
+    }
   }
 
-  @include when('is-toBeValidated') {
-    background-color: $status-tovalidate-color ;
+  &:after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    width: 0;
+    transition: 300ms;
   }
 
+  // Type Status
 
-  @include when('is-toSend') {
-    background-color: $status-tosend-color;
+  &.toPrepare:after {
+    color: $status-toprepare-color;
+    border-bottom: 2px solid $status-toprepare-color;
+  }
+
+  &.toValidated:after {
+    color: $status-tovalidate-color;
+    border-bottom: 2px solid $status-tovalidate-color;
+  }
+
+  &.toRelaunched:after {
+    color: $status-torelaunched-color;
+    border-bottom: 2px solid $status-torelaunched-color;
+  }
+
+  &.toSend:after {
+    color: $status-tosend-color;
+    border-bottom: 2px solid $status-tosend-color;
   }
 }
+

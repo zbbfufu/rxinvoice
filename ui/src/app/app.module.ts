@@ -13,6 +13,8 @@ import { InvoicesListComponent } from './pages/invoices-list/invoices-list.compo
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 import { CustomersListComponent } from './pages/customers-list/customers-list.component';
+import { CustomerNewComponent } from './pages/customer-new/customer-new.component';
+import { InvoiceNewComponent } from './pages/invoice-new/invoice-new.component';
 
 
 export function createTranslateLoader(http: Http) {
@@ -26,7 +28,9 @@ export function createTranslateLoader(http: Http) {
         InvoicesListComponent,
         SidebarComponent,
         AppHeaderComponent,
-        CustomersListComponent
+        CustomersListComponent,
+        CustomerNewComponent,
+        InvoiceNewComponent
     ],
     imports: [
         AppRoutingModule,

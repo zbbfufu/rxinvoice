@@ -5,26 +5,51 @@
 
 //---- Search input ---- //
 
-.input-search {
-  width: 28vw;
-  margin-bottom: 0;
-  border-radius: rem-calc(6px);
-  border: 2px solide $button-border-light-color ;
-  box-shadow: none;
-  padding-left: rem-calc(40px);
-  font-weight: 500;
-  background-image: url("../#{$svg-path}icon_search.svg");
-  background-size: rem-calc(20px);
-  background-repeat: no-repeat;
-  background-position: rem-calc(10px);
-}
-
-.select {
-  cursor: pointer;
-}
-
 .input {
-  border-radius: 4px;
+  margin-bottom: 0;
+  border-bottom: 1px solid $body-dark-font-color;
+  box-shadow: none;
+  font-weight: 500;
+  color: $body-dark-font-color;
+  padding-left: rem-calc(40px);
+
+  &.search {
+    border: 2px solide $button-border-light-color ;
+    box-shadow: none;
+    padding-left: rem-calc(40px);
+    font-weight: 500;
+    background-image: url("../#{$svg-path}icon_search.svg");
+    background-size: rem-calc(20px);
+    background-repeat: no-repeat;
+    background-position: rem-calc(10px);
+
+    &.small {
+      width: 30vw;
+      margin-bottom: 0;
+    }
+
+    &.large {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      background-color: $appHeader-bg-color;
+      background-size: rem-calc(20px);
+      background-repeat: no-repeat;
+      background-position: left center;
+      width: 28vw;
+      margin-bottom: 0;
+      &:focus {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 2px solid #3CA3D2;
+      }
+    }
+  }
+
+  &.select {
+    cursor: pointer;
+  }
 }
 
 
