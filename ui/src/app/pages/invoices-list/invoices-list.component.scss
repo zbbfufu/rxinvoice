@@ -20,6 +20,14 @@
   padding-left: 8px;
 }
 
+// ---- Customer Button
+
+@include new('invoiceNewButton') {
+  display: flex;
+  margin-right: rem-calc(8px);
+}
+
+
 // ---- Invoice Select Table
 
 @include new('invoiceSelect') {

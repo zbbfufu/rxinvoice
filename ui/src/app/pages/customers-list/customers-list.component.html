@@ -27,19 +27,19 @@
         </div>
 
         <div class="columns">
-            <div class="customerFilter-search">
-                <input class="input-search" type="text" placeholder="Recherche">
-            </div>
+            <input class="input search small" type="text" placeholder="Recherche">
         </div>
 
-        <div class="columns shrink mediumButton">
-            <a> {{'customers.filter.client' | translate}} </a>
-        </div>
+        <button class="columns shrink">
+            <a class="button medium green" routerLink="/customers/new">
+                <i class="ion-ios-plus-empty"></i>{{'customers.filter.client' | translate}}
+            </a>
+        </button>
     </div>
 
 <!-- Invoice number -->
 
-    <div class="customerNumber">
+    <div class="customerDetail">
         <h6> {{'customers.total.client' | translate}} pour un nombre total de {{'customers.total.deal' | translate}}</h6>
     </div>
 </div>

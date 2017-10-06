@@ -6,26 +6,19 @@
 @include new('customerFilter') {
   padding: rem-calc(20px 20px 0 20px);
 
-  @include has('search') {
-    margin-left: rem-calc(50px);
-    max-width: 20vw;
-
-    &:focus {
-      transition: 0.30s ease;
-      color: $input-border-color;
-    }
+  input {
+    margin-left: 3em;
   }
 }
 
-@include new('customerNumber') {
+@include new('customerDetail') {
   margin: rem-calc(35px 0 0 0);
 }
 
 // ---- Invoice List Table
 
 @include new('customerList') {
-  margin-top: rem-calc(20px);
-  padding: rem-calc(10px);
+  padding: 1em;
   border-spacing: 0;
 
   @include has('row') {
@@ -40,7 +33,7 @@
 
       td {
         padding: 0;
-        padding-top: rem-calc(10px);
+        padding-top: 1em;
       }
 
       + tr td {

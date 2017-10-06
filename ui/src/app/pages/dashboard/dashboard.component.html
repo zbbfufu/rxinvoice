@@ -14,88 +14,26 @@ DASHBOARD
     <div class="row align-middle">
         <div class="columns shrink">
             <div class="invoiceListHome-number">
-                <b>Factures</b> (00) - 00.000 €
+                <b>{{'dashboard.invoices' | translate}}</b> (00) - 00.000 €
             </div>
         </div>
 
         <div class="columns invoiceListHome-status">
-            <a class="statusButton toPrepare" [routerLinkActive]="['isActive']">{{'invoice.status.PREPARE' |
+            <a class="status toPrepare" [routerLinkActive]="['isActive']">{{'invoice.status.PREPARE' |
                 translate}}</a>
-            <a class="statusButton toValidated">{{'invoice.status.VALIDATE' | translate}}</a>
-            <a class="statusButton toRelaunched">{{'invoice.status.SENT' | translate}}</a>
-            <a class="statusButton toSend">{{'invoice.status.REVIVE' | translate}}</a>
-            <div class="statusNotif">12</div>
+            <a class="status toValidated">{{'invoice.status.VALIDATE' | translate}}</a>
+            <a class="status toRelaunched">{{'invoice.status.SENT' | translate}}</a>
+            <a class="status toSend">{{'invoice.status.REVIVE' | translate}}</a>
         </div>
 
-        <div class="columns shrink">
-             <a class="largeButton">{{'invoice.status.VALIDATED' | translate}}</a>
+        <div class="">
+            <a class="invoiceListHome-status-button button medium green">
+                <i class="ion-ios-checkmark-empty"></i>
+                {{'invoice.status.VALIDATED' | translate}}
+            </a>
         </div>
     </div>
 </div>
 
-<table class="invoiceList">
-    <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
-    <tr>
-        <td>
-            <div class="invoiceList-item-label">{{'invoices.label.client.ref' | translate}}</div>
-        </td>
-        <td>
-            <span class="invoiceList-item-label">{{'invoices.label.date' | translate}}:</span>
-            <span class="invoiceList-item-value">{{invoice.invoiceDate}}</span>
-        </td>
-        <td>
-            <span class="invoiceList-item-label">{{'invoices.label.deal' | translate}}:</span>
-            <span class="invoiceList-item-value">{{invoice.deal}}</span>
-        </td>
-        <td>
-            <span class="invoiceList-item-label">{{'invoices.label.amount' | translate}}:</span>
-            <span class="invoiceList-item-value">{{invoice.amount}}</span>
-        </td>
-        <td>
-            <div class="invoiceList-item-label">{{'invoices.label.tva' | translate}}</div>
-        </td>
-        <td>
-            <span class="invoiceList-item-label"><img src="assets/images/svg/icon_comments.svg"></span>
-            <span class="invoiceList-item-value">{{invoice.comments.length}}</span>
-        </td>
-        <td>
-            <div class="invoiceList-item-label">{{'invoices.label.status' | translate}}</div>
-        </td>
-        <td rowspan="2">
-            <a class="invoiceList-item-button circleButton blue isActive">
-                {{'invoices.label.4pm' | translate}}
-            </a>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <div class="invoiceList-item-value text blue-text">{{invoice.number}} - {{invoice.client}}</div>
-        </td>
-        <td>
-            <span class="invoiceList-item-label">{{'invoices.label.deadlineDate' | translate}}:</span>
-            <span class="invoiceList-item-value">{{invoice.deadlineDate}}</span>
-        </td>
-        <td>
-            <span class="invoiceList-item-label">{{'invoices.label.type' | translate}}:</span>
-            <span class="invoiceList-item-value">{{invoice.type}}</span>
-        </td>
-        <td>
-            <span class="invoiceList-item-label">{{'invoices.label.freeTaxAmount' | translate}}:</span>
-            <span class="invoiceList-item-value">{{invoice.freeTaxAmount}}</span>
-        </td>
-        <td>
-            <div class="invoiceList-item-value">{{invoice.tax}}</div>
-        </td>
-        <td>
-            <span class="invoiceList-item-label"><img src="assets/images/svg/icon_attachments.svg"></span>
-            <span class="invoiceList-item-value">{{invoice.attachments.length}}</span>
-        </td>
-        <td>
-            <div class="invoiceList-item-value status is-{{invoice.status}}">{{getStatusLabel(invoice.status)}}</div>
-        </td>
-    </tr>
-    </tbody>
-</table>
 
 <!-- [END INVOICE LIST] -->
