@@ -1,15 +1,16 @@
 <header class="appHeader">
   <div class="appHeader-search">
-    <input type="text" placeholder="Recherche">
+    <input class="input search" type="text" placeholder="Recherche">
       <span class="underline"></span>
   </div>
+
   <div class="appHeader-menu">
     <div class="appHeader-menu-user">ESE</div>
 
       <!-- [TIMELINE] -->
 
-    <div class="history" [ngClass]="{'isOpen' : activityMenuOpen}"
-            (click)="activityMenuOpen = !activityMenuOpen">
+    <div class="history" [ngClass]="{'isOpen' : activityMenuOpen}" (click)="activityMenuOpen = !activityMenuOpen">
+        <a><i class="ion-navicon-round"></i></a>
 
         <div class="history-detail" [hidden]="!activityMenuOpen">
             <h5 class="history-detail-title">FIL D'ACTIVITÉ</h5>

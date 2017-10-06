@@ -12,29 +12,6 @@
     align-items: center;
     margin-left: rem-calc(15px);
     max-width: 50vw;
-
-    input {
-      margin-bottom: 0;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      border-bottom: 1px solid $body-dark-font-color;
-      box-shadow: none;
-      background-color: $appHeader-bg-color;
-      background-image: url("../../../#{$svg-path}icon_search.svg");
-      background-size: rem-calc(20px);
-      background-repeat: no-repeat;
-      background-position: left center;
-      font-weight: 500;
-      color: $body-dark-font-color;
-      padding-left: rem-calc(40px);
-
-      &:focus {
-        border-bottom: 2px solid #3CA3D2;
-
-      }
-
-    }
   }
 
   @include has('menu') {
@@ -60,25 +37,17 @@
   align-items: center;
   width: rem-calc($appHeader-height);
   background-color: $button-primary-color;
-  background-image: url("../../../#{$svg-path}icon_menu.svg");
   cursor: pointer;
   transition: all 360ms ease-in-out;
+
+  i {
+    color: white;
+    font-size: 20px;
+  }
 
   @include when('isOpen') {
     position: relative;
     background-image: url("../../../#{$svg-path}icon_cross.svg");
-  }
-
-  button {
-    margin-bottom: 0;
-    border-radius: 0;
-    border: 1px solid white;
-    width: 100%;
-    height: 64px;
-
-    @include when('button-retract') {
-      width: 64px;
-    }
   }
 
   @include has('detail') {
