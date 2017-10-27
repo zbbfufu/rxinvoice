@@ -8,7 +8,6 @@
 @include new('listFilter') {
 
   @include has('label') {
-    color: $body-dark-font-color;
     font-weight: 500;
   }
 
@@ -16,27 +15,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width:rem-calc(40px);
-    height:rem-calc(40px);
-    border: rem-calc(2px) solid $button-border-light-color ;
-    font-size: rem-calc(12px);
-    color: $body-dark-font-color;
-    transition: all 300ms;
-    border-radius: rem-calc(40px);
     cursor: pointer;
 
-    &:hover,
-    &:focus {
-      border-color: $button-primary-color;
-    }
-
     @include when('isActive') {
-      color: white;
+      color: white !important;
       background-color: $button-primary-color;
     }
   }
 }
-
 
 // --- MultiSelect Filter --- //
 

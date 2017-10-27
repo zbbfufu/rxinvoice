@@ -23,7 +23,6 @@
 // == Colors by name (based on : http://chir.ag/projects/name-that-color/)
 // USE ONLY TO DEFINE COLORS BY FUNCTION, don't use in others vars declaration.
 
-$san-juan :                                      #344C67 !default;
 $shakespeare :                                   #3CA3D2 !default;
 $blue-bayoux :                                   #4c637b !default;
 $catskill-white :                                #E3EAF3 !default;
@@ -51,13 +50,12 @@ $shiraz :                                        #b01032 !default;
 $la-palma :                                      #10B016 !default;
 $yellow-sea :                                    #ffa806 !default;
 
-
-
 // == Colors by function
 // = General
 $app-main-color:                                  $blue-bayoux !default;
 $app-main-light-color:                            $shakespeare !default;
-$app-main-dark-color :                            $san-juan !default;
+$app-main-dark-color :                            mix($blue-bayoux, black, 85%) !default;
+
 $app-sub-color :                                  $regent-gray !default;
 $app-sub-light-color :                            $catskill-white !default;
 
