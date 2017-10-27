@@ -1,66 +1,78 @@
 @import '../../../styles/base-component';
 
 @include new('newCustomer') {
-  height: 100vh;
-  width: calc(100vw - 12vw);
-
-
-}
-
-@include new('newCustomerFilter') {
-  height: rem-calc(50px);
-  width: calc(100vw - 12vw);
-  background-color: $app-main-dark-color;
-
-  @include has('before') {
-    margin: 8px 12px;
-  }
-  
-  @include has('name') {
-    color: white;
-    font-weight: bold;
-    line-height: rem-calc(50px);
-  }
-}
-
-@include new('newCustomerLabel') {
-  margin-bottom: 16px;
-  font-weight: 500;
-  font-size: 16px;
-}
-
-@include new('newCustomerDetail') {
   background-color: $background-color;
 
-  input {
-    margin-bottom: 0;
-  }
+  @include new('newCustomerHeader') {
+    background-color: $app-main-dark-color;
+    padding: rem-calc(8px);
 
-  @include has('identity') {
-    height: 100vh;
-    width: 20vw;
-    margin-top: 12px;
-    border: 1px solid $black-squeeze;
-    box-shadow: 0 4px 5px $silver-rust;
-    background-color: white;
-
-    @include has('label') {
-      display: flex;
-      padding: 16px 0;
+    @include has('name') {
+      color: white;
+      font-weight: bold;
     }
   }
 
-  @include has('business') {
+  @include new('newCustomerDetail') {
+    margin:rem-calc(0 8px);
 
     @include has('container') {
-      height: 14vh;
-      width: calc(100vw - 33vw);
-      padding: rem-calc(16px);
-      margin: 12px 0 6px 12px;
+      margin-top: rem-calc(12px);
       border: 1px solid $black-squeeze;
-      box-shadow: 0 4px 5px $silver-rust;
+      box-shadow: 0 1px 5px $silver-rust;
       background-color: white;
+
+      @include has('labelNumber') {
+        display: flex;
+        margin-top: rem-calc(16px);
+      }
+
+      @include has('valueNumber') {
+        display: flex;
+        margin-bottom: rem-calc(32px);
+      }
+
+      @include has('label') {
+        display: flex;
+        margin: rem-calc(16px 0);
+      }
+
+      @include has('content') {
+        margin: rem-calc(16px 0);
+        
+        button {
+          margin-left: rem-calc(8px);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  @include new('newCustomerAction') {
+
+    @include has('container') {
+      padding: rem-calc(24px 0);
+      border: 1px solid $black-squeeze;
+      box-shadow: 0 1px 5px $silver-rust;
+      background-color: white;
+      
+      button {
+        margin-right: rem-calc(8px);
+      }
+
+      @include has('label') {
+        display: flex;
+        margin: rem-calc(16px 0);
+      }
+
+      @include has('content') {
+        button {
+          margin-left: rem-calc(8px);
+          cursor: pointer;
+        }
+      }
     }
   }
 }
+
 

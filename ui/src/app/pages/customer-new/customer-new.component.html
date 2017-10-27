@@ -1,98 +1,135 @@
 <div class="newCustomer">
-    <div class="row">
+    <div class="row align-middle newCustomerHeader">
         <div class="columns shrink">
-            <div class="row newCustomerFilter">
-                <div class="columns shrink newCustomerFilter-before">
-                    <a class="button small white"><i class="ion-ios-arrow-thin-left"></i></a>
-                </div>
+            <a class="button small white ripple"><i class="ion-arrow-left-c"></i></a>
+        </div>
 
-                <div class="columns shrink newCustomerFilter-name">
-                    CLIENT NAME
+        <div class="columns shrink newCustomerHeader-name">
+            {{'customers.label.name' | translate}}
+        </div>
+    </div>
+
+    <div class="row newCustomerDetail">
+        <div class="column small-8 newCustomerDetail-container">
+            <div class="row align-middle newCustomerDetail-container-labelNumber">
+                <h6 class="column small-12">{{'newCustomer.label.caInvoiced' | translate}}</h6>
+                <h6 class="column small-12">{{'newCustomer.label.caFixed' | translate}}</h6>
+            </div>
+
+            <div class="row align-middle newCustomerDetail-container-valueNumber">
+                <h5 class="column small-12">{{'newCustomer.value.caInvoiced' | translate}}</h5>
+                <h5 class="column small-12">{{'newCustomer.value.caFixed' | translate}}</h5>
+            </div>
+
+            <div class="row align-middle newCustomerDetail-container-label">
+                <h6 class="column small-8"> {{'newCustomer.label.client' | translate}}</h6>
+                <div class="column"><input type="text"></div>
+            </div>
+
+            <div class="row align-middle newCustomerDetail-container-label">
+                <h6 class="column small-8"> {{'newCustomer.label.creation' | translate}}</h6>
+                <div class="column"><input type="text"></div>
+            </div>
+
+            <div class="row align-middle newCustomerDetail-container-label">
+                <h6 class="column small-8"> {{'newCustomer.label.mail' | translate}}</h6>
+                <div class="column"><input type="text"></div>
+            </div>
+
+            <div class="row align-middle newCustomerDetail-container-label">
+                <h6 class="column small-8"> {{'newCustomer.label.adress' | translate}}</h6>
+                <div class="column"><input type="text"></div>
+            </div>
+
+            <div class="row align-middle newCustomerDetail-container-label">
+                <h6 class="column small-8"> {{'newCustomer.label.lastSend' | translate}}</h6>
+                <div class="column"><input type="text"></div>
+            </div>
+
+            <div class="row align-middle newCustomerDetail-container-label">
+                <h6 class="column small-8"> {{'newCustomer.label.lastPayment' | translate}}</h6>
+                <div class="column"><input type="text"></div>
+            </div>
+        </div>
+
+        <div class="column auto newCustomerDetail">
+            <div class="row newCustomerDetail-container">
+                <div class="column">
+                    <div class="row newCustomerDetail-container-label">
+                        <h6 class="column shrink">{{'newCustomer.label.deal' | translate}}</h6>
+                    </div>
+
+                    <div class="row align-middle newCustomerDetail-container-content">
+                        <h6 class="column shrink">{{'newCustomer.label.designation' | translate}}</h6>
+                        <div class="column"><input type="text"></div>
+
+                        <h6 class="column shrink">{{'newCustomer.label.caInvoiced' | translate}}</h6>
+                        <div class="column-6"><input type="text"></div>
+
+                        <h6 class="column shrink">{{'newCustomer.label.caFixed' | translate}}</h6>
+                        <div class="column-6 "><input type="text"></div>
+
+                        <button class="round medium primary ripple columns shrink">
+                            <i class="ion-plus-round"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="row newCustomerDetail">
-                <div class="column shrink newCustomerDetail-identity">
-                    <div class="row align-middle newCustomerDetail-identity-label">
-                        <h6 class="column small-10">Client</h6>
+            <div class="row newCustomerDetail-container">
+                <div class="column">
+                    <div class="row newCustomerDetail-container-label">
+                        <h6 class="column shrink">{{'newCustomer.label.deal' | translate}}</h6>
+                    </div>
+
+                    <div class="row align-middle newCustomerDetail-container-content">
+                        <h6 class="column shrink">{{'newCustomer.label.designation' | translate}}</h6>
                         <div class="column"><input type="text"></div>
-                    </div>
 
-                    <div class="row align-middle newCustomerDetail-identity-label">
-                        <h6 class="column small-10">Création</h6>
-                        <div class="column"><input type="text"></div>
-                    </div>
+                        <h6 class="column shrink">{{'newCustomer.label.caInvoiced' | translate}}</h6>
+                        <div class="column-6"><input type="text"></div>
 
-                    <div class="row align-middle newCustomerDetail-identity-label">
-                        <h6 class="column small-10">Mail</h6>
-                        <div class="column"><input type="text"></div>
-                    </div>
+                        <h6 class="column shrink">{{'newCustomer.label.caFixed' | translate}}</h6>
+                        <div class="column-6 "><input type="text"></div>
 
-                    <div class="row align-middle newCustomerDetail-identity-label">
-                        <h6 class="column small-10">Contact</h6>
-                        <div class="column"><input type="text"></div>
-                    </div>
-
-                    <div class="row align-middle newCustomerDetail-identity-label">
-                        <h6 class="column small-10">Adresse</h6>
-                        <div class="column"><input type="text"></div>
-                    </div>
-
-                    <div class="row align-middle newCustomerDetail-identity-label">
-                        <h6 class="column small-10">Dernier envoi</h6>
-                        <div class="column"><input type="text"></div>
-                    </div>
-
-                    <div class="row align-middle newCustomerDetail-identity-label">
-                        <h6 class="column small-10">Dernier paiement</h6>
-                        <div class="column"><input type="text"></div>
-                    </div>
-                </div>
-
-                <div class="column shrink newCustomerDetail-business">
-                    <div class="row">
-                        <div class="column newCustomerDetail-business-container">
-                            <div class="row">
-                                <h6 class="column shrink newCustomerLabel">Affaire</h6>
-                            </div>
-
-                            <div class="row align-middle">
-                                <h6 class="column shrink">Désignation</h6>
-                                <div class="column"><input type="text"></div>
-
-                                <h6 class="column shrink">CA facturé</h6>
-                                <div class="column-6"><input type="text"></div>
-
-                                <h6 class="column shrink">CA ferme</h6>
-                                <div class="column-6 "><input type="text"></div>
-
-                                <div class="columns shrink newCustomerDetail-more">
-                                    <a class="button circle medium primary ripple"><i class="ion-ios-plus-empty"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column newCustomerDetail-business-container">
-                            <div class="row">
-                                <h6 class="column shrink newCustomerLabel">TVA</h6>
-                            </div>
-
-                            <div class="row align-middle">
-                                <h6 class="column shrink">Libellé</h6>
-                                <div class="column"><input type="text"></div>
-
-                                <h6 class="column shrink">Montant</h6>
-                                <div class="column-6"><input type="text"></div>
-
-                                <div class="columns shrink newCustomerDetail-more">
-                                    <a class="button circle medium primary ripple"><i class="ion-ios-plus-empty"></i></a>
-                                </div>
-                            </div>
-                        </div>
+                        <button class="round medium primary ripple columns shrink">
+                            <i class="ion-plus-round"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <footer class="row newCustomerAction">
+        <div class="column">
+            <div class="row newCustomerAction-container align-middle">
+                <div class="columns shrink">
+                    <button class="button large green ripple">
+                        <i class="ion-checkmark-round"></i>{{'newCustomer.label.buttonCreate' | translate}}
+                    </button>
+                </div>
+
+                <div class="columns shrink">
+                    <button class="button large grey ripple">
+                        <i class="ion-trash-a"></i>{{'newCustomer.label.buttonDelete' | translate}}
+                    </button>
+                </div>
+
+                <div class="row newCustomerAction-container-number align-middle">
+                    <div class="column">
+                        <div class="row  align-right newCustomerAction-container-number-label">
+                            <h6 class="column auto">{{'newCustomer.label.totalInvoiced' | translate}}
+                                {{'newCustomer.value.totalInvoiced' | translate}}</h6>
+                        </div>
+
+                        <div class="row align-middle newCustomerAction-container-number-label">
+                            <h6 class="column auto">{{'newCustomer.label.totalDebt' | translate}}
+                                {{'newCustomer.value.totalDebt' | translate}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
