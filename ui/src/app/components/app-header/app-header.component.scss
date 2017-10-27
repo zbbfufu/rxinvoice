@@ -35,14 +35,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: rem-calc($appHeader-height);
-  background-color: $button-primary-color;
-  cursor: pointer;
-  transition: all 360ms ease-in-out;
 
-  i {
-    color: white;
-    font-size: 20px;
+  button {
+    height: rem-calc($appHeader-height);
+    border-radius: 0;
+
+    @include when('click') {
+        background-color: red;
+    }
+
+    i {
+      color: white;
+      font-size: 20px;
+    }
   }
 
   @include when('isOpen') {
