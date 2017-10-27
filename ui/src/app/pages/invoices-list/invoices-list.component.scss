@@ -4,7 +4,6 @@
 @include new('invoiceFilter') {
   padding: rem-calc(20px 20px 0 12px);
 
-
   @include has('search') {
     margin-left: rem-calc(50px);
 
