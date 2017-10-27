@@ -6,6 +6,116 @@
 // Button Style Round
 // ================ //
 
+.round {
+  font-weight: 500;
+  border-radius: 100%;
+  padding: 0.8em !important;
+
+  // ---- Adjust Size
+
+  &.xsmall {
+    position: relative;
+    width: rem-calc(22px);
+    height: rem-calc(22px);
+    font-size: rem-calc(9px) !important;
+
+    i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &.small {
+    position: relative;
+    width: rem-calc(28px);
+    height: rem-calc(28px);
+    font-size: rem-calc(14px) !important;
+
+    &.adapt-size-icon {
+      font-size: rem-calc(16px) !important;
+    }
+    &.adapt-pos-icon {
+      top: calc(50% + 1px);
+    }
+
+    i {
+      position: absolute;
+      top: calc(50% + 2px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      @-moz-document url-prefix() {
+        top: calc(50% + 1px);
+      }
+    }
+  }
+
+  &.medium {
+    position: relative;
+    width: rem-calc(38px);
+    height: rem-calc(38px);
+    font-size: rem-calc(18px) !important;
+
+    i {
+      position: absolute;
+      top: calc(50% + 1px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &.large {
+    position: relative;
+    width: rem-calc(46px);
+    height: rem-calc(46px);
+
+    i {
+      position: absolute;
+      top: calc(50% + 2px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &.green {
+    border: rem-calc(2px) solid $button-border-light-color;
+    font-size: rem-calc(12px);
+    color: $body-dark-font-color;
+    transition: all 300ms;
+
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 0.8;
+      filter: alpha(opacity=50);
+      background-color: $button-primary-color;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: $app-main-color !important;
+    }
+  }
+
+  &.primary {
+    background-color: $app-main-color;
+    color: white;
+
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 0.8;
+      filter: alpha(opacity=50);
+      background-color: $app-main-color;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: $app-main-color !important;
+    }
+  }
+}
+
 // ================ //
 // Button Specific Style
 // ================ //
@@ -20,10 +130,11 @@
     }
   }
 }
+
 // ================ //
 // Adjust Style Foundation
 // ================ //
-button[type='file'] {
+button a [type='file'] {
   width: auto;
 }
 
@@ -31,97 +142,67 @@ button[type='file'] {
   margin: 0;
   white-space: nowrap;
   transition: 240ms;
+  cursor: pointer;
+  border-radius: rem-calc(4px);
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.3;
+
+    &:hover {
+      cursor: not-allowed !important;
+      opacity: 0.3 !important;
+    }
+  }
+
+  i {
+    margin-right: 8px;
+  }
 
   &:hover {
     transition: 540ms;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
-    transform: scale(1.05);
+    color: white;
   }
 
   // ---- Adjust Size
-  &.small {
-    padding-bottom: rem-calc(8px);
-    i {
-       font-size: rem-calc(16px);
-       margin: 0;
-    }
+
+  &.tiny {
+    padding: 0.55em 1em;
   }
-  &.medium {
-    font-size: 12px;
+
+  &.small {
+    padding: 0.65em 2em;
 
     i {
-      padding-right: 6px;
+      font-size: rem-calc(24px);
+      margin: 0;
     }
+  }
+
+  &.medium {
+    padding: 0.75em 1em;
   }
 
   &.large {
-    padding: 0.85em 1em 0.75em 1em;
+    padding: 0.95em 1em;
   }
 
-  // ---- Adjust Type
+  // ---- Define Color
 
-  &.circle {
-    border-radius: 100%;
-    padding: 0.9em !important;
-    &.xsmall {
-      position: relative;
-      width: rem-calc(22px);
-      height: rem-calc(22px);
-      font-size: rem-calc(9px) !important;
-      i {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-    }
+  &.white {
+    background: white;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    color: $app-main-color;
 
-    &.small {
-      position: relative;
-      width: rem-calc(28px);
-      height: rem-calc(28px);
-      font-size: rem-calc(14px) !important;
-      &.adapt-size-icon {
-        font-size: rem-calc(16px) !important;
-      }
-      &.adapt-pos-icon {
-        top: calc(50% + 1px);
-      }
-      i {
-        position: absolute;
-        top: calc(50% + 2px);
-        left: 50%;
-        transform: translate(-50%, -50%);
-        @-moz-document url-prefix() {
-          top: calc(50% + 1px);
-        }
-      }
-    }
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 1;
+      filter: alpha(opacity=50);
+      background-color: white;
 
-    &.medium {
-      position: relative;
-      width: rem-calc(38px);
-      height: rem-calc(38px);
-      i {
-        position: absolute;
-        top: 50%;
-        left: 58%;
-        font-size: 26px;
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    &.large {
-      position: relative;
-      width: rem-calc(44px);
-      height: rem-calc(44px);
-
-      i {
-        position: absolute;
-        top: calc(50% + 2px);
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 26px;
+      &:disabled {
+        opacity: 0.5;
       }
     }
   }
@@ -139,7 +220,7 @@ button[type='file'] {
     }
     &.white {
       border: 2px solid white;
-      color: $geyser ;
+      color: $geyser;
     }
   }
 
@@ -230,7 +311,9 @@ button[type='file'] {
       background-color: $button-yellow !important;
     }
   }
+
 }
+
 // ================ //
 // Utils Buttons Styles
 // ================ //
@@ -265,6 +348,7 @@ button[type='file'] {
     transition: 0s;
   }
 }
+
 .has-icon-left {
   padding-top: rem-calc(10px) !important;
   i {
@@ -273,6 +357,7 @@ button[type='file'] {
     margin-right: rem-calc(8px);
   }
 }
+
 .has-icon-right {
   padding-top: rem-calc(10px) !important;
   i {
@@ -281,16 +366,19 @@ button[type='file'] {
     margin-left: rem-calc(8px);
   }
 }
+
 .btn-card-title {
   right: rem-calc(15px);
   top: 0;
 }
+
 // ==== Label Btn Responsive
 .label-btn {
   @media screen and (max-width: 1430px) {
     display: none;
   }
 }
+
 .checked {
   background-color: $button-primary-color !important;
   color: $geyser !important;
