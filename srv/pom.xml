@@ -9,10 +9,9 @@
     </parent>
 
     <groupId>rxinvoice</groupId>
-    <artifactId>rxinvoice</artifactId>
+    <artifactId>rxinvoice-srv</artifactId>
     <version>0.2.2-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>rxinvoice</name>
 
     <properties>
         <maven.compiler.target>1.7</maven.compiler.target>
