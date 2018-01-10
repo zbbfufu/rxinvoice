@@ -57,7 +57,10 @@
         <div class="columns shrink">
             <div class="invoiceSelect-item">
                 <select>
-                    <option value="status">{{'invoices.filter.status' | translate}}</option>
+                    <option [ngValue]="">{{'invoice.status.all' | translate}}</option>
+                    <option *ngFor="let status of statuses" [ngValue]="status">
+                        {{'invoice.status.' + status | translate}}
+                    </option>
                 </select>
             </div>
         </div>
@@ -65,7 +68,10 @@
         <div class="columns shrink">
             <div class="invoiceSelect-item">
                 <select>
-                    <option value="types">{{'invoices.filter.types' | translate}}</option>
+                    <option value="">{{'invoice.kind.all' | translate}}</option>
+                    <option *ngFor="let kind of kinds" [ngValue]="kind">
+                        {{'invoice.kind.' + kind | translate}}
+                    </option>
                 </select>
             </div>
         </div>
