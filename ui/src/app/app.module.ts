@@ -15,6 +15,7 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import { CustomersListComponent } from './pages/customers-list/customers-list.component';
 import { CustomerNewComponent } from './pages/customer-new/customer-new.component';
 import { InvoiceNewComponent } from './pages/invoice-new/invoice-new.component';
+import {RepositoryService} from './services/repository.service';
 
 
 export function createTranslateLoader(http: Http) {
@@ -45,7 +46,8 @@ export function createTranslateLoader(http: Http) {
     ],
     providers: [
         InvoiceService,
-        TranslateService
+        TranslateService,
+        RepositoryService
     ],
     bootstrap: [AppComponent]
 })
