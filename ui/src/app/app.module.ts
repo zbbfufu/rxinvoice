@@ -4,8 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {HttpModule, Http} from '@angular/http';
-import {TranslateModule, TranslateStaticLoader, TranslateLoader, TranslateService} from "ng2-translate";
+import {TranslateModule, TranslateStaticLoader, TranslateLoader, TranslateService} from 'ng2-translate';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -16,11 +15,13 @@ import { CustomersListComponent } from './pages/customers-list/customers-list.co
 import { CustomerNewComponent } from './pages/customer-new/customer-new.component';
 import { InvoiceNewComponent } from './pages/invoice-new/invoice-new.component';
 import {RepositoryService} from './services/repository.service';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 
-export function createTranslateLoader(http: Http) {
-    return new TranslateStaticLoader(http, '' + '/api/i18n', 'labels.json');
-}
+
+// export function createTranslateLoader(http: HttpClient) {
+//     return new TranslateStaticLoader(http, '' + '/api/i18n', 'labels.json');
+// }
 
 @NgModule({
     declarations: [
@@ -31,17 +32,17 @@ export function createTranslateLoader(http: Http) {
         AppHeaderComponent,
         CustomersListComponent,
         CustomerNewComponent,
-        InvoiceNewComponent
+        InvoiceNewComponent,
     ],
     imports: [
         AppRoutingModule,
         BrowserModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         TranslateModule.forRoot({
             provide: TranslateLoader,
             useFactory: (createTranslateLoader),
-            deps: [Http]
+            deps: [HttpClient]
         })
     ],
     providers: [
