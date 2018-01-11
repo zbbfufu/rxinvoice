@@ -1,0 +1,1 @@
+export type CompanyKindType = 'EDITOR'| 'INHOUSE_SOLUTION_EDITOR'| 'MAJOR_ACCOUNT'| 'PME'| 'FINAL_RECIPIENT';
