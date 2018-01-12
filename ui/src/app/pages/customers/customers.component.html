@@ -1,0 +1,49 @@
+<div class="customerFilter">
+  <div class="row">
+    <div class="columns shrink">
+      <div class="row align-middle">
+        <div class="columns shrink">
+          {{'customers.filter.title' | translate}}
+        </div>
+
+        <div class="columns">
+          <div class="round large green listFilter-item isActive">
+            {{'customers.filter.az' | translate}}
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="round large green listFilter-item">
+            {{'customers.filter.date' | translate}}
+          </div>
+        </div>
+
+        <div class="columns">
+          <div class="round large green listFilter-item">
+            {{'customers.filters.ca' | translate}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns auto">
+      <input class="input search small" type="text" placeholder="Recherche">
+    </div>
+
+    <button class="button large green columns shrink ripple" routerLink="/customers/new">
+      <i class="ion-plus-round"></i>{{'customers.filter.client' | translate}}
+    </button>
+  </div>
+
+  <!-- Invoice number -->
+
+  <div class="customerDetail">
+    <h6> {{'customers.total.client' | translate}} pour un nombre total de {{'customers.total.deal' |
+      translate}}</h6>
+  </div>
+</div>
+
+<!-- [END HEADER] -->
+
+
+<customers-list></customers-list>

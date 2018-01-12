@@ -1,20 +1,5 @@
 @import '../../../styles/base-component';
 
-
-// ---- Customer List Filter
-
-@include new('customerFilter') {
-  padding: rem-calc(20px 20px 0 20px);
-
-  input {
-    margin: rem-calc(5px 0 0 30px);
-  }
-}
-
-@include new('customerDetail') {
-  margin: rem-calc(35px 0 0 0);
-}
-
 // ---- Invoice List Table
 
 @include new('customerList') {
