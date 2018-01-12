@@ -1,16 +1,18 @@
-import {Inject, Injectable, LOCALE_ID} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
-    constructor(@Inject(LOCALE_ID) public locale: string) {};
+    constructor() {};
 
     intercept(req: HttpRequest< any >, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log(this.locale);
+        const locale: string = navigator.language;
+        console.log(locale);
+        // FIXME issue with LOCALE_ID , 'en-US' for me...?
 
-        req = req.clone({ headers: req.headers.set('Accept-Language', this.locale) });
+        req = req.clone({ headers: req.headers.set('Accept-Language', locale) });
         return next.handle(req);
     }
 

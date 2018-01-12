@@ -1,7 +1,7 @@
 import { InvoiceService } from './services/invoice.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -16,8 +16,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpInterceptorService } from './services/http-interceptor.service';
-
-
+import {CommonModule} from '@angular/common';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, '/api/i18n/', 'labels.json');
@@ -38,6 +37,7 @@ export function createTranslateLoader(http: HttpClient) {
         AppRoutingModule,
         BrowserModule,
         FormsModule,
+        CommonModule,
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {
