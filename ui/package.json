@@ -24,6 +24,7 @@
         "@angular/router": "5.2.0",
         "@ngx-translate/core": "9.0.2",
         "@ngx-translate/http-loader": "2.0.1",
+        "class-transformer": "0.1.8",
         "core-js": "2.4.1",
         "foundation-sites": "6.3.1",
         "jquery": "3.2.1",

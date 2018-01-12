@@ -17,6 +17,8 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import {CommonModule} from '@angular/common';
+import { CustomersComponent } from './pages/customers/customers.component';
+import {CompanyService} from './services/company.service';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, '/api/i18n/', 'labels.json');
@@ -32,6 +34,7 @@ export function createTranslateLoader(http: HttpClient) {
         CustomersListComponent,
         CustomerNewComponent,
         InvoiceNewComponent,
+        CustomersComponent,
     ],
     imports: [
         AppRoutingModule,
@@ -51,6 +54,7 @@ export function createTranslateLoader(http: HttpClient) {
         InvoiceService,
         TranslateService,
         RepositoryService,
+        CompanyService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HttpInterceptorService,
