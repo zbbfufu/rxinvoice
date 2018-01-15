@@ -16,8 +16,10 @@
         </a>
     </nav>
 
-    <a class="sidebar-logout" (click)="logout()">
+    <a  class="sidebar-logout" >
+    <button type="button" (click)="logout()">
         <img class="sidebar-logout-icon" src="assets/images/svg/icon_logout.svg">
         {{'user.logout' | translate}}
+    </button>
     </a>
 </div>
