@@ -1,60 +1,62 @@
 <table class="customerList">
-    <tbody class="customerList-row">
+    <tbody class="customerList-row" *ngFor="let customer of companies">
+<!-- fixme data display in dom are not like in the model -->
     <tr>
         <td>
-            <div class="customerList-item-label">{{'customers.label.name' | translate}} :</div>
+            <div class="customerList-item-label">{{'customers.label.name' | translate}}:</div>
         </td>
         <td>
-            <span class="customerList-item-label">{{'customers.label.date' | translate}}: </span>
+            <span class="customerList-item-label">{{'customers.label.date' | translate}}:</span>
         </td>
         <td>
-            <span class="customerList-item-label">{{'customers.label.lastSent' | translate}} : </span>
-            <span class="customerList-item-value">{{'customers.value.lastSent' | translate}}</span>
+            <span class="customerList-item-label">{{'customers.label.lastSent' | translate}}: </span>
+            <span class="customerList-item-value">{{customer.lastSendDate | date}}</span>
         </td>
         <td>
             <span class="customerList-item-label">{{'customers.label.contact' | translate}}</span>
         </td>
         <td>
             <div class="customerList-item-label">{{'customers.label.number' | translate}}</div>
-            <span class="customerList-item-label">{{'customers.label.lastExercice' | translate}}: </span>
-            <span class="customerList-item-value">{{'customers.value.lastExercice' | translate}}</span>
+            <span class="customerList-item-label">{{'customers.label.lastFinancialYear' | translate}}: </span>
+            <span class="customerList-item-value">{{customer.lastSentInvoice?.grossAmount}}</span>
         </td>
         <td>
             <div class="customerList-item-label">{{'customers.label.ca' | translate}}</div>
-            <span class="customerList-item-value">{{'customers.value.lastCa' | translate}}</span>
+            <span class="customerList-item-value">{{customer.revenue}}</span>
         </td>
     </tr>
 
     <tr>
         <td rowspan="2">
-            <div class="customerList-item-value">{{'customers.value.name' | translate}}</div>
+            <div class="customerList-item-value">{{customer.name}}</div>
         </td>
         <td rowspan="2">
-            <span class="customerList-item-value">{{'customers.value.lastSent' | translate}}</span>
+            <span class="customerList-item-value"></span>
         </td>
         <td rowspan="2">
-            <span class="customerList-item-label">{{'customers.label.lastPayment' | translate}}: </span>
-            <span class="customerList-item-value">{{'customers.value.lastPayment' | translate}}</span>
+            <span class="customerList-item-label">{{'customers.label.lastPayment' | translate}}:
+                {{customer.lastYearRevenue}}</span>
+            <span class="customerList-item-value">{{customer.lastPaidInvoice?.grossAmount}}</span>
         </td>
         <td rowspan="2">
-            <span class="customerList-item-value">{{'customers.value.mailContact' | translate}}</span>
+            <span class="customerList-item-value">{{customer.emailAddress}}</span>
         </td>
         <td>
-            <span class="customerList-item-label">{{'customers.label.Exercice' | translate}}: </span>
-            <span class="customerList-item-value">{{'customers.value.Exercice' | translate}}</span>
+            <span class="customerList-item-label">{{'customers.label.financialYear' | translate}}:</span>
+            <span class="customerList-item-value">{{customer.lastFinancialYear}}</span>
         </td>
         <td>
-            <span class="customerList-item-value">{{'customers.value.lastCa' | translate}}</span>
+            <span class="customerList-item-value"> {{customer.financialYear}}</span>
         </td>
     </tr>
 
     <tr>
         <td>
-            <span class="customerList-item-label">{{'customers.label.nextExercice' | translate}}:</span>
-            <span class="customerList-item-value">{{'customers.value.nextExercice' | translate}}</span>
+            <span class="customerList-item-label">{{'customers.label.nextFinancialYear' | translate}}:</span>
+            <span class="customerList-item-value">{{customer.furtureFinancialYear}}</span>
         </td>
         <td>
-            <span class="customerList-item-value">{{'customers.value.nextCa' | translate}}</span>
+            <span class="customerList-item-value"></span>
         </td>
     </tr>
     </tbody>
