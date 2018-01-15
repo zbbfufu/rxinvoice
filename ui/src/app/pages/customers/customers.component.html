@@ -7,27 +7,34 @@
         </div>
 
         <div class="columns">
-          <div class="round large green listFilter-item isActive">
+          <button type="button" (click)="toggleFilter('az')"
+                  [ngClass]="{'isActive green': filterString ===  'az'}"
+                  class="round large listFilter-item ">
             {{'customers.filter.az' | translate}}
-          </div>
+          </button>
         </div>
 
         <div class="columns">
-          <div class="round large green listFilter-item">
+          <button type="button"  (click)="toggleFilter('date')"
+                  [ngClass]="{'isActive green': filterString ===  'date'}"
+                  class="round large listFilter-item">
             {{'customers.filter.date' | translate}}
-          </div>
+          </button>
         </div>
 
         <div class="columns">
-          <div class="round large green listFilter-item">
+          <button type="button"  (click)="toggleFilter('revenue')"
+                  [ngClass]="{'isActive green': filterString ===  'revenue'}"
+                  class="round large listFilter-item">
             {{'customers.filters.ca' | translate}}
-          </div>
+          </button>
         </div>
       </div>
     </div>
 
     <div class="columns auto">
-      <input class="input search small" type="text" placeholder="Recherche">
+      <input class="input search small" type="text" placeholder="Recherche"
+             ngModel #search>
     </div>
 
     <button class="button large green columns shrink ripple" routerLink="/customers/new">
@@ -38,12 +45,12 @@
   <!-- Invoice number -->
 
   <div class="customerDetail">
-    <h6> {{'customers.total.client' | translate}} pour un nombre total de {{'customers.total.deal' |
-      translate}}</h6>
+    <h6> {{'customers.total.client' | translate}}
+        pour un nombre total de {{'customers.total.deal' | translate}}</h6>
   </div>
 </div>
 
 <!-- [END HEADER] -->
 
 
-<customers-list></customers-list>
+<customers-list [companies]="companies" [filterString]="filterString"></customers-list>
