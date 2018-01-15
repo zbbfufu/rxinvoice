@@ -12,7 +12,7 @@ export class CompanyModel {
     legalNotice: string;
     showLegalNoticeForeignBuyer: boolean;
     address: string;
-    metrics: string;
+    metrics: {invoiced: number};
     business: BusinessModel[];
     vats: VATModel[];
     kind: CompanyKindType;
@@ -23,6 +23,14 @@ export class CompanyModel {
     lastPaymentDate: Date;
     lastSentInvoice: InvoiceInfoModel;
     lastPaidInvoice: InvoiceInfoModel;
+
+    revenue: number;
+    lastYearRevenue: number;
+    lastPaiementDate: Date;
+
+    financialYear: number;
+    lastFinancialYear: number;
+    furtureFinancialYear: number;
 
   constructor() {
   }
