@@ -1,0 +1,94 @@
+<!-- [HEADER] -->
+
+<div class="invoiceFilter">
+  <div class="row">
+    <div class="columns shrink">
+      <div class="row align-middle listFilter">
+        <button class="columns shrink listFilter-label">
+          {{'invoices.filter.title' | translate}}
+        </button>
+
+        <div class="columns">
+          <button (click)="toggleFilter('ref')"
+                  [ngClass]="{'isActive green': filterString ===  'ref'}"
+                  class="round large listFilter-item">
+            {{'invoices.filter.ref' | translate}}
+          </button>
+        </div>
+
+        <div class="columns">
+          <button (click)="toggleFilter('date')"
+                  [ngClass]="{'isActive green': filterString ===  'date'}"
+                  class="round large listFilter-item">
+            {{'invoices.filter.date' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="invoiceFilter-search">
+        <input class="input-search" type="text" placeholder="Recherche">
+      </div>
+    </div>
+
+    <button class="columns shrink invoiceNewButton mediumButton">
+      <a routerLink="/invoices/new"> {{'invoices.newInvoice' | translate}} </a>
+    </button>
+
+    <div class="columns shrink circleButton">
+      <a><img class="icon" src="assets/images/png/icon_excel.png"></a>
+    </div>
+  </div>
+
+  <!-- Select input -->
+
+  <div class="invoiceSelect row">
+    <div class="columns shrink">
+      <div class="invoiceSelect-date">
+        <input type="date">
+      </div>
+    </div>
+
+    <div class="columns shrink">
+      <div class="invoiceSelect-item">
+        <select>
+          <option value="status">{{'invoices.filter.client' | translate}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="columns shrink">
+      <div class="invoiceSelect-item">
+        <select>
+          <option [ngValue]="">{{'invoice.status.all' | translate}}</option>
+          <option *ngFor="let status of statuses" [ngValue]="status">
+            {{'invoice.status.' + status | translate}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="columns shrink">
+      <div class="invoiceSelect-item">
+        <select>
+          <option value="">{{'invoice.kind.all' | translate}}</option>
+          <option *ngFor="let kind of kinds" [ngValue]="kind">
+            {{'invoice.kind.' + kind | translate}}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Invoice number -->
+
+  <div class="invoiceNumber">
+    <h6>{{'invoices.total.number' | translate}} pour un nombre total de {{'invoices.total.euros' | translate}}</h6>
+  </div>
+</div>
+
+<!-- [END HEADER] -->
+
+<invoices-list></invoices-list>
