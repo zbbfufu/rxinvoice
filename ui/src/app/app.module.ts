@@ -23,7 +23,7 @@ import { AppContentComponent } from './app-content/app-content.component';
 import {AuthenticationService} from './services/authentication.service';
 import {InvoicesComponent} from './pages/invoices/invoices.component';
 import {InvoicesListComponent} from './components/invoices-list/invoices-list.component';
-import {CustomerLineComponent} from './components/customer-line/customer-line.component';
+import {CustomersListComponent} from './components/customers-list/customers-list.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, '/api/i18n/', 'labels.json');
@@ -36,13 +36,13 @@ export function createTranslateLoader(http: HttpClient) {
         InvoicesListComponent,
         SidebarComponent,
         AppHeaderComponent,
-        CustomerLineComponent,
         CustomerNewComponent,
         InvoiceNewComponent,
         CustomersComponent,
         LoginComponent,
         AppContentComponent,
-        InvoicesComponent
+        InvoicesComponent,
+        CustomersListComponent
     ],
     imports: [
         AppRoutingModule,
