@@ -7,24 +7,24 @@
         </div>
 
         <div class="columns">
-          <button type="button" (click)="toggleFilter('az')"
-                  [ngClass]="{'isActive green': filterString ===  'az'}"
+          <button type="button" (click)="toggleFilter('NAME')"
+                  [ngClass]="{'isActive green': filterString ===  'NAME'}"
                   class="round large listFilter-item ">
             {{'customers.filter.az' | translate}}
           </button>
         </div>
 
         <div class="columns">
-          <button type="button"  (click)="toggleFilter('date')"
-                  [ngClass]="{'isActive green': filterString ===  'date'}"
+          <button type="button"  (click)="toggleFilter('CREATIONDATE')"
+                  [ngClass]="{'isActive green': filterString ===  'CREATIONDATE'}"
                   class="round large listFilter-item">
             {{'customers.filter.date' | translate}}
           </button>
         </div>
 
         <div class="columns">
-          <button type="button"  (click)="toggleFilter('revenue')"
-                  [ngClass]="{'isActive green': filterString ===  'revenue'}"
+          <button type="button"  (click)="toggleFilter('LASTPAIDINVOICE')"
+                  [ngClass]="{'isActive green': filterString ===  'LASTPAIDINVOICE'}"
                   class="round large listFilter-item">
             {{'customers.filters.ca' | translate}}
           </button>
@@ -34,7 +34,8 @@
 
     <div class="columns auto">
       <input class="input search small" type="text" placeholder="Recherche"
-             ngModel #search>
+             name="search"
+             ngModel #query debounce (func)="search(query.value)">
     </div>
 
     <button class="button large green columns shrink ripple" routerLink="/customers/new">
@@ -45,12 +46,12 @@
   <!-- Invoice number -->
 
   <div class="customerDetail">
-    <h6> {{'customers.total.client' | translate}}
-        pour un nombre total de {{'customers.total.deal' | translate}}</h6>
+    <h6>  {{companies?.length}} {{'customers.total.client' | translate}}
+        0 {{'customers.total.deal' | translate}}</h6>
   </div>
 </div>
 
 <!-- [END HEADER] -->
 
 
-<customers-list [companies]="companies" [filterString]="filterString"></customers-list>
+<customers-list [companies]="companies | orderBy: filterString"></customers-list>

@@ -14,17 +14,26 @@ export class CustomersComponent implements OnInit {
 
 
     constructor(private companyService: CompanyService) {
+        this.toggleFilter('NAME');
     }
 
     ngOnInit() {
-        this.companyService.fetchCompanies().subscribe((companies) => this.companies = companies);
+        // TODO add computed info mix with company model, maybe like a companyInfo to get
+        // all the revenues and fiscal info depending of the current user fiscalyear variable
+        this.search();
     }
 
-    toggleFilter(string) {
+    public search(query?) {
+        // TODO add search with optional string query into companyResource.java
+        this.companyService.fetchCompanies(query).subscribe((companies) => this.companies = companies);
+    }
+
+    public toggleFilter(string) {
         if (this.filterString && this.filterString === string) {
             this.filterString = undefined;
         } else {
             this.filterString = string;
         }
     }
+
 }
