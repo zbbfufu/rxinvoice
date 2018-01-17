@@ -1,0 +1,99 @@
+<div class="newCustomer">
+    <div class="row align-middle newCustomerHeader">
+        <div class="columns shrink">
+            <a class="button small white ripple"
+               routerLink="/customers"><i class="ion-arrow-left-c"></i></a>
+        </div>
+
+        <div class="columns shrink newCustomerHeader-name">
+            {{'customers.label.back' | translate}}
+        </div>
+    </div>
+
+    <div class="row newCustomerDetail">
+        <form #f="ngForm" (submit)="save(f.value)" class="column small-8">
+            <div class="column newCustomerDetail-container">
+                <div class="row align-middle newCustomerDetail-container-labelNumber">
+                    <h6 class="column small-12">{{'newCustomer.label.caInvoiced' | translate}}</h6>
+                    <h6 class="column small-12">{{'newCustomer.label.caFixed' | translate}}</h6>
+                </div>
+
+                <div class="row align-middle newCustomerDetail-container-valueNumber">
+                    <h5 class="column small-12">{{ customer?.metrics?.invoiced }}</h5>
+                    <h5 class="column small-12">{{ customer?.metrics?.paid }}</h5>
+                </div>
+
+                <div class="row align-middle newCustomerDetail-container-label">
+                    <h6 class="column small-8"> {{'newCustomer.label.client' | translate}}</h6>
+                    <div class="column"><input type="text" [(ngModel)]="customer.name" name="name" required></div>
+                </div>
+
+                <div class="row align-middle newCustomerDetail-container-label">
+                    <h6 class="column small-8"> {{'newCustomer.label.creation' | translate}}</h6>
+                    <div class="column">{{customer?.creationDate | date}}</div>
+                </div>
+
+                <div class="row align-middle newCustomerDetail-container-label">
+                    <h6 class="column small-8"> {{'newCustomer.label.mail' | translate}}</h6>
+                    <div class="column"><input type="email" [(ngModel)]="customer.emailAddress" name="mail" required></div>
+                </div>
+
+                <div class="row align-middle newCustomerDetail-container-label">
+                    <h6 class="column small-8"> {{'newCustomer.label.address' | translate}}</h6>
+                    <!--<div class="column"><address name="address" [(ngMode)]=customer.address></address></div>-->
+                </div>
+
+                <div class="row align-middle newCustomerDetail-container-label">
+                    <h6 class="column small-8"> {{'newCustomer.label.lastSent' | translate}}</h6>
+                    <div class="column"><input type="text" [(ngModel)]="customer.lastSendDate" name="lastSent"></div>
+                </div>
+
+                <div class="row align-middle newCustomerDetail-container-label">
+                    <h6 class="column small-8"> {{'newCustomer.label.lastPayment' | translate}}</h6>
+                    <div class="column"><input type="text" [(ngModel)]="customer.lastPaidInvoice" name="lastPayment"></div>
+                </div>
+            </div>
+        </form>
+
+        <div class="column auto newCustomerDetail">
+        <business-detail [(business)]="customer.business" [editMode]="editMode"></business-detail>
+        </div>
+
+        <footer class="row newCustomerAction">
+            <div class="column">
+                <div class="row newCustomerAction-container align-middle">
+                    <div class="columns shrink">
+                        <button class="button large green ripple"
+                                type="submit" [disabled]="f.invalid || f.pending">
+                            <i class="ion-checkmark-round"></i>
+                            {{( !customer ? 'newCustomer.label.buttonCreate' : 'newCustomer.label.buttonUpdate') |
+                            translate}}
+                        </button>
+                    </div>
+
+                    <div class="columns shrink">
+                        <button class="button large grey ripple"
+                                type="button"
+                                (click)="customer ? delete() : f.reset()">
+                            <i class="ion-trash-a"></i>{{'newCustomer.label.buttonDelete' | translate}}
+                        </button>
+                    </div>
+
+                    <div class="row newCustomerAction-container-number align-middle" *ngIf="customer">
+                        <div class="column">
+                            <div class="row  align-right newCustomerAction-container-number-label">
+                                <h6 class="column auto">{{'newCustomer.label.totalInvoiced' | translate}}
+                                   {{getRevenues()}}</h6>
+                            </div>
+
+                            <div class="row align-middle newCustomerAction-container-number-label">
+                                <h6 class="column auto">{{'newCustomer.label.totalDebt' | translate}}
+                                    {{getDebt()}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

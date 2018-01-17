@@ -4,13 +4,14 @@ import {FormGroup} from '@angular/forms';
 import {CompanyService} from '../../common/services/company.service';
 
 @Component({
-    selector: 'customer-new',
-    templateUrl: './customer-new.component.html',
-    styleUrls: ['./customer-new.component.scss']
+    selector: 'customer-detail',
+    templateUrl: './customer-detail.component.html',
+    styleUrls: ['./customer-detail.component.scss']
 })
-export class CustomerNewComponent implements OnInit {
+export class CustomerDetailComponent implements OnInit {
 
-    customer: CompanyModel;
+    customer = new CompanyModel();
+    editMode = true;
     @ViewChild('f') form: FormGroup;
 
     constructor(private companyService: CompanyService) {
@@ -23,7 +24,12 @@ export class CustomerNewComponent implements OnInit {
         values.patchValue(values);
     }
 
-    public delete() {
+
+    public getRevenues() {
+        // return this.customer.business.map(bsn.);
+    }
+
+    public getDebt() {
         // delete
     }
 

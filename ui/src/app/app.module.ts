@@ -8,7 +8,6 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {InvoicesListComponent} from './common/components/invoices-list/invoices-list.component';
 import {SidebarComponent} from './common/components/sidebar/sidebar.component';
 import {AppHeaderComponent} from './common/components/app-header/app-header.component';
-import {CustomerNewComponent} from './pages/customer-new/customer-new.component';
 import {InvoiceNewComponent} from './pages/invoice-new/invoice-new.component';
 import {CustomersComponent} from './pages/customers/customers.component';
 import {LoginComponent} from './pages/login/login.component';
@@ -16,7 +15,6 @@ import {AppContentComponent} from './app-content/app-content.component';
 import {InvoicesComponent} from './pages/invoices/invoices.component';
 import {CustomersListComponent} from './common/components/customers-list/customers-list.component';
 import {AddressComponent} from './common/components/address/address.component';
-import {BusinessComponent} from './common/components/business/business.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -28,6 +26,8 @@ import {CompanyService} from './common/services/company.service';
 import {LoggedInGuard} from './common/guards/logged-in.guard';
 import {AuthenticationService} from './common/services/authentication.service';
 import {HttpInterceptorService} from './common/services/http-interceptor.service';
+import {CustomerDetailComponent} from './pages/customer-detail/customer-detail.component';
+import { BusinessDetailComponent } from './common/business-detail/business-detail.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -38,7 +38,7 @@ export function createTranslateLoader(http: HttpClient) {
     declarations: [
         // Pipes
         OrderByPipe,
-        // Directves
+        // Directiuves
         DebounceDirective,
         // Components
         DashboardComponent,
@@ -46,7 +46,7 @@ export function createTranslateLoader(http: HttpClient) {
         InvoicesListComponent,
         SidebarComponent,
         AppHeaderComponent,
-        CustomerNewComponent,
+        CustomerDetailComponent,
         InvoiceNewComponent,
         CustomersComponent,
         LoginComponent,
@@ -54,7 +54,7 @@ export function createTranslateLoader(http: HttpClient) {
         InvoicesComponent,
         CustomersListComponent,
         AddressComponent,
-        BusinessComponent
+        BusinessDetailComponent
     ],
     imports: [
         AppRoutingModule,
