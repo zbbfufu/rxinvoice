@@ -3,7 +3,7 @@ import {ActivityType} from './activity-type.type';
 import {UserInfoModel} from './user-info.model';
 
 @Injectable()
-export class ActivityModel{
+export class ActivityModel {
     key: string;
     objectType: string;
     objectKey: string;

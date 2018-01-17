@@ -5,6 +5,7 @@ import {FiscalYearModel} from './fiscalYear.model';
 import {InvoiceInfoModel} from './InvoiceInfo.model';
 
 export class CompanyModel {
+    _id: string;
     key: string;
     name: string;
     fullName: string;
@@ -12,7 +13,7 @@ export class CompanyModel {
     legalNotice: string;
     showLegalNoticeForeignBuyer: boolean;
     address: string;
-    metrics: {invoiced: number};
+    metrics: {invoiced: number, paid: number};
     business: BusinessModel[];
     vats: VATModel[];
     kind: CompanyKindType;
@@ -23,14 +24,6 @@ export class CompanyModel {
     lastPaymentDate: Date;
     lastSentInvoice: InvoiceInfoModel;
     lastPaidInvoice: InvoiceInfoModel;
-
-    revenue: number;
-    lastYearRevenue: number;
-    lastPaiementDate: Date;
-
-    financialYear: number;
-    lastFinancialYear: number;
-    furtureFinancialYear: number;
 
   constructor() {
   }
