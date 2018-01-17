@@ -20,6 +20,7 @@ const routes: Routes = [
             { path: 'invoices/new', component: InvoiceNewComponent },
             { path: 'customers', component: CustomersComponent},
             { path: 'customers/new', component: CustomerNewComponent},
+            { path: 'customers/detail/:id', component: CustomerNewComponent},
             { path: '**', redirectTo: '/dashboard', pathMatch: 'full' }
         ]
     }
