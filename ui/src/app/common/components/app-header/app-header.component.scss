@@ -1,4 +1,4 @@
-@import '../../../styles/base-component';
+@import '../../../../styles/base-component';
 
 @include new('appHeader') {
   display: flex;
@@ -52,7 +52,7 @@
 
   @include when('isOpen') {
     position: relative;
-    background-image: url("../../../#{$svg-path}icon_cross.svg");
+    background-image: url("../../../../#{$svg-path}icon_cross.svg");
   }
 
   @include has('detail') {

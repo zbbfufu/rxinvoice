@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {InvoiceStatusType} from '../../models/invoice-status.type';
 import {InvoiceKindType} from '../../models/invoice-kind.type';
 import {Invoice} from '../../models/invoice.model';
-import {InvoiceService} from '../../services/invoice.service';
-import {RepositoryService} from '../../services/repository.service';
+import {InvoiceService} from '../../common/services/invoice.service';
+import {RepositoryService} from '../../common/services/repository.service';
 
 @Component({
   selector: 'invoices',

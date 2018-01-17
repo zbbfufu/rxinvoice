@@ -1,4 +1,4 @@
-import { Invoice } from './../models/invoice.model';
+import { Invoice } from '../../models/invoice.model';
 import { Injectable } from '@angular/core';
 
 @Injectable()

@@ -9,9 +9,10 @@ import {Router} from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
 
+  activityMenu = false;
+
   constructor( private router: Router,
                private authService: AuthenticationService) { }
-  activityMenu = false;
 
   ngOnInit() {
   }

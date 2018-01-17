@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {InvoiceStatusType} from '../models/invoice-status.type';
-import {InvoiceKindType} from '../models/invoice-kind.type';
+import {InvoiceStatusType} from '../../models/invoice-status.type';
+import {InvoiceKindType} from '../../models/invoice-kind.type';
 
 @Injectable()
 export class RepositoryService {

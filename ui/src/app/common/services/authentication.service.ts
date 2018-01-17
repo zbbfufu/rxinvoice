@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {User} from '../models/user.model';
+import {User} from '../../models/user.model';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import {Md5} from 'ts-md5/dist/md5';

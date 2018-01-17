@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {plainToClass} from 'class-transformer';
 import {HttpClient} from '@angular/common/http';
-import {RevenueModel} from '../models/revenue.model';
+import {RevenueModel} from '../../models/revenue.model';
 
 @Injectable()
 export class RevenueService {
