@@ -2,7 +2,7 @@ import { InvoiceService } from './services/invoice.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app/app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -24,6 +24,10 @@ import {AuthenticationService} from './services/authentication.service';
 import {InvoicesComponent} from './pages/invoices/invoices.component';
 import {InvoicesListComponent} from './components/invoices-list/invoices-list.component';
 import {CustomersListComponent} from './components/customers-list/customers-list.component';
+import { AddressComponent } from './components/address/address.component';
+import { BusinessComponent } from './components/business/business.component';
+import {OrderByPipe} from './pipes/orderBy.pipe';
+import {DebounceDirective} from './directives/debounce.directive';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, '/api/i18n/', 'labels.json');
@@ -31,6 +35,11 @@ export function createTranslateLoader(http: HttpClient) {
 
 @NgModule({
     declarations: [
+        // Pipes
+        OrderByPipe,
+        // Directves
+        DebounceDirective,
+        // Components
         AppComponent,
         DashboardComponent,
         InvoicesListComponent,
@@ -42,12 +51,15 @@ export function createTranslateLoader(http: HttpClient) {
         LoginComponent,
         AppContentComponent,
         InvoicesComponent,
-        CustomersListComponent
+        CustomersListComponent,
+        AddressComponent,
+        BusinessComponent
     ],
     imports: [
         AppRoutingModule,
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         HttpClientModule,
         TranslateModule.forRoot({
