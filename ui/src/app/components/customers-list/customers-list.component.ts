@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CompanyModel} from '../../models/company.model';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'customers-list',
@@ -9,11 +10,14 @@ import {CompanyModel} from '../../models/company.model';
 export class CustomersListComponent implements OnInit {
 
   @Input() companies: CompanyModel[];
-  @Input() filterString: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
+
+    public goToDetail(customer) {
+        this.router.navigate(['/customers/detail/' + customer._id]);
+    }
 
 }
