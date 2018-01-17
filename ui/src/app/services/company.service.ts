@@ -16,9 +16,9 @@ export class CompanyService {
 
     constructor(private http: HttpClient) { }
 
-    public fetchCompanies(): Observable<CompanyModel[]> {
+    public fetchCompanies(query?): Observable<CompanyModel[]> {
         return this.http
-            .get(this.baseUrl)
+            .get(this.baseUrl + ( query ? '&query=' + query : ''))
             .map((result: any) => plainToClass(CompanyModel, result as Object[]))
             .catch((response: Response) => Observable.throw({ message: 'Unable to fetch companies', response: response }));
     }
@@ -28,5 +28,12 @@ export class CompanyService {
             .get(this.baseUrl + '/buyers')
             .map((result: any) => plainToClass(CompanyModel, result as Object[]))
             .catch((response: Response) => Observable.throw({ message: 'Unable to fetch buyers', response: response }));
+    }
+
+    public fetchCompany(id): Observable<CompanyModel[]> {
+        return this.http
+            .get(this.baseUrl + '/' + id)
+            .map((result: any) => plainToClass(CompanyModel, result as Object))
+            .catch((response: Response) => Observable.throw({ message: 'Unable to fetch company', response: response }));
     }
 }
