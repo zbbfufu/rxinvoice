@@ -85,7 +85,7 @@
                         <button *ngIf="editMode"
                                 class="button large green ripple"
                                 type="submit"
-                                (click)="save()"
+                                (click)="customer && customer._id  ? save() : create()"
                                 [disabled]="f.invalid || f.pending">
                             <i class="ion-checkmark-round"></i>
                             {{( !customer ? 'newCustomer.label.buttonCreate' : 'newCustomer.label.buttonUpdate') |
@@ -102,7 +102,7 @@
                     <div class="columns shrink">
                         <button class="button large grey ripple"
                                 type="button"
-                                (click)="customer ? delete() : f.reset()">
+                                (click)="customer && customer._id ? delete() : f.reset()">
                             <i class="ion-trash-a"></i>{{'newCustomer.label.buttonDelete' | translate}}
                         </button>
                     </div>

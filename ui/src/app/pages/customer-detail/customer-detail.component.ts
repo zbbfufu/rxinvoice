@@ -15,7 +15,7 @@ export class CustomerDetailComponent implements OnInit {
 
     customer = new CompanyModel();
     editMode = false;
-    companyIdId: string;
+    companyId: string;
     @ViewChild('f') form: FormGroup;
 
     constructor(private companyService: CompanyService,
@@ -41,18 +41,31 @@ export class CustomerDetailComponent implements OnInit {
 
     public fetchCustomer() {
         this.route.params.subscribe(params => {
-            if (!this.companyIdId) { this.companyIdId = params['id']; }
-            this.companyService.fetchCompany(this.companyIdId)
-                .subscribe((company:  CompanyModel) => {
-                this.form.setValue(this.updateForm(company));
-                this.customer = company;
-            });
+            if (!this.companyId) { this.companyId = params['id']; }
+            if (this.companyId) {
+                this.companyService.fetchCompany(this.companyId)
+                    .subscribe((company:  CompanyModel) => {
+                        this.form.setValue(this.updateForm(company));
+                        this.customer = company;
+                    });
+            }
         });
     }
 
     public save() {
+        if (!this.customer) { this.customer = new CompanyModel(); }
         _.merge(this.customer, this.customer, this.form.value);
         this.companyService.updateCompany(this.customer).subscribe((company) => {
+            this.customer = company;
+            this.form.setValue(this.updateForm(company));
+            this.editMode = false;
+        });
+    }
+
+    public create() {
+        this.customer = new CompanyModel;
+        _.merge(this.customer, this.customer, this.form.value);
+        this.companyService.createCompany(this.customer).subscribe((company) => {
             this.customer = company;
             this.form.setValue(this.updateForm(company));
             this.editMode = false;
@@ -76,7 +89,7 @@ export class CustomerDetailComponent implements OnInit {
 
 
     public getRevenues() {
-        // return this.customer.business.map(bsn.);
+        // getRevenues
     }
 
     public getDebt() {

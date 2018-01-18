@@ -39,6 +39,12 @@ export class CompanyService {
             .catch((response: Response) => Observable.throw({ message: 'Unable to fetch company', response: response }));
     }
 
+    public createCompany(company): Observable<CompanyModel> {
+        return this.http
+            .post(this.baseUrl, company)
+            .map((result: any) => plainToClass(CompanyModel, result as Object))
+            .catch((response: Response) => Observable.throw({ message: 'Unable to create company', response: response }));
+    }
     public updateCompany(company): Observable<CompanyModel> {
         return this.http
             .put(this.baseUrl + '/' + company._id, company)
