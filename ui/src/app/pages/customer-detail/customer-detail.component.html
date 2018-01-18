@@ -6,7 +6,7 @@
         </div>
 
         <div class="columns shrink newCustomerHeader-name">
-            {{'customers.label.back' | translate}}
+            {{ (customer && customer._id) ? customer.name : 'customers.label.back' | translate }}
         </div>
     </div>
 
@@ -19,13 +19,20 @@
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-valueNumber">
-                    <h5 class="column small-12">{{ customer?.metrics?.invoiced }}</h5>
-                    <h5 class="column small-12">{{ customer?.metrics?.paid }}</h5>
+                    <h5 class="column small-12">{{ customer?.metrics?.invoiced }} €</h5>
+                    <h5 class="column small-12">{{ customer?.metrics?.paid }} €</h5>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
-                    <h6 class="column small-8"> {{'newCustomer.label.client' | translate}}</h6>
-                    <div class="column"><input type="text" [(ngModel)]="customer.name" name="name" required></div>
+                    <h6 class="column small-8"> {{'company.name' | translate}}</h6>
+                    <div class="column"><input type="text" class="form-control"
+                                               [disabled]='!editMode' ngModel name="name" required></div>
+                </div>
+
+                <div class="row align-middle newCustomerDetail-container-label">
+                    <h6 class="column small-8"> {{'company.fullName' | translate}}</h6>
+                    <div class="column"><input type="text" class="form-control"
+                                               [disabled]='!editMode' ngModel name="fullName"></div>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
@@ -35,39 +42,59 @@
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.mail' | translate}}</h6>
-                    <div class="column"><input type="email" [(ngModel)]="customer.emailAddress" name="mail" required></div>
+                    <div class="column"><input type="email" pattern="[^ @]*@[^ @]*" class="form-control"
+                                               [disabled]='!editMode' ngModel name="emailAddress" required></div>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.address' | translate}}</h6>
-                    <!--<div class="column"><address name="address" [(ngMode)]=customer.address></address></div>-->
+                    <div class="column"><address-input [editMode]="editMode"></address-input></div>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.lastSent' | translate}}</h6>
-                    <div class="column"><input type="text" [(ngModel)]="customer.lastSendDate" name="lastSent"></div>
+                    <div class="column"><input type="date" class="form-control"
+                                               [disabled]='!editMode' ngModel name="lastSendDate"></div>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.lastPayment' | translate}}</h6>
-                    <div class="column"><input type="text" [(ngModel)]="customer.lastPaidInvoice" name="lastPayment"></div>
+                    <div class="column"><input type="text" class="form-control"
+                                               [disabled]='!editMode' ngModel name="lastPaidInvoice"></div>
+                </div>
+                <div class="row align-middle newCustomerDetail-container-label">
+                    <h6 class="column small-8"> {{'newCustomer.label.detail' | translate}}</h6>
+                    <div class="column"><input type="text" class="form-control"
+                                               [disabled]='!editMode' ngModel name="detail"></div>
                 </div>
             </div>
         </form>
 
         <div class="column auto newCustomerDetail">
-        <business-detail [(business)]="customer.business" [editMode]="editMode"></business-detail>
+        <!--<business-detail [(business)]="customer.business" [editMode]="editMode"></business-detail>-->
+
         </div>
+
+
 
         <footer class="row newCustomerAction">
             <div class="column">
                 <div class="row newCustomerAction-container align-middle">
                     <div class="columns shrink">
-                        <button class="button large green ripple"
-                                type="submit" [disabled]="f.invalid || f.pending">
+                        <button *ngIf="editMode"
+                                class="button large green ripple"
+                                type="submit"
+                                (click)="save()"
+                                [disabled]="f.invalid || f.pending">
                             <i class="ion-checkmark-round"></i>
                             {{( !customer ? 'newCustomer.label.buttonCreate' : 'newCustomer.label.buttonUpdate') |
                             translate}}
+                        </button>
+                        <button *ngIf="!editMode"
+                                (click)="editMode = true"
+                                class="button large green ripple" >
+                            <i class="ion-edit"></i>
+                            Modifier
                         </button>
                     </div>
 
@@ -76,6 +103,16 @@
                                 type="button"
                                 (click)="customer ? delete() : f.reset()">
                             <i class="ion-trash-a"></i>{{'newCustomer.label.buttonDelete' | translate}}
+                        </button>
+                    </div>
+
+
+                    <div class="columns shrink">
+                        <button *ngIf="editMode"
+                                class="button large grey ripple"
+                                type="button"
+                                (click)="reset()">
+                            <i class="ion-arrow-return-left"></i>{{'newCustomer.label.buttonCancel' | translate}}
                         </button>
                     </div>
 
