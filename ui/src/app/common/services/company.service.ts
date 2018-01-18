@@ -9,6 +9,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { plainToClass } from 'class-transformer';
 
+
+
 @Injectable()
 export class CompanyService {
 
@@ -30,10 +32,17 @@ export class CompanyService {
             .catch((response: Response) => Observable.throw({ message: 'Unable to fetch buyers', response: response }));
     }
 
-    public fetchCompany(id): Observable<CompanyModel[]> {
+    public fetchCompany(id): Observable<CompanyModel> {
         return this.http
             .get(this.baseUrl + '/' + id)
             .map((result: any) => plainToClass(CompanyModel, result as Object))
             .catch((response: Response) => Observable.throw({ message: 'Unable to fetch company', response: response }));
+    }
+
+    public updateCompany(company): Observable<CompanyModel> {
+        return this.http
+            .put(this.baseUrl + '/' + company._id, company)
+            .map((result: any) => plainToClass(CompanyModel, result as Object))
+            .catch((response: Response) => Observable.throw({ message: 'Unable to update company', response: response }));
     }
 }

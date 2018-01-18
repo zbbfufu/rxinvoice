@@ -6,24 +6,23 @@ import {InvoiceInfoModel} from './InvoiceInfo.model';
 
 export class CompanyModel {
     _id: string;
-    key: string;
     name: string;
-    fullName: string;
-    detail: string;
-    legalNotice: string;
-    showLegalNoticeForeignBuyer: boolean;
+    fullName?: string;
+    detail?: string;
+    legalNotice?: string;
+    showLegalNoticeForeignBuyer?: boolean;
     address: string;
-    metrics: {invoiced: number, paid: number};
-    business: BusinessModel[];
-    vats: VATModel[];
-    kind: CompanyKindType;
-    fiscalYear: FiscalYearModel;
-    creationDate: Date;
+    metrics?: {invoiced: number, paid: number};
+    business?: BusinessModel[];
+    vats?: VATModel[];
+    kind?: CompanyKindType;
+    fiscalYear?: FiscalYearModel;
+    creationDate?: Date;
     emailAddress: string;
-    lastSendDate: Date;
-    lastPaymentDate: Date;
-    lastSentInvoice: InvoiceInfoModel;
-    lastPaidInvoice: InvoiceInfoModel;
+    lastSendDate?: Date;
+    lastPaymentDate?: Date;
+    lastSentInvoice?: InvoiceInfoModel;
+    lastPaidInvoice?: InvoiceInfoModel;
 
   constructor() {
   }
