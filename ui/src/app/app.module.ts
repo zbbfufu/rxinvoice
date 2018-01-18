@@ -14,7 +14,6 @@ import {LoginComponent} from './pages/login/login.component';
 import {AppContentComponent} from './app-content/app-content.component';
 import {InvoicesComponent} from './pages/invoices/invoices.component';
 import {CustomersListComponent} from './common/components/customers-list/customers-list.component';
-import {AddressComponent} from './common/components/address/address.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -27,7 +26,9 @@ import {LoggedInGuard} from './common/guards/logged-in.guard';
 import {AuthenticationService} from './common/services/authentication.service';
 import {HttpInterceptorService} from './common/services/http-interceptor.service';
 import {CustomerDetailComponent} from './pages/customer-detail/customer-detail.component';
-import { BusinessDetailComponent } from './common/business-detail/business-detail.component';
+import { BusinessDetailComponent } from './common/components/business-detail/business-detail.component';
+import {AddressInputComponent} from './common/components/address-input/address-input.component';
+import {VatDetailComponent} from './common/components/vat-detail/vat-detail.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -53,8 +54,9 @@ export function createTranslateLoader(http: HttpClient) {
         AppContentComponent,
         InvoicesComponent,
         CustomersListComponent,
-        AddressComponent,
-        BusinessDetailComponent
+        AddressInputComponent,
+        BusinessDetailComponent,
+        VatDetailComponent
     ],
     imports: [
         AppRoutingModule,

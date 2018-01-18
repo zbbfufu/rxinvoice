@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {BusinessModel} from '../../models/business.model';
+import {BusinessModel} from '../../../models/business.model';
 import {plainToClass} from 'class-transformer';
 
 @Component({
@@ -21,14 +21,13 @@ export class BusinessDetailComponent implements OnInit {
       if (!this.business) { this.business = []; }
   }
 
-    public addBusiness(bsn) {
-        this.bsnForm.reset();
-        bsn.creationDate = new Date();
-        const newBusiness = plainToClass(BusinessModel, bsn as Object);
+    public addBusiness() {
+        const newBusiness = plainToClass(BusinessModel, this.bsnForm.value as Object);
         this.business.push(newBusiness);
         this.businessChange.emit(this.business);
-        console.log(this.business);
+        this.bsnForm.reset();
     }
+
     public deletedBusiness(bsnToRemove) {
         this.business = this.business.filter(bsn => bsn !== bsnToRemove);
     }

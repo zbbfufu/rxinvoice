@@ -11,8 +11,9 @@
     </div>
 
     <div class="row newCustomerDetail">
-        <form #f="ngForm" (submit)="save(f.value)" class="column small-8">
+        <form #f="ngForm" (submit)="save(f.value)" novalidate class="column small-8">
             <div class="column newCustomerDetail-container">
+                <!-- TODO add vats management / legalNotice / kind / fiscalYearModel ?-->
                 <div class="row align-middle newCustomerDetail-container-labelNumber">
                     <h6 class="column small-12">{{'newCustomer.label.caInvoiced' | translate}}</h6>
                     <h6 class="column small-12">{{'newCustomer.label.caFixed' | translate}}</h6>
@@ -48,7 +49,9 @@
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.address' | translate}}</h6>
-                    <div class="column"><address-input [editMode]="editMode"></address-input></div>
+                    <div class="column">
+                        <address-input [editMode]="editMode"></address-input>
+                    </div>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
@@ -59,8 +62,8 @@
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.lastPayment' | translate}}</h6>
-                    <div class="column"><input type="text" class="form-control"
-                                               [disabled]='!editMode' ngModel name="lastPaidInvoice"></div>
+                    <div class="column"><input type="date" class="form-control"
+                                               [disabled]='!editMode' ngModel name="lastPaymentDate"></div>
                 </div>
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.detail' | translate}}</h6>
@@ -70,12 +73,10 @@
             </div>
         </form>
 
-        <div class="column auto newCustomerDetail">
-        <!--<business-detail [(business)]="customer.business" [editMode]="editMode"></business-detail>-->
-
+        <div class="column auto newCustomerDetail" *ngIf="customer">
+            <business-detail [(business)]="customer.business" [editMode]="editMode"></business-detail>
+            <vat-detail [(vats)]="customer.vats" [editMode]="editMode"></vat-detail>
         </div>
-
-
 
         <footer class="row newCustomerAction">
             <div class="column">
@@ -92,7 +93,7 @@
                         </button>
                         <button *ngIf="!editMode"
                                 (click)="editMode = true"
-                                class="button large green ripple" >
+                                class="button large green ripple">
                             <i class="ion-edit"></i>
                             Modifier
                         </button>
@@ -105,7 +106,6 @@
                             <i class="ion-trash-a"></i>{{'newCustomer.label.buttonDelete' | translate}}
                         </button>
                     </div>
-
 
                     <div class="columns shrink">
                         <button *ngIf="editMode"
@@ -120,7 +120,7 @@
                         <div class="column">
                             <div class="row  align-right newCustomerAction-container-number-label">
                                 <h6 class="column auto">{{'newCustomer.label.totalInvoiced' | translate}}
-                                   {{getRevenues()}}</h6>
+                                    {{getRevenues()}}</h6>
                             </div>
 
                             <div class="row align-middle newCustomerAction-container-number-label">
