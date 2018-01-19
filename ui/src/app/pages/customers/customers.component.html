@@ -1,54 +1,55 @@
 <div class="customerFilter">
-  <div class="row">
-    <div class="columns shrink">
-      <div class="row align-middle">
+    <div class="row">
         <div class="columns shrink">
-          {{'customers.filter.title' | translate}}
+            <div class="row align-middle">
+                <div class="columns shrink">
+                    {{'customers.filter.title' | translate}}
+                </div>
+
+                <div class="columns">
+                    <button type="button" (click)="toggleFilter('NAME')"
+                            [ngClass]="{'isActive green': filterString ===  'NAME'}"
+                            class="round large listFilter-item ">
+                        {{'customers.filter.az' | translate}}
+                    </button>
+                </div>
+
+                <div class="columns">
+                    <button type="button" (click)="toggleFilter('CREATIONDATE')"
+                            [ngClass]="{'isActive green': filterString ===  'CREATIONDATE'}"
+                            class="round large listFilter-item">
+                        {{'customers.filter.date' | translate}}
+                    </button>
+                </div>
+
+                <div class="columns">
+                    <button type="button" (click)="toggleFilter('LASTPAIDINVOICE')"
+                            [ngClass]="{'isActive green': filterString ===  'LASTPAIDINVOICE'}"
+                            class="round large listFilter-item">
+                        {{'customers.filters.ca' | translate}}
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div class="columns">
-          <button type="button" (click)="toggleFilter('NAME')"
-                  [ngClass]="{'isActive green': filterString ===  'NAME'}"
-                  class="round large listFilter-item ">
-            {{'customers.filter.az' | translate}}
-          </button>
+        <div class="columns auto">
+            <input class="input search small" type="text" placeholder="Recherche"
+                   name="search"
+                   ngModel #query debounce (func)="search(query.value)">
         </div>
 
-        <div class="columns">
-          <button type="button"  (click)="toggleFilter('CREATIONDATE')"
-                  [ngClass]="{'isActive green': filterString ===  'CREATIONDATE'}"
-                  class="round large listFilter-item">
-            {{'customers.filter.date' | translate}}
-          </button>
-        </div>
-
-        <div class="columns">
-          <button type="button"  (click)="toggleFilter('LASTPAIDINVOICE')"
-                  [ngClass]="{'isActive green': filterString ===  'LASTPAIDINVOICE'}"
-                  class="round large listFilter-item">
-            {{'customers.filters.ca' | translate}}
-          </button>
-        </div>
-      </div>
+        <a class="button large green columns shrink ripple"
+                routerLink="/customers/new">
+            <i class="ion-plus-round"></i>{{'customers.filter.client' | translate}}
+        </a>
     </div>
 
-    <div class="columns auto">
-      <input class="input search small" type="text" placeholder="Recherche"
-             name="search"
-             ngModel #query debounce (func)="search(query.value)">
+    <!-- Invoice number -->
+
+    <div class="customerDetail">
+        <h6> {{companies?.length}} {{'customers.total.client' | translate}}
+            0 {{'customers.total.deal' | translate}}</h6>
     </div>
-
-    <button class="button large green columns shrink ripple" routerLink="/customers/new">
-      <i class="ion-plus-round"></i>{{'customers.filter.client' | translate}}
-    </button>
-  </div>
-
-  <!-- Invoice number -->
-
-  <div class="customerDetail">
-    <h6>  {{companies?.length}} {{'customers.total.client' | translate}}
-        0 {{'customers.total.deal' | translate}}</h6>
-  </div>
 </div>
 
 <!-- [END HEADER] -->
