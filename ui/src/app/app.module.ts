@@ -8,7 +8,6 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {InvoicesListComponent} from './common/components/invoices-list/invoices-list.component';
 import {SidebarComponent} from './common/components/sidebar/sidebar.component';
 import {AppHeaderComponent} from './common/components/app-header/app-header.component';
-import {InvoiceNewComponent} from './pages/invoice-new/invoice-new.component';
 import {CustomersComponent} from './pages/customers/customers.component';
 import {LoginComponent} from './pages/login/login.component';
 import {AppContentComponent} from './app-content/app-content.component';
@@ -29,6 +28,7 @@ import {CustomerDetailComponent} from './pages/customer-detail/customer-detail.c
 import { BusinessDetailComponent } from './common/components/business-detail/business-detail.component';
 import {AddressInputComponent} from './common/components/address-input/address-input.component';
 import {VatDetailComponent} from './common/components/vat-detail/vat-detail.component';
+import {InvoiceDetailComponent} from './pages/invoice-detail/invoice-detail.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -48,7 +48,6 @@ export function createTranslateLoader(http: HttpClient) {
         SidebarComponent,
         AppHeaderComponent,
         CustomerDetailComponent,
-        InvoiceNewComponent,
         CustomersComponent,
         LoginComponent,
         AppContentComponent,
@@ -56,7 +55,9 @@ export function createTranslateLoader(http: HttpClient) {
         CustomersListComponent,
         AddressInputComponent,
         BusinessDetailComponent,
-        VatDetailComponent
+        VatDetailComponent,
+        CustomerDetailComponent,
+        InvoiceDetailComponent
     ],
     imports: [
         AppRoutingModule,
