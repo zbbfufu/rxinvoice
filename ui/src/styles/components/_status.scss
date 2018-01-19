@@ -18,15 +18,15 @@
   font-size: rem-calc(12px);
 
   &:hover {
-    &.toPrepare { color: $status-toprepare-color; }
-    &.toValidated { color: $status-tovalidate-color; }
-    &.toRelaunched { color: $status-torelaunched-color; }
-    &.toSend { color: $status-tosend-color; }
+    &.PREPARE { color: $status-toprepare-color; }
+    &.VALIDATED { color: $status-tovalidate-color; }
+    &.RELAUNCHED { color: $status-torelaunched-color; }
+    &.SEND { color: $status-tosend-color; }
 
-    &.toPrepare:after,
-    &.toValidated:after,
-    &.toRelaunched:after,
-    &.toSend:after {
+    &.PREPARE:after,
+    &.VALIDATED:after,
+    &.RELAUNCHED:after,
+    &.SEND:after {
       width: 100%;
     }
   }
@@ -42,22 +42,22 @@
 
   // Type Status
 
-  &.toPrepare:after {
+  &.PREPARE:after {
     color: $status-toprepare-color;
     border-bottom: 2px solid $status-toprepare-color;
   }
 
-  &.toValidated:after {
+  &.VALIDATED:after {
     color: $status-tovalidate-color;
     border-bottom: 2px solid $status-tovalidate-color;
   }
 
-  &.toRelaunched:after {
+  &.RELAUNCHED:after {
     color: $status-torelaunched-color;
     border-bottom: 2px solid $status-torelaunched-color;
   }
 
-  &.toSend:after {
+  &.SEND:after {
     color: $status-tosend-color;
     border-bottom: 2px solid $status-tosend-color;
   }
