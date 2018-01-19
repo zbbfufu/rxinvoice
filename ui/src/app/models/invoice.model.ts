@@ -1,32 +1,34 @@
-export class Invoice {
-    number: string;
-    client: string;
-    creationDate: string;
-    invoiceDate: string;
-    deadlineDate: string;
-    deal: string;
-    type: string;
-    freeTaxAmount: string;
-    amount : string;
-    tax : string;
-    comments : any;
-    attachments: any;
-    status : string;
+import {CompanyModel} from './company.model';
+import {VATModel} from './VAT.model';
+import {BusinessModel} from './business.model';
+import {InvoiceStatusType} from './invoice-status.type';
+import {ActivityModel} from './activity.model';
+import {InvoiceKindType} from './invoice-kind.type';
+import {InvoiceLineModel} from './invoice-line.model';
+import {StatusChangeModel} from './status-change.model';
 
-    constructor(number: string, client: string, creationDate : string, invoiceDate : string, deadlineDate : string, deal : string,
-                type : string, freeTaxAmount : string, amount : string, tax : string, comments : any, attachments : any, status : string) {
-        this.number = number;
-        this.client = client;
-        this.creationDate = creationDate;
-        this.invoiceDate = invoiceDate;
-        this.deadlineDate = deadlineDate;
-        this.deal = deal;
-        this.type = type;
-        this.freeTaxAmount = freeTaxAmount;
-        this.amount = amount;
-        this.tax  = tax;
-        this.comments  = comments;
-        this.attachments = attachments;
-        this.status = status;
-    }
+export class InvoiceModel {
+    key: string;
+    reference: string;
+    DateTime: Date;
+    dueDate: Date;
+    status: InvoiceStatusType;
+    withVAT: boolean;
+    object: string;
+    comment: string;
+    customerInvoiceRef: string;
+    kind: InvoiceKindType;
+    seller: CompanyModel;
+    buyer: CompanyModel;
+    grossAmount: number;
+    netAmount: number;
+    vats: VATModel[];
+    vatsAmount: VATModel[];
+    business: BusinessModel;
+    lines: InvoiceLineModel[];
+    activities: ActivityModel[];
+    attachments: Blob[];
+    statusChanges: StatusChangeModel[];
+
+    constructor() {}
 }
