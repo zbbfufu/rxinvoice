@@ -1,4 +1,6 @@
 import {Component, Input} from '@angular/core';
+import {InvoiceModel} from '../../../models/invoice.model';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'invoices-list',
@@ -7,26 +9,11 @@ import {Component, Input} from '@angular/core';
 })
 export class InvoicesListComponent {
 
-    @Input() filterString: string;
+    @Input() invoices: InvoiceModel[];
 
-    constructor() { }
+    constructor(private router: Router) { }
 
-    public getStatusLabel(status: string) {
-      switch (status) {
-        case 'toBeRelaunched' :
-          return 'À relancer';
-
-        case 'toSend' :
-          return 'À envoyer';
-
-        case 'toBeValidated' :
-          return 'À valider';
-
-        case 'toPrepare' :
-          return 'À préparer';
-
-        default :
-          return status;
-      }
+    public goToDetail(customer) {
+        this.router.navigate(['/invoices/detail/' + customer._id]);
     }
 }

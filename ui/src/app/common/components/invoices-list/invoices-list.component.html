@@ -1,18 +1,19 @@
 <!-- [INVOICE LIST] -->
 
-<table class="invoiceList">
-    <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
+<table class="invoiceList" *ngIf="invoices">
+    <tbody class="invoiceList-row" *ngFor="let invoice of invoices"
+           (click)="goToDetail(invoice)">
     <tr>
         <td>
             <div class="invoiceList-label">{{'invoices.label.client.ref' | translate}}</div>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.date' | translate}}:</span>
-            <span class="invoiceList-value">{{invoice.invoiceDate}}</span>
+            <span class="invoiceList-value">{{invoice.date | date}}</span>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.deal' | translate}}:</span>
-            <span class="invoiceList-value">{{invoice.deal}}</span>
+            <span class="invoiceList-value">{{invoice.business?.name}}</span>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.amount' | translate}}:</span>
@@ -23,7 +24,8 @@
         </td>
         <td>
             <span class="invoiceList-label"><img src="assets/images/svg/icon_comments.svg"></span>
-            <span class="invoiceList-value">{{invoice.comments.length}}</span>
+            <span class="invoiceList-value width-80">{{invoice.comment ? '1' : ''}}</span>
+            <!-- TODO should we add tooltip to see comment, for now can only one -->
         </td>
         <td>
             <div class="invoiceList-label">{{'invoices.label.status' | translate}}</div>
@@ -37,29 +39,29 @@
 
     <tr>
         <td>
-            <div class="invoiceList-value text blue-text">{{invoice.number}} - {{invoice.client}}</div>
+            <div class="invoiceList-value text blue-text">{{invoice.reference}} - {{invoice.buyer.name}}</div>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.deadlineDate' | translate}}:</span>
-            <span class="invoiceList-value">{{invoice.deadlineDate}}</span>
+            <span class="invoiceList-value">{{invoice.dueDate | date}}</span>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.type' | translate}}:</span>
-            <span class="invoiceList-value">{{invoice.type}}</span>
+            <span class="invoiceList-value">{{'invoice.kind.' + invoice.kind | translate}}</span>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.freeTaxAmount' | translate}}:</span>
-            <span class="invoiceList-value">{{invoice.freeTaxAmount}}</span>
+            <span class="invoiceList-value">{{invoice.netAmount}}</span>
         </td>
         <td>
-            <div class="invoiceList-value">{{invoice.tax}}</div>
+            <div class="invoiceList-value">{{invoice.vatsAmount?.amount}}</div>
         </td>
         <td>
             <span class="invoiceList-label"><img src="assets/images/svg/icon_attachments.svg"></span>
-            <span class="invoiceList-value">{{invoice.attachments.length}}</span>
+            <span class="invoiceList-value">{{invoice.attachments?.length}}</span>
         </td>
         <td>
-            <div class="invoiceList-value status is-{{invoice.status}}">{{getStatusLabel(invoice.status)}}</div>
+            <div class="invoiceList-value status {{invoice.status}}">{{ 'invoice.status.' + invoice.status | translate}}</div>
         </td>
     </tr>
     </tbody>
