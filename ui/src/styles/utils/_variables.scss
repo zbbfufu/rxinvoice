@@ -115,6 +115,8 @@ $svg-path :                                     'assets/images/svg/' !default;
 // ~ SIDEBAR
 // ---------------------------------------------------------------------- >
 
+$sidebar-width :                                    296px !default;
+
 $sidebar-bg-color :                                 $app-main-color !default;
 $sidebar-item-bg-color :                            $app-main-light-color !default;
 
@@ -136,5 +138,6 @@ $appHeader-bg-color :                                 $app-sub-light-color   !de
 // ~ HEADER END
 // < ----------------------------------------------------------------------
 
-
+$height-customerFilter :                                120px !default;
+$height-invoiceFilter :                                 120px !default;
 

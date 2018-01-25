@@ -6,4 +6,5 @@
 
 @include new('main') {
   flex: 1;
+  padding-top: rem-calc($appHeader-height);
 }

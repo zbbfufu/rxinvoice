@@ -38,15 +38,15 @@
                    ngModel #query debounce (func)="search(query.value)">
         </div>
 
-        <a class="button large green columns shrink ripple"
+        <button class="button medium green columns shrink ripple"
                 routerLink="/customers/new">
             <i class="ion-plus-round"></i>{{'customers.filter.client' | translate}}
-        </a>
+        </button>
     </div>
 
     <!-- Invoice number -->
 
-    <div class="customerDetail">
+    <div class="customerDetail inner-space-top-15">
         <h6> {{companies?.length}} {{'customers.total.client' | translate}}
             0 {{'customers.total.deal' | translate}}</h6>
     </div>
@@ -54,5 +54,6 @@
 
 <!-- [END HEADER] -->
 
-
 <customers-list [companies]="companies | orderBy: filterString"></customers-list>
+
+

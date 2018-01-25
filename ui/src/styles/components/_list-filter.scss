@@ -26,10 +26,6 @@
 
 // --- MultiSelect Filter --- //
 
-@include new('invoiceSelect') {
-  margin-top: rem-calc(30px);
-}
-
 select {
   border: 1px solid $black-squeeze;
   box-shadow: 1px 1px 12px 0px $black-squeeze;

@@ -20,7 +20,6 @@
 
                 <!--FIXME add spinner when because the orderBy can take some time !-->
 
-
                 <div class="columns">
                     <button type="button"
                             (click)="toggleFilter('DATE')"
@@ -33,81 +32,85 @@
             </div>
         </div>
 
-        <div class="columns auto">
+        <div class="columns small-12">
                 <input class="input search small" type="text" placeholder="Recherche"
                        debounce [delay]="1000" (func)="research()" ngModel name="query">
         </div>
 
+        <div class="columns small-9 text-right">
+            <button class="button medium green ripple"
+                    routerlink="/invoices/new">
+                <i class="ion-plus-round"></i>{{'invoices.newInvoice' | translate}}
+            </button>
 
-        <a class="button large green columns shrink ripple"
-                routerlink="/invoices/new">
-            <i class="ion-plus-round"></i>{{'invoices.newInvoice' | translate}}
-        </a>
-
-        <button class="button large primary columns shrink ripple"
-                type="button">
-            <img class="icon" src="assets/images/png/icon_excel.png">
-        </button>
-
+            <button class="button medium primary ripple has-img"
+                    type="button">
+                <img class="icon" src="assets/images/png/icon_excel.png">
+            </button>
+        </div>
     </div>
 
     <!-- Select input -->
 
     <div class="invoiceSelect row">
-        <div class="columns shrink">
-            <div class="invoiceSelect-date">
-                <input type="date" ngModel name="startDate">
-            </div>
+
+        <!-- Invoice number -->
+
+        <div class="invoiceNumber columns small-6 inner-space-top-15">
+            <h6> {{ invoices && invoices.length ? invoices.length : 0 }} {{'invoices.total.number' | translate}} 0000
+                {{'invoices.total.euros' | translate}}</h6>
         </div>
-        <div class="invoiceSelect row">
-            <div class="columns shrink">
-                <div class="invoiceSelect-date">
-                    <input type="date" ngModel name="endDate">
+
+        <div class="columns small-18 inner-space-top-4">
+            <div class="row">
+                <div class="columns small-3">
+                    <div class="invoiceSelect-date">
+                        <input type="date" ngModel name="startDate">
+                    </div>
+                </div>
+
+                <div class="columns small-3">
+                    <div class="invoiceSelect-date">
+                        <input type="date" ngModel name="endDate">
+                    </div>
+                </div>
+
+                <div class="columns small-6">
+                    <div class="invoiceSelect-item">
+                        <select ngModel name="buyer">
+                            <option value="">{{'invoices.filter.client' | translate}}</option>
+                            <option *ngFor="let company of companies" [ngValue]="company._id">
+                                {{company.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="columns small-6">
+                    <div class="invoiceSelect-item">
+                        <select ngModel name="statuses">
+                            <option value="">{{'invoice.status.all' | translate}}</option>
+                            <option *ngFor="let status of statuses" [ngValue]="status">
+                                {{'invoice.status.' + status | translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="columns small-6">
+                    <div class="invoiceSelect-item">
+                        <select ngModel name="kind">
+                            <option value="">{{'invoice.kind.all' | translate}}</option>
+                            <option *ngFor="let kind of kinds" [ngValue]="kind">
+                                {{'invoice.kind.' + kind | translate}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="columns shrink">
-            <div class="invoiceSelect-item">
-                <select ngModel name="buyer">
-                    <option value="">{{'invoices.filter.client' | translate}}</option>
-                    <option *ngFor="let company of companies" [ngValue]="company._id">
-                        {{company.name}}
-                    </option>
-                </select>
-            </div>
-        </div>
-
-        <div class="columns shrink">
-            <div class="invoiceSelect-item">
-                <select ngModel name="statuses">
-                    <option value="">{{'invoice.status.all' | translate}}</option>
-                    <option *ngFor="let status of statuses" [ngValue]="status">
-                        {{'invoice.status.' + status | translate}}
-                    </option>
-                </select>
-            </div>
-        </div>
-
-        <div class="columns shrink">
-            <div class="invoiceSelect-item">
-                <select ngModel name="kind">
-                    <option value="">{{'invoice.kind.all' | translate}}</option>
-                    <option *ngFor="let kind of kinds" [ngValue]="kind">
-                        {{'invoice.kind.' + kind | translate}}
-                    </option>
-                </select>
-            </div>
-        </div>
     </div>
 
-
-    <!-- Invoice number -->
-
-    <div class="invoiceNumber">
-        <h6> {{ invoices && invoices.length ? invoices.length : 0 }} {{'invoices.total.number' | translate}} 0000
-            {{'invoices.total.euros' | translate}}</h6>
-    </div>
 </form>
 
 <!-- [END HEADER] -->

@@ -1,16 +1,33 @@
 @import '../../../styles/base-component';
 
+:host {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+customers-list {
+  display: inline-block;
+  width: 100%;
+  height: calc(100vh - #{$height-customerFilter} - #{$appHeader-height} - 6px);
+  margin-top: $height-customerFilter;
+  overflow-y: auto;
+}
 
 // ---- Customer List Filter
 
 @include new('customerFilter') {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: rem-calc($height-customerFilter);
   padding: rem-calc(20px 20px 0 20px);
+  background-color: white;
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);
+  z-index: 999;
 
   input {
     margin: rem-calc(5px 0 0 30px);
   }
-}
-
-@include new('customerDetail') {
-  margin: rem-calc(35px 0 0 0);
 }

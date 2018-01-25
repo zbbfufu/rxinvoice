@@ -1,14 +1,32 @@
 @import '../../../styles/base-component';
 
+:host {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+
+invoices-list {
+  display: inline-block;
+  width: 100%;
+  height: calc(100vh - #{$height-invoiceFilter} - #{$appHeader-height} - 6px);
+  margin-top: $height-invoiceFilter;
+  overflow-y: auto;
+}
 
 // ---- Customer List Filter
 
 @include new('invoiceFilter') {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: rem-calc($height-invoiceFilter);
   padding: rem-calc(20px 20px 0 20px);
-
-  input {
-    margin: rem-calc(5px 0 0 30px);
-  }
+  background-color: white;
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.2);
+  z-index: 999;
 }
 
 @include new('invoiceDetail') {

@@ -182,10 +182,20 @@ button a [type='file'] {
 
   &.medium {
     padding: 0.75em 1em;
+    font-size: rem-calc(14px);
+
+    &.has-img {
+      padding: 6px 8px;
+
+      img {
+        width: 23px;
+      }
+    }
   }
 
   &.large {
     padding: 0.95em 1em;
+    font-size: rem-calc(16px);
   }
 
   // ---- Define Color
