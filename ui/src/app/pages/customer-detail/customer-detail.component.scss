@@ -1,11 +1,23 @@
 @import '../../../styles/base-component';
 
+:host {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
 @include new('newCustomer') {
   background-color: $background-color;
 
   @include new('newCustomerHeader') {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $height-newCustomerHeader;
     background-color: $app-main-dark-color;
     padding: rem-calc(8px);
+    z-index: 999;
 
     @include has('name') {
       color: white;
@@ -14,7 +26,10 @@
   }
 
   @include new('newCustomerDetail') {
-    margin:rem-calc(0 8px);
+    width: 100%;
+    height: calc(100vh - 64px - #{$height-newCustomerAction});
+    padding-top: $height-newCustomerHeader !important;
+    overflow-y: auto;
 
     @include has('container') {
       margin-top: rem-calc(12px);
@@ -49,6 +64,7 @@
   }
 
   @include new('newCustomerAction') {
+    height: $height-newCustomerAction;
 
     @include has('container') {
       padding: rem-calc(24px 0);

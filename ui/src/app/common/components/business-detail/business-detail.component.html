@@ -9,13 +9,13 @@
 
             <div class="row align-middle newCustomerDetail-container-content">
                 <h6 class="column shrink">{{'newCustomer.label.designation' | translate}}</h6>
-                <div class="column small-8"><input type="text" ngModel required name="name"></div>
+                <div class="column auto"><input type="text" ngModel required name="name"></div>
 
                 <h6 class="column shrink">{{'newCustomer.label.caInvoiced' | translate}}</h6>
-                <div class="column-6"><input type="number" ngModel name="caInvoiced"></div>
+                <div class="column auto"><input type="number" ngModel name="caInvoiced"></div>
 
                 <h6 class="column shrink">{{'newCustomer.label.caFixed' | translate}}</h6>
-                <div class="column-6 "><input type="number" ngModel name="caFixed"></div>
+                <div class="column auto"><input type="number" ngModel name="caFixed"></div>
 
                 <button *ngIf="editMode" type="submit"
                         [disabled]="!bsnForm.valid"
@@ -38,20 +38,20 @@
                 </div>
                 <div class="row align-middle newCustomerDetail-container-content">
                     <h6 class="column shrink">{{'newCustomer.label.designation' | translate}}</h6>
-                    <div class="column small-8">
+                    <div class="column auto">
                         <input type="text" required
                                [ngModel]="business[i].name"
                                [(disabled)]="!editMode">
                     </div>
 
                     <h6 class="column shrink">{{'newCustomer.label.caInvoiced' | translate}}</h6>
-                    <div class="column-6">
+                    <div class="column auto">
                         <input type="number" [ngModel]="business[i].caInvoiced"
                                [(disabled)]="!editMode">
                     </div>
 
                     <h6 class="column shrink">{{'newCustomer.label.caFixed' | translate}}</h6>
-                    <div class="column-6 ">
+                    <div class="column auto">
                         <input type="number" [ngModel]="business[i].caFixed"
                                [(disabled)]="!editMode">
                     </div>

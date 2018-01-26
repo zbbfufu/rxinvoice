@@ -11,7 +11,7 @@
     </div>
 
     <div class="row newCustomerDetail">
-        <form #f="ngForm" (submit)="save(f.value)" novalidate class="column small-8">
+        <form #f="ngForm" (submit)="save(f.value)" novalidate class="column small-10">
             <div class="column newCustomerDetail-container">
                 <!-- TODO add vats management / legalNotice / kind / fiscalYearModel ?-->
                 <div class="row align-middle newCustomerDetail-container-labelNumber">
@@ -67,70 +67,70 @@
                 </div>
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.detail' | translate}}</h6>
-                    <div class="column"><input type="text" class="form-control"
-                                               [disabled]='!editMode' ngModel name="detail"></div>
+                    <div class="column"><textarea type="text" class="form-control"
+                                                  [disabled]='!editMode' ngModel name="detail"></textarea>
+                    </div>
                 </div>
             </div>
         </form>
 
-        <div class="column auto newCustomerDetail" *ngIf="customer">
+        <div class="column auto newCustomerDetail-container" *ngIf="customer">
             <business-detail [(business)]="customer.business" [editMode]="editMode"></business-detail>
             <vat-detail [(vats)]="customer.vats" [editMode]="editMode"></vat-detail>
         </div>
+    </div>
+    <footer class="row newCustomerAction">
+        <div class="column">
+            <div class="row newCustomerAction-container align-middle">
+                <div class="columns shrink">
+                    <button *ngIf="editMode"
+                            class="button medium green ripple"
+                            type="submit"
+                            (click)="customer && customer._id  ? save() : create()"
+                            [disabled]="f.invalid || f.pending">
+                        <i class="ion-checkmark-round"></i>
+                        {{( !customer ? 'newCustomer.label.buttonCreate' : 'newCustomer.label.buttonUpdate') |
+                        translate}}
+                    </button>
+                    <button *ngIf="!editMode"
+                            (click)="editMode = true"
+                            class="button medium green ripple">
+                        <i class="ion-edit"></i>
+                        Modifier
+                    </button>
+                </div>
 
-        <footer class="row newCustomerAction">
-            <div class="column">
-                <div class="row newCustomerAction-container align-middle">
-                    <div class="columns shrink">
-                        <button *ngIf="editMode"
-                                class="button large green ripple"
-                                type="submit"
-                                (click)="customer && customer._id  ? save() : create()"
-                                [disabled]="f.invalid || f.pending">
-                            <i class="ion-checkmark-round"></i>
-                            {{( !customer ? 'newCustomer.label.buttonCreate' : 'newCustomer.label.buttonUpdate') |
-                            translate}}
-                        </button>
-                        <button *ngIf="!editMode"
-                                (click)="editMode = true"
-                                class="button large green ripple">
-                            <i class="ion-edit"></i>
-                            Modifier
-                        </button>
-                    </div>
+                <div class="columns shrink">
+                    <button class="button medium grey ripple"
+                            type="button"
+                            (click)="customer && customer._id ? delete() : f.reset()">
+                        <i class="ion-trash-a"></i>{{'newCustomer.label.buttonDelete' | translate}}
+                    </button>
+                </div>
 
-                    <div class="columns shrink">
-                        <button class="button large grey ripple"
-                                type="button"
-                                (click)="customer && customer._id ? delete() : f.reset()">
-                            <i class="ion-trash-a"></i>{{'newCustomer.label.buttonDelete' | translate}}
-                        </button>
-                    </div>
+                <div class="columns shrink">
+                    <button *ngIf="editMode"
+                            class="button medium grey ripple"
+                            type="button"
+                            (click)="reset()">
+                        <i class="ion-arrow-return-left"></i>{{'newCustomer.label.buttonCancel' | translate}}
+                    </button>
+                </div>
 
-                    <div class="columns shrink">
-                        <button *ngIf="editMode"
-                                class="button large grey ripple"
-                                type="button"
-                                (click)="reset()">
-                            <i class="ion-arrow-return-left"></i>{{'newCustomer.label.buttonCancel' | translate}}
-                        </button>
-                    </div>
+                <div class="row newCustomerAction-container-number align-middle" *ngIf="customer">
+                    <div class="column">
+                        <div class="row  align-right newCustomerAction-container-number-label">
+                            <h6 class="column auto">{{'newCustomer.label.totalInvoiced' | translate}}
+                                {{getRevenues()}}</h6>
+                        </div>
 
-                    <div class="row newCustomerAction-container-number align-middle" *ngIf="customer">
-                        <div class="column">
-                            <div class="row  align-right newCustomerAction-container-number-label">
-                                <h6 class="column auto">{{'newCustomer.label.totalInvoiced' | translate}}
-                                    {{getRevenues()}}</h6>
-                            </div>
-
-                            <div class="row align-middle newCustomerAction-container-number-label">
-                                <h6 class="column auto">{{'newCustomer.label.totalDebt' | translate}}
-                                    {{getDebt()}}</h6>
-                            </div>
+                        <div class="row align-middle newCustomerAction-container-number-label">
+                            <h6 class="column auto">{{'newCustomer.label.totalDebt' | translate}}
+                                {{getDebt()}}</h6>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
 </div>
