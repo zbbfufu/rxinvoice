@@ -9,6 +9,7 @@ import {StatusChangeModel} from './status-change.model';
 
 export class InvoiceModel {
     key: string;
+    _id: string;
     reference: string;
     DateTime: Date;
     dueDate: Date;
