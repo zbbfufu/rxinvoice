@@ -7,12 +7,14 @@ import {AppContentComponent} from './app-content/app-content.component';
 import {InvoicesComponent} from './pages/invoices/invoices.component';
 import {CustomerDetailComponent} from './pages/customer-detail/customer-detail.component';
 import {InvoiceDetailComponent} from './pages/invoice-detail/invoice-detail.component';
+import {LoggedInGuard} from './common/guards/logged-in.guard';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/app/dashboard', pathMatch: 'full' },
     { path: 'login', pathMatch: 'full', component: LoginComponent },
     {
-        path: '',
+        path: 'app',
+        canActivate: [LoggedInGuard],
         component: AppContentComponent,
         children: [
             { path: 'dashboard', component: DashboardComponent },
@@ -22,7 +24,8 @@ const routes: Routes = [
             { path: 'customers', component: CustomersComponent},
             { path: 'customers/new', component: CustomerDetailComponent},
             { path: 'customers/detail/:id', component: CustomerDetailComponent},
-            { path: '**', redirectTo: '/dashboard', pathMatch: 'full' }
+            {path: '**', redirectTo: '/app/dashboard'}
+
         ]
     }
 ];
