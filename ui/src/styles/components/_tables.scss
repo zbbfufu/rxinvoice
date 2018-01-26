@@ -1,0 +1,23 @@
+
+
+table {
+  &.selectable {
+
+    tbody {
+      @extend %transition;
+      cursor: pointer;
+
+      &:nth-child(even) {
+        &:hover, &:focus, &:active {
+          @extend %transition;
+          background-color: $catskill-dark;
+        }
+      }
+
+      &:hover, &:focus, &:active {
+        @extend %transition;
+        background-color: $catskill-dark;
+      }
+    }
+  }
+}

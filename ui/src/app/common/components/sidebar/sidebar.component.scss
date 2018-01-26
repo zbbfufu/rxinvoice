@@ -7,7 +7,7 @@
   flex-direction: column;
   width: rem-calc($sidebar-width);
   min-height: 100vh;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
 
   @include has('logo') {
     display: flex;
@@ -35,9 +35,11 @@
       color: white;
       padding: rem-calc(16px 24px);
       cursor: pointer;
+      @extend %transition;
 
       &:hover,
       &:focus {
+        @extend %transition;
         background-color: mix($sidebar-bg-color, $sidebar-item-bg-color, 50%);
       }
 
@@ -82,9 +84,15 @@
     height: rem-calc(50px);
     padding: 0 rem-calc(20px);
     cursor: pointer;
+    @extend %transition;
+
+    button {
+      color: white;
+    }
 
     &:hover,
     &:focus {
+      @extend %transition;
       background-color: $sidebar-item-bg-color;
     }
 

@@ -3,13 +3,13 @@
         <div class="columns shrink">
             <div class="row align-middle">
                 <div class="columns shrink">
-                    {{'customers.filter.title' | translate}}
+                    <h6>{{'customers.filter.title' | translate}}</h6>
                 </div>
 
                 <div class="columns">
                     <button type="button" (click)="toggleFilter('NAME')"
                             [ngClass]="{'isActive green': filterString ===  'NAME'}"
-                            class="round large listFilter-item ">
+                            class="round large listFilter-item">
                         {{'customers.filter.az' | translate}}
                     </button>
                 </div>
@@ -32,23 +32,25 @@
             </div>
         </div>
 
-        <div class="columns auto">
+        <div class="columns shrink">
             <input class="input search small" type="text" placeholder="Recherche"
                    name="search"
                    ngModel #query debounce (func)="search(query.value)">
         </div>
 
-        <button class="button medium green columns shrink ripple"
-                routerLink="/customers/new">
-            <i class="ion-plus-round"></i>{{'customers.filter.client' | translate}}
-        </button>
+        <div class="columns auto text-right inner-space-top-5">
+            <button class="button medium green ripple"
+                    routerLink="/customers/new">
+                <i class="ion-plus-round"></i>{{'customers.filter.client' | translate}}
+            </button>
+        </div>
     </div>
 
     <!-- Invoice number -->
 
     <div class="customerDetail inner-space-top-15">
-        <h6> {{companies?.length}} {{'customers.total.client' | translate}}
-            0 {{'customers.total.deal' | translate}}</h6>
+        <h6> <strong>{{companies?.length}}</strong>  {{'customers.total.client' | translate}}
+            <strong>0</strong> {{'customers.total.deal' | translate}}</h6>
     </div>
 </div>
 

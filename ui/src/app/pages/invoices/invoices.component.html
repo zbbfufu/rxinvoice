@@ -32,12 +32,12 @@
             </div>
         </div>
 
-        <div class="columns small-12">
+        <div class="columns shrink">
                 <input class="input search small" type="text" placeholder="Recherche"
                        debounce [delay]="1000" (func)="research()" ngModel name="query">
         </div>
 
-        <div class="columns small-9 text-right">
+        <div class="columns auto text-right inner-space-top-5">
             <button class="button medium green ripple"
                     routerlink="/invoices/new">
                 <i class="ion-plus-round"></i>{{'invoices.newInvoice' | translate}}
@@ -57,8 +57,8 @@
         <!-- Invoice number -->
 
         <div class="invoiceNumber columns small-6 inner-space-top-15">
-            <h6> {{ invoices && invoices.length ? invoices.length : 0 }} {{'invoices.total.number' | translate}} 0000
-                {{'invoices.total.euros' | translate}}</h6>
+            <h6> <strong>{{ invoices && invoices.length ? invoices.length : 0 }}</strong> {{'invoices.total.number' | translate}}
+                <strong>0000</strong> {{'invoices.total.euros' | translate}}</h6>
         </div>
 
         <div class="columns small-18 inner-space-top-4">

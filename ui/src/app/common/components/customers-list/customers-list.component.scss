@@ -3,8 +3,9 @@
 // ---- Invoice List Table
 
 @include new('customerList') {
-  padding: 1em;
+  padding: 4px 1em 4px 1em !important;
   border-spacing: 0;
+
 
   @include has('row') {
     background-color: $content-dark-list-color;
@@ -14,11 +15,17 @@
     }
 
     tr {
+      padding: 0 16px;
       background-color: transparent;
 
       td {
-        padding: 0;
-        padding-top: 1em;
+        padding: 0 16px;
+
+        .customer-name {
+          color: $shakespeare;
+          font-weight: bold;
+          font-size: 14px;
+        }
       }
 
       + tr td {
