@@ -15,12 +15,15 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
 
     }
-
-    authenticate(login) {
-        this.authService.authenticate(login.login, login.password)
-            .subscribe(
-                () => this.router.navigate(['/dashboard']),
-            );
+    public login(value) {
+        this.authService.authenticate(value)
+            .subscribe((user) =>  {
+                if (user) {
+                    this.router.navigate(['/app/dashboard']);
+                } else {
+                    // this.alertService.error({text: 'Votre connection a échouée, vérifiez votre identifiant et votre mot de passe'});
+                }
+            });
     }
 
 }

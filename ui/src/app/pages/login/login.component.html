@@ -1,28 +1,39 @@
-
-<div class="cell auto">&nbsp;</div>
-
-<h1 class="cell shrink">Se connecter</h1>
-
-<div class="grid-x cell shrink">
-    <form class="grid-y cell auto grid-margin-y" (ngSubmit)="authenticate(loginForm.value)" #loginForm="ngForm">
-        <div class="cell shrink form-group">
-            <input class="form-control"
-                   name="login" placeholder="{{'loginform.login.placeholder' | translate}}"
-                   required #login ngModel>
-            <div *ngIf="login && login.control && login.control.dirty && login.control.hasError('required')">
-                {{'loginform.login.required' | translate}}
+<span class="logo-app"></span>
+<form class="grid-x card card-login" #f="ngForm"  (submit)="login(f.value)">
+    <div class="card-section">
+        <h4 class="cell small-24 title text-dark text-uppercase">Connexion</h4>
+        <hr>
+        <div class="grid-x">
+            <div class="medium-24 cell">
+                <label class="form-group">{{'loginform.login' | translate}}
+                    <input class="form-control" type="text" placeholder=" {{'loginform.login.placeholder' | translate}}" class="has-icon-left"
+                           ngModel name="name" required>
+                    <i class="icon-user"></i>
+                </label>
+                <div *ngIf="login && login.control && login.control.dirty && login.control.hasError('required')">
+                    {{'loginform.login.required' | translate}}
+                </div>
+            </div>
+            <div class="medium-24 cell">
+                <label class="form-group">{{'loginform.password' | translate}}
+                    <input class="form-control" type="password" placeholder="{{'loginform.password.placeholder' | translate}}" class="has-icon-left"
+                           ngModel name="password" required>
+                    <i class="icon-lock"></i>
+                </label>
+                <div *ngIf="password && password.control && password.control.dirty && password.control.hasError('required')">
+                    {{'loginform.password.required' | translate}}
+                </div>
             </div>
         </div>
-        <div class="cell shrink form-group">
-            <input class="form-control"
-                   name="password" placeholder="{{'loginform.password.placeholder' | translate}}"
-                   required #password ngModel>
-            <div *ngIf="password && password.control && password.control.dirty && password.control.hasError('required')">
-                {{'loginform.password.required' | translate}}
-            </div>
+    </div>
+    <div class="card-footer">
+        <div class="medium-24 cell text-right space-top-4">
+            <button type="submit"
+                    class="button btn medium primary has-icon-right"
+                    [disabled]="f.invalid">
+               {{'loginform.connect' | translate}}<i class="icon-arrow-thin-right"></i>
+            </button>
         </div>
+    </div>
+</form>
 
-        <button class="cell shrink button validate" type="submit" [disabled]="loginForm.invalid">{{'loginform.connect' | translate}}</button>
-    </form>
-</div>
-<div class="cell auto">&nbsp;</div>
