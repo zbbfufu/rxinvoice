@@ -4,5 +4,9 @@
 
 .container {
   height: 100vh;
-  padding-left: $sidebar-width;
+  padding-left: $sidebar-width-md;
+
+  @include breakpoint(large only) {
+    padding-left: rem-calc($sidebar-width-lg);
+  }
 }

@@ -115,7 +115,8 @@ $svg-path :                                     'assets/images/svg/' !default;
 // ~ SIDEBAR
 // ---------------------------------------------------------------------- >
 
-$sidebar-width :                                    296px !default;
+$sidebar-width-lg :                                    190px !default;
+$sidebar-width-md :                                    296px !default;
 
 $sidebar-bg-color :                                 $app-main-color !default;
 $sidebar-item-bg-color :                            $app-main-light-color !default;

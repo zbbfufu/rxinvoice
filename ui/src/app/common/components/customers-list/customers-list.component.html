@@ -3,14 +3,14 @@
     (click)="goToDetail(customer)">
     <!-- fixme data display in dom are not like in the model -->
      <tr>
-      <td>
+      <td width="200">
           <div class="customerList-item-label">{{'customers.label.name' | translate}}:</div>
       </td>
       <td>
           <span class="customerList-item-label">{{'customers.label.date' | translate}}:</span>
       </td>
       <td>
-          <span class="customerList-item-label">{{'customers.label.lastSent' | translate}}: </span>
+          <span class="customerList-item-label">{{'customers.label.lastSent' | translate}}: <br></span>
           <span class="customerList-item-value">{{customer.lastSendDate | date}}</span>
       </td>
       <td>
@@ -35,7 +35,7 @@
           <span class="customerList-item-value">{{customer.lastSendDate | date}}</span>
       </td>
       <td rowspan="2">
-          <span class="customerList-item-label">{{'customers.label.lastPayment' | translate}}:
+          <span class="customerList-item-label">{{'customers.label.lastPayment' | translate}}: <br>
               </span>
           <span class="customerList-item-value">{{customer.lastPaidInvoice?.grossAmount || 0 }} €</span>
       </td>
