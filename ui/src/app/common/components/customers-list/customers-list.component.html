@@ -7,11 +7,13 @@
           <div class="customerList-item-label">{{'customers.label.name' | translate}}:</div>
       </td>
       <td>
-          <span class="customerList-item-label">{{'customers.label.date' | translate}}:</span>
+          <span class="customerList-item-label">{{'customers.label.creationDate' | translate}}:</span>
       </td>
       <td>
           <span class="customerList-item-label">{{'customers.label.lastSent' | translate}}: <br></span>
           <span class="customerList-item-value">{{customer.lastSendDate | date}}</span>
+          <span class="customerList-item-label">{{'customers.label.lastSent' | translate}}: </span>
+          <span class="customerList-item-value">{{customer.lastSendDate | date: 'dd MMM. yyyy'}}</span>
       </td>
       <td>
           <span class="customerList-item-label">{{'customers.label.contact' | translate}}</span>
@@ -19,7 +21,7 @@
       <td>
           <div class="customerList-item-label text-right">{{'customers.label.number' | translate}}</div>
           <span class="customerList-item-label">{{'customers.label.lastFinancialYear' | translate}}: </span>
-          <span class="customerList-item-value float-right">00000 €</span>
+          <span class="customerList-item-value float-right">10</span>
       </td>
       <td>
           <div class="customerList-item-label text-right">{{'customers.label.ca' | translate}}</div>
@@ -32,19 +34,19 @@
           <div class="customerList-item-value"><span class="customer-name">{{customer.name}}</span></div>
       </td>
       <td rowspan="2">
-          <span class="customerList-item-value">{{customer.lastSendDate | date}}</span>
+          <span class="customerList-item-value">{{customer.lastSendDate | date: 'dd MMM. yyyy'}}</span>
       </td>
       <td rowspan="2">
           <span class="customerList-item-label">{{'customers.label.lastPayment' | translate}}: <br>
               </span>
-          <span class="customerList-item-value">{{customer.lastPaidInvoice?.grossAmount || 0 }} €</span>
+          <span class="customerList-item-value">{{customer.lastPaymentDate | date: 'dd MMM. yyyy' }}</span>
       </td>
       <td rowspan="2">
           <span class="customerList-item-value">{{customer.emailAddress}}</span>
       </td>
       <td class="force-inner-space-bottom-0">
           <span class="customerList-item-label">{{'customers.label.financialYear' | translate}}:</span>
-          <span class="customerList-item-value float-right">00000 €</span>
+          <span class="customerList-item-value float-right">9</span>
       </td>
       <td class="force-inner-space-bottom-0 float-right">
           <span class="customerList-item-value">0000 €</span>
@@ -54,7 +56,7 @@
   <tr>
       <td>
           <span class="customerList-item-label">{{'customers.label.nextFinancialYear' | translate}}:</span>
-          <span class="customerList-item-value float-right">00000 €</span>
+          <span class="customerList-item-value float-right">3</span>
       </td>
       <td>
           <span class="customerList-item-value float-right">00000 €</span>

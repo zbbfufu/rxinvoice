@@ -9,7 +9,6 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest< any >, next: HttpHandler): Observable<HttpEvent<any>> {
         const locale: string = navigator.language;
-        console.log(locale);
         // FIXME issue with LOCALE_ID , 'en-US' for me...?
 
         req = req.clone({ headers: req.headers.set('Accept-Language', locale) });

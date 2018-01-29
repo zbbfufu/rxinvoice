@@ -9,6 +9,7 @@ export class CompanyModel {
     name: string;
     fullName?: string;
     detail?: string;
+
     legalNotice?: string;
     showLegalNoticeForeignBuyer?: boolean;
     address: string;

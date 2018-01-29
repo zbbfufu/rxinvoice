@@ -14,6 +14,6 @@ export class InvoicesListComponent {
     constructor(private router: Router) { }
 
     public goToDetail(customer) {
-        this.router.navigate(['/invoices/detail/' + customer._id]);
+        this.router.navigate(['/app/invoices/detail/' + customer._id]);
     }
 }

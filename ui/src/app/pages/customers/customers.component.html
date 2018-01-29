@@ -33,14 +33,15 @@
         </div>
 
         <div class="columns shrink">
-            <input class="input search small" type="text" placeholder="Recherche"
+            <input class="input search small" type="text" placeholder="Recherche un client par nom"
                    name="search"
                    ngModel #query debounce (func)="search(query.value)">
         </div>
 
         <div class="columns auto text-right inner-space-top-5">
             <button class="button medium green ripple"
-                    routerLink="/customers/new">
+                    type="button"
+                    routerLink="/app/customers/new">
                 <i class="ion-plus-round"></i>{{'customers.filter.client' | translate}}
             </button>
         </div>
