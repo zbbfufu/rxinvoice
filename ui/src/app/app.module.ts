@@ -16,7 +16,7 @@ import {CustomersListComponent} from './common/components/customers-list/custome
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {InvoiceService} from './common/services/invoice.service';
 import {RepositoryService} from './common/services/repository.service';
@@ -29,6 +29,8 @@ import { BusinessDetailComponent } from './common/components/business-detail/bus
 import {AddressInputComponent} from './common/components/address-input/address-input.component';
 import {VatDetailComponent} from './common/components/vat-detail/vat-detail.component';
 import {InvoiceDetailComponent} from './pages/invoice-detail/invoice-detail.component';
+import {NgSelectModule} from '@ng-select/ng-select';
+import { CustomerSelectComponent } from './common/components/customer-select/customer-select.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -57,7 +59,8 @@ export function createTranslateLoader(http: HttpClient) {
         BusinessDetailComponent,
         VatDetailComponent,
         CustomerDetailComponent,
-        InvoiceDetailComponent
+        InvoiceDetailComponent,
+        CustomerSelectComponent
     ],
     imports: [
         AppRoutingModule,
@@ -66,6 +69,7 @@ export function createTranslateLoader(http: HttpClient) {
         ReactiveFormsModule,
         CommonModule,
         HttpClientModule,
+        NgSelectModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -81,6 +85,7 @@ export function createTranslateLoader(http: HttpClient) {
         CompanyService,
         LoggedInGuard,
         AuthenticationService,
+        DatePipe,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HttpInterceptorService,
