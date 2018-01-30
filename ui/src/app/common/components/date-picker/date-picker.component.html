@@ -1,0 +1,9 @@
+<dp-date-picker #picker
+                [config]="config"
+                [ngModel]="dateMoment"
+                [displayDate]="dateMoment"
+                [disabled]="disabled"
+                (ngModelChange)="onDateChange($event)"></dp-date-picker>
+
+<button type="button" *ngIf="allowClear" (click)="clearInput()"> X </button>
+<!--FIXME display me at the right place ROBIN !!!-->

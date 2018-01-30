@@ -30,6 +30,7 @@
         "foundation-sites": "6.3.1",
         "jquery": "3.2.1",
         "lodash": "4.17.4",
+        "ng2-date-picker": "2.7.4-alpha",
         "rxjs": "5.5.6",
         "ts-md5": "1.2.2",
         "zone.js": "0.8.4"
