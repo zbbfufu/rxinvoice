@@ -5,7 +5,6 @@
            [bindLabel]="label"
            placeholder="{{'invoices.filter.client' | translate}}"
            clearAllText="isClearable"
-           name="buyer"
            [ngModel]="control.value"
            (ngModelChange)="control.patchValue($event)">
 </ng-select>

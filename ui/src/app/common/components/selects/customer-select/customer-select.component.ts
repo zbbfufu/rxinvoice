@@ -1,7 +1,7 @@
-import {Component, EventEmitter, forwardRef, Input, OnInit, Output} from '@angular/core';
-import {CompanyModel} from '../../../models/company.model';
-import {CompanyService} from '../../services/company.service';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Component, Input, OnInit} from '@angular/core';
+import {CompanyModel} from '../../../../models/company.model';
+import {CompanyService} from '../../../services/company.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'customer-select',
@@ -17,11 +17,9 @@ export class CustomerSelectComponent implements OnInit {
     @Input() label = 'company';
     @Input() control: FormControl;
     companies: CompanyModel[];
-    form: FormGroup;
 
 
-    constructor(private companyService: CompanyService,
-                private fb: FormBuilder) {
+    constructor(private companyService: CompanyService) {
     }
 
     ngOnInit() {
