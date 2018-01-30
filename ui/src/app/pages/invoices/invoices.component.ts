@@ -1,39 +1,59 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {InvoiceStatusType} from '../../models/invoice-status.type';
 import {InvoiceKindType} from '../../models/invoice-kind.type';
 import {InvoiceModel} from '../../models/invoice.model';
 import {InvoiceService} from '../../common/services/invoice.service';
 import {RepositoryService} from '../../common/services/repository.service';
-import {CompanyModel} from '../../models/company.model';
-import {CompanyService} from '../../common/services/company.service';
-import {FormGroup, NgForm} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/debounce';
+import 'rxjs/add/operator/debounceTime';
+
 
 @Component({
-  selector: 'invoices',
-  templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.scss']
+    selector: 'invoices',
+    templateUrl: './invoices.component.html',
+    styleUrls: ['./invoices.component.scss']
 })
 export class InvoicesComponent implements OnInit {
+
+    searchForm: FormGroup;
+    query: FormControl;
+    startDate: FormControl;
+    endDate: FormControl;
+    buyer: FormControl;
+    status: FormControl;
+    kind: FormControl;
 
     invoices: InvoiceModel[];
     statuses: InvoiceStatusType[];
     kinds: InvoiceKindType[];
-    companies: CompanyModel[];
     filterString = 'REFERENCE';
     isPending = false;
-    @ViewChild('searchForm') searchForm: FormGroup;
 
-  constructor(private invoiceService: InvoiceService,
-              private companyService: CompanyService,
-              private repositoryService: RepositoryService) { }
+    constructor(private fb: FormBuilder,
+                private invoiceService: InvoiceService,
+                private repositoryService: RepositoryService) {
+        this.searchForm = fb.group({
+            query: '',
+            startDate: '' ,
+            endDate: '',
+            buyer: '',
+            status: '',
+            kind: ''
+        });
+    }
 
     ngOnInit() {
-       this.research();
         this.repositoryService.fetchInvoiceStatus()
             .subscribe(statuses => this.statuses = statuses);
         this.kinds = this.repositoryService.fetchInvoiceKind();
-        this.companyService.fetchCompanies()
-            .subscribe(companies => this.companies = companies);
+        this.searchForm.valueChanges
+            .distinctUntilChanged()
+            .debounceTime( 2000 )
+            .subscribe(() => {
+                this.research();
+            });
     }
 
     toggleFilter(string) {
@@ -45,10 +65,12 @@ export class InvoicesComponent implements OnInit {
     }
 
     research() {
+
         this.invoiceService.fetchInvoices(this.searchForm.value)
-            .subscribe( (invoices) => {
+            .subscribe((invoices) => {
                 this.invoices = invoices;
             });
     }
+
 
 }

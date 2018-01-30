@@ -1,12 +1,12 @@
 <!-- [HEADER] -->
 
-<form class="invoiceFilter" #searchForm="ngForm" (change)="research()">
+<form class="invoiceFilter" [formGroup]="searchForm">
     <div class="row">
         <div class="columns shrink">
             <div class="row align-middle">
-                <button class="columns shrink">
+                <div class="columns shrink">
                     <h6>{{'invoices.filter.title' | translate}}</h6>
-                </button>
+                </div>
 
                 <div class="columns">
                     <button type="button"
@@ -34,12 +34,13 @@
 
         <div class="columns shrink">
                 <input class="input search small" type="text" placeholder="Recherche"
-                       debounce [delay]="1000" (func)="research()" ngModel name="query">
+                      formControlName="query">
         </div>
 
         <div class="columns auto text-right inner-space-top-5">
             <button class="button medium green ripple"
-                    routerlink="/invoices/new">
+                    type="button"
+                    routerlink="/app/invoices/new">
                 <i class="ion-plus-round"></i>{{'invoices.newInvoice' | translate}}
             </button>
 
@@ -65,30 +66,27 @@
             <div class="row">
                 <div class="columns small-3">
                     <div class="invoiceSelect-date">
-                        <input type="date" ngModel name="startDate">
+                        <date-picker [initDate]="true" [control]="searchForm.controls.startDate"></date-picker>
                     </div>
                 </div>
 
                 <div class="columns small-3">
                     <div class="invoiceSelect-date">
-                        <input type="date" ngModel name="endDate">
+                        <date-picker [control]="searchForm.controls.endDate"></date-picker>
                     </div>
                 </div>
 
-                <div class="columns small-6">
+                <div class="columns small-5">
                     <div class="invoiceSelect-item">
-                        <select ngModel name="buyer">
-                            <option value="">{{'invoices.filter.client' | translate}}</option>
-                            <option *ngFor="let company of companies" [ngValue]="company._id">
-                                {{company.name}}
-                            </option>
-                        </select>
+                        <customer-select [isClearable]="true"
+                                         [label]="'name'"
+                                         [control]="searchForm.controls.buyer"></customer-select>
                     </div>
                 </div>
 
-                <div class="columns small-6">
+                <div class="columns small-5">
                     <div class="invoiceSelect-item">
-                        <select ngModel name="statuses">
+                        <select formControlName="status">
                             <option value="">{{'invoice.status.all' | translate}}</option>
                             <option *ngFor="let status of statuses" [ngValue]="status">
                                 {{'invoice.status.' + status | translate}}
@@ -97,9 +95,9 @@
                     </div>
                 </div>
 
-                <div class="columns small-6">
+                <div class="columns small-5">
                     <div class="invoiceSelect-item">
-                        <select ngModel name="kind">
+                        <select formControlName="kind">
                             <option value="">{{'invoice.kind.all' | translate}}</option>
                             <option *ngFor="let kind of kinds" [ngValue]="kind">
                                 {{'invoice.kind.' + kind | translate}}
