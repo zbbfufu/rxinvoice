@@ -2,20 +2,24 @@
 // This file contains all styles related to the STATUS component.
 // -----------------------------------------------------------------------------
 
-// SKIN STATUS "DASHBOARD"
-//
+// SKIN STATUS "INVOICE" //
+
+
+
+// SKIN STATUS "DASHBOARD" //
 
 .status {
   position: relative;
-  padding: 10px 8px;
+  padding: rem-calc(4px 16px);
   margin: 0 6px;
   border-radius: 2px;
-  color: white;
+  color: white !important;
   background-color: $app-main-color;
   box-shadow: 0 0 2px $status-border-light-color;
   width: rem-calc(120px);
   text-align: center;
   font-size: rem-calc(12px);
+  border-radius: rem-calc(50px);
 
   &:hover {
     &.PREPARE { color: $status-toprepare-color; }
@@ -41,6 +45,13 @@
   }
 
   // Type Status
+
+  &.DRAFT { background: $bright-sun;}
+  &.READY { background: $shakespeare;}
+  &.SENT { background: $lima;}
+  &.LATE { background: $shiraz;}
+  &.PAID { background: $sushi;}
+  &.CANCELLED { background: $sunshade;}
 
   &.PREPARE:after {
     color: $status-toprepare-color;
