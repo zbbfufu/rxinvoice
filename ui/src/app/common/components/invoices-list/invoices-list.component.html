@@ -1,5 +1,8 @@
 <!-- [INVOICE LIST] -->
 
+<!-- TODO Connect spinner when list load -->
+<spinner hidden></spinner>
+
 <table class="invoiceList" *ngIf="invoices">
     <tbody class="invoiceList-row" *ngFor="let invoice of invoices"
            (click)="goToDetail(invoice)">
