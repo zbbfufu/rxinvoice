@@ -5,5 +5,5 @@
                 [disabled]="disabled"
                 (ngModelChange)="onDateChange($event)"></dp-date-picker>
 
-<button type="button" *ngIf="allowClear" (click)="clearInput()"> X </button>
+<button *ngIf="allowClear" (click)="clearInput()" class="btn-reset-value"><i class="ion-close"></i></button>
 <!--FIXME display me at the right place ROBIN !!!-->

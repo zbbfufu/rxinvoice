@@ -80,5 +80,22 @@ input {
   }
 }
 
+// === Custom Select
+
+.opened {
+  .ng-control {
+    border: $input-border-focus !important;
+    box-shadow: $input-shadow-focus;
+  }
+}
+
+select, .ng-control {
+  border: $input-border !important;
+
+  &:focus {
+    border: $input-border-focus !important;
+  }
+}
+
 
 

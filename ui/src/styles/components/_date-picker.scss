@@ -1,0 +1,197 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the DATE PICKER component.
+// -----------------------------------------------------------------------------
+
+// ================ //
+// Define variables colors for DatePicker
+// ================ //
+
+$primary-datepicker: $blue-bayoux;
+$grey-light-datepicker: #F2F2F2;
+$grey-medium-datepicker: #89898a;
+$grey-dark-datepicker: #444444;
+
+
+.dp-popup {
+  border-radius: rem-calc(3px);
+  @extend %box-shadow;
+}
+
+// ================ //
+// Custom Styles Date Picker
+// ================ //
+
+date-picker {
+  position: relative;
+
+  &.full-input {
+    dp-date-picker { width: 100%;}
+  }
+}
+
+.dp-day-calendar-container, .dp-month-calendar-container {
+   border: 0;
+
+  // ================ //
+  // Header (month & years - control) Date Picker
+  // ================ //
+
+  .dp-calendar-nav-container {
+    border: 0;
+    height: 48px;
+    margin-bottom: 8px;
+
+    //==== Header Month
+
+    .dp-nav-header {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 16px;
+      z-index: 1;
+
+      .dp-nav-header-btn {
+        padding: 8px;
+        color: $primary-datepicker;
+      }
+    }
+
+    //==== Header Control
+
+    .dp-nav-btns-container {
+      left: 0;
+      width: 100%;
+
+      .dp-current-location-btn {
+        left: 0;
+        top: 20px;
+        width: 100%;
+        background: none;
+        border: none;
+
+        &:after {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          content: 'Aujourd\2032hui';
+          font-size: 10px;
+          text-transform: uppercase;
+          color: $grey-medium-datepicker;
+        }
+
+        &:hover, &:focus, &:active {
+          &:after { color: $primary-datepicker;}
+        }
+      }
+
+      .dp-calendar-nav-container-left {
+        position: absolute;
+        left: 8px;
+
+        button::before {
+          border-radius: 0 3px 0 0;
+          right: -1px;
+        }
+      }
+
+      .dp-calendar-nav-container-right {
+        position: absolute;
+        right: 8px;
+
+        button::before {
+          border-radius: 0 3px 0 0;
+          left: -1px;
+        }
+      }
+
+      .dp-calendar-nav-left,
+      .dp-calendar-nav-right {
+        top: -5px;
+        height: 28px;
+        width: 28px;
+        border: 1px solid $grey-medium-datepicker;
+        color: $grey-medium-datepicker;
+        border-radius: 100%;
+        text-align: center;
+
+        &:hover {
+          transition: 340ms;
+          color: $primary-datepicker;
+          border-color: $primary-datepicker;
+        }
+      }
+    }
+  }
+
+  // ================ //
+  // Content (days - years) Date Picker
+  // ================ //
+
+  .dp-calendar-wrapper {
+    padding-bottom: 8px;
+    border: 0;
+
+    //==== Content Label Days Table
+
+    .dp-weekdays {
+      padding: 8px;
+      background-color: $grey-light-datepicker;
+
+      .dp-calendar-weekday {
+        border: 0;
+        text-transform: uppercase;
+        font-size: 10px;
+      }
+    }
+
+    //==== Content Number Days Table
+
+    .dp-calendar-week {
+      padding: 0 8px;
+
+      .dp-prev-month {
+        color: $grey-medium-datepicker;
+      }
+
+      .dp-calendar-day {
+        color: $grey-dark-datepicker;
+
+        &:hover, &:focus, &:active {
+          background: $grey-medium-datepicker;
+          color: white;
+        }
+      }
+
+      .dp-selected {
+        color: white;
+        font-weight: bold;
+        background-color: $primary-datepicker;
+      }
+    }
+
+    //==== Content Years Table
+
+    .dp-month-row {
+      padding: 0 8px;
+
+      .dp-calendar-month {
+        color: $grey-dark-datepicker;
+      }
+    }
+  }
+}
+
+.btn-reset-value {
+  position: absolute;
+  height: rem-calc(37px);
+  top: 50%;
+  right: 8px;
+  transform: translate(-50%, -50%);
+  color: $dark-gray;
+  border-radius: 0 3px 3px 0;
+
+  &:active {
+    background-color: darken($alice-blue, 4%);
+  }
+}
