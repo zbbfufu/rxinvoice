@@ -1,0 +1,103 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the LOGIN utils.
+// -----------------------------------------------------------------------------
+
+// ==== Login View
+
+.login-view {
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #4779ad 0%, #2d5b84 50%, #919faf 100%);
+    content: '';
+    z-index: -1;
+  }
+}
+
+
+// ==== Login Content Form
+
+.login-container {
+  display: flex;
+  height: 100%;
+  padding-bottom: rem-calc(80px);
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+
+  .logo-app {
+    text-align: center;
+    margin-bottom: 24px;
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
+
+    img {
+      display: block;
+      margin: 16px auto;
+      width: rem-calc(180px);
+    }
+  }
+
+  form {
+    justify-content: center;
+  }
+
+  .card-login {
+    display: block;
+    margin: 0 auto;
+    max-width: rem-calc(400px);
+    padding: rem-calc(16px) !important;
+    background: transparent;
+    border: none;
+
+    hr { opacity: 0.5;}
+    .title { color: white;}
+    .form-group { color: white;}
+  }
+}
+
+// ==== Login Content Intro
+
+.login-intro-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  padding: 0 5% 10% 5%;
+  background-image: url('../' + $img-path + 'jpg/bg-login.jpg');
+  background-size: cover;
+  background-position: center center;
+
+  * { color: white;}
+
+  img {
+    position: relative;
+    left: rem-calc(-5px);
+    margin-top: rem-calc(24px);
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .mention {
+    position: absolute;
+    bottom: 5%;
+    left: 8%;
+    opacity: 0.8;
+  }
+
+  .network {
+    position: absolute;
+    bottom: 34px;
+    right: 8%;
+    opacity: 0.8;
+    font-size: 34px;
+  }
+}

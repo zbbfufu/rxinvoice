@@ -4,6 +4,31 @@
 
 
 //---- Search input ---- //
+
+.form-group {
+  position: relative;
+
+  input:focus + i {
+    @extend %transition;
+    color: $blue-bayoux;
+  }
+
+  i {
+    @extend %transition;
+    position: absolute;
+    left: rem-calc(15px);
+    bottom: 0;
+    font-size: rem-calc(22px);
+    height: rem-calc(36px);
+    color: $regent-gray;
+  }
+
+  // === Options Icons
+
+  .has-icon-left { padding-left: rem-calc(44px);}
+  .has-icon-right{ padding-right: rem-calc(44px);}
+}
+
 input {
   border-radius: rem-calc(14px);
   margin-bottom: 0 !important;
