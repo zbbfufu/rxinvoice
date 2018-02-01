@@ -1,4 +1,4 @@
-<div class="newCustomer">
+<div class="newCustomer full-height">
     <div class="row align-middle newCustomerHeader">
         <div class="columns shrink">
             <a class="button small white ripple"
@@ -12,7 +12,7 @@
 
     <div class="row newCustomerDetail">
         <form #f="ngForm" (submit)="save(f.value)" novalidate class="column small-10">
-            <div class="column newCustomerDetail-container">
+            <div class="column newCustomerDetail-container dark space-bottom-20">
                 <!-- TODO add vats management / legalNotice / kind / fiscalYearModel ?-->
                 <div class="row align-middle newCustomerDetail-container-labelNumber">
                     <h6 class="column small-12">{{'newCustomer.label.caInvoiced' | translate}}</h6>
@@ -79,6 +79,7 @@
             <vat-detail [(vats)]="customer.vats" [editMode]="editMode"></vat-detail>
         </div>
     </div>
+
     <footer class="row newCustomerAction">
         <div class="column">
             <div class="row newCustomerAction-container align-middle">

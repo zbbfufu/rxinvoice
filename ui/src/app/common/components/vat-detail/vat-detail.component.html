@@ -1,7 +1,9 @@
 <div class="column auto newCustomerDetail">
-    <div class="row newCustomerDetail-container-label">
-    <h6 class="column shrink">{{'company.vats' | translate}}</h6>
-</div>
+    <div class="row newCustomerDetail-container-label space-top-30">
+        <h6 class="column small-24 title-section">{{'company.vats' | translate}}</h6>
+        <hr class="column small-24">
+    </div>
+
     <form *ngIf="editMode" novalidate
           class="row newCustomerDetail-container" #vatForm="ngForm"
           (submit)="addVat()">
@@ -9,7 +11,7 @@
 
             <div class="row align-middle newCustomerDetail-container-content">
                 <h6 class="column shrink">{{'company.vats.vat' | translate}}</h6>
-                <div class="column small-8">
+                <div class="column auto">
                     <input type="text"
                            class="form-control"
                            [disabled]="!editMode"
@@ -17,19 +19,21 @@
                 </div>
 
                 <h6 class="column shrink">{{'company.vats.amount' | translate}}</h6>
-                <div class="column-6">
+                <div class="column auto">
                     <input type="number"
                            class="form-control"
                            [disabled]="!editMode"
                            ngModel name="amount">
                 </div>
 
-                <button *ngIf="editMode"
-                        type="submit"
-                        [disabled]="vatForm.invalid"
-                        class="round medium primary ripple columns shrink">
-                    <i class="ion-plus-round"></i>
-                </button>
+                <div class="columns auto text-right">
+                    <button *ngIf="editMode"
+                            type="submit"
+                            [disabled]="vatForm.invalid"
+                            class="round medium primary ripple">
+                        <i class="ion-plus-round"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </form>
@@ -37,11 +41,11 @@
     <ng-container *ngIf="vats">
         <div class="row newCustomerDetail-container"
              *ngFor="let vat of vats; let i = index">
-            <div class="column">
+            <div class="column space-top-5">
 
                 <div class="row align-middle newCustomerDetail-container-content">
                     <h6 class="column shrink">{{'company.vats.vat' | translate}}</h6>
-                    <div class="column small-8">
+                    <div class="column auto">
                         <input type="text" name="vat"
                                class="form-control"
                                [(ngModel)]="vats[i].vat"
@@ -49,20 +53,21 @@
                     </div>
 
                     <h6 class="column shrink">{{'company.vats.amount' | translate}}</h6>
-                    <div class="column-6">
+                    <div class="column auto">
                         <input type="number"  name="amount"
                                class="form-control"
                                [(ngModel)]="vats[i].amount"
                                [disabled]="!editMode">
                     </div>
  <!--FIXME  CSS  add disabled class management to 'round' button  -->
-                    <button *ngIf="editMode"
-                            type="button"
-                            (click)="deletedVat(vat)"
-                            class="round medium red ripple columns shrink">
-                        <i class="ion-close-round"></i>
-                    </button>
-
+                    <div class="columns auto text-right">
+                        <button *ngIf="editMode"
+                                type="button"
+                                (click)="deletedVat(vat)"
+                                class="round medium red ripple columns shrink">
+                            <i class="ion-close-round"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

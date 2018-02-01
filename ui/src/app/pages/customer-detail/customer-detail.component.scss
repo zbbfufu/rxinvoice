@@ -4,6 +4,7 @@
   position: relative;
   display: block;
   width: 100%;
+  height: 100%;
 }
 
 @include new('newCustomer') {
@@ -26,9 +27,11 @@
   }
 
   @include new('newCustomerDetail') {
+    position: relative;
     width: 100%;
-    height: calc(100vh - 64px - #{$height-newCustomerAction});
-    padding-top: $height-newCustomerHeader !important;
+    height: calc(100vh - 64px - 175px);
+    padding: 0 8px;
+    top: 82px !important;
     overflow-y: auto;
 
     @include has('container') {
@@ -36,6 +39,14 @@
       border: 1px solid $black-squeeze;
       box-shadow: 0 1px 5px $silver-rust;
       background-color: white;
+
+      @include when('dark') {
+        background-color: darken($blue-bayoux, 15%);
+        padding: rem-calc(24px);
+        color: white;
+
+       h6 { color: white;}
+      }
 
       @include has('labelNumber') {
         display: flex;
