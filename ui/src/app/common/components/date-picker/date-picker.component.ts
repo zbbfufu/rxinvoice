@@ -13,6 +13,7 @@ export class InDatePickerComponent implements OnChanges {
     @Input() control: FormControl;
     @Input() disabled = false;
     @Input() initDate = false;
+    @Input() utcMode = false;
     @Input() allowClear = true;
 
     @ViewChild('picker') datePicker: DatePickerComponent;
@@ -42,7 +43,7 @@ export class InDatePickerComponent implements OnChanges {
 
     public onDateChange(date: any) {
         if (date) {
-            const string = moment(date).format(this.nativeDateFormat);
+            const string = this.utcMode ?  moment(date).utc() : moment(date).format(this.nativeDateFormat);
             this.control.setValue(string);
         } else {
             this.control.setValue('');
