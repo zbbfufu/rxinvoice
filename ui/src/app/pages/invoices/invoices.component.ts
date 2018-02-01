@@ -49,8 +49,8 @@ export class InvoicesComponent implements OnInit {
             .subscribe(statuses => this.statuses = statuses);
         this.kinds = this.repositoryService.fetchInvoiceKind();
         this.searchForm.valueChanges
-            .distinctUntilChanged()
             .debounceTime( 2000 )
+            .distinctUntilChanged()
             .subscribe(() => {
                 this.research();
             });
@@ -65,7 +65,6 @@ export class InvoicesComponent implements OnInit {
     }
 
     research() {
-
         this.invoiceService.fetchInvoices(this.searchForm.value)
             .subscribe((invoices) => {
                 this.invoices = invoices;

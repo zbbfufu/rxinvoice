@@ -1,9 +1,19 @@
 
-<ng-select *ngIf="companies"
+<ng-select *ngIf="companies && !isBindingId"
            [items]="companies"
            [bindLabel]="label"
            placeholder="{{'invoices.filter.client' | translate}}"
            clearAllText="isClearable"
            [ngModel]="control.value"
-           (ngModelChange)="control.patchValue($event)">
+           (ngModelChange)="this.control.patchValue($event);">
+</ng-select>
+
+<ng-select *ngIf="companies && isBindingId"
+           [items]="companies"
+           [bindValue]="bindValue"
+           [bindLabel]="label"
+           placeholder="{{'invoices.filter.client' | translate}}"
+           clearAllText="isClearable"
+           [ngModel]="control.value"
+           (ngModelChange)="this.control.patchValue($event);">
 </ng-select>

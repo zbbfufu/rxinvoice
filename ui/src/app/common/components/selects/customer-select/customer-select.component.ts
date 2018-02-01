@@ -14,6 +14,7 @@ export class CustomerSelectComponent implements OnInit {
 
     @Input() isClearable = false;
     @Input() bindValue = '_id';
+    @Input() isBindingId = false;
     @Input() label = 'company';
     @Input() control: FormControl;
     companies: CompanyModel[];
@@ -23,9 +24,7 @@ export class CustomerSelectComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.companyService.fetchCompanies()
             .subscribe(companies => this.companies = companies);
     }
-
 }
