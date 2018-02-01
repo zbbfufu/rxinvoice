@@ -1,3 +1,132 @@
-<p>
-  invoice-new works!
-</p>
+<div class="invoice">
+    <div class="row align-middle invoiceHeader">
+        <div class="columns shrink">
+            <a class="button small white ripple"
+               routerLink="/invoices"><i class="ion-arrow-left-c"></i></a>
+        </div>
+
+        <div class="columns shrink invoiceHeader-name">
+            {{ (invoice && invoice._id) ? invoice.reference : 'invoices.label.back' | translate }}
+            {{ (invoice && invoice.business) ? '- ' + invoice.business.name : '' }}
+        </div>
+    </div>
+
+    <div class="row invoiceDetail">
+        <form [formGroup]="form" *ngIf="form && invoice" (submit)="save()" novalidate class="column small-8">
+            <div class="column invoiceDetail-container">
+
+                <div class="row align-middle invoiceDetail-container-valueNumber">
+                    <h6 class="column small-8"> {{'invoices.label.client' | translate}}</h6>
+                    <div class="column">
+                        <select formControlName="buyer" [compareWith]="comparFn">
+                            <option [ngValue]="">{{'invoices.filter.client' | translate}}</option>
+                            <option *ngFor="let company of companies" [ngValue]="company">
+                                {{company.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.business' | translate}}</h6>
+                    <div class="column">
+                        <input type="text" formControlName="businessName"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.kind' | translate}}</h6>
+                    <div class="column">
+                        <select formControlName="kind" >
+                        <option value="">{{'invoice.kind.all' | translate}}</option>
+                        <option *ngFor="let kind of kinds" [ngValue]="kind">
+                            {{'invoice.kind.' + kind | translate}}
+                        </option>
+                    </select>
+                    </div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.label.date' | translate}}</h6>
+                    <div class="column">{{invoice.date | date}}</div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label"
+                     *ngIf="invoice?.creationDate">
+                    <h6 class="column small-8"> {{'invoice.label.creation' | translate}}</h6>
+                    <div class="column">{{invoice.creationDate | date}}</div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.label.dueDate' | translate}}</h6>
+                    <div class="column">
+                        <date-picker [control]="form.controls.dueDate"
+                                     [utcMode]="true" [disabled]="!editMode"></date-picker>
+                    </div>
+                </div>
+
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.label.status' | translate}}</h6>
+                    <div class="column">
+                        <select formControlName="status"  [disabled]="!editMode">
+                            <option value="">{{'invoice.status.all' | translate}}</option>
+                            <option *ngFor="let status of statuses" [ngValue]="status">
+                                {{'invoice.status.' + status | translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        <div class="column auto invoiceDetail" *ngIf="invoice">
+
+            <vat-detail [editMode]="editMode" [(vats)]="invoice.vats"></vat-detail>
+        </div>
+
+        <footer class="row invoiceAction">
+            <div class="column">
+                <div class="row invoiceAction-container align-middle">
+                    <div class="columns shrink">
+                        <button *ngIf="editMode"
+                        class="button large green ripple"
+                        type="submit"
+                        (click)="invoice && invoice._id  ? save() : create()"
+                        [disabled]="form.invalid || form.pending">
+                        <i class="ion-checkmark-round"></i>
+                        {{( !invoice ? 'button.label.create' : 'button.label.update') |
+                        translate}}
+                        </button>
+                        <button *ngIf="!editMode"
+                                (click)="form.enable(); editMode = true"
+                                class="button large green ripple">
+                            <i class="ion-edit"></i>
+                            Modifier
+                        </button>
+                        </div>
+
+                    <div class="columns shrink">
+                        <button class="button large grey ripple"
+                                type="button"
+                                (click)="invoice && invoice._id ? delete() : f.reset()">
+                            <i class="ion-trash-a"></i>{{'button.label.delete' | translate}}
+                        </button>
+                    </div>
+
+                    <div class="columns shrink">
+                        <button *ngIf="editMode"
+                                class="button large grey ripple"
+                                type="button"
+                                (click)="reset()">
+                            <i class="ion-arrow-return-left"></i>{{'button.label.cancel' | translate}}
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
