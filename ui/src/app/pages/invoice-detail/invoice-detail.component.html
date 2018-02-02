@@ -75,7 +75,7 @@
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.label.status' | translate}}</h6>
                     <div class="column">
-                        <select formControlName="kind" >
+                        <select formControlName="status">
                             <option value="">{{'invoice.status.all' | translate}}</option>
                             <option *ngFor="let status of statuses" [ngValue]="status">
                                 {{'invoice.status.' + status | translate}}
@@ -98,6 +98,7 @@
         <div class="column auto invoiceDetail" *ngIf="invoice">
             <invoice-lines-detail [(lines)]="lines" [editMode]="form.enabled"></invoice-lines-detail>
             <vat-detail [editMode]="form.enabled" [(vats)]="invoice.vats"></vat-detail>
+            <attachments-detail [editMode]="form.enabled" [(attachments)]="invoice.attachments"></attachments-detail>
         </div>
 
         <footer class="row invoiceAction">
