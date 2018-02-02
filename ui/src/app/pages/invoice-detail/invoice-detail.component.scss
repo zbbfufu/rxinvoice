@@ -14,13 +14,48 @@
   }
 
   @include new('invoiceDetail') {
-    margin:rem-calc(0 8px);
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 64px - 145px);
+    padding: 0 8px;
+    overflow-y: auto;
 
     @include has('container') {
       margin-top: rem-calc(12px);
-      border: 1px solid $black-squeeze;
       box-shadow: 0 1px 5px $silver-rust;
       background-color: white;
+      border-radius: $global-radius;
+
+      @include when('dark') {
+        background-image: url('../../../' + $img-path + 'png/patern-login.png');
+        background-size: cover;
+        background-position: center center;
+        background-color: darken($blue-bayoux, 15%);
+        padding: rem-calc(24px);
+        color: white;
+
+        h6 {
+          position: relative;
+          color: white;
+
+          &:after {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: rem-calc(1px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(125, 185, 232, 0) 100%);
+            content: '';
+            opacity: 0.3;
+          }
+
+          &.no-border {
+            &:after {
+              display: none;
+            }
+          }
+        }
+      }
 
       @include has('labelNumber') {
         display: flex;
@@ -49,9 +84,16 @@
   }
 
   @include new('invoiceAction') {
+    right: 0;
+    height: $height-newCustomerAction;
+    width: calc(100% - #{$sidebar-width-md});
+
+    @include breakpoint(large only) {
+      width: calc(100% - #{$sidebar-width-lg});
+    }
 
     @include has('container') {
-      padding: rem-calc(24px 0);
+      padding: rem-calc(24px 12px);
       border: 1px solid $black-squeeze;
       box-shadow: 0 1px 5px $silver-rust;
       background-color: white;

@@ -1,4 +1,4 @@
-<div class="invoice">
+<div class="invoice full-height">
     <div class="row align-middle invoiceHeader">
         <div class="columns shrink">
             <a class="button small white ripple"
@@ -13,7 +13,7 @@
 
     <div class="row invoiceDetail">
         <form [formGroup]="form" *ngIf="form && invoice" (submit)="save()" novalidate class="column small-8">
-            <div class="column invoiceDetail-container">
+            <div class="column invoiceDetail-container dark">
 
                 <div class="row align-middle invoiceDetail-container-valueNumber">
                     <h6 class="column small-8"> {{'invoices.label.client' | translate}}</h6>
@@ -105,7 +105,7 @@
                 <div class="row invoiceAction-container align-middle">
                     <div class="columns shrink">
                         <button *ngIf="form.enabled"
-                        class="button large green ripple"
+                        class="button medium green ripple"
                         type="submit"
                         (click)="invoice && invoice._id  ? save() : create()"
                         [disabled]="form.invalid || form.pending">
@@ -114,23 +114,23 @@
                         </button>
                         <button *ngIf="form.disabled"
                                 (click)="form.enable()"
-                                class="button large green ripple">
+                                class="button medium green ripple">
                             <i class="ion-edit"></i>
                             Modifier
                         </button>
                         </div>
 
                     <div class="columns shrink">
-                        <button class="button large grey ripple"
+                        <button class="button medium grey ripple"
                                 type="button"
                                 (click)="invoice && invoice._id ? delete() : f.reset()">
                             <i class="ion-trash-a"></i>{{'button.label.delete' | translate}}
                         </button>
                     </div>
 
-                    <div class="columns shrink">
+                    <div class="columns medium">
                         <button *ngIf="form.enabled"
-                                class="button large grey ripple"
+                                class="button medium grey ripple"
                                 type="button"
                                 (click)="reset()">
                             <i class="ion-arrow-return-left"></i>{{'button.label.cancel' | translate}}
