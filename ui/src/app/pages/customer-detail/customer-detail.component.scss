@@ -23,6 +23,7 @@
     @include has('name') {
       color: white;
       font-weight: bold;
+      font-size: rem-calc(18px);
     }
   }
 
@@ -31,16 +32,19 @@
     width: 100%;
     height: calc(100vh - 64px - 175px);
     padding: 0 8px;
-    top: 82px !important;
+    top: rem-calc(80px);
     overflow-y: auto;
 
     @include has('container') {
       margin-top: rem-calc(12px);
-      border: 1px solid $black-squeeze;
       box-shadow: 0 1px 5px $silver-rust;
       background-color: white;
+      border-radius: $global-radius;
 
       @include when('dark') {
+        background-image: url('../../../' + $img-path + 'png/patern-login.png');
+        background-size: cover;
+        background-position: center center;
         background-color: darken($blue-bayoux, 15%);
         padding: rem-calc(24px);
         color: white;

@@ -1,24 +1,24 @@
 <fieldset ngModelGroup="address">
-    <div>
-       <h6> {{'address.body' | translate}}</h6>
+    <div class="space-bottom-10">
+       <label class="label-strip dark"> {{'address.body' | translate}}</label>
         <input  class="form-control"
                 [disabled]="!editMode"
                ngModel name="body" type="text" required>
     </div>
-    <div>
-        <h6> {{'address.zipCode' | translate}}</h6>
+    <div class="space-bottom-10">
+        <label class="label-strip dark"> {{'address.zipCode' | translate}}</label>
         <input  class="form-control"
                 [disabled]="!editMode"
                ngModel name="zipCode" type="text" required>
     </div>
-    <div>
-       <h6> {{'address.city' | translate}}</h6>
+    <div class="space-bottom-10">
+       <label class="label-strip dark"> {{'address.city' | translate}}</label>
         <input  class="form-control"
                 [disabled]="!editMode"
                ngModel name="city" type="text" required>
     </div>
-    <div>
-        <h6> {{'address.country' | translate}}</h6>
+    <div class="space-bottom-10">
+        <label class="label-strip dark"> {{'address.country' | translate}}</label>
         <input  class="form-control"
                 [disabled]="!editMode"
                ngModel name="country" type="text" required>

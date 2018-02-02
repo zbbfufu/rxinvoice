@@ -20,8 +20,8 @@
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-valueNumber">
-                    <h5 class="column small-12">{{ customer?.metrics?.invoiced }} €</h5>
-                    <h5 class="column small-12">{{ customer?.metrics?.paid }} €</h5>
+                    <h3 class="column small-12 highlight-text-bold">{{ customer?.metrics?.invoiced }} €</h3>
+                    <h3 class="column small-12 highlight-text-bold">{{ customer?.metrics?.paid }} €</h3>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
@@ -74,9 +74,9 @@
             </div>
         </form>
 
-        <div class="column auto newCustomerDetail-container" *ngIf="customer">
-            <business-detail [(business)]="customer.business" [editMode]="editMode"></business-detail>
-            <vat-detail [(vats)]="customer.vats" [editMode]="editMode"></vat-detail>
+        <div class="column auto" *ngIf="customer">
+            <business-detail class="newCustomerDetail-container" [(business)]="customer.business" [editMode]="editMode"></business-detail>
+            <vat-detail class="newCustomerDetail-container" [(vats)]="customer.vats" [editMode]="editMode"></vat-detail>
         </div>
     </div>
 

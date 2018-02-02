@@ -97,5 +97,15 @@ select, .ng-control {
   }
 }
 
+// ==== Label strip
+
+.label-strip {
+  border-radius: rem-calc(3px 3px 0 0);
+  padding: rem-calc(2px 10px);
+  margin-bottom: rem-calc(-1px);
+  color: white;
+
+  &.dark {  background: $blue-bayoux;}
+}
 
 

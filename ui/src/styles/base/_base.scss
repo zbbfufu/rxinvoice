@@ -24,6 +24,10 @@ a {
   text-decoration: none;
 }
 
+hr {
+  margin: rem-calc(12px 0);
+}
+
 footer {
   position: fixed;
   bottom:0;

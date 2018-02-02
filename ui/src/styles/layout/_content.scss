@@ -20,3 +20,13 @@
     padding-left: rem-calc($sidebar-width-lg);
   }
 }
+
+// ==== Bloc container
+
+.block-container {
+  margin-top: rem-calc(12px);
+  padding: rem-calc(16px);
+  box-shadow: 0 1px 5px $silver-rust;
+  background-color: white;
+  border-radius: $global-radius;
+}
