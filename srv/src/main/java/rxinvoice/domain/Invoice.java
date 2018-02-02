@@ -22,6 +22,8 @@ public class Invoice implements Auditable {
     private String reference;
     private DateTime date;
     private DateTime dueDate;
+    private DateTime sentDate;
+// FIXME need to add sentDate, when the status is passed to sent
     private Status status;
     private boolean withVAT;
     private String object;
