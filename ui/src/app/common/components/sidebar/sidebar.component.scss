@@ -37,7 +37,7 @@
       position: relative;
       text-transform: uppercase;
       color: white;
-      padding: rem-calc(16px 24px);
+      padding: rem-calc(14px 24px);
       cursor: pointer;
       @extend %transition;
 
@@ -47,6 +47,15 @@
         background-color: mix($sidebar-bg-color, $sidebar-item-bg-color, 50%);
       }
 
+      i {
+        display: inline-block;
+        vertical-align: middle;
+        width: rem-calc(28px);
+        margin-right: rem-calc(12px);
+        font-size: rem-calc(28px);
+        text-align: center;
+      }
+
       @include when('isActive') {
           background-color: $app-main-light-color;
       }
@@ -54,8 +63,9 @@
       @include has('notif') {
         display: block;
         position: absolute;
-        top: 16px;
+        top: 50%;
         right: 24px;
+        transform: translate(-50%, -50%);
         height: 24px;
         min-width: 24px;
         padding: 3px;
