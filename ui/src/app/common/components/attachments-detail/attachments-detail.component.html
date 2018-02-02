@@ -1,0 +1,30 @@
+<div class="block-container row">
+    <div class="column auto newCustomerDetail">
+        <div class="row newCustomerDetail-container-label">
+            <h6 class="column small-24 title-section">{{'attachment.title' | translate}}</h6>
+            <hr class="column small-24">
+        </div>
+
+        <div class="row newCustomerDetail-container">
+            <div class="column">
+                <div class="row align-middle newCustomerDetail-container-content">
+                    <div class="small-24">
+                        <div class="row">
+                            <div class="column small-18" *ngFor="let file of attachments">
+                                <button type="button" (click)="delete(file)">supprimer</button>
+                                <a href="">{{file.fileName}}</a>
+                            </div>
+                            <div class="column auto text-right">
+                                <button type="button" *ngIf="editMode"
+                                        (click)="addAttachment()"
+                                        class="round medium primary ripple columns shrink">
+                                    <i class="ion-plus-round"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -35,6 +35,8 @@ import {HttpInterceptorService} from './common/services/http-interceptor.service
 import {InDatePickerComponent} from './common/components/date-picker/date-picker.component';
 import { InvoiceLinesDetailComponent } from './common/components/invoice-lines-detail/invoice-lines-detail.component';
 import { SpinnerComponent } from './common/components/spinner/spinner.component';
+import { AttachmentsDetailComponent } from './common/components/attachments-detail/attachments-detail.component';
+import { ActivityPanelComponent } from './common/components/activity-panel/activity-panel.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -67,7 +69,9 @@ export function createTranslateLoader(http: HttpClient) {
         CustomerSelectComponent,
         InDatePickerComponent,
         InvoiceLinesDetailComponent,
-        SpinnerComponent
+        SpinnerComponent,
+        AttachmentsDetailComponent,
+        ActivityPanelComponent
     ],
     imports: [
         AppRoutingModule,

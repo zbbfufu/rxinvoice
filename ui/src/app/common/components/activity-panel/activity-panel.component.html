@@ -1,0 +1,26 @@
+<div class="block-container row">
+  <div class="column auto newCustomerDetail">
+    <div class="row newCustomerDetail-container-label">
+      <h6 class="column small-24 title-section">{{'activity.panel.title' | translate}}</h6>
+      <hr class="column small-24">
+    </div>
+
+    <div class="row newCustomerDetail-container">
+      <div class="column">
+        <div class="row align-middle newCustomerDetail-container-content">
+          <div class="small-24">
+            <div class="row" *ngFor="let activity of activities">
+              <div class="column small-5" >
+                {{ getMomentFromNow(activity.timestamp) }}
+              </div>
+              <div class="column small-19">
+                  {{ 'invoice.activity.modification.type.' + activity.type  | translate}} -
+                  {{ 'invoice.activity.modification.by'  | translate}} {{ activity.userInfo.name }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
