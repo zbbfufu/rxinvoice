@@ -2,7 +2,7 @@
     <div class="row align-middle invoiceHeader">
         <div class="columns shrink">
             <a class="button small white ripple"
-               routerLink="/invoices"><i class="ion-arrow-left-c"></i></a>
+               routerLink="/app/invoices"><i class="ion-arrow-left-c"></i></a>
         </div>
 
         <div class="columns shrink invoiceHeader-name">
@@ -38,7 +38,7 @@
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.kind' | translate}}</h6>
                     <div class="column">
-                        <select formControlName="kind" >
+                        <select formControlName="kind">
                         <option value="">{{'invoice.kind.all' | translate}}</option>
                         <option *ngFor="let kind of kinds" [ngValue]="kind">
                             {{'invoice.kind.' + kind | translate}}
@@ -49,28 +49,33 @@
 
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.label.date' | translate}}</h6>
-                    <div class="column">{{invoice.date | date}}</div>
+                    <div class="column">{{invoice.date | date: 'dd MMM. yyyy'}}</div>
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label"
                      *ngIf="invoice?.creationDate">
                     <h6 class="column small-8"> {{'invoice.label.creation' | translate}}</h6>
-                    <div class="column">{{invoice.creationDate | date}}</div>
+                    <div class="column">{{invoice.creationDate | date: 'dd MMM. yyyy'}}</div>
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.label.dueDate' | translate}}</h6>
                     <div class="column">
                         <date-picker [control]="form.controls.dueDate"
-                                     [utcMode]="true" [disabled]="!editMode"></date-picker>
+                                     [utcMode]="true" [disabled]="form.disabled"></date-picker>
                     </div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.label.date' | translate}}</h6>
+                    <div class="column">{{invoice.sentDate | date: 'dd MMM. yyyy'}}</div>
                 </div>
 
 
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.label.status' | translate}}</h6>
                     <div class="column">
-                        <select formControlName="status"  [disabled]="!editMode">
+                        <select formControlName="kind" >
                             <option value="">{{'invoice.status.all' | translate}}</option>
                             <option *ngFor="let status of statuses" [ngValue]="status">
                                 {{'invoice.status.' + status | translate}}
@@ -79,29 +84,36 @@
                     </div>
                 </div>
 
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.label.comments' | translate}}</h6>
+                    <div class="column" class="panel panel-default">
+                           <textarea type="text" formControlName="comment"
+                                     rows="10" cols="50">
+                           </textarea>
+                    </div>
+                </div>
             </div>
         </form>
 
         <div class="column auto invoiceDetail" *ngIf="invoice">
-
-            <vat-detail [editMode]="editMode" [(vats)]="invoice.vats"></vat-detail>
+            <invoice-lines-detail [(lines)]="lines" [editMode]="form.enabled"></invoice-lines-detail>
+            <vat-detail [editMode]="form.enabled" [(vats)]="invoice.vats"></vat-detail>
         </div>
 
         <footer class="row invoiceAction">
             <div class="column">
                 <div class="row invoiceAction-container align-middle">
                     <div class="columns shrink">
-                        <button *ngIf="editMode"
+                        <button *ngIf="form.enabled"
                         class="button large green ripple"
                         type="submit"
                         (click)="invoice && invoice._id  ? save() : create()"
                         [disabled]="form.invalid || form.pending">
                         <i class="ion-checkmark-round"></i>
-                        {{( !invoice ? 'button.label.create' : 'button.label.update') |
-                        translate}}
+                        {{( !invoice ? 'button.label.create' : 'button.label.update') | translate}}
                         </button>
-                        <button *ngIf="!editMode"
-                                (click)="form.enable(); editMode = true"
+                        <button *ngIf="form.disabled"
+                                (click)="form.enable()"
                                 class="button large green ripple">
                             <i class="ion-edit"></i>
                             Modifier
@@ -117,7 +129,7 @@
                     </div>
 
                     <div class="columns shrink">
-                        <button *ngIf="editMode"
+                        <button *ngIf="form.enabled"
                                 class="button large grey ripple"
                                 type="button"
                                 (click)="reset()">

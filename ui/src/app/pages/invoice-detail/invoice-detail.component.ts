@@ -3,7 +3,7 @@ import {CompanyModel} from '../../models/company.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CompanyService} from '../../common/services/company.service';
-import {InvoiceModel} from '../../models/invoice.model';
+import {CommentModel, InvoiceModel} from '../../models/invoice.model';
 import {InvoiceService} from '../../common/services/invoice.service';
 import {InvoiceKindType} from '../../models/invoice-kind.type';
 import {RepositoryService} from '../../common/services/repository.service';
@@ -25,6 +25,7 @@ export class InvoiceDetailComponent implements OnInit {
     editMode = false;
     invoiceId: string;
     statuses: InvoiceStatusType[];
+    comments: CommentModel[];
 
     constructor(private fb: FormBuilder,
                 private companyService: CompanyService,
@@ -41,15 +42,25 @@ export class InvoiceDetailComponent implements OnInit {
             .subscribe(statuses => this.statuses = statuses);
         this.companyService.fetchCompanies()
             .subscribe(companies => this.companies = companies);
+        this.form = this.fb.group({
+            buyer: new FormControl('', Validators.required),
+            businessName: new FormControl('', Validators.required),
+            kind: new FormControl('', Validators.required),
+            dueDate: new FormControl('', Validators.required),
+            status: new FormControl('', Validators.required),
+            comment: new FormControl('', Validators.required)
+        });
+        this.form.disable();
     }
 
-    private defineForm() {
-        this.form = this.fb.group({
-            buyer: new FormControl( this.invoice.buyer, Validators.required),
-            businessName: new FormControl( this.invoice.business.name, Validators.required) ,
-            kind: new FormControl( this.invoice.kind, Validators.required),
-            dueDate: new FormControl( this.invoice.dueDate, Validators.required),
-            status: new FormControl( this.invoice.status, Validators.required)
+    private setForm() {
+        this.form.setValue({
+            buyer: this.invoice.buyer,
+            businessName: this.invoice.business.name,
+            kind: this.invoice.kind,
+            dueDate: this.invoice.dueDate,
+            status: this.invoice.status,
+            comment: this.invoice.comment
         });
         this.form.disable();
     }
@@ -62,7 +73,7 @@ export class InvoiceDetailComponent implements OnInit {
                     .subscribe((invoice:  InvoiceModel) => {
                         console.log(invoice);
                         this.invoice = invoice;
-                        this.defineForm();
+                        this.setForm();
                     });
             }
         });
@@ -86,14 +97,13 @@ export class InvoiceDetailComponent implements OnInit {
         _.merge(this.invoice, this.invoice, this.form.value);
         this.invoiceService.createInvoice(this.invoice).subscribe((invoice) => {
             this.invoice = invoice;
-            this.defineForm();
+            this.setForm();
             this.editMode = false;
         });
     }
 
     public reset() {
-        this.defineForm();
-        this.editMode = false;
+        this.setForm();
     }
 
     public delete() {
