@@ -12,7 +12,7 @@
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.date' | translate}}:</span>
-            <span class="invoiceList-value">{{invoice.date | date}}</span>
+            <span class="invoiceList-value">{{invoice.date | date: 'dd MMM. yyyy'}}</span>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.deal' | translate}}:</span>
@@ -46,7 +46,7 @@
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.deadlineDate' | translate}}:</span>
-            <span class="invoiceList-value">{{invoice.dueDate | date}}</span>
+            <span class="invoiceList-value">{{invoice.dueDate | date: 'dd MMM. yyyy'}}</span>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.type' | translate}}:</span>
