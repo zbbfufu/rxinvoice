@@ -11,8 +11,9 @@ export class InvoiceModel {
     key: string;
     _id: string;
     reference: string;
-    DateTime: Date;
+    date: Date;
     dueDate: Date;
+    sentDate: Date;
     status: InvoiceStatusType;
     withVAT: boolean;
     object: string;
