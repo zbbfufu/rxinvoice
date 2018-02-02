@@ -6,6 +6,7 @@ import {ActivityModel} from './activity.model';
 import {InvoiceKindType} from './invoice-kind.type';
 import {InvoiceLineModel} from './invoice-line.model';
 import {StatusChangeModel} from './status-change.model';
+import {BlobModel} from './blob.model';
 
 export class InvoiceModel {
     key: string;
@@ -29,8 +30,9 @@ export class InvoiceModel {
     business: BusinessModel;
     lines: InvoiceLineModel[];
     activities: ActivityModel[];
-    attachments: Blob[];
+    attachments: BlobModel[];
     statusChanges: StatusChangeModel[];
 
     constructor() {}
 }
+
