@@ -7,3 +7,39 @@
 %box-shadow {
   box-shadow: 0 1px 6px 0 rgba(0,0,0,0.14);
 }
+
+// ==== Ripple Effect placeholder
+
+%rippleEffect {
+  position: relative;
+  overflow: hidden;
+
+  &.effect-dark {
+    &:after {
+      background-image: radial-gradient(circle, $blue-bayoux 11%, transparent 2%);
+    }
+  }
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, white 10%, transparent 5%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s;
+  }
+
+  &:active:after {
+    transform: scale(0, 0);
+    opacity: .2;
+    transition: 0s;
+  }
+}

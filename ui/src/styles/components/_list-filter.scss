@@ -17,6 +17,7 @@
     align-items: center;
     cursor: pointer;
     @extend %transition;
+    @extend %rippleEffect;
     font-weight: bold !important;
     font-size: 12px !important;
     color: $geyser;
@@ -25,6 +26,7 @@
     &:hover, &:focus, &:active {
       @extend %transition;
       background-color: $wild-sand;
+      border-color: $wild-sand;
     }
 
     @include when('isActive') {

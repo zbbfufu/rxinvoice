@@ -37,9 +37,10 @@
       position: relative;
       text-transform: uppercase;
       color: white;
-      padding: rem-calc(14px 24px);
+      padding: rem-calc(8px 24px 8px 16px);
       cursor: pointer;
       @extend %transition;
+      @extend %rippleEffect;
 
       &:hover,
       &:focus {
@@ -64,16 +65,16 @@
         display: block;
         position: absolute;
         top: 50%;
-        right: 24px;
+        right: rem-calc(8px);
         transform: translate(-50%, -50%);
-        height: 24px;
-        min-width: 24px;
-        padding: 3px;
-        border-radius: 16px;
+        height: rem-calc(24px);
+        min-width: rem-calc(24px);
+        padding: rem-calc(3px);
+        border-radius: rem-calc(16px);
         text-align: center;
-        font-size: 10px;
+        font-size: rem-calc(11px);
         font-weight: bold;
-        line-height: 16px;
+        line-height: rem-calc(17px);
         color: white;
         background-color: $app-notif-color ;
         cursor: pointer;
@@ -99,6 +100,7 @@
     padding: 0 rem-calc(20px);
     cursor: pointer;
     @extend %transition;
+    @extend %rippleEffect;
 
     button {
       color: white;
@@ -116,6 +118,15 @@
       left: rem-calc(-2px);
       width: rem-calc(20px);
       margin-right: rem-calc(10px);
+    }
+
+    i {
+      display: inline-block;
+      vertical-align: middle;
+      width: rem-calc(24px);
+      margin-right: rem-calc(12px);
+      font-size: rem-calc(20px);
+      text-align: center;
     }
   }
 }
