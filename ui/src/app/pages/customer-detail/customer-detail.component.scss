@@ -105,6 +105,11 @@
       width: calc(100% - #{$sidebar-width-lg});
     }
 
+    @include has('number') {
+      position: absolute;
+
+    }
+
     @include has('container') {
       padding: rem-calc(24px 12px);
       border: 1px solid $black-squeeze;
@@ -113,6 +118,39 @@
 
       button {
         margin-right: rem-calc(8px);
+      }
+
+      .total {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 100%;
+        transform: translate(0, -50%);
+
+        .total-value {
+          display: flex;
+          align-items: center;
+          height: 50%;
+          padding: rem-calc(0 16px 0 12px);
+
+          &:first-child { background: $blue-bayoux;}
+          &:last-child { background: $shiraz;}
+
+          h6 {
+            position: relative;
+            top: rem-calc(4px);
+            font-size: rem-calc(14px);
+            color: white !important;
+          }
+
+          .total-nb {
+            float: right;
+            top: rem-calc(-4px);
+            font-size: rem-calc(16px);
+            font-weight: bold;
+            color: white;
+          }
+        }
       }
 
       @include has('label') {
