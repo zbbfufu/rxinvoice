@@ -4,6 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {CompanyService} from '../../common/services/company.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class CustomerDetailComponent implements OnInit {
 
     constructor(private companyService: CompanyService,
                 private route: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                private datePipe: DatePipe) {
     }
 
     ngOnInit() {
@@ -30,7 +32,6 @@ export class CustomerDetailComponent implements OnInit {
     private updateForm(obj) {
         return {
             name: obj.name,
-            fullName: obj.fullName,
             emailAddress: obj.emailAddress,
             address: obj.address,
             lastSendDate: obj.lastSendDate,
@@ -47,6 +48,7 @@ export class CustomerDetailComponent implements OnInit {
                     .subscribe((company:  CompanyModel) => {
                         this.form.setValue(this.updateForm(company));
                         this.customer = company;
+                        console.log(company);
                     });
             }
         });
@@ -85,15 +87,6 @@ export class CustomerDetailComponent implements OnInit {
         //
         //     });
         this.router.navigate(['customers']);
-    }
-
-
-    public getRevenues() {
-        // getRevenues
-    }
-
-    public getDebt() {
-        // delete
     }
 
 }

@@ -2,7 +2,7 @@
     <div class="row align-middle newCustomerHeader">
         <div class="columns shrink">
             <a class="button small white ripple"
-               routerLink="/customers"><i class="ion-arrow-left-c"></i></a>
+               routerLink="/app /customers"><i class="ion-arrow-left-c"></i></a>
         </div>
 
         <div class="columns shrink newCustomerHeader-name">
@@ -26,25 +26,23 @@
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'company.name' | translate}}</h6>
-                    <div class="column"><input type="text" class="form-control"
-                                               [disabled]='!editMode' ngModel name="name" required></div>
-                </div>
-
-                <div class="row align-middle newCustomerDetail-container-label">
-                    <h6 class="column small-8"> {{'company.fullName' | translate}}</h6>
-                    <div class="column"><input type="text" class="form-control"
-                                               [disabled]='!editMode' ngModel name="fullName"></div>
+                    <div class="column">
+                        <input type="text" class="form-control"
+                               [disabled]='!editMode' ngModel name="name" required>
+                    </div>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.creation' | translate}}</h6>
-                    <div class="column">{{customer?.creationDate | date}}</div>
+                    <div class="column">{{customer?.creationDate | date: 'dd MMM. yyyy'}}</div>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.mail' | translate}}</h6>
-                    <div class="column"><input type="email" pattern="[^ @]*@[^ @]*" class="form-control"
-                                               [disabled]='!editMode' ngModel name="emailAddress" required></div>
+                    <div class="column">
+                        <input type="email" pattern="[^ @]*@[^ @]*" class="form-control"
+                               [disabled]='!editMode' ngModel name="emailAddress" required>
+                    </div>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
@@ -56,20 +54,25 @@
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.lastSent' | translate}}</h6>
-                    <div class="column"><input type="date" class="form-control"
-                                               [disabled]='!editMode' ngModel name="lastSendDate"></div>
+                    <div class="column">
+                        <input type="date" class="form-control"
+                               [disabled]='!editMode' ngModel name="lastSendDate">
+                    </div>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.lastPayment' | translate}}</h6>
-                    <div class="column"><input type="date" class="form-control"
-                                               [disabled]='!editMode' ngModel name="lastPaymentDate"></div>
+                    <div class="column">
+                        <input type="date" class="form-control"
+                               [disabled]='!editMode' ngModel name="lastPaymentDate">
+                    </div>
                 </div>
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'newCustomer.label.detail' | translate}}</h6>
                     <div class="column small-16">
                         <textarea type="text" class="form-control"
-                                                  [disabled]='!editMode' ngModel name="detail">
+                                  rows="10" cols="50"
+                              [disabled]='!editMode' ngModel name="detail">
 
                         </textarea>
                     </div>
@@ -95,7 +98,7 @@
                                     (click)="customer && customer._id  ? save() : create()"
                                     [disabled]="f.invalid || f.pending">
                                 <i class="ion-checkmark-round"></i>
-                                {{( !customer ? 'newCustomer.label.buttonCreate' : 'newCustomer.label.buttonUpdate') |
+                                {{( !customer ? 'button.label.create' : 'button.label.update') |
                                 translate}}
                             </button>
                             <button *ngIf="!editMode"
@@ -110,7 +113,7 @@
                             <button class="button medium grey ripple"
                                     type="button"
                                     (click)="customer && customer._id ? delete() : f.reset()">
-                                <i class="ion-trash-a"></i>{{'newCustomer.label.buttonDelete' | translate}}
+                                <i class="ion-trash-a"></i>{{'button.label.delete' | translate}}
                             </button>
                         </div>
 
@@ -119,7 +122,7 @@
                                     class="button medium grey ripple"
                                     type="button"
                                     (click)="reset()">
-                                <i class="ion-arrow-return-left"></i>{{'newCustomer.label.buttonCancel' | translate}}
+                                <i class="ion-arrow-return-left"></i>{{'button.label.cancel' | translate}}
                             </button>
                         </div>
                     </div>
@@ -130,12 +133,14 @@
                         <div class="column">
                             <div class="row  align-right newCustomerAction-container-number-label">
                                 <h6 class="column auto">{{'newCustomer.label.totalInvoiced' | translate}}
-                                    {{getRevenues()}}</h6>
+                                    <!--FIXME totalRevenues missing-->
+                                </h6>
                             </div>
 
                             <div class="row align-middle newCustomerAction-container-number-label">
                                 <h6 class="column auto">{{'newCustomer.label.totalDebt' | translate}}
-                                    {{getDebt()}}</h6>
+                                    <!--FIXME totalDebts missing-->
+                                </h6>
                             </div>
                         </div>
                     </div>
