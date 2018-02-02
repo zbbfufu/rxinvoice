@@ -33,6 +33,7 @@ import {LoggedInGuard} from './common/guards/logged-in.guard';
 import {AuthenticationService} from './common/services/authentication.service';
 import {HttpInterceptorService} from './common/services/http-interceptor.service';
 import {InDatePickerComponent} from './common/components/date-picker/date-picker.component';
+import { InvoiceLinesDetailComponent } from './common/components/invoice-lines-detail/invoice-lines-detail.component';
 import { SpinnerComponent } from './common/components/spinner/spinner.component';
 
 
@@ -65,6 +66,7 @@ export function createTranslateLoader(http: HttpClient) {
         InvoiceDetailComponent,
         CustomerSelectComponent,
         InDatePickerComponent,
+        InvoiceLinesDetailComponent,
         SpinnerComponent
     ],
     imports: [
