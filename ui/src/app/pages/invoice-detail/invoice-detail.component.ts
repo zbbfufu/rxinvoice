@@ -3,7 +3,7 @@ import {CompanyModel} from '../../models/company.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CompanyService} from '../../common/services/company.service';
-import {CommentModel, InvoiceModel} from '../../models/invoice.model';
+import {InvoiceModel} from '../../models/invoice.model';
 import {InvoiceService} from '../../common/services/invoice.service';
 import {InvoiceKindType} from '../../models/invoice-kind.type';
 import {RepositoryService} from '../../common/services/repository.service';
@@ -25,7 +25,6 @@ export class InvoiceDetailComponent implements OnInit {
     editMode = false;
     invoiceId: string;
     statuses: InvoiceStatusType[];
-    comments: CommentModel[];
 
     constructor(private fb: FormBuilder,
                 private companyService: CompanyService,
