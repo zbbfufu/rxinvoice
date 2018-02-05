@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class CustomersListComponent implements OnInit {
 
   @Input() companies: CompanyModel[];
+  @Input() isPending: boolean;
 
   constructor(private router: Router) { }
 

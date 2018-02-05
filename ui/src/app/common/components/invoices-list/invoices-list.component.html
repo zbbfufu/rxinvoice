@@ -1,7 +1,6 @@
 <!-- [INVOICE LIST] -->
 
-<!-- TODO Connect spinner when list load -->
-<spinner hidden></spinner>
+<spinner [hidden]="!isPending"></spinner>
 
 <table class="invoiceList" *ngIf="invoices">
     <tbody class="invoiceList-row" *ngFor="let invoice of invoices"

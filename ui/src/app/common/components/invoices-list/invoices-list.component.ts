@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class InvoicesListComponent {
 
     @Input() invoices: InvoiceModel[];
+    @Input() isPending: false;
 
     constructor(private router: Router) { }
 

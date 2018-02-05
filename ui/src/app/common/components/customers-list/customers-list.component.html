@@ -1,7 +1,5 @@
 <!-- [CUSTOMER LIST] -->
-
-<!-- TODO Connect spinner when list load -->
-<spinner hidden></spinner>
+<spinner [hidden]="!isPending"></spinner>
 
 <table class="customerList selectable">
 <tbody class="customerList-row" *ngFor="let customer of companies"

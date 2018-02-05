@@ -11,6 +11,7 @@ export class CustomersComponent implements OnInit {
 
     companies: CompanyModel[];
     filterString: string;
+    isPending = true;
 
 
     constructor(private companyService: CompanyService) {
@@ -24,8 +25,14 @@ export class CustomersComponent implements OnInit {
     }
 
     public search(query?) {
+        this.companies = [];
+        this.isPending = true;
         // TODO add search with optional string query into companyResource.java
-        this.companyService.fetchCompanies(query).subscribe((companies) => this.companies = companies);
+        this.companyService.fetchCompanies(query)
+            .subscribe((companies) => {
+                this.companies = companies;
+                this.isPending = false;
+            });
     }
 
     public toggleFilter(string) {

@@ -29,7 +29,7 @@ export class InvoicesComponent implements OnInit {
     statuses: InvoiceStatusType[];
     kinds: InvoiceKindType[];
     filterString = 'REFERENCE';
-    isPending = false;
+    isPending = true;
 
     constructor(private fb: FormBuilder,
                 private invoiceService: InvoiceService,
@@ -65,10 +65,14 @@ export class InvoicesComponent implements OnInit {
     }
 
     research() {
+        this.invoices = [];
+        this.isPending = true;
         this.invoiceService.fetchInvoices(this.searchForm.value)
-            .subscribe((invoices) => {
+            .subscribe(
+                (invoices) => {
                 this.invoices = invoices;
-            });
+                this.isPending = false;},
+                () => this.isPending = false);
     }
 
 
