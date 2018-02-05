@@ -3,12 +3,16 @@
 @include new('appHeader') {
   position: fixed;
   top: 0;
-  width: 100%;
+  width: calc(100% - #{$sidebar-width-md});
   display: flex;
   height: rem-calc($appHeader-height);
   background-color: $appHeader-bg-color;
   box-shadow: rem-calc(4px 0px 12px) #aaa;
   z-index: 999999;
+
+  @include breakpoint(large only) {
+    width: calc(100% - #{$sidebar-width-lg});
+  }
 
   @include has('search') {
     flex: 1;
