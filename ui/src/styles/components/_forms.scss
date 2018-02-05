@@ -90,6 +90,7 @@ input {
 }
 
 select, .ng-control {
+  box-shadow: none !important;
   border: $input-border !important;
 
   &:focus {
