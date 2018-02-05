@@ -1,0 +1,33 @@
+.mode-edit {
+  border: rem-calc(6px) solid $lima;
+  transition: 340ms;
+}
+
+.overlay-state-edit {
+  position: absolute;
+  top: rem-calc(-18px);
+  left: rem-calc(16px);
+  transform: translate(16px, -50%);
+  content: '';
+  height: rem-calc(34px);
+  width: rem-calc(70px);
+  padding-left: rem-calc(24px);
+  border-radius: rem-calc(10px 10px 0 0);
+  background-color: $lima;
+  background-image: url("../#{$gif-path}spinner-edit.gif");
+  background-position: 26px center;
+  background-size: rem-calc(34px);
+  background-repeat: no-repeat;
+  z-index: -1;
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: rem-calc(4px);
+    transform: translate(4px,  -50%);
+    font-size: rem-calc(16px);
+    color: white;
+  }
+}
+
+

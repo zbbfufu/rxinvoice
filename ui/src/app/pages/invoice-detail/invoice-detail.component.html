@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="row invoiceDetail">
+    <div class="row invoiceDetail" [ngClass]="{'mode-edit': form.enabled}">
         <form [formGroup]="form" *ngIf="form && invoice" (submit)="save()" novalidate class="column small-8">
             <div class="column invoiceDetail-container dark">
 
@@ -100,46 +100,49 @@
             <vat-detail [editMode]="form.enabled" [(vats)]="invoice.vats"></vat-detail>
             <attachments-detail [editMode]="form.enabled" [(attachments)]="invoice.attachments"></attachments-detail>
         </div>
+    </div>
 
-        <footer class="row invoiceAction">
-            <div class="column">
-                <div class="row invoiceAction-container align-middle">
-                    <div class="columns shrink">
-                        <button *ngIf="form.enabled"
-                        class="button medium green ripple"
-                        type="submit"
-                        (click)="invoice && invoice._id  ? save() : create()"
-                        [disabled]="form.invalid || form.pending">
+    <footer class="row invoiceAction">
+            <span class="overlay-state-edit" *ngIf="form.enabled">
+                <i class="ion-edit"></i>
+            </span>
+        <div class="column">
+            <div class="row invoiceAction-container align-middle">
+                <div class="columns shrink">
+                    <button *ngIf="form.enabled"
+                            class="button medium green ripple"
+                            type="submit"
+                            (click)="invoice && invoice._id  ? save() : create()"
+                            [disabled]="form.invalid || form.pending">
                         <i class="ion-checkmark-round"></i>
                         {{( !invoice ? 'button.label.create' : 'button.label.update') | translate}}
-                        </button>
-                        <button *ngIf="form.disabled"
-                                (click)="form.enable()"
-                                class="button medium green ripple">
-                            <i class="ion-edit"></i>
-                            Modifier
-                        </button>
-                        </div>
-
-                    <div class="columns shrink">
-                        <button class="button medium grey ripple"
-                                type="button"
-                                (click)="invoice && invoice._id ? delete() : f.reset()">
-                            <i class="ion-trash-a"></i>{{'button.label.delete' | translate}}
-                        </button>
-                    </div>
-
-                    <div class="columns medium">
-                        <button *ngIf="form.enabled"
-                                class="button medium grey ripple"
-                                type="button"
-                                (click)="reset()">
-                            <i class="ion-arrow-return-left"></i>{{'button.label.cancel' | translate}}
-                        </button>
-                    </div>
-
+                    </button>
+                    <button *ngIf="form.disabled"
+                            (click)="form.enable()"
+                            class="button medium green ripple">
+                        <i class="ion-edit"></i>
+                        Modifier
+                    </button>
                 </div>
+
+                <div class="columns shrink">
+                    <button class="button medium grey ripple"
+                            type="button"
+                            (click)="invoice && invoice._id ? delete() : f.reset()">
+                        <i class="ion-trash-a"></i>{{'button.label.delete' | translate}}
+                    </button>
+                </div>
+
+                <div class="columns medium">
+                    <button *ngIf="form.enabled"
+                            class="button medium grey ripple"
+                            type="button"
+                            (click)="reset()">
+                        <i class="ion-arrow-return-left"></i>{{'button.label.cancel' | translate}}
+                    </button>
+                </div>
+
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
 </div>

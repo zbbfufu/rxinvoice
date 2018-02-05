@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div class="row newCustomerDetail">
+    <div class="row newCustomerDetail" [ngClass]="{'mode-edit': editMode}">
         <form #f="ngForm" (submit)="save(f.value)" novalidate class="column small-10">
             <div class="column newCustomerDetail-container dark space-bottom-20">
                 <!-- TODO add vats management / legalNotice / kind / fiscalYearModel ?-->
@@ -87,6 +87,9 @@
     </div>
 
     <footer class="row newCustomerAction">
+        <span class="overlay-state-edit" *ngIf="editMode">
+            <i class="ion-edit"></i>
+        </span>
         <div class="column small-24">
             <div class="row newCustomerAction-container align-middle">
                 <div class="column small-12">
@@ -132,13 +135,13 @@
                     <div class="row newCustomerAction-container-number full-height" *ngIf="customer">
                         <div class="column">
                             <div class="row align-right newCustomerAction-container-number-label total-value">
-                                <h6 class="column auto">{{'newCustomer.label.totalInvoiced' | translate}} :</h6>
+                                <h6 class="column auto"><i class="ion-android-checkmark-circle"></i>{{'newCustomer.label.totalInvoiced' | translate}} :</h6>
                                 <!--FIXME totalRevenues missing-->
                                 <span class="total-nb"></span>
 
                             </div>
                             <div class="row align-middle newCustomerAction-container-number-label total-value">
-                                <h6 class="column auto">{{'newCustomer.label.totalDebt' | translate}} :</h6>
+                                <h6 class="column auto"><i class="ion-arrow-graph-down-right"></i>{{'newCustomer.label.totalDebt' | translate}} :</h6>
                                 <!--FIXME totalDebts missing-->
                                 <span class="total-nb"></span>
                             </div>

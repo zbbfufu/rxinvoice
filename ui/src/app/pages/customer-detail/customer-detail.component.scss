@@ -150,6 +150,14 @@
             font-weight: bold;
             color: white;
           }
+
+
+          i {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: rem-calc(8px);
+            font-size: rem-calc(24px);
+          }
         }
       }
 
