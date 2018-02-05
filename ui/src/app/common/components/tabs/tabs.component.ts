@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, Input} from '@angular/core';
 import {TabComponent} from './tab.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AbstractComponent} from '../abstract-component';
 
 @Component({
@@ -20,9 +20,11 @@ export class TabsComponent extends AbstractComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        if (this.tabs.length > 0) {
-            this.selectTab(this.tabs[0]);
-        }
+        setTimeout(() => {
+            if (this.tabs.length > 0) {
+                this.selectTab(this.tabs[0]);
+            }
+        });
     }
 
     public addTab(tab: TabComponent) {

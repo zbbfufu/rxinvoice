@@ -5,9 +5,13 @@
             <span class="invoice-total-value">({{selectedInvoices ? selectedInvoices: '00'}}) - {{amount ? amount : '00 000'}} €</span>
         </div>
 
-        <ul class="small-19 columns tabs-list">
+        <ul class="small-19 columns tabs-list" *ngIf="tabs">
             <li class="item-tab ripple" *ngFor="let tab of tabs" (click)="selectTab(tab)"
-                [ngClass]="{'PREPARE' : true, 'VALIDATED': false, 'SEND': false, 'RELAUNCHED': false}">
+                [ngClass]="{
+                'PREPARE' : tab.active,
+                 'VALIDATE': tab.active,
+                 'SENT': tab.active,
+                 'REVIVE': tab.active}">
                 {{ tab.tabTitle }}
             </li>
         </ul>
