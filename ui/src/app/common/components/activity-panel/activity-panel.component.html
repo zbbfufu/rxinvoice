@@ -14,8 +14,10 @@
                 {{ getMomentFromNow(activity.timestamp) }}
               </div>
               <div class="column small-19">
-                  {{ 'invoice.activity.modification.type.' + activity.type  | translate}} -
-                  {{ 'invoice.activity.modification.by'  | translate}} {{ activity.userInfo.name }}
+                  {{ 'invoice.activity.modification.type.' + activity.type  | translate}}
+                  {{( activity.userInfo && activity.userInfo.name ? ' - ' : '') }}
+                  {{ ( activity.userInfo && activity.userInfo.name ? 'invoice.activity.modification.by' : '')  | translate}}
+                   {{ activity.userInfo && activity.userInfo.name ? activity.userInfo?.name : '' }}
               </div>
             </div>
           </div>

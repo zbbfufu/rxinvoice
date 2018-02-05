@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoice.label.comments' | translate}}</h6>
+                    <h6 class="column small-8"> {{'invoice.label.comment' | translate}}</h6>
                     <div class="column" class="panel panel-default">
                            <textarea type="text" formControlName="comment"
                                      rows="10" cols="50">
@@ -99,6 +99,7 @@
             <invoice-lines-detail [(lines)]="lines" [editMode]="form.enabled"></invoice-lines-detail>
             <vat-detail [editMode]="form.enabled" [(vats)]="invoice.vats"></vat-detail>
             <attachments-detail [editMode]="form.enabled" [(attachments)]="invoice.attachments"></attachments-detail>
+            <activity-panel [(activities)]="invoice.activities"></activity-panel>
         </div>
     </div>
 

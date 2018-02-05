@@ -26,4 +26,17 @@ export class InvoiceService {
             .map((result: any) => plainToClass(InvoiceModel, result as Object))
             .catch((response: Response) => Observable.throw({ message: 'Unable to fetch invoice', response: response }));
     }
+
+    public saveInvoice(invoice): Observable<InvoiceModel> {
+        return this.http
+            .put(`${this.baseUrl}/${invoice._id}`, invoice)
+            .map((result: any) => plainToClass(InvoiceModel, result as Object))
+            .catch((response: Response) => Observable.throw({ message: 'Unable to save invoice', response: response }));
+    }
+    public createInvoice(invoice): Observable<InvoiceModel> {
+        return this.http
+            .post(this.baseUrl, invoice)
+            .map((result: any) => plainToClass(InvoiceModel, result as Object))
+            .catch((response: Response) => Observable.throw({ message: 'Unable to create invoice', response: response }));
+    }
 }

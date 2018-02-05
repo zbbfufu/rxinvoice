@@ -45,9 +45,9 @@ export class InvoiceDetailComponent implements OnInit {
             buyer: new FormControl('', Validators.required),
             businessName: new FormControl('', Validators.required),
             kind: new FormControl('', Validators.required),
-            dueDate: new FormControl('', Validators.required),
+            dueDate: new FormControl(''),
             status: new FormControl('', Validators.required),
-            comment: new FormControl('', Validators.required)
+            comment: new FormControl('')
         });
         this.form.disable();
     }
@@ -82,7 +82,7 @@ export class InvoiceDetailComponent implements OnInit {
         this.form.disable();
         if (!this.invoice) { this.invoice = new InvoiceModel(); }
         _.merge(this.invoice, this.invoice, this.form.value);
-        this.invoiceService.saveInvoice(this.form.value)
+        this.invoiceService.saveInvoice(this.invoice)
             .subscribe();
     }
 

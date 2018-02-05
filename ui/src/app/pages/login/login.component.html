@@ -24,7 +24,7 @@
                                        ngModel name="name" required>
                                 <i class="ion-ios-person"></i>
                             </label>
-                            <div *ngIf="login && login.control && login.control.dirty && login.control.hasError('required')">
+                            <div *ngIf="f.controls.name && f.controls.name.dirty && f.controls.name.hasError('required')">
                                 {{'loginform.login.required' | translate}}
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                        ngModel name="password" required>
                                 <i class="ion-locked"></i>
                             </label>
-                            <div *ngIf="password && password.control && password.control.dirty && password.control.hasError('required')">
+                            <div *ngIf="f.controls.password && f.controls.password.dirty && f.controls.password.hasError('required')">
                                 {{'loginform.password.required' | translate}}
                             </div>
                         </div>

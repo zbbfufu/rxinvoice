@@ -94,35 +94,35 @@
                             <div class="column small-10">
                                 <input type="text"
                                        class="form-control"
-                                       [disabled]="!editMode"
+                                       disabled
                                        [(ngModel)]="line.description" required name="description">
                             </div>
 
                             <div class="column small-3">
                                 <input type="number"
                                        class="form-control"
-                                       [disabled]="!editMode"
+                                       disabled
                                        [(ngModel)]="line.quantity" name="quantity">
                             </div>
 
                             <div class="column small-3">
                                 <input type="number"
                                        class="form-control"
-                                       [disabled]="!editMode"
+                                       disabled
                                        [(ngModel)]="line.quantity" name="unitCost">
                             </div>
 
                             <div class="column small-4">
                                 <input type="number"
                                        class="form-control"
-                                       [disabled]="!editMode"
+                                       disabled
                                        [(ngModel)]="line.grossAmount" name="grossAmount">
                             </div>
 
                             <div class="column small-2">
                                 <input type="number"
                                        class="form-control"
-                                       [disabled]="!editMode"
+                                       disabled
                                        [(ngModel)]="line.vat.amount" name="amount">
                             </div>
                             <!--FIXME  CSS  add disabled class management to 'round' button  -->

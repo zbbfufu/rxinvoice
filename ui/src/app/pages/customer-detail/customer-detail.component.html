@@ -11,7 +11,7 @@
     </div>
 
     <div class="row newCustomerDetail" [ngClass]="{'mode-edit': editMode}">
-        <form #f="ngForm" (submit)="save(f.value)" novalidate class="column small-10">
+        <form #f="ngForm" (submit)="save()" novalidate class="column small-10">
             <div class="column newCustomerDetail-container dark space-bottom-20">
                 <!-- TODO add vats management / legalNotice / kind / fiscalYearModel ?-->
                 <div class="row align-middle newCustomerDetail-container-labelNumber">
