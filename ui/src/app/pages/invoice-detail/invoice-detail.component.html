@@ -95,7 +95,7 @@
             </div>
         </form>
 
-        <div class="column auto invoiceDetail" *ngIf="invoice">
+        <div class="column auto" *ngIf="invoice">
             <invoice-lines-detail [(lines)]="invoice.lines" [editMode]="form.enabled"></invoice-lines-detail>
             <vat-detail [editMode]="form.enabled" [(vats)]="invoice.vats"></vat-detail>
             <attachments-detail [editMode]="form.enabled" [(attachments)]="invoice.attachments"></attachments-detail>
@@ -142,7 +142,6 @@
                         <i class="ion-arrow-return-left"></i>{{'button.label.cancel' | translate}}
                     </button>
                 </div>
-
             </div>
         </div>
     </footer>
