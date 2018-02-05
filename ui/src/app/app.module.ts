@@ -37,6 +37,8 @@ import { InvoiceLinesDetailComponent } from './common/components/invoice-lines-d
 import { SpinnerComponent } from './common/components/spinner/spinner.component';
 import { AttachmentsDetailComponent } from './common/components/attachments-detail/attachments-detail.component';
 import { ActivityPanelComponent } from './common/components/activity-panel/activity-panel.component';
+import {TabComponent} from './common/components/tabs/tab.component';
+import {TabsComponent} from './common/components/tabs/tabs.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -71,7 +73,9 @@ export function createTranslateLoader(http: HttpClient) {
         InvoiceLinesDetailComponent,
         SpinnerComponent,
         AttachmentsDetailComponent,
-        ActivityPanelComponent
+        ActivityPanelComponent,
+        TabComponent,
+        TabsComponent
     ],
     imports: [
         AppRoutingModule,

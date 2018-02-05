@@ -1,0 +1,17 @@
+<div class="tabs-bar">
+    <div class="row expanded full-height">
+
+        <ul class="small-18 columns tabs-list">
+            <li class="item-tab ripple">
+                <b>{{'dashboard.invoices' | translate}}</b>
+                ({{selectedInvoices ? selectedInvoices: '00'}}) - {{amount ? amount : '00 000'}} €
+            </li>
+            <li class="item-tab ripple" *ngFor="let tab of tabs" (click)="selectTab(tab)"
+                [ngClass]="{ 'active': tab.active, 'disabled': tab.disabled }">
+                {{ tab.tabTitle }}
+            </li>
+        </ul>
+
+    </div>
+</div>
+<ng-content></ng-content>

@@ -36,25 +36,29 @@
 <!-- [INVOICE LIST] -->
 
 <div class="invoiceListHome">
-    <div class="row align-middle">
-        <div class="columns shrink">
-            <div class="invoiceListHome-number">
-                <b>{{'dashboard.invoices' | translate}}</b> (00) - 00.000 €
-            </div>
-        </div>
-
-        <div class="columns invoiceListHome-status">
-            <a class="status toPrepare" [routerLinkActive]="['isActive']">{{'invoice.status.PREPARE' |
-                translate}}</a>
-            <a class="status toValidated">{{'invoice.status.VALIDATE' | translate}}</a>
-            <a class="status toRelaunched">{{'invoice.status.SENT' | translate}}</a>
-            <a class="status toSend">{{'invoice.status.REVIVE' | translate}}</a>
-        </div>
-
-        <button class="button medium green">
-            <i class="ion-checkmark-round"></i>
-            {{'invoice.status.VALIDATED' | translate}}
-        </button>
+    <div class="  row align-middle">
+        <tabs [selectedInvoices]="invoices" [amount]="amount">
+            <tab [tabTitle]="'invoice.status.PREPARE' | translate" tabId="PREPARE">
+                <div class="full-height space-top-8">
+                    prepare
+                </div>
+            </tab>
+            <tab [tabTitle]="'invoice.status.VALIDATE' | translate" tabId="VALIDATE">
+                <div class="full-height space-top-8">
+                    v alidate
+                </div>
+            </tab>
+            <tab [tabTitle]="'invoice.status.SENT' | translate" tabId="SENT">
+                <div class="full-height space-top-8">
+                    sent
+                </div>
+            </tab>
+            <tab [tabTitle]="'invoice.status.REVIVE' | translate" tabId="REVIVE">
+                <div class="full-height space-top-8">
+                    REVIVE
+                </div>
+            </tab>
+        </tabs>
     </div>
 </div>
 
