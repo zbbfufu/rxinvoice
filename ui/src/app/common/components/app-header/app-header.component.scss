@@ -54,13 +54,21 @@
 
     i {
       color: white;
-      font-size: 20px;
+      font-size: 28px;
+      margin: 0;
     }
   }
 
   @include when('isOpen') {
     position: relative;
-    background-image: url("../../../../#{$svg-path}icon_cross.svg");
+
+    i:before {
+      content: '\f10b';
+    }
+
+    .history-detail {
+      transform: translate(0);
+    }
   }
 
   @include has('detail') {
@@ -69,14 +77,13 @@
     top: $appHeader-height;
     right: 0;
     width: 20vw;
+    transform: translate(20vw);
     height: calc(100vh - #{$appHeader-height});
     background-color: $content-medium-list-color;
     box-shadow: 4px 0 40px -8px lightgrey;
     border: 2px solid rgba(211, 211, 211, 0.29);
+    @extend %transition;
 
-    &[hidden] {
-      display: none !important;
-    }
 
       @include has('title') {
           position: absolute;
