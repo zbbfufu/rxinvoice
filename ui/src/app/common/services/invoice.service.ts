@@ -19,7 +19,6 @@ export class InvoiceService {
             .catch((response: Response) => Observable.throw({ message: 'Unable to fetch invoices', response: response }));
     }
 
-
     public fetchInvoice(id): Observable<InvoiceModel> {
         return this.http
             .get(this.baseUrl + '/' + id)
@@ -33,6 +32,7 @@ export class InvoiceService {
             .map((result: any) => plainToClass(InvoiceModel, result as Object))
             .catch((response: Response) => Observable.throw({ message: 'Unable to save invoice', response: response }));
     }
+
     public createInvoice(invoice): Observable<InvoiceModel> {
         return this.http
             .post(this.baseUrl, invoice)

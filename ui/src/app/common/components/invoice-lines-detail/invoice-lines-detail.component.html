@@ -120,7 +120,8 @@
                             </div>
 
                             <div class="column small-2">
-                                <input type="number"
+                                <input *ngIf="line.vat"
+                                        type="number"
                                        class="form-control"
                                        disabled
                                        [(ngModel)]="line.vat.amount" name="amount">

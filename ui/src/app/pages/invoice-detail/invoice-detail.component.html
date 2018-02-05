@@ -96,7 +96,7 @@
         </form>
 
         <div class="column auto invoiceDetail" *ngIf="invoice">
-            <invoice-lines-detail [(lines)]="lines" [editMode]="form.enabled"></invoice-lines-detail>
+            <invoice-lines-detail [(lines)]="invoice.lines" [editMode]="form.enabled"></invoice-lines-detail>
             <vat-detail [editMode]="form.enabled" [(vats)]="invoice.vats"></vat-detail>
             <attachments-detail [editMode]="form.enabled" [(attachments)]="invoice.attachments"></attachments-detail>
             <activity-panel [(activities)]="invoice.activities"></activity-panel>
