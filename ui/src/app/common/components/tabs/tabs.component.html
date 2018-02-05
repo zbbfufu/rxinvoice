@@ -1,17 +1,16 @@
 <div class="tabs-bar">
     <div class="row expanded full-height">
+        <div class="small-5 columns invoice-total align-middle">
+            <h6 class="title-section">{{'dashboard.invoices' | translate}} :</h6>
+            <span class="invoice-total-value">({{selectedInvoices ? selectedInvoices: '00'}}) - {{amount ? amount : '00 000'}} €</span>
+        </div>
 
-        <ul class="small-18 columns tabs-list">
-            <li class="item-tab ripple">
-                <b>{{'dashboard.invoices' | translate}}</b>
-                ({{selectedInvoices ? selectedInvoices: '00'}}) - {{amount ? amount : '00 000'}} €
-            </li>
+        <ul class="small-19 columns tabs-list">
             <li class="item-tab ripple" *ngFor="let tab of tabs" (click)="selectTab(tab)"
-                [ngClass]="{ 'active': tab.active, 'disabled': tab.disabled }">
+                [ngClass]="{'PREPARE' : true, 'VALIDATED': false, 'SEND': false, 'RELAUNCHED': false}">
                 {{ tab.tabTitle }}
             </li>
         </ul>
-
     </div>
 </div>
 <ng-content></ng-content>

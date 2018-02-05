@@ -52,25 +52,10 @@
   &.LATE { background: $shiraz;}
   &.PAID { background: $sushi;}
   &.CANCELLED { background: $sunshade;}
-
-  &.PREPARE:after {
-    color: $status-toprepare-color;
-    border-bottom: 2px solid $status-toprepare-color;
-  }
-
-  &.VALIDATED:after {
-    color: $status-tovalidate-color;
-    border-bottom: 2px solid $status-tovalidate-color;
-  }
-
-  &.RELAUNCHED:after {
-    color: $status-torelaunched-color;
-    border-bottom: 2px solid $status-torelaunched-color;
-  }
-
-  &.SEND:after {
-    color: $status-tosend-color;
-    border-bottom: 2px solid $status-tosend-color;
-  }
 }
+
+.PREPARE { background: $status-toprepare-color !important;}
+.VALIDATED { background: $status-tovalidate-color !important;}
+.RELAUNCHED { background: $status-torelaunched-color !important;}
+.SEND { background: $status-tosend-color !important;}
 

@@ -1,5 +1,31 @@
 @import '../../../../styles/base-component';
 
+:host {
+  display: block;
+  width: 100%;
+}
+
+// ================ //
+// Invoice Total
+// ================ //
+
+.invoice-total {
+  display: flex;
+
+  .title-section {
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+  }
+
+  .invoice-total-value {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: rem-calc(12px);
+    color: white;
+  }
+}
+
 // ================ //
 // Tabs Bar
 // ================ //
@@ -18,26 +44,15 @@
     .item-tab {
       display: inline-block;
       height: 100%;
+      margin: rem-calc(0 1px);
       padding: rem-calc(0 25px);
-      line-height: 3.2;
-      font-size: rem-calc(18px);
+      background: rgba($blue-bayoux, 0.7);
+      line-height: 3.7;
+      font-size: rem-calc(14px);
       font-weight: bold;
-      text-transform: uppercase;
       color: white;
       cursor: pointer;
       @extend %transition;
-
-      @include breakpoint(medium only) {
-        padding: rem-calc(0 15px);
-        font-size: rem-calc(15px);
-        line-height: 3.8;
-      }
-
-      @include breakpoint(large only) {
-        padding: rem-calc(0 15px);
-        font-size: rem-calc(15px);
-        line-height: 3.8;
-      }
 
       &:hover {
         @extend %transition;
@@ -48,25 +63,6 @@
         background-color: $app-main-light-color;
         color: white;
       }
-
-      &.disabled {
-        position: relative;
-        background-color: grey !important;
-        cursor: not-allowed;
-        opacity: 0.7;
-
-        &:after {
-          display: none;
-        }
-        &:before {
-          font-family: wms;
-          position: absolute;
-          top: rem-calc(-3px);
-          right: rem-calc(7px);
-          color: white;
-          font-size: rem-calc(11px);
-        }
-      }
     }
   }
-  }
+}
