@@ -49,5 +49,7 @@ h6 {
 
 .nb {
   display: inline-block;
-  font-size: rem-calc(16px);
+  font-size: rem-calc(20px);
+  font-weight: bold;
+  color: $blue-bayoux;
 }
