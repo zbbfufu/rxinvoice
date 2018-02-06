@@ -8,7 +8,7 @@
         <ul class="small-19 columns tabs-list" *ngIf="tabs">
             <li class="item-tab ripple" *ngFor="let tab of tabs" (click)="selectTab(tab)"
                 [ngClass]="{
-                'PREPARE' : tab.active,
+                 'PREPARE' : tab.active,
                  'VALIDATE': tab.active,
                  'SENT': tab.active,
                  'REVIVE': tab.active}">

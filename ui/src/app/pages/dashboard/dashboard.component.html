@@ -35,26 +35,26 @@
 
 <!-- [INVOICE LIST] -->
 
-<div class="invoiceListHome">
-    <div class="row align-middle">
-        <tabs [selectedInvoices]="invoices" [amount]="amount">
-            <tab [tabTitle]="'invoice.status.PREPARE' | translate" tabId="DRAFT">
-                <div class="full-height space-top-8">
+<div class="row invoiceListHome">
+    <div class="column small-24">
+        <tabs class="row" [selectedInvoices]="invoices" [amount]="amount">
+            <tab  [tabTitle]="'invoice.status.PREPARE' | translate" tabId="DRAFT">
+                <div class="column small-24">
                     <invoices-list [invoices]="preparedInvoices" [isPending]="isPending"></invoices-list>
                 </div>
             </tab>
             <tab [tabTitle]="'invoice.status.VALIDATE' | translate" tabId="WAITING_VALIDATION">
-                <div class="full-height space-top-8">
+                <div class="column small-24">
                     <invoices-list [invoices]="validatedInvoices" [isPending]="isPending"></invoices-list>
                 </div>
             </tab>
             <tab [tabTitle]="'invoice.status.SENT' | translate" tabId="SENT">
-                <div class="full-height space-top-8">
+                <div class="column small-24">
                     <invoices-list [invoices]="sentInvoices" [isPending]="isPending"></invoices-list>
                 </div>
             </tab>
             <tab [tabTitle]="'invoice.status.REVIVE' | translate" tabId="LATE">
-                <div class="full-height space-top-8">
+                <div class="column small-24">
                     <invoices-list [invoices]="reviveInvoices" [isPending]="isPending"></invoices-list>
                 </div>
             </tab>

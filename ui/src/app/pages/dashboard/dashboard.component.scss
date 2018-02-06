@@ -3,7 +3,6 @@
 @include new('invoiceListHome') {
   background-color: $app-main-dark-color;
   height: rem-calc(50px);
-  padding: rem-calc(0 20px 0 20px);
   margin-top: rem-calc(20px);
 
 
@@ -65,4 +64,13 @@
     color: $body-dark-font-color;
     font-weight: 500;
   }
+}
+
+
+// Tab Dashboard
+
+tab {
+  display: block;
+  height: calc(100vh - 328px);
+  overflow-y: auto;
 }
