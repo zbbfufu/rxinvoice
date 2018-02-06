@@ -3,8 +3,6 @@
 @include new('invoiceListHome') {
   background-color: $app-main-dark-color;
   height: rem-calc(50px);
-  margin-top: rem-calc(20px);
-
 
   @include has('number') {
     line-height: rem-calc(50px);
@@ -69,8 +67,16 @@
 
 // Tab Dashboard
 
-.tab-content {
+invoices-list {
+  position: relative;
   display: block;
-  height: calc(100vh - 328px);
+  height: calc(100vh - 294px);
   overflow-y: auto;
+
+  spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
