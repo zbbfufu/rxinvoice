@@ -36,9 +36,9 @@
 <!-- [INVOICE LIST] -->
 
 <div class="row invoiceListHome">
-    <div class="column small-24">
+    <div class="column small-24 no-padding">
         <tabs>
-            <tab [tabTitle]="'invoice.status.PREPARE' | translate" tabId="DRAFT"
+            <tab class="row" [tabTitle]="'invoice.status.PREPARE' | translate" tabId="DRAFT"
                  [numberOfElements]="preparedInvoices?.length" [amount]="getAmount(preparedInvoices)">
                 <div class="column small-24 tab-content">
                     <invoices-list [invoices]="preparedInvoices" [isPending]="isPending"></invoices-list>
@@ -46,19 +46,19 @@
             </tab>
             <tab class="row" [tabTitle]="'invoice.status.VALIDATE' | translate" tabId="WAITING_VALIDATION"
                  [numberOfElements]="validatedInvoices?.length" [amount]="getAmount(validatedInvoices)">
-                <div class="full-height space-top-8">
+                <div class="column small-24 tab-content">
                     <invoices-list [invoices]="validatedInvoices" [isPending]="isPending"></invoices-list>
                 </div>
             </tab>
             <tab class="row"  [tabTitle]="'invoice.status.SENT' | translate" tabId="SENT"
                  [numberOfElements]="sentInvoices?.length" [amount]="getAmount(sentInvoices)">
-                <div class="full-height space-top-8">
+                <div class="column small-24 tab-content">
                     <invoices-list [invoices]="sentInvoices" [isPending]="isPending"></invoices-list>
                 </div>
             </tab>
             <tab class="row" [tabTitle]="'invoice.status.REVIVE' | translate" tabId="LATE"
                  [numberOfElements]="reviveInvoices?.length" [amount]="getAmount(reviveInvoices)">
-                <div class="full-height space-top-8">
+                <div class="column small-24 tab-content">
                     <invoices-list [invoices]="reviveInvoices" [isPending]="isPending"></invoices-list>
                 </div>
             </tab>
