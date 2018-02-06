@@ -32,45 +32,20 @@
             </div>
         </div>
 
-        <div class="columns shrink">
-                <input class="input search small" type="text" placeholder="Recherche"
+        <div class="columns auto inner-space-top-5">
+                <input class="input search" type="text" placeholder="Recherche"
                       formControlName="query">
         </div>
 
-        <div class="columns auto text-right">
-            <button class="button medium green ripple"
-                    type="button"
-                    routerlink="/app/invoices/new">
-                <i class="ion-plus-round"></i>{{'invoices.newInvoice' | translate}}
-            </button>
-
-            <button class="button medium primary ripple has-img"
-                    type="button">
-                <img class="icon" src="assets/images/png/icon_excel.png">
-            </button>
-        </div>
-    </div>
-
-    <!-- Select input -->
-
-    <div class="invoiceSelect row">
-
-        <!-- Invoice number -->
-
-        <div class="invoiceNumber columns small-8 inner-space-top-10">
-            <h6> <strong class="nb">{{ invoices && invoices.length ? invoices.length : 0 }}</strong> {{'invoices.total.number' | translate}}
-                <strong class="nb">0000</strong> {{'invoices.total.euros' | translate}}</h6>
-        </div>
-
-        <div class="columns small-16 inner-space-top-4">
+        <div class="columns small-14 inner-space-top-5">
             <div class="row">
-                <div class="columns small-3">
+                <div class="columns small-5">
                     <div class="invoiceSelect-date">
                         <date-picker [initDate]="true" [control]="searchForm.controls.startDate"></date-picker>
                     </div>
                 </div>
 
-                <div class="columns small-3">
+                <div class="columns small-5">
                     <div class="invoiceSelect-date">
                         <date-picker [control]="searchForm.controls.endDate"></date-picker>
                     </div>
@@ -95,7 +70,7 @@
                     </div>
                 </div>
 
-                <div class="columns small-5">
+                <div class="columns small-4">
                     <div class="invoiceSelect-item">
                         <select formControlName="kind">
                             <option value="">{{'invoice.kind.all' | translate}}</option>
@@ -106,6 +81,30 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Select input -->
+
+    <div class="invoiceSelect row">
+
+        <!-- Invoice number -->
+
+        <div class="invoiceNumber columns small-8 inner-space-top-8">
+            <h6> <strong class="nb">{{ invoices && invoices.length ? invoices.length : 0 }}</strong> {{'invoices.total.number' | translate}}
+                <strong class="nb">0000</strong> {{'invoices.total.euros' | translate}}</h6>
+        </div>
+
+        <div class="columns auto text-right">
+            <button class="button medium primary ripple has-img"
+                    type="button">
+                <img class="icon" src="assets/images/png/icon_excel.png">
+            </button>
+            <button class="button medium green ripple"
+                    type="button"
+                    routerlink="/app/invoices/new">
+                <i class="ion-plus-round"></i>{{'invoices.newInvoice' | translate}}
+            </button>
         </div>
     </div>
 

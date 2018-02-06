@@ -37,21 +37,23 @@
                    name="search"
                    ngModel #query debounce (func)="search(query.value)">
         </div>
+    </div>
 
-        <div class="columns auto text-right inner-space-top-5">
+    <!-- Invoice number -->
+
+    <div class="row">
+        <div class="customerDetail inner-space-top-20">
+            <h6> <strong class="nb">{{companies?.length}}</strong>  {{'customers.total.client' | translate}}
+                <strong class="nb">0</strong> {{'customers.total.deal' | translate}}</h6>
+        </div>
+
+        <div class="columns auto text-right inner-space-top-10">
             <button class="button medium green ripple"
                     type="button"
                     routerLink="/app/customers/new">
                 <i class="ion-plus-round"></i>{{'customers.filter.client' | translate}}
             </button>
         </div>
-    </div>
-
-    <!-- Invoice number -->
-
-    <div class="customerDetail inner-space-top-15">
-        <h6> <strong class="nb">{{companies?.length}}</strong>  {{'customers.total.client' | translate}}
-            <strong class="nb">0</strong> {{'customers.total.deal' | translate}}</h6>
     </div>
 </div>
 
