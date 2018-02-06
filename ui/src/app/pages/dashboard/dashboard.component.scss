@@ -71,7 +71,12 @@ invoices-list {
   position: relative;
   display: block;
   height: calc(100vh - 294px);
+  width: calc(100vw - #{$sidebar-width-md});
   overflow-y: auto;
+
+  @include breakpoint(large only) {
+    width: calc(100vw - #{$sidebar-width-lg});
+  }
 
   spinner {
     position: absolute;
