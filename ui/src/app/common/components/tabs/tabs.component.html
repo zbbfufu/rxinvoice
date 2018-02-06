@@ -2,16 +2,20 @@
     <div class="row expanded full-height">
         <div class="small-5 columns invoice-total align-middle">
             <h6 class="title-section">{{'dashboard.invoices' | translate}} :</h6>
-            <span class="invoice-total-value">({{selectedInvoices ? selectedInvoices: '00'}}) - {{amount ? amount : '00 000'}} €</span>
+            <span class="invoice-total-value">
+                ({{activeTab && activeTab.numberOfElements ?
+                activeTab.numberOfElements: '00'}}) -
+                 {{activeTab && activeTab.amount ? (activeTab.amount | currency:'EUR':'symbol':'4.2-2':'fr') : '00 000 €'}}
+            </span>
         </div>
 
         <ul class="small-19 columns tabs-list" *ngIf="tabs">
             <li class="item-tab ripple" *ngFor="let tab of tabs" (click)="selectTab(tab)"
                 [ngClass]="{
-                 'PREPARE' : tab.active,
-                 'VALIDATE': tab.active,
-                 'SENT': tab.active,
-                 'REVIVE': tab.active}">
+                'PREPARE' : tab.active && tab.tabId === 'DRAFT',
+                 'VALIDATE': tab.active && tab.tabId === 'WAITING_VALIDATION',
+                 'SENT': tab.active && tab.tabId === 'SENT',
+                 'REVIVE': tab.active && tab.tabId === 'LATE'}">
                 {{ tab.tabTitle }}
             </li>
         </ul>

@@ -11,6 +11,8 @@ export class TabComponent extends AbstractComponent  {
     @Input() tabTitle: string;
     @Input() tabId: string;
     @Input() disabled = false;
+    @Input() numberOfElements: number;
+    @Input() amount: number;
     @Output() onQueryChanged: EventEmitter<string> = new EventEmitter();
     active: boolean;
 

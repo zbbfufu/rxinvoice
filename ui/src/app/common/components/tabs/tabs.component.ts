@@ -10,8 +10,6 @@ import {AbstractComponent} from '../abstract-component';
 })
 export class TabsComponent extends AbstractComponent implements AfterViewInit {
 
-    @Input() selectedInvoices: number;
-    @Input() amount: number;
     activeTab?: TabComponent;
     tabs: TabComponent[] = [];
 
