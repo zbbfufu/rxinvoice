@@ -1,11 +1,11 @@
 <header class="appHeader">
   <div class="appHeader-search">
-    <input class="input search" type="text" placeholder="Recherche">
+    <!--<input class="input search" type="text" placeholder="Recherche">-->
       <span class="underline"></span>
   </div>
 
   <div class="appHeader-menu">
-    <div class="appHeader-menu-user">ESE</div>
+    <div class="appHeader-menu-user">{{user.name}}</div>
 
       <!-- [TIMELINE] -->
 
@@ -13,21 +13,21 @@
         <button class="button small green"><i class="ion-navicon-round"></i></button>
 
         <div class="history-detail">
-            <h5 class="history-detail-title">FIL D'ACTIVITÉ</h5>
+            <h5 class="history-detail-title">{{'activity.feed' | translate}}</h5>
 
             <div class="timeline">
-                <div class="row timeline-item">
-                        <time datetime="03/10/2017" class="column small-12 timeline-item-date">À L'INSTANT</time>
-                        <div class="column small-12 text-right timeline-item-user">modifié par
-                            <span class="badge small"><i class="ion-person"></i>ESE</span>
-                        </div>
-                        <div class="cell small-24 timeline-item-content">
-                            <div class="timeline-item-marker"></div>
-                            <h6 class="timeline-item-title">MODIFICATION FACTURE</h6>
-                            <p class="timeline-item-desc">
-                                <span class="timeline-item-desc-blue">0001-ACPAV</span>
-                            </p>
-                        </div>
+                <div class="timeline-item" *ngFor="let activity of activities">
+                    <time datetime="03/10/2017" class="column small-12 timeline-item-date">{{getMomentFromNow(activity.timestamp)}}</time>
+                    <div class="column small-12 text-right timeline-item-user">modifié par
+                        <span class="badge small"><i class="ion-person"></i>{{activity.userInfo.name}}</span>
+                    </div>
+                    <div class="cell small-24 timeline-item-content">
+                        <div class="timeline-item-marker"></div>
+                        <h6 class="timeline-item-title">{{activity.objectType}}</h6>
+                        <p class="timeline-item-desc">
+                            <span class="timeline-item-desc-blue">{{activity.objectBusinessKey}}</span>
+                        </p>
+                    </div>
                 </div>
             </div>
          </div>
