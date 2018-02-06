@@ -22,7 +22,6 @@ export class InvoiceDetailComponent implements OnInit {
     companies: CompanyModel[];
     kinds: InvoiceKindType[];
     invoice = new InvoiceModel();
-    editMode = false;
     invoiceId: string;
     statuses: InvoiceStatusType[];
 
@@ -49,7 +48,7 @@ export class InvoiceDetailComponent implements OnInit {
             status: new FormControl('', Validators.required),
             comment: new FormControl('')
         });
-        this.form.disable();
+        if (!this.invoiceId) { this.form.enable(); }
     }
 
     private setForm() {
@@ -97,7 +96,6 @@ export class InvoiceDetailComponent implements OnInit {
         this.invoiceService.createInvoice(this.invoice).subscribe((invoice) => {
             this.invoice = invoice;
             this.setForm();
-            this.editMode = false;
         });
     }
 

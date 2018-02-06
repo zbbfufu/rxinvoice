@@ -116,7 +116,7 @@
                             (click)="invoice && invoice._id  ? save() : create()"
                             [disabled]="form.invalid || form.pending">
                         <i class="ion-checkmark-round"></i>
-                        {{( !invoice ? 'button.label.create' : 'button.label.update') | translate}}
+                        {{( !invoiceId ? 'button.label.create' : 'button.label.update') | translate}}
                     </button>
                     <button *ngIf="form.disabled"
                             (click)="form.enable()"
@@ -124,9 +124,9 @@
                         <i class="ion-edit"></i>
                         Modifier
                     </button>
-                </div>
+                </div>DEVELOPMENT
 
-                <div class="columns shrink">
+                <div class="columns shrink"  *ngIf="invoiceId">
                     <button class="button medium grey ripple"
                             type="button"
                             (click)="invoice && invoice._id ? delete() : f.reset()">
@@ -134,7 +134,7 @@
                     </button>
                 </div>
 
-                <div class="columns medium">
+                <div class="columns medium" *ngIf="invoiceId">
                     <button *ngIf="form.enabled"
                             class="button medium grey ripple"
                             type="button"
