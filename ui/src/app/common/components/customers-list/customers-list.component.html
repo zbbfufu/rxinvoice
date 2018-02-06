@@ -4,14 +4,10 @@
 <table class="customerList selectable">
 <tbody class="customerList-row" *ngFor="let customer of companies"
 (click)="goToDetail(customer)">
-    <!-- fixme data display in dom are not like in the model -->
     <!-- Table Column 1 -->
     <tr>
-        <td width="200">
+        <td width="400">
             <div class="customerList-item-label">{{'customers.label.name' | translate}}:</div>
-        </td>
-        <td>
-            <span class="customerList-item-label">{{'customers.label.creationDate' | translate}}:</span>
         </td>
         <td>
             <span class="customerList-item-label">{{'customers.label.lastSent' | translate}}:<br></span>
@@ -32,13 +28,9 @@
     </tr>
 
     <!-- Table Column 2 -->
-
     <tr>
-        <td rowspan="2">
+        <td rowspan="4">
             <div class="customerList-item-value"><span class="customer-name">{{customer.name}}</span></div>
-        </td>
-        <td rowspan="2">
-            <span class="customerList-item-value">{{customer.lastSendDate | date: 'dd MMM. yyyy'}}</span>
         </td>
         <td rowspan="2">
             <span class="customerList-item-label">{{'customers.label.lastPayment' | translate}}: <br></span>
