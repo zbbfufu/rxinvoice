@@ -18,8 +18,6 @@
                     </button>
                 </div>
 
-                <!--FIXME add spinner when because the orderBy can take some time !-->
-
                 <div class="columns">
                     <button type="button"
                             (click)="toggleFilter('DATE')"
@@ -101,8 +99,8 @@
                 <img class="icon" src="assets/images/png/icon_excel.png">
             </button>
             <button class="button medium green ripple"
-                    type="button"
-                    routerlink="/app/invoices/new">
+                    routerLink="/app/invoices/new"
+                    type="button">
                 <i class="ion-plus-round"></i>{{'invoices.newInvoice' | translate}}
             </button>
         </div>
