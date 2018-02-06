@@ -76,8 +76,8 @@
     position: absolute;
     top: $appHeader-height;
     right: 0;
-    width: 20vw;
-    transform: translate(20vw);
+    width: 25vw;
+    transform: translate(25vw);
     height: calc(100vh - #{$appHeader-height});
     background-color: $content-medium-list-color;
     box-shadow: 4px 0 40px -8px lightgrey;

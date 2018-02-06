@@ -57,7 +57,7 @@
 
       &:hover {
         @extend %transition;
-        background-color: mix($sidebar-bg-color, $sidebar-item-bg-color, 50%);
+        background-color: lighten($blue-bayoux, 5%);
       }
 
       &.active {
