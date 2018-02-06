@@ -11,6 +11,7 @@
   border-radius: 100%;
   padding: 0.8em !important;
   border: rem-calc(1px) solid $button-border-light-color;
+  cursor: pointer;
 
   // ---- Adjust Size
 
@@ -90,6 +91,25 @@
       opacity: 0.8;
       filter: alpha(opacity=50);
       background-color: $button-primary-color;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: $app-main-color !important;
+    }
+  }
+
+  &.red {
+    font-size: rem-calc(12px);
+    background: $button-red;
+    color: white;
+    transition: all 300ms;
+
+    &:hover, &:focus {
+      transition: 240ms;
+      opacity: 0.8;
+      filter: alpha(opacity=50);
+      background-color: $button-red;
       color: white;
     }
 
