@@ -1,0 +1,34 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the BADGE component.
+// -----------------------------------------------------------------------------
+
+
+// --- Badges --- //
+
+.badge {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: rem-calc(50px);
+
+  i {
+    display: inline-block;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: rem-calc(8px);
+    top: rem-calc(-1px);
+  }
+
+  &.small {
+    padding: rem-calc(2px 8px 0 8px);
+    font-size: rem-calc(9px);
+
+    i { font-size: rem-calc(14px);}
+  }
+
+  &.medium {
+    padding: rem-calc(2px 8px 0 8px);
+    font-size: rem-calc(11px);
+
+    i { font-size: rem-calc(16px);}
+  }
+}

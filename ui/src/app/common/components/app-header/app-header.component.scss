@@ -62,7 +62,7 @@
   @include when('isOpen') {
     position: relative;
 
-    i:before {
+    .ion-navicon-round:before {
       content: '\f10b';
     }
 

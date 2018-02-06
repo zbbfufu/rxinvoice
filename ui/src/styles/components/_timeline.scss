@@ -5,11 +5,20 @@
   overflow-y: auto;
 
   @include has('item') {
-    padding-left: 24px;
+    padding-left: rem-calc(24px);
     border-left: 2px solid $body-light-font-color;
 
     @include has('date') {
+      padding: 0;
       color: $body-light-font-color;
+    }
+
+    @include has('user') {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: rem-calc(11px);
+      font-weight: bold;
+      color: $regent-gray;
     }
 
     @include has('content') {
