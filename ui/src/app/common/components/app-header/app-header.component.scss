@@ -86,10 +86,11 @@
 
 
       @include has('title') {
-          position: absolute;
-          padding: 32px 0 24px 32px;
+          position: relative;
+          padding: rem-calc(32px 0 24px 32px);
           font-weight: 500;
           color: $body-dark-font-color;
+          width: 100%;
       }
     }
   }
