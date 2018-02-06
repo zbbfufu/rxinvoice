@@ -39,6 +39,7 @@ import { AttachmentsDetailComponent } from './common/components/attachments-deta
 import { ActivityPanelComponent } from './common/components/activity-panel/activity-panel.component';
 import {TabComponent} from './common/components/tabs/tab.component';
 import {TabsComponent} from './common/components/tabs/tabs.component';
+import {ActivityService} from './common/services/activity.service';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -101,6 +102,7 @@ export function createTranslateLoader(http: HttpClient) {
         CompanyService,
         LoggedInGuard,
         AuthenticationService,
+        ActivityService,
         DatePipe,
         {
             provide: HTTP_INTERCEPTORS,
