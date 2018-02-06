@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../common/services/authentication.service';
+import {registerLocaleData} from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ export class AppComponent implements OnInit {
                 private router: Router) {}
 
     ngOnInit(): void {
+        registerLocaleData(localeFr);
         this.translate.setDefaultLang('');
         this.translate.use('');
         this.authService.fetchCurrent()
