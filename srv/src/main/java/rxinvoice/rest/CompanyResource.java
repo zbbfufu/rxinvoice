@@ -3,6 +3,7 @@ package rxinvoice.rest;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.eventbus.EventBus;
+import com.mongodb.QueryBuilder;
 import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.jongo.Distinct;
@@ -18,6 +19,7 @@ import rxinvoice.domain.Activity;
 import rxinvoice.domain.Business;
 import rxinvoice.domain.Company;
 import rxinvoice.domain.User;
+import rxinvoice.jongo.MoreJongos;
 
 import javax.inject.Named;
 import java.util.ArrayList;
@@ -45,8 +47,14 @@ public class CompanyResource {
 
     @RolesAllowed({ADMIN, SELLER})
     @GET("/companies")
-    public Iterable<Company> findCompanies() {
-        return companies.get().find().sort("{name: 1}").as(Company.class);
+    public Iterable<Company> findCompanies(Optional<String> query) {
+        QueryBuilder queryBuilder = QueryBuilder.start();
+
+        if (query.isPresent()) {
+            queryBuilder.and("name").is(MoreJongos.containsIgnoreCase(query.get())).get();
+        }
+
+        return companies.get().find(queryBuilder.get().toString()).sort("{name: 1}").as(Company.class);
     }
 
     @RolesAllowed({ADMIN, SELLER})
