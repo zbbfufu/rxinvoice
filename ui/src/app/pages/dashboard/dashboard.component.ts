@@ -19,16 +19,16 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.invoiceService.fetchInvoices({status: 'DRAFT', startDate: '2018-01-01'})
+        this.invoiceService.fetchInvoices({statuses: 'DRAFT', startDate: '2018-01-01'})
             .subscribe(invoices => {
                 this.preparedInvoices = invoices;
                 this.isPending = false;
             });
-        this.invoiceService.fetchInvoices({status: 'WAITING_VALIDATION', startDate: '2018-01-01'})
+        this.invoiceService.fetchInvoices({statuses: 'WAITING_VALIDATION', startDate: '2018-01-01'})
             .subscribe(invoices => this.validatedInvoices = invoices);
-        this.invoiceService.fetchInvoices({status: 'SENT', startDate: '2018-01-01'})
+        this.invoiceService.fetchInvoices({statuses: 'SENT', startDate: '2018-01-01'})
             .subscribe(invoices => this.sentInvoices = invoices);
-        this.invoiceService.fetchInvoices({status: 'LATE', startDate: '2018-01-01'})
+        this.invoiceService.fetchInvoices({statuses: 'LATE', startDate: '2018-01-01'})
             .subscribe(invoices => this.reviveInvoices = invoices);
     }
 

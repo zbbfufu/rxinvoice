@@ -22,11 +22,11 @@ export class InvoicesComponent implements OnInit {
     startDate: FormControl;
     endDate: FormControl;
     buyer: FormControl;
-    status: FormControl;
+    statuses: FormControl;
     kind: FormControl;
 
     invoices: InvoiceModel[];
-    statuses: InvoiceStatusType[];
+    statusTypes: InvoiceStatusType[];
     kinds: InvoiceKindType[];
     filterString = 'REFERENCE';
     isPending = true;
@@ -39,14 +39,14 @@ export class InvoicesComponent implements OnInit {
             startDate: '' ,
             endDate: '',
             buyer: '',
-            status: '',
+            statuses: '',
             kind: ''
         });
     }
 
     ngOnInit() {
         this.repositoryService.fetchInvoiceStatus()
-            .subscribe(statuses => this.statuses = statuses);
+            .subscribe(statuses => this.statusTypes = statuses);
         this.kinds = this.repositoryService.fetchInvoiceKind();
         this.searchForm.valueChanges
             .debounceTime( 2000 )

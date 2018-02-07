@@ -23,6 +23,7 @@ import restx.common.MorePreconditions;
 import restx.factory.Component;
 import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
+import restx.jongo.Jongos;
 import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Blob;
@@ -159,7 +160,9 @@ public class InvoiceResource {
     }
 
     @GET("/invoices")
-    public Iterable<Invoice> findInvoices(Optional<String> startDate, Optional<String> endDate, Optional<String> statuses) {
+    public Iterable<Invoice> findInvoices(Optional<String> startDate, Optional<String> endDate,
+                                          Optional<String> statuses, Optional<String> buyerRef,
+                                          Optional<String> kind, Optional<String> query) {
         User user = AppModule.currentUser();
 
         QueryBuilder builder = QueryBuilder.start();
@@ -193,13 +196,30 @@ public class InvoiceResource {
             builder.and("status").in(statusList);
         }
 
+        if (buyerRef.isPresent()) {
+            builder.and("buyer._id").is(new ObjectId(buyerRef.get()));
+        }
+
+        if (kind.isPresent()) {
+            builder.and("kind").is(kind.get());
+        }
+
+        if (kind.isPresent()) {
+            builder.and("kind").is(kind.get());
+        }
+
+        if (query.isPresent()) {
+            builder.and("object").is(Jongos.ignoreCase(query.get()));
+        }
+
         return invoices.get().find(builder.get().toString()).as(Invoice.class);
     }
 
     @GET("/invoices/tasks")
     public List<Invoice> findTasks(String maxDate) {
         Iterable<Invoice> invoices = findInvoices(Optional.<String>absent(), Optional.of(maxDate),
-                Optional.of(Joiner.on(", ").join(Lists.newArrayList(DRAFT, WAITING_VALIDATION, SENT))));
+                Optional.of(Joiner.on(", ").join(Lists.newArrayList(DRAFT, WAITING_VALIDATION, SENT))),
+                Optional.<String>absent(), Optional.<String>absent(), Optional.<String>absent());
 
         final DateTime parsedMaxDate = LocalDate.parse(maxDate).toDateTime(LocalTime.MIDNIGHT)
                 .withHourOfDay(23)
@@ -217,11 +237,13 @@ public class InvoiceResource {
 
     @GET("/invoices/dates/{startDate}")
     public Iterable<Invoice> findInvoicesByDates(String startDate) {
-        return findInvoices(Optional.of(startDate), Optional.<String>absent(), Optional.<String>absent());
+        return findInvoices(Optional.of(startDate), Optional.<String>absent(), Optional.<String>absent(),
+                Optional.<String>absent(), Optional.<String>absent(), Optional.<String>absent());
     }
     @GET("/invoices/dates/{startDate}/{endDate}")
     public Iterable<Invoice> findInvoicesByDates(String startDate, String endDate) {
-        return findInvoices(Optional.of(startDate), Optional.of(endDate), Optional.<String>absent());
+        return findInvoices(Optional.of(startDate), Optional.of(endDate), Optional.<String>absent(),
+                Optional.<String>absent(), Optional.<String>absent(), Optional.<String>absent());
     }
 
     @GET("/invoices/status")
