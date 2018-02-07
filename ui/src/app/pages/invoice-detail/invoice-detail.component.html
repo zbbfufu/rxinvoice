@@ -6,8 +6,7 @@
         </div>
 
         <div class="columns shrink invoiceHeader-name">
-            {{ (invoice && invoice._id) ? invoice.reference : 'invoices.label.back' | translate }}
-            {{ (invoice && invoice.business) ? '- ' + invoice.business.name : '' }}
+            {{ (invoice && invoice._id) ? invoice.object : 'invoices.label.back' | translate }}
         </div>
     </div>
 
@@ -18,21 +17,34 @@
                 <div class="row align-middle invoiceDetail-container-valueNumber">
                     <h6 class="column small-8"> {{'invoices.label.client' | translate}}</h6>
                     <div class="column">
-                        <select formControlName="buyer" [compareWith]="comparFn">
-                            <option [ngValue]="">{{'invoices.filter.client' | translate}}</option>
-                            <option *ngFor="let company of companies" [ngValue]="company">
-                                {{company.name}}
-                            </option>
-                        </select>
+                        <customer-select [label]="'name'" (valueChange)="fetchBuyer($event)"
+                                         [control]="form.controls.buyer" ></customer-select>
                     </div>
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.business' | translate}}</h6>
                     <div class="column">
-                        <input type="text" formControlName="businessName"
-                               class="form-control"/>
+                        <select formControlName="business"  [compareWith]="comparRef">
+                            <option *ngFor="let business of selectedCompany?.business" [ngValue]="business">
+                                {{business.name}}
+                            </option>
+                        </select>
                     </div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.object' | translate}}</h6>
+                    <div class="column">
+                        <textarea type="text" formControlName="object"
+                                  rows="3" cols="10">
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label" *ngIf="invoice.date">
+                    <h6 class="column small-8"> {{'invoice.label.date' | translate}}</h6>
+                    <div class="column">{{invoice.date | date: 'dd MMM. yyyy'}}</div>
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
@@ -48,14 +60,8 @@
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoice.label.date' | translate}}</h6>
-                    <div class="column">{{invoice.date | date: 'dd MMM. yyyy'}}</div>
-                </div>
-
-                <div class="row align-middle invoiceDetail-container-label"
-                     *ngIf="invoice?.creationDate">
-                    <h6 class="column small-8"> {{'invoice.label.creation' | translate}}</h6>
-                    <div class="column">{{invoice.creationDate | date: 'dd MMM. yyyy'}}</div>
+                    <h6 class="column small-8"> {{'invoice.label.sentDate' | translate}}</h6>
+                    <div class="column">{{getSentDate() | date: 'dd MMM. yyyy'}}</div>
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
@@ -65,12 +71,6 @@
                                      [utcMode]="true" [disabled]="form.disabled"></date-picker>
                     </div>
                 </div>
-
-                <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoice.label.date' | translate}}</h6>
-                    <div class="column">{{invoice.sentDate | date: 'dd MMM. yyyy'}}</div>
-                </div>
-
 
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.label.status' | translate}}</h6>
@@ -124,7 +124,7 @@
                         <i class="ion-edit"></i>
                         Modifier
                     </button>
-                </div>DEVELOPMENT
+                </div>
 
                 <div class="columns shrink"  *ngIf="invoiceId">
                     <button class="button medium grey ripple"

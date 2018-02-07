@@ -11,9 +11,9 @@ import {InvoiceStatusType} from '../../models/invoice-status.type';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'invoice-detail',
-  templateUrl: './invoice-detail.component.html',
-  styleUrls: ['./invoice-detail.component.scss']
+    selector: 'invoice-detail',
+    templateUrl: './invoice-detail.component.html',
+    styleUrls: ['./invoice-detail.component.scss']
 })
 export class InvoiceDetailComponent implements OnInit {
 
@@ -24,6 +24,7 @@ export class InvoiceDetailComponent implements OnInit {
     invoice = new InvoiceModel();
     invoiceId: string;
     statuses: InvoiceStatusType[];
+    selectedCompany: CompanyModel;
 
     constructor(private fb: FormBuilder,
                 private companyService: CompanyService,
@@ -42,19 +43,23 @@ export class InvoiceDetailComponent implements OnInit {
             .subscribe(companies => this.companies = companies);
         this.form = this.fb.group({
             buyer: new FormControl('', Validators.required),
-            businessName: new FormControl('', Validators.required),
+            business: new FormControl('', Validators.required),
+            object: new FormControl('', Validators.required),
             kind: new FormControl('', Validators.required),
             dueDate: new FormControl(''),
             status: new FormControl('', Validators.required),
             comment: new FormControl('')
         });
-        if (!this.invoiceId) { this.form.enable(); }
+        if (!this.invoiceId) {
+            this.form.enable();
+        }
     }
 
     private setForm() {
         this.form.setValue({
             buyer: this.invoice.buyer,
-            businessName: this.invoice.business.name,
+            object: this.invoice.object,
+            business: this.invoice.business,
             kind: this.invoice.kind,
             dueDate: this.invoice.dueDate,
             status: this.invoice.status,
@@ -65,12 +70,15 @@ export class InvoiceDetailComponent implements OnInit {
 
     public fetchInvoice() {
         this.route.params.subscribe(params => {
-            if (!this.invoiceId) { this.invoiceId = params['id']; }
+            if (!this.invoiceId) {
+                this.invoiceId = params['id'];
+            }
             if (this.invoiceId) {
                 this.invoiceService.fetchInvoice(this.invoiceId)
-                    .subscribe((invoice:  InvoiceModel) => {
+                    .subscribe((invoice: InvoiceModel) => {
                         console.log(invoice);
                         this.invoice = invoice;
+                        if (invoice.buyer) {this.fetchBuyer(invoice.buyer);}
                         this.setForm();
                     });
             }
@@ -79,14 +87,19 @@ export class InvoiceDetailComponent implements OnInit {
 
     public save() {
         this.form.disable();
-        if (!this.invoice) { this.invoice = new InvoiceModel(); }
+        if (!this.invoice) {
+            this.invoice = new InvoiceModel();
+        }
         _.merge(this.invoice, this.invoice, this.form.value);
         this.invoiceService.saveInvoice(this.invoice)
-            .subscribe();
+            .subscribe(invoice => {
+                this.invoice = invoice;
+                this.setForm();
+            });
     }
 
-    public comparFn(item1, item2) {
-        return item1._id === item2._id;
+    public comparRef(item1, item2) {
+        return item1.reference === item2.reference;
     }
 
     public create() {
@@ -113,4 +126,25 @@ export class InvoiceDetailComponent implements OnInit {
         this.router.navigate(['invoices']);
     }
 
+    public getSentDate() {
+        if (!this.invoice.statusChanges) {
+            return;
+        }
+        const status = this.invoice.statusChanges.find(stat => stat.to === 'SENT');
+        if (status) {
+            return status.timestamp;
+        }
+    }
+
+    public fetchBuyer(value) {
+        if (value) {
+            this.companyService.fetchCompany(value._id)
+                .subscribe( company => {
+                    this.selectedCompany = company;
+                console.log('company: ', company);
+                });
+        } else {
+            this.selectedCompany = undefined;
+        }
+    }
 }
