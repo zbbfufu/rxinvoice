@@ -5,7 +5,7 @@
            placeholder="{{'invoices.filter.client' | translate}}"
            clearAllText="isClearable"
            [ngModel]="control.value"
-           (ngModelChange)="this.control.patchValue($event);">
+           (ngModelChange)="update($event)">
 </ng-select>
 
 <ng-select *ngIf="companies && isBindingId"
@@ -15,5 +15,5 @@
            placeholder="{{'invoices.filter.client' | translate}}"
            clearAllText="isClearable"
            [ngModel]="control.value"
-           (ngModelChange)="this.control.patchValue($event);">
+           (ngModelChange)="update($event)">
 </ng-select>

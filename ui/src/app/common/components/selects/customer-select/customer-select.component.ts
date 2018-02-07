@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CompanyModel} from '../../../../models/company.model';
 import {CompanyService} from '../../../services/company.service';
 import {FormControl} from '@angular/forms';
@@ -17,6 +17,7 @@ export class CustomerSelectComponent implements OnInit {
     @Input() isBindingId = false;
     @Input() label = 'company';
     @Input() control: FormControl;
+    @Output() valueChange: EventEmitter<CompanyModel> = new EventEmitter();
     companies: CompanyModel[];
 
 
@@ -26,5 +27,10 @@ export class CustomerSelectComponent implements OnInit {
     ngOnInit() {
         this.companyService.fetchCompanies()
             .subscribe(companies => this.companies = companies);
+    }
+
+    update(value) {
+        this.control.patchValue(value);
+        this.valueChange.emit(value);
     }
 }
