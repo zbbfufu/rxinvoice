@@ -6,8 +6,8 @@
     <tbody class="invoiceList-row" *ngFor="let invoice of invoices"
            (click)="goToDetail(invoice)">
     <tr>
-        <td>
-            <div class="invoiceList-label">{{'invoices.label.client.ref' | translate}}</div>
+        <td  width="400">
+            <div class="invoiceList-label">{{'invoices.label.client.ref.invoice' | translate}}</div>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.date' | translate}}:</span>
@@ -40,29 +40,30 @@
     </tr>
 
     <tr>
-        <td>
-            <div class="invoiceList-value text blue-text">{{invoice.reference}} - {{invoice.buyer.name}}</div>
+        <td rowspan="2">
+            <div class="invoiceList-value text">{{invoice.buyer.name}}</div>
+            <div class="invoiceList-value text blue-text">{{invoice.object}}</div>
         </td>
-        <td>
+        <td rowspan="2">
             <span class="invoiceList-label">{{'invoices.label.deadlineDate' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.dueDate | date: 'dd MMM. yyyy'}}</span>
         </td>
-        <td>
+        <td rowspan="2">
             <span class="invoiceList-label">{{'invoices.label.type' | translate}}:</span>
             <span class="invoiceList-value">{{'invoice.kind.' + invoice.kind | translate}}</span>
         </td>
-        <td>
+        <td rowspan="2">
             <span class="invoiceList-label">{{'invoices.label.freeTaxAmount' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.netAmount}}</span>
         </td>
-        <td>
+        <td rowspan="2">
             <div class="invoiceList-value">{{invoice.vatsAmount?.amount}}</div>
         </td>
-        <td>
+        <td rowspan="2">
             <span class="invoiceList-label"><img src="assets/images/svg/icon_attachments.svg"></span>
             <span class="invoiceList-value">{{invoice.attachments?.length}}</span>
         </td>
-        <td>
+        <td rowspan="1">
             <div class="invoiceList-value status {{invoice.status}}">{{ 'invoice.status.' + invoice.status | translate}}</div>
         </td>
     </tr>
