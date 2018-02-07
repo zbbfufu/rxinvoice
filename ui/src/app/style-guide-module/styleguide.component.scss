@@ -1,0 +1,393 @@
+@import '../../styles/base-component';
+
+// ~ STYLE GUIDE
+// ====================================================================== >
+
+// Style Guide Template by 4SH/AGY
+// V-0.3
+
+// ================================================
+// ==== Define project colors.
+// ================================================
+// add all var color in this array.
+$body-font-color :                              #4c637b;
+$all-color-vars :                               ($blue-bayoux, $regent-gray, $geyser, $regent-gray, $blue-bayoux);
+
+// ================================================
+// ==== Style guide variables
+// ================================================
+// => sg == style guide
+$sg-background-color :           #f3f4f5;
+$sg-menu-background-color :      white;
+$sg-menu-font-list-color :       #4c637b;
+$sg-menu-header-title :          #4c637b;
+$sg-menu-name-project :          #3f444e;
+$sg-menu-nav-active :            #4c637b;
+$sg-main-title-color :           #4c637b;
+$sg-title-color :                #4c637b;
+$sg-bg-title-color :             $regent-gray;
+$sg-subtitle-color :             #4c637b;
+$sg-color-block-boxshadow:      rgba(#4c637b, 0.8);
+$sg-code-sample-border-color :   #7B8C9C;
+$border-content-container :      #7B8C9C;
+
+// == Fontastic // Icons section var
+// => ftc == fontastic
+$ftc-icon-color :                #4c637b;
+$ftc-input-border-color :        #4c637b;
+$ftc-input-focus-border-color :  #4c637b;
+$ftc-input-hover-border-color :  #4c637b;
+
+// == Prism // Highlight pre/code section var
+$prism-comment :                 slategray;
+$prism-punctuation :             #999;
+$prism-tag :                     #905;
+$prism-selector :                #4c637b;
+$prism-operator :                #4c637b;
+$prism-operator-background :     rgba(#4c637b, .5);
+$prism-keyword :                 #4c637b;
+$prism-function :                #DD4A68;
+$prism-regexp :                  #e90;
+
+// == Media Queries break points
+$media-sm : 'screen and (min-width: 35.5em)';
+$media-md : 'screen and (min-width: 48em)';
+$media-lg : 'screen and (min-width: 64em)';
+$media-xl : 'screen and (min-width: 80em)';
+
+// ================================================
+.style-guide-container {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  overflow: hidden;
+
+  @media #{$media-sm} { max-width: 100%}
+
+  .style-guide-content { height: 100%;}
+
+  .style-guide-block-container {
+    height: 100%;
+    padding: 16px 24px;
+    overflow-y: auto;
+    background-color: $sg-background-color;
+
+    .style-guide-block {
+      overflow: hidden;
+
+      .style-guide-section-content {
+        padding: 16px;
+      }
+    }
+  }
+}
+
+//==== Style Guide Content Type
+
+.style-guide-content-type {
+  .style-guide-item-content-type {
+    margin: 20px 0;
+    text-align: center;
+
+    span {
+      display: block;
+      margin: 10px 0;
+      font-size: 15px;
+      color: #4c637b;
+    }
+  }
+}
+
+//==== Style Guide Typography
+
+.style-guide-list-title {
+  margin: 0;
+
+  li {
+    list-style: none;
+  }
+}
+
+.style-guide-utils-typo {
+  li {
+    display: inline-block;
+    margin: 1rem;
+    font-size: 15px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.content-container {
+  margin-bottom: rem-calc(20px);
+  border: rem-calc(1px) solid $border-content-container;
+  border-radius: rem-calc(5px);
+}
+
+.style-guide-title {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 0;
+  color: $sg-title-color;
+  font-weight: bold;
+  font-size: 24px;
+
+  &.style-guide-main-title {
+    padding-bottom: 1rem;
+    font-size: 2.2rem;
+    text-align: center;
+    color: $sg-main-title-color;
+    border-bottom: 1px solid $sg-main-title-color;;
+    box-shadow: 0 5px 8px -6px $sg-main-title-color;;
+  }
+}
+
+.sub-title {
+  font-size: 1.6rem;
+  margin-top: rem-calc(40px);
+  padding-left: 3rem;
+  color: $sg-subtitle-color;
+}
+
+.style-guide-colors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+
+  .style-guide-color-block {
+    width: 47%;
+    padding: 1rem;
+    margin: 0.5rem;
+
+    @media #{$media-md} {
+      width: 23%;
+    }
+
+    @media #{$media-lg} {
+      width: 18%;
+    }
+
+    @each $color in $all-color-vars {
+      $i : index($all-color-vars, $color);
+
+      &:nth-child(#{$i}) {
+        .style-guide-color {
+          background-color: $color;
+
+          @if ($color == #FFF) {
+            border: 1px solid #6e6e6e;
+          }
+        }
+
+        .style-guide-color-infos {
+          &:after {
+            display: block;
+            content: ' #{$color}';
+          }
+        }
+      }
+    }
+  }
+
+  .style-guide-color {
+    height: 8rem;
+  }
+
+  .style-guide-color-infos {
+    margin-top: 0.1rem;
+    padding: rem-calc(5px);
+    text-align: center;
+    font-style: italic;
+    font-size: rem-calc(11px);
+    background: lighten($geyser, 2%);
+  }
+}
+
+.style-guide-row {
+  margin-top: 1.5rem;
+  border: 2px dashed $sg-code-sample-border-color;
+  border-radius: 3px;
+  display: flex;
+}
+
+.style-guide-row + .style-guide-row {
+  margin-top: 0;
+  border-top: none;
+}
+
+.style-guide-example {
+  border-right: 2px $sg-code-sample-border-color dashed;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0.1rem;
+  align-items: center;
+
+  button {
+    margin: 1rem 0;
+  }
+}
+
+pre.style-guide-code {
+  flex: 2;
+  margin: 0;
+  padding: 3px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.style-guide-text-container {
+  width: 75%;
+  margin: auto;
+  font-size: 1.4rem;
+  text-align: justify;
+}
+
+.style-guide-screen {
+  display: block;
+  max-width: 80%;
+  margin: 10px auto;
+}
+
+
+// ================================================
+// ==== Nav menu style guide
+// ================================================
+
+.style-guide-nav-menu-container {
+  padding: 0;
+
+  .style-guide-nav-menu {
+    position: relative;
+    display: block;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    background-color: $sg-menu-background-color;
+    z-index: 1;
+
+    .style-guide-nav-menu-title {
+      padding: 16px 28px;
+
+      .style-guide-nav-menu-header-title {
+        color: $sg-menu-header-title;
+        font-weight: bold;
+        font-size: 24px;
+      }
+
+      .style-guide-name-project {
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+
+
+    ul {
+      width: 100%;
+      height: 100%;
+      padding: 0 0 0 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      overflow-x: auto;
+
+      li {
+        display: block;
+
+        a {
+          display: block;
+          padding: 8px 14px;
+          text-decoration: none;
+          font-weight: bold;
+          color: $sg-menu-font-list-color;
+          border-radius: 50px 0 0 50px;
+
+          &.active {
+            background-color: $sg-menu-nav-active;
+            color: white;
+
+            &:hover, &:active {
+              background-color: $sg-menu-nav-active;
+              color: white;
+            }
+          }
+
+          &:hover, &:active {
+            transition: 340ms;
+            background-color: rgba($sg-menu-nav-active, 0.2);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// ================================================
+// ==== Extract from generated Fontastic CSS and update.
+// ================================================
+.glyphs.css-mapping {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.glyphs.css-mapping li {
+  padding: 0;
+  display: flex;
+  overflow: hidden;
+  flex-basis: 100%;
+
+  @media #{$media-md} {
+    flex-basis: 50%;
+  }
+
+  @media #{$media-lg} {
+    flex-basis: 25%;
+  }
+}
+
+.glyphs.css-mapping .icon {
+  margin: 0;
+  margin-right: 10px;
+  padding: 13px;
+  height: 50px;
+  width: 50px;
+  color: $ftc-icon-color !important;
+  overflow: hidden;
+  float: left;
+  font-size: 24px
+}
+
+.glyphs.css-mapping input {
+  margin: 0;
+  margin-top: 5px;
+  padding: 8px;
+  line-height: 16px;
+  font-size: 16px;
+  display: block;
+  height: 40px;
+  border: 1px solid $ftc-input-border-color;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background: white;
+  outline: 0;
+  float: right;
+  flex: 2;
+}
+
+.glyphs.css-mapping input:focus {
+  border: 1px solid $ftc-input-focus-border-color;
+  box-shadow: inset 0 0 3px $ftc-input-focus-border-color;
+}
+
+.glyphs.css-mapping input:hover {
+  -webkit-box-shadow: inset 0 0 3px $ftc-input-hover-border-color;
+  box-shadow: inset 0 0 3px $ftc-input-hover-border-color;
+}

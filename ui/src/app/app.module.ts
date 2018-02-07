@@ -41,6 +41,7 @@ import {TabComponent} from './common/components/tabs/tab.component';
 import {TabsComponent} from './common/components/tabs/tabs.component';
 import {ActivityService} from './common/services/activity.service';
 import {SweetAlertService} from './common/services/sweetAlert.service';
+import {StyleguideModule} from "./style-guide-module/styleguide.module";
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -88,6 +89,7 @@ export function createTranslateLoader(http: HttpClient) {
         HttpClientModule,
         NgSelectModule,
         DpDatePickerModule,
+        StyleguideModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

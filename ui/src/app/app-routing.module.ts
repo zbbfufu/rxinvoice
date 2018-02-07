@@ -8,13 +8,19 @@ import {InvoicesComponent} from './pages/invoices/invoices.component';
 import {CustomerDetailComponent} from './pages/customer-detail/customer-detail.component';
 import {InvoiceDetailComponent} from './pages/invoice-detail/invoice-detail.component';
 import {LoggedInGuard} from './common/guards/logged-in.guard';
+import {StyleguideComponent} from "./style-guide-module/styleguide.component";
+import {ColorsGuideComponent} from "./style-guide-module/colors-guide/colors-guide.component";
+import {TypographyGuideComponent} from "./style-guide-module/typography-guide/typography-guide.component";
+import {IconsGuideComponent} from "./style-guide-module/icons-guide/icons-guide.component";
+import {ButtonsGuideComponent} from "./style-guide-module/buttons-guide/buttons-guide.component";
+import {FormsGuideComponent} from "./style-guide-module/forms-guide/forms-guide.component";
 
 const routes: Routes = [
     {path: '', redirectTo: '/app/dashboard', pathMatch: 'full'},
     {path: 'login', pathMatch: 'full', component: LoginComponent},
     {
         path: 'app',
-        canActivate: [LoggedInGuard],
+        // canActivate: [LoggedInGuard],
         component: AppContentComponent,
         children: [
             {path: 'dashboard', component: DashboardComponent},
@@ -27,7 +33,17 @@ const routes: Routes = [
             {path: '**', redirectTo: '/app/dashboard'}
 
         ]
-    }
+    },
+    { path: 'guide',
+        component: StyleguideComponent,
+        children: [
+            {path: 'colors', component: ColorsGuideComponent},
+            {path: 'typography', component: TypographyGuideComponent},
+            {path: 'icons', component: IconsGuideComponent},
+            {path: 'buttons', component: ButtonsGuideComponent},
+            {path: 'forms', component: FormsGuideComponent}
+        ]
+    },
 ];
 
 @NgModule({

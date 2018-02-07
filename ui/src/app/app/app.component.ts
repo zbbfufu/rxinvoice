@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
                 if (user === null) {
                     this.router.navigate(['/login']);
                 } else {
-                    this.router.navigate(['/app/dashboard']);
+                   // this.router.navigate(['/app/dashboard']);
                 }
             });
     }
