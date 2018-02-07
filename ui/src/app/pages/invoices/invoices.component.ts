@@ -8,6 +8,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounce';
 import 'rxjs/add/operator/debounceTime';
+import {CurrencyPipe} from '@angular/common';
 
 
 @Component({
@@ -73,6 +74,19 @@ export class InvoicesComponent implements OnInit {
                 this.invoices = invoices;
                 this.isPending = false;},
                 () => this.isPending = false);
+    }
+
+
+    public getGrossAmount() {
+        if (this.invoices) {
+            const amount = this.invoices
+                .filter(invoices => invoices.grossAmount)
+                .map(invoice => invoice.grossAmount)
+                .reduce((a, b) => a + b, 0);
+            return (new CurrencyPipe('en')).transform(`${amount}`, 'EUR', 'symbol', '4.2-2', 'fr');
+        } else {
+            return 0;
+        }
     }
 
 

@@ -23,7 +23,7 @@
         </td>
         <td>
             <div class="customerList-item-label text-right">{{'customers.label.ca' | translate}}</div>
-            <span class="customerList-item-value float-right">00000 €</span>
+            <span class="customerList-item-value float-right">{{ '000000' | currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
         </td>
     </tr>
 
@@ -45,7 +45,7 @@
             <span class="customerList-item-value float-right">9</span>
         </td>
         <td class="force-inner-space-bottom-0 float-right">
-            <span class="customerList-item-value">0000 €</span>
+            <span class="customerList-item-value">{{ '000000' | currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
         </td>
     </tr>
 
@@ -56,7 +56,7 @@
             <span class="customerList-item-value float-right">3</span>
         </td>
         <td>
-            <span class="customerList-item-value float-right">00000 €</span>
+            <span class="customerList-item-value float-right">{{ '000000' | currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
         </td>
     </tr>
 </tbody>

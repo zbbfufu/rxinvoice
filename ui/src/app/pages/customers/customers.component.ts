@@ -43,4 +43,14 @@ export class CustomersComponent implements OnInit {
         }
     }
 
+    public getNumberOfBusiness() {
+        if (this.companies) {
+            return this.companies.filter(company => company.business)
+                .map(company => company.business.length)
+                .reduce((a, b) => a + b, 0);
+        } else {
+            return 0;
+        }
+    }
+
 }

@@ -32,7 +32,7 @@
         <td>
             <div class="invoiceList-label">{{'invoices.label.status' | translate}}</div>
         </td>
-        <td rowspan="2">
+        <td rowspan="1">
             <a class="invoiceList-button circleButton blue isActive">
                 {{'invoices.label.4pm' | translate}}
             </a>
@@ -54,18 +54,19 @@
         </td>
         <td rowspan="2">
             <span class="invoiceList-label">{{'invoices.label.freeTaxAmount' | translate}}:</span>
-            <span class="invoiceList-value">{{invoice.netAmount}}</span>
+            <span class="invoiceList-value">{{invoice.netAmount | currency:'EUR':'symbol':'4.2-2':'fr'}}</span>
         </td>
         <td rowspan="2">
-            <div class="invoiceList-value">{{invoice.vatsAmount?.amount}}</div>
+            <div class="invoiceList-value">{{invoice.vatsAmount?.amount | currency:'EUR':'symbol':'4.2-2':'fr'}}</div>
         </td>
         <td rowspan="2">
             <span class="invoiceList-label"><img src="assets/images/svg/icon_attachments.svg"></span>
             <span class="invoiceList-value">{{invoice.attachments?.length}}</span>
         </td>
-        <td rowspan="1">
+        <td rowspan="2">
             <div class="invoiceList-value status {{invoice.status}}">{{ 'invoice.status.' + invoice.status | translate}}</div>
         </td>
+        <td rowspan="1"></td>
     </tr>
     </tbody>
 </table>

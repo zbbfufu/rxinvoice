@@ -20,8 +20,8 @@
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-valueNumber">
-                    <h3 class="column small-12 highlight-text-bold">{{ customer?.metrics?.invoiced }} €</h3>
-                    <h3 class="column small-12 highlight-text-bold">{{ customer?.metrics?.paid }} €</h3>
+                    <h3 class="column small-12 highlight-text-bold">{{ customer?.metrics?.invoiced  | currency:'EUR':'symbol':'4.2-2':'fr' }}</h3>
+                    <h3 class="column small-12 highlight-text-bold">{{ customer?.metrics?.paid  | currency:'EUR':'symbol':'4.2-2':'fr' }}</h3>
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">

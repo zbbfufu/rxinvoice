@@ -22,7 +22,7 @@ import {InvoiceDetailComponent} from './pages/invoice-detail/invoice-detail.comp
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserModule} from '@angular/platform-browser';
-import {CommonModule, DatePipe} from '@angular/common';
+import {CommonModule, CurrencyPipe, DatePipe} from '@angular/common';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {DpDatePickerModule} from 'ng2-date-picker';
@@ -104,6 +104,7 @@ export function createTranslateLoader(http: HttpClient) {
         AuthenticationService,
         ActivityService,
         DatePipe,
+        CurrencyPipe,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: HttpInterceptorService,

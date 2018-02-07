@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {InvoiceModel} from '../../models/invoice.model';
 import {InvoiceService} from '../../common/services/invoice.service';
 import {isNumber} from 'util';
+import * as moment from 'moment';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.invoiceService.fetchInvoices({statuses: 'DRAFT', startDate: '2018-01-01'})
+        this.invoiceService.fetchInvoices({statuses: 'DRAFT', startDate: moment().add(8, 'days').format('YYYY-MM-DD') })
             .subscribe(invoices => {
                 this.preparedInvoices = invoices;
                 this.isPending = false;
@@ -37,8 +38,7 @@ export class DashboardComponent implements OnInit {
             const number = invoices
                 .filter(invoice => isNumber(invoice.grossAmount))
                 .map(invoice => invoice.grossAmount)
-                .reduce((a, b) => a + b);
-            console.log(number);
+                .reduce((a, b) => a + b, 0);
             return number;
         }
     }
