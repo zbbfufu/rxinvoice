@@ -8,6 +8,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { plainToClass } from 'class-transformer';
+import {SearchParams} from '../../models/search-params.model';
 
 
 
@@ -20,7 +21,7 @@ export class CompanyService {
 
     public fetchCompanies(query?): Observable<CompanyModel[]> {
         return this.http
-            .get(this.baseUrl, {params: {query: query}})
+            .get(this.baseUrl + ( query ? '&query=' + query : ''))
             .map((result: any) => plainToClass(CompanyModel, result as Object[]))
             .catch((response: Response) => Observable.throw({ message: 'Unable to fetch companies', response: response }));
     }
