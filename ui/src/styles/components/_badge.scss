@@ -12,23 +12,33 @@
 
   i {
     display: inline-block;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: rem-calc(8px);
+    vertical-align: bottom;
+    height: 100%;
+    margin-right: rem-calc(4px);
     top: rem-calc(-1px);
   }
 
   &.small {
-    padding: rem-calc(2px 8px 0 8px);
+    padding: rem-calc(2px 8px);
     font-size: rem-calc(9px);
+    line-height: rem-calc(16px);
 
     i { font-size: rem-calc(14px);}
   }
 
   &.medium {
-    padding: rem-calc(2px 8px 0 8px);
+    padding: rem-calc(5px 10px);
     font-size: rem-calc(11px);
+    line-height: rem-calc(16px);
 
     i { font-size: rem-calc(16px);}
+  }
+
+  &.large {
+    padding: rem-calc(7px 12px);
+    font-size: rem-calc(14px);
+    line-height: rem-calc(16px);
+
+    i { font-size: rem-calc(18px);}
   }
 }

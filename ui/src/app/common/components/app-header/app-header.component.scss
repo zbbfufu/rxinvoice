@@ -87,7 +87,7 @@
 
       @include has('title') {
           position: relative;
-          padding: rem-calc(32px 0 24px 32px);
+          padding: rem-calc(34px 0 24px 24px);
           font-weight: 500;
           color: $body-dark-font-color;
           width: 100%;
