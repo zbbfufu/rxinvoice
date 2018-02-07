@@ -23,7 +23,6 @@ import restx.common.MorePreconditions;
 import restx.factory.Component;
 import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
-import restx.jongo.Jongos;
 import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Blob;
@@ -31,6 +30,7 @@ import rxinvoice.domain.Company;
 import rxinvoice.domain.Invoice;
 import rxinvoice.domain.User;
 import rxinvoice.domain.enumeration.Activity;
+import rxinvoice.jongo.MoreJongos;
 import rxinvoice.rest.events.InvoiceUpdatedEvent;
 
 import javax.inject.Named;
@@ -209,7 +209,7 @@ public class InvoiceResource {
         }
 
         if (query.isPresent()) {
-            builder.and("object").is(Jongos.ignoreCase(query.get()));
+            builder.and("object").is(MoreJongos.containsIgnoreCase(query.get()));
         }
 
         return invoices.get().find(builder.get().toString()).as(Invoice.class);
