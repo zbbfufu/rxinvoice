@@ -28,4 +28,11 @@ public class ActivityResource {
 
         return activites.get().find().limit(limit).sort(sortKey).as(Activity.class);
     }
+
+    @GET("/activities/:kind/:ref")
+    @PermitAll
+    public Iterable<Activity> findAllActivities(String kind, String ref) {
+        return activites.get().find("{objectType: #, objectKey: #}", kind, ref)
+                .sort("{timestamp: -1}").as(Activity.class);
+    }
 }
