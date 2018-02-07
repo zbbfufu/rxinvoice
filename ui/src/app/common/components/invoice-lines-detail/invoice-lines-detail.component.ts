@@ -25,6 +25,7 @@ export class InvoiceLinesDetailComponent implements OnInit {
         const newLine = plainToClass(InvoiceLineModel, this.lineForm.value as Object);
         const vat = new VATModel();
         vat.amount = this.amount;
+        vat.vat = `${this.amount}`;
         newLine.vat = vat;
         this.lines.push(newLine);
         this.linesChange.emit(this.lines);
