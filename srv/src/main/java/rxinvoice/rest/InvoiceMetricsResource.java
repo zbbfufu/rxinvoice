@@ -72,7 +72,7 @@ public class InvoiceMetricsResource {
     }
 
     public void computeAllCompanyMetricsAsync() {
-        final Iterable<Company> companyList = companyResource.findCompanies();
+        final Iterable<Company> companyList = companyResource.findCompanies(Optional.<String>absent());
 
         for (Company company : companyList) {
             computeCompanyMetricsAsync(company);
