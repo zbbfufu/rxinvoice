@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../common/services/authentication.service';
+import {SweetAlertService} from '../../common/services/sweetAlert.service';
 
 @Component({
   selector: 'login',
@@ -10,7 +11,8 @@ import {AuthenticationService} from '../../common/services/authentication.servic
 export class LoginComponent implements OnInit {
 
     constructor(private router: Router,
-                private authService: AuthenticationService) {}
+                private authService: AuthenticationService,
+                private alertService: SweetAlertService,) {}
 
     ngOnInit() {
 
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
                 if (user) {
                     this.router.navigate(['/app/dashboard']);
                 } else {
-                    // this.alertService.error({text: 'Votre connection a échouée, vérifiez votre identifiant et votre mot de passe'});
+                    this.alertService.error({text: 'login.alert.check',
+                        title: 'login.alert.fail'});
                 }
             });
     }

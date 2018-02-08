@@ -9,6 +9,7 @@ import {InvoiceKindType} from '../../models/invoice-kind.type';
 import {RepositoryService} from '../../common/services/repository.service';
 import {InvoiceStatusType} from '../../models/invoice-status.type';
 import * as _ from 'lodash';
+import {SweetAlertService} from '../../common/services/sweetAlert.service';
 
 @Component({
     selector: 'invoice-detail',
@@ -31,7 +32,8 @@ export class InvoiceDetailComponent implements OnInit {
                 private repositoryService: RepositoryService,
                 private invoiceService: InvoiceService,
                 private route: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                private alertService: SweetAlertService) {
     }
 
     ngOnInit() {
@@ -85,6 +87,19 @@ export class InvoiceDetailComponent implements OnInit {
         });
     }
 
+    public create() {
+        this.form.disable();
+        this.invoice = new InvoiceModel();
+        _.merge(this.invoice, this.invoice, this.form.value);
+        this.invoiceService.createInvoice(this.invoice).subscribe((invoice) => {
+                this.invoice = invoice;
+                this.setForm();
+                this.alertService.success({title: 'alert.creation.error'});
+            },
+            () => {this.alertService.error({title: 'alert.creation.error'});
+            });
+    }
+
     public save() {
         this.form.disable();
         if (!this.invoice) {
@@ -95,25 +110,18 @@ export class InvoiceDetailComponent implements OnInit {
             .subscribe(invoice => {
                 this.invoice = invoice;
                 this.setForm();
-            });
-    }
-
-    public comparRef(item1, item2) {
-        return item1.reference === item2.reference;
-    }
-
-    public create() {
-        this.form.disable();
-        this.invoice = new InvoiceModel();
-        _.merge(this.invoice, this.invoice, this.form.value);
-        this.invoiceService.createInvoice(this.invoice).subscribe((invoice) => {
-            this.invoice = invoice;
-            this.setForm();
-        });
+                    this.alertService.success({title: 'alert.update.error'});
+            },
+                () => {this.alertService.error({title: 'alert.update.error'});
+                });
     }
 
     public reset() {
         this.setForm();
+    }
+
+    public comparRef(item1, item2) {
+        return item1.reference === item2.reference;
     }
 
     public delete() {

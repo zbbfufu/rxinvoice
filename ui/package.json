@@ -22,7 +22,7 @@
         "@angular/platform-browser-dynamic": "5.2.0",
         "@angular/platform-server": "5.2.0",
         "@angular/router": "5.2.0",
-        "@ng-select/ng-select": "^0.15.2",
+        "@ng-select/ng-select": "0.15.2",
         "@ngx-translate/core": "9.0.2",
         "@ngx-translate/http-loader": "2.0.1",
         "class-transformer": "0.1.8",
@@ -32,6 +32,7 @@
         "lodash": "4.17.4",
         "ng2-date-picker": "2.7.4-alpha",
         "rxjs": "5.5.6",
+        "sweetalert2": "7.10.0",
         "ts-md5": "1.2.2",
         "zone.js": "0.8.4"
     },

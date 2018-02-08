@@ -4,6 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {CompanyService} from '../../common/services/company.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
+import {SweetAlertService} from '../../common/services/sweetAlert.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class CustomerDetailComponent implements OnInit {
 
     constructor(private companyService: CompanyService,
                 private route: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                private alertService: SweetAlertService) {
     }
 
     ngOnInit() {
@@ -39,10 +41,12 @@ export class CustomerDetailComponent implements OnInit {
 
     public fetchCustomer() {
         this.route.params.subscribe(params => {
-            if (!this.companyId) { this.companyId = params['id']; }
+            if (!this.companyId) {
+                this.companyId = params['id'];
+            }
             if (this.companyId) {
                 this.companyService.fetchCompany(this.companyId)
-                    .subscribe((company:  CompanyModel) => {
+                    .subscribe((company: CompanyModel) => {
                         this.form.setValue(this.updateForm(company));
                         this.customer = company;
                         console.log(company);
@@ -54,23 +58,33 @@ export class CustomerDetailComponent implements OnInit {
     }
 
     public save() {
-        if (!this.customer) { this.customer = new CompanyModel(); }
+        if (!this.customer) {
+            this.customer = new CompanyModel();
+        }
         _.merge(this.customer, this.customer, this.form.value);
         this.companyService.updateCompany(this.customer).subscribe((company) => {
-            this.customer = company;
-            this.form.setValue(this.updateForm(company));
-            this.editMode = false;
-        });
+                this.customer = company;
+                this.form.setValue(this.updateForm(company));
+                this.editMode = false;
+                this.alertService.success({title: 'alert.update.success'});
+            },
+            () => {
+                this.alertService.error({title: 'alert.update.error'});
+            });
     }
 
     public create() {
         this.customer = new CompanyModel;
         _.merge(this.customer, this.customer, this.form.value);
         this.companyService.createCompany(this.customer).subscribe((company) => {
-            this.customer = company;
-            this.form.setValue(this.updateForm(company));
-            this.editMode = false;
-        });
+                this.customer = company;
+                this.form.setValue(this.updateForm(company));
+                this.editMode = false;
+                this.alertService.success({title: 'alert.creation.success'});
+            },
+            () => {
+                this.alertService.error({title: 'alert.creation.error'});
+            });
     }
 
     public reset() {
