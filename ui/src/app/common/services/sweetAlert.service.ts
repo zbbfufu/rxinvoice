@@ -25,9 +25,9 @@ export class SweetAlertService {
     private alert(options: SweetAlertOptions) {
         const baseOptions = {
             confirmButtonText: 'OK',
-            position: 'bottom-end',
+            position: 'center',
             showConfirmButton: false,
-            showCloseButton: false,
+            showCloseButton: false
             timer: 1500
         };
         console.log(options.text);
@@ -75,5 +75,4 @@ class SweetAlertOptions {
     allowOutsideClick?: boolean;
     allowEscapeKey?: boolean;
     showCloseButton?: boolean;
-    customClass?: string;
 }

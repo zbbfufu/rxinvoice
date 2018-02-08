@@ -94,9 +94,9 @@ export class InvoiceDetailComponent implements OnInit {
         this.invoiceService.createInvoice(this.invoice).subscribe((invoice) => {
                 this.invoice = invoice;
                 this.setForm();
-                this.alertService.success({title: 'alert.creation.success', customClass: 'swal2-for-edit'});
+                this.alertService.success({title: 'alert.creation.success'});
             },
-            () => {this.alertService.error({title: 'alert.creation.error', customClass: 'swal2-for-edit'});
+            () => {this.alertService.error({title: 'alert.creation.error'});
             });
     }
 
