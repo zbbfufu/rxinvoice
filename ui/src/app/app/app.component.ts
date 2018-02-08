@@ -31,10 +31,6 @@ export class AppComponent implements OnInit {
     }
 
     onLogin() {
-        if (this.router.url.indexOf('/login') > -1) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.router.url.indexOf('/login') > -1;
     }
 }

@@ -27,7 +27,8 @@ export class SweetAlertService {
             confirmButtonText: 'OK',
             position: 'bottom-end',
             showConfirmButton: false,
-            showCloseButton: true
+            showCloseButton: false,
+            timer: 1500
         };
         console.log(options.text);
         if (options.text) { options.text = this.translateService.instant(options.text); }
@@ -74,4 +75,5 @@ class SweetAlertOptions {
     allowOutsideClick?: boolean;
     allowEscapeKey?: boolean;
     showCloseButton?: boolean;
+    customClass?: string;
 }

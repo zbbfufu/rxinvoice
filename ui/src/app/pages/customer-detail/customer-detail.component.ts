@@ -66,10 +66,10 @@ export class CustomerDetailComponent implements OnInit {
                 this.customer = company;
                 this.form.setValue(this.updateForm(company));
                 this.editMode = false;
-                this.alertService.success({title: 'alert.update.success'});
+                this.alertService.success({title: 'alert.update.success', customClass: 'swal2-for-edit'});
             },
             () => {
-                this.alertService.error({title: 'alert.update.error'});
+                this.alertService.error({title: 'alert.update.error', customClass: 'swal2-for-edit'});
             });
     }
 
@@ -80,10 +80,10 @@ export class CustomerDetailComponent implements OnInit {
                 this.customer = company;
                 this.form.setValue(this.updateForm(company));
                 this.editMode = false;
-                this.alertService.success({title: 'alert.creation.success'});
+                this.alertService.success({title: 'alert.creation.success', customClass: 'swal2-for-edit'});
             },
             () => {
-                this.alertService.error({title: 'alert.creation.error'});
+                this.alertService.error({title: 'alert.creation.error', customClass: 'swal2-for-edit'});
             });
     }
 
