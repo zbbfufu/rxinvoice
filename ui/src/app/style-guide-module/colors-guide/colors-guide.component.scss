@@ -1,0 +1,66 @@
+@import '../styleguide.component.scss';
+
+.style-guide-colors-container {
+  .column {
+    padding: 0;
+  }
+}
+.style-guide-colors {
+  display: flex;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  padding-bottom: 64px;
+  margin: 8px 5px;
+  box-shadow: 0 1px 5px rgba(black, 0.2);
+  background-color: white;
+  border-radius: 4px;
+
+  $map: (
+          'key' : 'value',
+          'otherKey' : 'otherValue'
+  );
+
+  $colours: (
+          'mainColor'       : $blue-bayoux,
+          'mainLightColor'  : $shakespeare ,
+          'mainDarkColor'   : mix($blue-bayoux, black, 85%),
+          'subColor'        : $regent-gray,
+          'subLightColor'   : $catskill-white,
+
+          // Status
+          'Validate'         : $status-tovalidate-color,
+          'Prepare'          : $status-toprepare-color,
+          'Relaunched'       : $status-torelaunched-color,
+          'Send'             : $status-tosend-color,
+  );
+
+
+  @each $name, $color in $colours {
+    .sg__colour--#{$name} {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background:$color;
+
+      &:before {
+        position: absolute;
+        bottom: 32px;
+        left: 18px;
+        color: $color;
+        content: "#{$name}";
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      &:after {
+        position: absolute;
+        bottom: 8px;
+        left: 18px;
+        color: $color;
+        content: "#{$color}";
+      }
+    }
+  }
+}
