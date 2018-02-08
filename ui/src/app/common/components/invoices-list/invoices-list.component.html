@@ -32,10 +32,10 @@
         <td>
             <div class="invoiceList-label">{{'invoices.label.status' | translate}}</div>
         </td>
-        <td rowspan="1">
-            <a class="invoiceList-button circleButton blue isActive">
+        <td rowspan="2">
+            <button class="button btn small primary force-inner-space-left-2 force-inner-space-right-2">
                 {{'invoices.label.4pm' | translate}}
-            </a>
+            </button>
         </td>
     </tr>
 
@@ -66,7 +66,7 @@
         <td rowspan="2">
             <div class="invoiceList-value status {{invoice.status}}">{{ 'invoice.status.' + invoice.status | translate}}</div>
         </td>
-        <td rowspan="1"></td>
+        <td rowspan="2"></td>
     </tr>
     </tbody>
 </table>
