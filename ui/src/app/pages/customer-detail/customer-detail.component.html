@@ -123,7 +123,8 @@
                         </div>
 
                         <div class="columns shrink">
-                            <button class="button medium grey ripple"
+                            <button *ngIf="isAdmin"
+                                    class="button medium grey ripple"
                                     type="button"
                                     (click)="customer && customer._id ? delete() : f.reset()">
                                 <i class="ion-trash-a"></i>{{'button.label.delete' | translate}}

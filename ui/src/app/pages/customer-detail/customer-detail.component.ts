@@ -5,6 +5,7 @@ import {CompanyService} from '../../common/services/company.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
 import {SweetAlertService} from '../../common/services/sweetAlert.service';
+import {AuthenticationService} from '../../common/services/authentication.service';
 
 
 @Component({
@@ -17,16 +18,20 @@ export class CustomerDetailComponent implements OnInit {
     customer = new CompanyModel();
     editMode = false;
     companyId: string;
+    isAdmin = false;
     @ViewChild('f') form: FormGroup;
 
     constructor(private companyService: CompanyService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private alertService: SweetAlertService) {
+                private alertService: SweetAlertService,
+                private authService: AuthenticationService) {
     }
 
     ngOnInit() {
         this.fetchCustomer();
+        const user = this.authService.current();
+        this.isAdmin = (user.roles.indexOf('admin') > -1);
     }
 
     private updateForm(obj) {
@@ -93,13 +98,16 @@ export class CustomerDetailComponent implements OnInit {
     }
 
     public delete() {
-        confirm('Are you sur you want to delete the company?');
-        // FIXME add confirm
-        // this.companyService.deleteCompany(this.customer)
-        //     .subscribe(() => {
-        //
-        //     });
-        this.router.navigate(['customers']);
+        this.alertService.confirm({title: 'alert.confirm.deletion'}).then(
+            (result) => {
+                if (result.value) {
+                    this.companyService.deleteCompany(this.customer)
+                        .subscribe(() => {
+                            this.router.navigate(['customers']);
+                        });
+                }
+            }
+        );
     }
 
 }
