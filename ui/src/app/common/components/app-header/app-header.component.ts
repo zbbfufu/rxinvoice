@@ -23,11 +23,34 @@ export class AppHeaderComponent implements OnInit {
     ngOnInit() {
         this.user = this.authenticationService.current();
         this.activityService.fetchActivities()
-            .subscribe(activities => this.activities = activities);
+            .subscribe(activities =>  {
+                this.activities = activities;
+                console.log('activities: ', activities);
+            });
     }
 
     public getMomentFromNow(date) {
-        return moment(date).fromNow();
+        return moment(date).locale('fr').fromNow();
+    }
+
+    generateUrl(activity: ActivityModel) {
+        switch (activity.objectType) {
+            case 'Invoice': {
+                if (activity.type !== 'DELETE') {
+                    return '/app/invoices/detail/' + activity.objectKey;
+                }
+                break;
+            }
+            case 'Company': {
+               if (activity.type !== 'DELETE') {
+                   return '/app/companies/detail/' + activity.objectKey;
+               }
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 
 }

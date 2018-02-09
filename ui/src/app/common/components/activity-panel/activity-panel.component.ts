@@ -20,7 +20,7 @@ export class ActivityPanelComponent implements OnInit {
     }
 
     getMomentFromNow(date) {
-        return moment(date).fromNow();
+        return moment(date).locale('fr').fromNow();
     }
 
 }

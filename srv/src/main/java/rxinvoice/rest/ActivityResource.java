@@ -22,7 +22,7 @@ public class ActivityResource {
     @GET("/activities/latest")
     @PermitAll
     public Iterable<Activity> findLatestActivities(Optional<String> count, Optional<String> sort) {
-        int limit = Integer.valueOf(count.or("10"));
+        int limit = Integer.valueOf(count.or("20"));
         String sortOrder = sort.or("desc");
         String sortKey = "asc".equalsIgnoreCase(sortOrder) ? "{timestamp: 1}" : "{timestamp: -1}";
 

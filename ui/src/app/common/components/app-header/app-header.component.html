@@ -16,16 +16,17 @@
             <h5 class="history-detail-title">{{'activity.feed' | translate}}</h5>
 
             <div class="timeline">
-                <div class="row timeline-item" *ngFor="let activity of activities">
+                <div class="row timeline-item" *ngFor="let activity of activities" routerLink="{{generateUrl(activity)}}">
                     <time datetime="03/10/2017" class="column small-12 timeline-item-date">
                         <i class="ion-clock"></i>{{getMomentFromNow(activity.timestamp)}}
                     </time>
                     <div class="column small-12 text-right timeline-item-user">
-                        modifié par <span class="badge small space-left-5">{{activity.userInfo.name}}</span>
+                        {{'activity.modify.by' | translate}} <span class="badge small space-left-5">{{activity.userInfo.name}}</span>
                     </div>
                     <div class="cell small-24 timeline-item-content">
                         <div class="timeline-item-marker"></div>
-                        <h6 class="timeline-item-title">{{activity.objectType}}</h6>
+                        <h6 class="timeline-item-title">{{ 'activity.type.' + activity.type | translate}}
+                             {{'activity.objectType.' + activity.objectType | translate }}</h6>
                         <p class="timeline-item-desc">
                             <span class="timeline-item-desc-blue">{{activity.objectBusinessKey}}</span>
                         </p>
