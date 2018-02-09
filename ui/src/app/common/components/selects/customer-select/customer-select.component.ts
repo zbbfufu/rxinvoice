@@ -20,7 +20,6 @@ export class CustomerSelectComponent implements OnInit {
     @Output() valueChange: EventEmitter<CompanyModel> = new EventEmitter();
     companies: CompanyModel[];
 
-
     constructor(private companyService: CompanyService) {
     }
 
@@ -29,8 +28,12 @@ export class CustomerSelectComponent implements OnInit {
             .subscribe(companies => this.companies = companies);
     }
 
-    update(value) {
+    public update(value) {
         this.control.patchValue(value);
         this.valueChange.emit(value);
+    }
+
+    public comparId(item1, item2) {
+        return item1._id === item2._id;
     }
 }

@@ -18,14 +18,14 @@
                     <h6 class="column small-8"> {{'invoices.label.client' | translate}}</h6>
                     <div class="column">
                         <customer-select [label]="'name'" (valueChange)="fetchBuyer($event)"
-                                         [control]="form.controls.buyer" ></customer-select>
+                                         [control]="form.controls.buyer"></customer-select>
                     </div>
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.business' | translate}}</h6>
                     <div class="column">
-                        <select formControlName="business"  [compareWith]="comparRef">
+                        <select formControlName="business" [compareWith]="comparRef">
                             <option *ngFor="let business of selectedCompany?.business" [ngValue]="business">
                                 {{business.name}}
                             </option>
@@ -51,11 +51,11 @@
                     <h6 class="column small-8"> {{'invoice.kind' | translate}}</h6>
                     <div class="column">
                         <select formControlName="kind">
-                        <option value="">{{'invoice.kind.all' | translate}}</option>
-                        <option *ngFor="let kind of kinds" [ngValue]="kind">
-                            {{'invoice.kind.' + kind | translate}}
-                        </option>
-                    </select>
+                            <option value="">{{'invoice.kind.all' | translate}}</option>
+                            <option *ngFor="let kind of kinds" [ngValue]="kind">
+                                {{'invoice.kind.' + kind | translate}}
+                            </option>
+                        </select>
                     </div>
                 </div>
 
@@ -131,7 +131,7 @@
                     </button>
                 </div>
 
-                <div class="columns shrink"  *ngIf="invoiceId">
+                <div class="columns shrink" *ngIf="invoiceId">
                     <button class="button medium grey ripple"
                             type="button"
                             (click)="invoice && invoice._id ? delete() : f.reset()">
