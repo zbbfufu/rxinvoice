@@ -41,7 +41,8 @@ import {TabComponent} from './common/components/tabs/tab.component';
 import {TabsComponent} from './common/components/tabs/tabs.component';
 import {ActivityService} from './common/services/activity.service';
 import {SweetAlertService} from './common/services/sweetAlert.service';
-import {StyleguideModule} from "./style-guide-module/styleguide.module";
+import {StyleguideModule} from './style-guide-module/styleguide.module';
+import {FileUploadModule} from 'ng2-file-upload';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -52,7 +53,7 @@ export function createTranslateLoader(http: HttpClient) {
     declarations: [
         // Pipes
         OrderByPipe,
-        // Directiuves
+        // Directives
         DebounceDirective,
         // Components
         DashboardComponent,
@@ -90,6 +91,7 @@ export function createTranslateLoader(http: HttpClient) {
         NgSelectModule,
         DpDatePickerModule,
         StyleguideModule,
+        FileUploadModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

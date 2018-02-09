@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CompanyModel} from '../../models/company.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -10,6 +10,7 @@ import {RepositoryService} from '../../common/services/repository.service';
 import {InvoiceStatusType} from '../../models/invoice-status.type';
 import * as _ from 'lodash';
 import {SweetAlertService} from '../../common/services/sweetAlert.service';
+import {AttachmentsDetailComponent} from '../../common/components/attachments-detail/attachments-detail.component';
 
 @Component({
     selector: 'invoice-detail',
@@ -26,6 +27,8 @@ export class InvoiceDetailComponent implements OnInit {
     invoiceId: string;
     statuses: InvoiceStatusType[];
     selectedCompany: CompanyModel;
+
+    @ViewChild(AttachmentsDetailComponent) attachmentsComponent: AttachmentsDetailComponent;
 
     constructor(private fb: FormBuilder,
                 private companyService: CompanyService,
@@ -80,7 +83,9 @@ export class InvoiceDetailComponent implements OnInit {
                     .subscribe((invoice: InvoiceModel) => {
                         console.log(invoice);
                         this.invoice = invoice;
-                        if (invoice.buyer) {this.fetchBuyer(invoice.buyer);}
+                        if (invoice.buyer) {
+                            this.fetchBuyer(invoice.buyer);
+                        }
                         this.setForm();
                     });
             }
@@ -94,9 +99,10 @@ export class InvoiceDetailComponent implements OnInit {
         this.invoiceService.createInvoice(this.invoice).subscribe((invoice) => {
                 this.invoice = invoice;
                 this.setForm();
-                this.alertService.success({title: 'alert.creation.success'});
+                this.alertService.success({title: 'alert.creation.success', customClass: 'swal2-for-edit'});
             },
-            () => {this.alertService.error({title: 'alert.creation.error'});
+            () => {
+                this.alertService.error({title: 'alert.creation.error', customClass: 'swal2-for-edit'});
             });
     }
 
@@ -107,13 +113,14 @@ export class InvoiceDetailComponent implements OnInit {
         }
         _.merge(this.invoice, this.invoice, this.form.value);
         this.invoiceService.saveInvoice(this.invoice)
-            .subscribe(invoice => {
-                this.invoice = invoice;
-                this.setForm();
+            .subscribe(() => {
+                    this.fetchInvoice();
                     this.alertService.success({title: 'alert.update.success', customClass: 'swal2-for-edit'});
-            },
-                () => {this.alertService.error({title: 'alert.update.error', customClass: 'swal2-for-edit'});
-                });
+                },
+                () => {
+                    this.alertService.error({title: 'alert.update.error', customClass: 'swal2-for-edit'});
+                }
+            );
     }
 
     public reset() {
@@ -125,13 +132,21 @@ export class InvoiceDetailComponent implements OnInit {
     }
 
     public delete() {
-        confirm('Are you sur you want to delete the invoice?');
-        // FIXME add confirm
-        // this.invoiceService.deleteCompany(this.invoice)
-        //     .subscribe(() => {
-        //
-        //     });
-        this.router.navigate(['invoices']);
+        this.alertService.confirm({title: 'alert.confirm.deletion'}).then(
+            (result) => {
+                if (result.value) {
+                    this.invoiceService.deleteInvoice(this.invoice)
+                        .subscribe(() => {
+                            this.router.navigate(['invoices']);
+                        });
+                }
+            }
+        );
+    }
+
+    public updateAttachments(attachments) {
+        this.invoice.attachments = attachments;
+        this.save();
     }
 
     public getSentDate() {
@@ -147,9 +162,9 @@ export class InvoiceDetailComponent implements OnInit {
     public fetchBuyer(value) {
         if (value) {
             this.companyService.fetchCompany(value._id)
-                .subscribe( company => {
+                .subscribe(company => {
                     this.selectedCompany = company;
-                console.log('company: ', company);
+                    console.log('company: ', company);
                 });
         } else {
             this.selectedCompany = undefined;

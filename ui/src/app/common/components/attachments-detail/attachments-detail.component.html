@@ -11,15 +11,19 @@
                     <div class="small-24">
                         <div class="row">
                             <div class="column small-18" *ngFor="let file of attachments">
-                                <button type="button" (click)="delete(file)">supprimer</button>
+                                <button *ngIf="editMode" type="button" (click)="delete(file)">
+                                    <i class="ion-android-delete red"></i>
+                                </button>
                                 <a href="">{{file.fileName}}</a>
                             </div>
                             <div class="column auto text-right">
-                                <button type="button" *ngIf="editMode"
-                                        (click)="addAttachment()"
-                                        class="round medium primary ripple columns shrink">
-                                    <i class="ion-plus-round"></i>
-                                </button>
+                                <input *ngIf="editMode"
+                                       type="file"
+                                       ng2FileSelect
+                                       (onFileSelected)="filesChange()"
+                                       multiple
+                                       [uploader]="uploader"
+                                        class="round medium primary ripple columns shrink"/>
                             </div>
                         </div>
                     </div>

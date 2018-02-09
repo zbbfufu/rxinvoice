@@ -15,14 +15,17 @@ export class SweetAlertService {
             showCancelButton: true,
             allowOutsideClick: false,
             allowEscapeKey: false,
-            confirmButtonText: 'Confirm'
+            confirmButtonText: this.translateService.instant('button.confirm'),
+            cancelButtonText: this.translateService.instant('button.no')
         };
-        if (options.text) { this.translateService.instant(options.text); }
-        if (options.title) { this.translateService.instant(options.title); }
+        if (options.text) { options.text = this.translateService.instant(options.text); }
+        if (options.title) {  options.title = this.translateService.instant(options.title); }
         return swal(assign(baseOptions, options));
     }
 
     private alert(options: SweetAlertOptions) {
+        if (options.text) { options.text = this.translateService.instant(options.text); }
+        if (options.title) { options.title = this.translateService.instant(options.title); }
         const baseOptions = {
             confirmButtonText: 'OK',
             position: 'center',
@@ -30,9 +33,6 @@ export class SweetAlertService {
             showCloseButton: false
             timer: 1500
         };
-        console.log(options.text);
-        if (options.text) { options.text = this.translateService.instant(options.text); }
-        if (options.title) { options.title = this.translateService.instant(options.title); }
         return swal(assign(baseOptions, options));
     }
 

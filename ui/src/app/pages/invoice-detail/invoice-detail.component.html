@@ -98,8 +98,13 @@
         <div class="column auto" *ngIf="invoice">
             <invoice-lines-detail [(lines)]="invoice.lines" [editMode]="form.enabled"></invoice-lines-detail>
             <vat-detail [editMode]="form.enabled" [(vats)]="invoice.vats"></vat-detail>
-            <attachments-detail [editMode]="form.enabled" [(attachments)]="invoice.attachments"></attachments-detail>
-            <activity-panel [(activities)]="invoice.activities"></activity-panel>
+            <attachments-detail *ngIf="invoice && invoice._id"
+                                [invoiceId]="invoiceId"
+                                [editMode]="form.enabled"
+                                [attachments]="invoice.attachments"
+                                (deleteFile)="updateAttachments($event)"
+                                (attachmentsChange)="fetchInvoice()"></attachments-detail>
+            <activity-panel *ngIf="invoice && invoice._id"  [(activities)]="invoice.activities"></activity-panel>
         </div>
     </div>
 
