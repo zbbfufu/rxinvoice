@@ -39,4 +39,11 @@ export class InvoiceService {
             .map((result: any) => plainToClass(InvoiceModel, result as Object))
             .catch((response: Response) => Observable.throw({ message: 'Unable to create invoice', response: response }));
     }
+
+    public deleteInvoice(invoice): Observable<InvoiceModel> {
+        return this.http
+            .delete(this.baseUrl + '/' + invoice._id)
+            .map((result: any) => plainToClass(InvoiceModel, result as Object))
+            .catch((response: Response) => Observable.throw({ message: 'Unable to delete invoice', response: response }));
+    }
 }

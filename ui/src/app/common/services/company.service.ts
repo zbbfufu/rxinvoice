@@ -46,12 +46,14 @@ export class CompanyService {
             .map((result: any) => plainToClass(CompanyModel, result as Object))
             .catch((response: Response) => Observable.throw({ message: 'Unable to create company', response: response }));
     }
+
     public updateCompany(company): Observable<CompanyModel> {
         return this.http
             .put(this.baseUrl + '/' + company._id, company)
             .map((result: any) => plainToClass(CompanyModel, result as Object))
             .catch((response: Response) => Observable.throw({ message: 'Unable to update company', response: response }));
     }
+
     public deleteCompany(company): Observable<CompanyModel> {
         return this.http
             .delete(this.baseUrl + '/' + company._id, company)
