@@ -30,7 +30,7 @@ export class SweetAlertService {
             confirmButtonText: 'OK',
             position: 'center',
             showConfirmButton: false,
-            showCloseButton: false
+            showCloseButton: false,
             timer: 1500
         };
         return swal(assign(baseOptions, options));
@@ -75,4 +75,5 @@ class SweetAlertOptions {
     allowOutsideClick?: boolean;
     allowEscapeKey?: boolean;
     showCloseButton?: boolean;
+    customClass?: string;
 }
