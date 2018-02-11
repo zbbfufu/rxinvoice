@@ -20,14 +20,6 @@ export class AppComponent implements OnInit {
         registerLocaleData(localeFr);
         this.translate.setDefaultLang('');
         this.translate.use('');
-        this.authService.fetchCurrent()
-            .subscribe((user) => {
-                if (user === null) {
-                    this.router.navigate(['/login']);
-                } else {
-                   // this.router.navigate(['/app/dashboard']);
-                }
-            });
     }
 
     onLogin() {

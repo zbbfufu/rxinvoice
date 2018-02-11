@@ -16,7 +16,17 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        const user = this.authService.current();
+        if (user !== undefined && user !== null) {
+            this.router.navigate(['/app/dashboard']);
+        } else {
+        this.authService.fetchCurrent()
+            .subscribe((fetchUser) => {
+                if (fetchUser !== undefined && fetchUser !== null) {
+                    this.router.navigate(['/app/dashboard']);
+                }
+            });
+        }
     }
 
     public login(value) {
