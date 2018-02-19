@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CompanyService} from '../../common/services/company.service';
 import {CompanyModel} from '../../models/company.model';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'customers',
@@ -12,26 +13,33 @@ export class CustomersComponent implements OnInit {
     companies: CompanyModel[];
     filterString: string;
     isPending = true;
+    query: string;
 
 
-    constructor(private companyService: CompanyService) {
+    constructor(private companyService: CompanyService,
+                private router: Router,
+                private route: ActivatedRoute) {
         this.toggleFilter('NAME');
     }
 
     ngOnInit() {
+        this.route.queryParamMap.subscribe(params => {
+            this.query = params.get('query');
+            this.search();
+        });
         // TODO add computed info mix with company model, maybe like a companyInfo to get
         // all the revenues and fiscal info depending of the current user fiscalyear variable
-        this.search();
+
     }
 
-    public search(query?) {
+    public search() {
         this.companies = [];
         this.isPending = true;
-        // TODO add search with optional string query into companyResource.java
-        this.companyService.fetchCompanies(query)
+        this.companyService.fetchCompanies(this.query)
             .subscribe((companies) => {
                 this.companies = companies;
                 this.isPending = false;
+                this.router.navigate([], { replaceUrl: true, queryParams: {query: this.query} });
             });
     }
 

@@ -9,6 +9,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounce';
 import 'rxjs/add/operator/debounceTime';
 import {CurrencyPipe} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -34,10 +35,12 @@ export class InvoicesComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
                 private invoiceService: InvoiceService,
-                private repositoryService: RepositoryService) {
+                private repositoryService: RepositoryService,
+                private router: Router,
+                private route: ActivatedRoute) {
         this.searchForm = fb.group({
             query: '',
-            startDate: '' ,
+            startDate: '',
             endDate: '',
             buyer: '',
             statuses: '',
@@ -46,11 +49,14 @@ export class InvoicesComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.route.queryParamMap.subscribe(params => {
+            this.searchForm.patchValue(params.params);
+        });
         this.repositoryService.fetchInvoiceStatus()
             .subscribe(statuses => this.statusTypes = statuses);
         this.kinds = this.repositoryService.fetchInvoiceKind();
         this.searchForm.valueChanges
-            .debounceTime( 2000 )
+            .debounceTime(2000)
             .distinctUntilChanged()
             .subscribe(() => {
                 this.research();
@@ -71,8 +77,10 @@ export class InvoicesComponent implements OnInit {
         this.invoiceService.fetchInvoices(this.searchForm.value)
             .subscribe(
                 (invoices) => {
-                this.invoices = invoices;
-                this.isPending = false;},
+                    this.invoices = invoices;
+                    this.isPending = false;
+                    this.router.navigate([], {replaceUrl: true, queryParams: this.searchForm.value });
+                },
                 () => this.isPending = false);
     }
 

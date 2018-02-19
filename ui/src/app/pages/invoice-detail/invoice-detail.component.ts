@@ -11,6 +11,7 @@ import {InvoiceStatusType} from '../../models/invoice-status.type';
 import * as _ from 'lodash';
 import {SweetAlertService} from '../../common/services/sweetAlert.service';
 import {AttachmentsDetailComponent} from '../../common/components/attachments-detail/attachments-detail.component';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'invoice-detail',
@@ -36,7 +37,8 @@ export class InvoiceDetailComponent implements OnInit {
                 private invoiceService: InvoiceService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private alertService: SweetAlertService) {
+                private alertService: SweetAlertService,
+                private location: Location) {
     }
 
     ngOnInit() {
@@ -169,5 +171,10 @@ export class InvoiceDetailComponent implements OnInit {
         } else {
             this.selectedCompany = undefined;
         }
+    }
+
+
+    public goBack() {
+        this.location.back();
     }
 }

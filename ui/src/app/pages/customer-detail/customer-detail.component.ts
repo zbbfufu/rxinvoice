@@ -6,7 +6,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
 import {SweetAlertService} from '../../common/services/sweetAlert.service';
 import {AuthenticationService} from '../../common/services/authentication.service';
-
+import 'rxjs/add/operator/filter';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'customer-detail',
@@ -19,13 +20,15 @@ export class CustomerDetailComponent implements OnInit {
     editMode = false;
     companyId: string;
     isAdmin = false;
+    returnUrl: string;
     @ViewChild('f') form: FormGroup;
 
     constructor(private companyService: CompanyService,
                 private route: ActivatedRoute,
                 private router: Router,
                 private alertService: SweetAlertService,
-                private authService: AuthenticationService) {
+                private authService: AuthenticationService,
+                private location: Location) {
     }
 
     ngOnInit() {
@@ -108,6 +111,10 @@ export class CustomerDetailComponent implements OnInit {
                 }
             }
         );
+    }
+
+    public goBack() {
+        this.location.back();
     }
 
 }
