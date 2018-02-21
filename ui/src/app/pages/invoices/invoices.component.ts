@@ -50,7 +50,7 @@ export class InvoicesComponent implements OnInit {
 
     ngOnInit() {
         this.route.queryParamMap.subscribe(params => {
-            this.searchForm.patchValue(params.params);
+            this.searchForm.patchValue(params);
         });
         this.repositoryService.fetchInvoiceStatus()
             .subscribe(statuses => this.statusTypes = statuses);

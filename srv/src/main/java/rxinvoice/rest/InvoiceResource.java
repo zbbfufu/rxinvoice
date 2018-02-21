@@ -93,25 +93,16 @@ public class InvoiceResource {
 
         User user = AppModule.currentUser();
         Invoice invoiceFromDB = invoiceByKey.get();
-        if (!user.getPrincipalRoles().contains(ADMIN)) {
+        checkCanEditInvoice(invoiceFromDB, user);
 
-            if (invoiceFromDB.getSeller() == null || invoiceFromDB.getSeller().getKey() == null
-                    || !invoiceFromDB.getSeller().getKey().equals(user.getCompanyRef())) {
-                logger.warn("a seller is trying to update an invoice from a different company: user: {} - invoice: {}",
-                        user.getName(), key);
-                // we don't send a forbidden to avoid guessing existing invoice keys
-                throw new WebException(HttpStatus.NOT_FOUND);
-            }
+        List<Blob> attachments = invoiceFromDB.getAttachments();
+        List<Blob> newAttachments = invoice.getAttachments();
 
-            List<Blob> attachments = invoiceFromDB.getAttachments();
-            List<Blob> newAttachments = invoice.getAttachments();
+        Collection<Blob> attachmentsToRemove = Collections2.filter(attachments, Predicates.not(Predicates.in(newAttachments)));
 
-            Collection<Blob> attachmentsToRemove = Collections2.filter(attachments, Predicates.not(Predicates.in(newAttachments)));
-
-            if (!attachmentsToRemove.isEmpty()) {
-                for (Blob blob : attachmentsToRemove) {
-                    blobService.definitiveDelete(blob.getId());
-                }
+        if (!attachmentsToRemove.isEmpty()) {
+            for (Blob blob : attachmentsToRemove) {
+                blobService.definitiveDelete(blob.getId());
             }
         }
 
@@ -306,6 +297,21 @@ public class InvoiceResource {
         }
     }
 
+    @RolesAllowed({ADMIN, SELLER})
+    @DELETE("/invoices/{invoiceId}/attachments/{attachmentId}")
+    public void deleteInvoice(String invoiceId, String attachmentId) {
+        Invoice invoice = MorePreconditions.checkPresent(findInvoiceByKey(invoiceId), "Invoice %s not found", invoiceId);
+        checkCanEditInvoice(invoice, AppModule.currentUser());
+
+        invoices.get().update(new ObjectId(invoiceId)).with("{$pull: {attachments: {_id: #}}}", new ObjectId(attachmentId));
+
+        if (eventBus.isPresent()) {
+            eventBus.get().post(new InvoiceUpdatedEvent(invoice));
+            eventBus.get().post(rxinvoice.domain.Activity.newUpdate(invoice, AppModule.currentUser()));
+        }
+
+        blobService.definitiveDelete(attachmentId);
+    }
 
     public void updateAmounts(Invoice invoice) {
         BigDecimal grossAmount = BigDecimal.ZERO;
@@ -344,9 +350,27 @@ public class InvoiceResource {
 
     public Invoice addAttachments(String invoiceId, List<Blob> blobs) {
         Invoice invoice = MorePreconditions.checkPresent(findInvoiceByKey(invoiceId), "Invoice %s not found", invoiceId);
+        checkCanEditInvoice(invoice, AppModule.currentUser());
 
-        invoice.addAttachments(blobs);
+        invoices.get().update(new ObjectId(invoiceId)).with("{$push: {attachments: {$each: #}}}", blobs);
 
-        return updateInvoice(invoiceId, invoice);
+        if (eventBus.isPresent()) {
+            eventBus.get().post(new InvoiceUpdatedEvent(invoice));
+            eventBus.get().post(rxinvoice.domain.Activity.newUpdate(invoice, AppModule.currentUser()));
+        }
+
+        return invoice;
+    }
+
+    private void checkCanEditInvoice(Invoice invoice, User user) {
+        if (!user.getPrincipalRoles().contains(ADMIN)) {
+            if (invoice.getSeller() == null || invoice.getSeller().getKey() == null
+                    || !invoice.getSeller().getKey().equals(user.getCompanyRef())) {
+                logger.warn("a seller is trying to update an invoice from a different company: user: {} - invoice: {}",
+                        user.getName(), invoice.getKey());
+                // we don't send a forbidden to avoid guessing existing invoice keys
+                throw new WebException(HttpStatus.NOT_FOUND);
+            }
+        }
     }
 }
