@@ -13,6 +13,7 @@ import org.bson.types.ObjectId;
 import org.joda.time.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import restx.RestxResponse;
 import restx.Status;
 import restx.WebException;
 import restx.annotations.*;
@@ -29,8 +30,11 @@ import rxinvoice.domain.User;
 import rxinvoice.domain.enumeration.Activity;
 import rxinvoice.jongo.MoreJongos;
 import rxinvoice.rest.events.InvoiceUpdatedEvent;
+import rxinvoice.service.InvoiceExportService;
 
 import javax.inject.Named;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -48,15 +52,18 @@ public class InvoiceResource {
 
     private final JongoCollection invoices;
     private final BlobService blobService;
+    private final InvoiceExportService invoiceExportService;
     private Optional<EventBus> eventBus;
     private final CompanyResource companyResource;
 
     public InvoiceResource(CompanyResource companyResource, Optional<EventBus> eventBus,
-                           @Named("invoices") JongoCollection invoices, BlobService blobService) {
+                           @Named("invoices") JongoCollection invoices, BlobService blobService,
+                           InvoiceExportService invoiceExportService) {
         this.companyResource = companyResource;
         this.eventBus = eventBus;
         this.invoices = invoices;
         this.blobService = blobService;
+        this.invoiceExportService = invoiceExportService;
     }
 
     @RolesAllowed({ADMIN, SELLER})
@@ -327,6 +334,21 @@ public class InvoiceResource {
         }
 
         blobService.definitiveDelete(attachmentId);
+    }
+
+    public void exportsInvoices(RestxResponse response,
+                                Optional<String> startDate, Optional<String> endDate,
+                                Optional<String> statuses, Optional<String> buyerRef,
+                                Optional<String> kind, Optional<String> query) {
+        Iterable<Invoice> invoices = this.findInvoices(startDate, endDate, statuses, buyerRef, kind, query);
+
+        try (OutputStream outputStream = response.getOutputStream()) {
+            invoiceExportService.exportInvoices(invoices, outputStream);
+            outputStream.flush();
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
     }
 
     public void updateAmounts(Invoice invoice) {
