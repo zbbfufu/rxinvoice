@@ -10,10 +10,7 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import com.mongodb.QueryBuilder;
 import org.bson.types.ObjectId;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
+import org.joda.time.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import restx.Status;
@@ -202,6 +199,25 @@ public class InvoiceResource {
         if (query.isPresent()) {
             builder.and("object").is(MoreJongos.containsIgnoreCase(query.get()));
         }
+
+        return invoices.get().find(builder.get().toString()).as(Invoice.class);
+    }
+
+    @GET("/invoices/toPrepare")
+    public Iterable<Invoice> findToPrepareInvoices() {
+        QueryBuilder builder = QueryBuilder.start();
+
+        User user = AppModule.currentUser();
+
+        if (!user.getPrincipalRoles().contains(ADMIN)) {
+            builder.or(
+                    QueryBuilder.start("seller._id").is(new ObjectId(user.getCompanyRef())).get(),
+                    QueryBuilder.start("buyer._id").is(new ObjectId(user.getCompanyRef())).get()
+            );
+        }
+
+        builder.and("status").is("DRAFT");
+        builder.and("date").lessThan(LocalDateTime.now().plusDays(8).toDate());
 
         return invoices.get().find(builder.get().toString()).as(Invoice.class);
     }
