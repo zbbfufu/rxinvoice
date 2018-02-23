@@ -21,7 +21,6 @@ import {Location} from '@angular/common';
 export class InvoiceDetailComponent implements OnInit {
 
     form: FormGroup;
-
     companies: CompanyModel[];
     kinds: InvoiceKindType[];
     invoice = new InvoiceModel();
@@ -174,10 +173,12 @@ export class InvoiceDetailComponent implements OnInit {
             this.companyService.fetchCompany(value._id)
                 .subscribe(company => {
                     this.selectedCompany = company;
+                    this.invoice.vats = company.vats;
                     console.log('company: ', company);
                 });
         } else {
             this.selectedCompany = undefined;
+            this.invoice.vats = undefined;
         }
     }
 
