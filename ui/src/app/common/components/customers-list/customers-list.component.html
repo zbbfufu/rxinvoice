@@ -11,10 +11,10 @@
         </td>
         <td>
             <span class="customerList-item-label">{{'customers.label.lastSent' | translate}}:<br></span>
-            <span class="customerList-item-value">{{customer.lastSendDate | date: 'dd MMM. yyyy'}}</span>
+            <span class="customerList-item-value inner-space-left-40"> {{customer.lastSendDate | date: 'dd MMM. yyyy'}}</span>
         </td>
         <td>
-            <span class="customerList-item-label">{{'customers.label.contact' | translate}}</span>
+            <span class="customerList-item-label">{{'customers.label.contact' | translate}}:</span>
         </td>
         <td>
             <div class="customerList-item-label text-right">{{'customers.label.number' | translate}}</div>
@@ -34,11 +34,11 @@
         </td>
         <td rowspan="2">
             <span class="customerList-item-label">{{'customers.label.lastPayment' | translate}}: <br></span>
-            <span class="customerList-item-value">{{customer.lastPaymentDate | date: 'dd MMM. yyyy' }}</span>
+            <span class="customerList-item-value inner-space-left-40">{{customer.lastPaymentDate | date: 'dd MMM. yyyy' }}</span>
 
         </td>
         <td rowspan="2">
-            <span class="customerList-item-value">{{customer.emailAddress}}</span>
+            <span class="customerList-item-value inner-space-left-40">{{customer.emailAddress}}</span>
         </td>
         <td class="force-inner-space-bottom-0">
             <span class="customerList-item-label">{{'customers.label.financialYear' | translate}}:</span>
