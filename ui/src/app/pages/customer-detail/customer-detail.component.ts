@@ -20,7 +20,6 @@ export class CustomerDetailComponent implements OnInit {
     editMode = false;
     companyId: string;
     isAdmin = false;
-    returnUrl: string;
     @ViewChild('f') form: FormGroup;
 
     constructor(private companyService: CompanyService,
