@@ -18,7 +18,6 @@ export class AttachmentsDetailComponent implements OnInit {
     @Output() deleteFile: EventEmitter<BlobModel[]> = new EventEmitter();
     url: string;
 
-
     public uploader: FileUploader;
 
     constructor(private alertService: SweetAlertService) {
