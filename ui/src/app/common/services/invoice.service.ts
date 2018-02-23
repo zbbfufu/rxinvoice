@@ -19,6 +19,13 @@ export class InvoiceService {
             .catch((response: Response) => Observable.throw({ message: 'Unable to fetch invoices', response: response }));
     }
 
+    public fetchToPrepareInvoices(): Observable<InvoiceModel[]> {
+        return this.http
+            .get(this.baseUrl + '/toPrepare')
+            .map((result: any) => plainToClass(InvoiceModel, result as Object[]))
+            .catch((response: Response) => Observable.throw({ message: 'Unable to fetch to prepare invoices', response: response }));
+    }
+
     public fetchInvoice(id): Observable<InvoiceModel> {
         return this.http
             .get(this.baseUrl + '/' + id)
