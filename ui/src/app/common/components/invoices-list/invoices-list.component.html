@@ -22,15 +22,11 @@
             <span class="invoiceList-value">{{invoice.amount}}</span>
         </td>
         <td>
-            <div class="invoiceList-label">{{'invoices.label.tva' | translate}}</div>
+            <span class="invoiceList-label">{{'invoices.label.tva' | translate}}: </span>
+            <span class="invoiceList-value">{{invoice.vats[0]?.amount ? invoice.vats[0]?.amount : '0.0'}} %</span>
         </td>
         <td>
-            <span class="invoiceList-label"><img src="assets/images/svg/icon_comments.svg"></span>
-            <span class="invoiceList-value width-80">{{invoice.comment ? '1' : ''}}</span>
-            <!-- TODO should we add tooltip to see comment, for now can only one -->
-        </td>
-        <td>
-            <div class="invoiceList-label">{{'invoices.label.status' | translate}}</div>
+            <span class="invoiceList-label">{{'invoices.label.status' | translate}}</span>
         </td>
         <td rowspan="2">
             <button class="button btn small primary force-inner-space-left-2 force-inner-space-right-2">
@@ -57,10 +53,7 @@
             <span class="invoiceList-value">{{invoice.netAmount | currency:'EUR':'symbol':'4.2-2':'fr'}}</span>
         </td>
         <td rowspan="2">
-            <div class="invoiceList-value">{{invoice.vatsAmount?.amount | currency:'EUR':'symbol':'4.2-2':'fr'}}</div>
-        </td>
-        <td rowspan="2">
-            <span class="invoiceList-label"><img src="assets/images/svg/icon_attachments.svg"></span>
+            <span class="invoiceList-label"><img src="assets/images/svg/icon_attachments.svg"> :</span>
             <span class="invoiceList-value">{{invoice.attachments?.length}}</span>
         </td>
         <td rowspan="2">

@@ -79,6 +79,7 @@ export class InvoicesComponent implements OnInit {
                 (invoices) => {
                     this.invoices = invoices;
                     this.isPending = false;
+                    console.log('invoices :', invoices)
                     this.router.navigate([], {replaceUrl: true, queryParams: this.searchForm.value });
                 },
                 () => this.isPending = false);
