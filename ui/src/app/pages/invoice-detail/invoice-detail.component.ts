@@ -54,8 +54,12 @@ export class InvoiceDetailComponent implements OnInit {
             object: new FormControl('', Validators.required),
             kind: new FormControl('', Validators.required),
             dueDate: new FormControl(''),
+            date: new FormControl(''),
             status: new FormControl('', Validators.required),
-            comment: new FormControl('')
+            comment: new FormControl(''),
+            reference: new FormControl(''),
+            withVAT: new FormControl(false),
+            customerInvoiceRef: new FormControl('')
         });
         if (!this.invoiceId) {
             this.form.enable();
@@ -68,9 +72,13 @@ export class InvoiceDetailComponent implements OnInit {
             object: this.invoice.object,
             business: this.invoice.business,
             kind: this.invoice.kind,
+            date: this.invoice.date,
             dueDate: this.invoice.dueDate,
             status: this.invoice.status,
-            comment: this.invoice.comment
+            comment: this.invoice.comment,
+            reference: this.invoice.reference,
+            withVAT: this.invoice.withVAT,
+            customerInvoiceRef: this.invoice.customerInvoiceRef
         });
         this.form.disable();
     }

@@ -14,11 +14,26 @@
         <form [formGroup]="form" *ngIf="form && invoice" (submit)="save()" novalidate class="column small-8">
             <div class="column invoiceDetail-container dark">
 
-                <div class="row align-middle invoiceDetail-container-valueNumber">
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.reference' | translate}}</h6>
+                    <div class="column">
+                        <input type="text" formControlName="reference">
+                    </div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoices.label.client' | translate}}</h6>
                     <div class="column">
                         <customer-select [label]="'name'" (valueChange)="fetchBuyer($event)"
                                          [control]="form.controls.buyer"></customer-select>
+                    </div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.reference.customer' | translate}}</h6>
+                    <div class="column">
+                        <input type="text" formControlName="customerInvoiceRef">
                     </div>
                 </div>
 
@@ -42,11 +57,6 @@
                     </div>
                 </div>
 
-                <div class="row align-middle invoiceDetail-container-label" *ngIf="invoice.date">
-                    <h6 class="column small-8"> {{'invoice.label.date' | translate}}</h6>
-                    <div class="column">{{invoice.date | date: 'dd MMM. yyyy'}}</div>
-                </div>
-
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.kind' | translate}}</h6>
                     <div class="column">
@@ -58,6 +68,23 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="row align-middle invoiceDetail-container-label">
+                    <h6 class="column small-8"> {{'invoice.withVAT' | translate}}</h6>
+                    <div class="column">
+                        <toggle [item]="form.controls.withVAT.value" [disabled]="form.disabled"
+                                (itemChange)="form.controls.withVAT.setValue($event)"></toggle>
+                    </div>
+                </div>
+
+                <div class="row align-middle invoiceDetail-container-label" *ngIf="invoice.date">
+                    <h6 class="column small-8"> {{'invoice.label.invoice.date' | translate}}</h6>
+                    <div class="column">
+                        <date-picker [control]="form.controls.date"
+                                     [utcMode]="true" [disabled]="form.disabled"></date-picker>
+                    </div>
+                </div>
+
 
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.label.sentDate' | translate}}</h6>
