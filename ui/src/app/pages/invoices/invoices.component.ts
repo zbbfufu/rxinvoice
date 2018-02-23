@@ -23,7 +23,7 @@ export class InvoicesComponent implements OnInit {
     query: FormControl;
     startDate: FormControl;
     endDate: FormControl;
-    buyer: FormControl;
+    buyerRef: FormControl;
     statuses: FormControl;
     kind: FormControl;
 
@@ -42,7 +42,7 @@ export class InvoicesComponent implements OnInit {
             query: '',
             startDate: '',
             endDate: '',
-            buyer: '',
+            buyerRef: '',
             statuses: '',
             kind: ''
         });
