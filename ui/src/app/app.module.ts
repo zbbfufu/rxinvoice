@@ -43,6 +43,7 @@ import {ActivityService} from './common/services/activity.service';
 import {SweetAlertService} from './common/services/sweetAlert.service';
 import {StyleguideModule} from './style-guide-module/styleguide.module';
 import {FileUploadModule} from 'ng2-file-upload';
+import {ToggleComponent} from './common/components/toggle-boolean/toggle.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -79,7 +80,8 @@ export function createTranslateLoader(http: HttpClient) {
         AttachmentsDetailComponent,
         ActivityPanelComponent,
         TabComponent,
-        TabsComponent
+        TabsComponent,
+        ToggleComponent
     ],
     imports: [
         AppRoutingModule,
