@@ -9,7 +9,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounce';
 import 'rxjs/add/operator/debounceTime';
 import {CurrencyPipe} from '@angular/common';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 
 @Component({
@@ -49,8 +49,8 @@ export class InvoicesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.queryParamMap.subscribe(params => {
-            this.searchForm.patchValue(params);
+        const once = this.route.queryParamMap.subscribe((params: Params) => {
+            this.searchForm.patchValue(params.params);
         });
         this.repositoryService.fetchInvoiceStatus()
             .subscribe(statuses => this.statusTypes = statuses);
@@ -59,6 +59,7 @@ export class InvoicesComponent implements OnInit {
             .debounceTime(2000)
             .distinctUntilChanged()
             .subscribe(() => {
+               if (once) {once.unsubscribe(); }
                 this.research();
             });
     }
@@ -79,12 +80,11 @@ export class InvoicesComponent implements OnInit {
                 (invoices) => {
                     this.invoices = invoices;
                     this.isPending = false;
-                    console.log('invoices :', invoices)
-                    this.router.navigate([], {replaceUrl: true, queryParams: this.searchForm.value });
+                    console.log('invoices :', invoices);
+                    this.router.navigate([], {replaceUrl: false, queryParams: this.searchForm.value });
                 },
                 () => this.isPending = false);
     }
-
 
     public getGrossAmount() {
         if (this.invoices) {
@@ -97,6 +97,4 @@ export class InvoicesComponent implements OnInit {
             return 0;
         }
     }
-
-
 }

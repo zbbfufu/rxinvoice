@@ -25,8 +25,8 @@ export class CustomersComponent implements OnInit {
     ngOnInit() {
         this.route.queryParamMap.subscribe(params => {
             this.query = params.get('query');
-            this.search();
         });
+        this.search();
         // TODO add computed info mix with company model, maybe like a companyInfo to get
         // all the revenues and fiscal info depending of the current user fiscalyear variable
 
