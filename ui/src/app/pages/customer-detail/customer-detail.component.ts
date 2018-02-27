@@ -8,6 +8,7 @@ import {SweetAlertService} from '../../common/services/sweetAlert.service';
 import {AuthenticationService} from '../../common/services/authentication.service';
 import 'rxjs/add/operator/filter';
 import {Location} from '@angular/common';
+import {isBoolean} from 'util';
 
 @Component({
     selector: 'customer-detail',
@@ -16,10 +17,10 @@ import {Location} from '@angular/common';
 })
 export class CustomerDetailComponent implements OnInit {
 
-    customer = new CompanyModel();
-    editMode = false;
-    companyId: string;
-    isAdmin = false;
+    public customer = new CompanyModel();
+    public editMode = false;
+    public companyId: string;
+    public canDelete: boolean;
     @ViewChild('f') form: FormGroup;
 
     constructor(private companyService: CompanyService,
@@ -32,8 +33,8 @@ export class CustomerDetailComponent implements OnInit {
 
     ngOnInit() {
         this.fetchCustomer();
-        const user = this.authService.current();
-        this.isAdmin = (user.roles.indexOf('admin') > -1);
+        const currentUser = this.authService.current();
+        this.canDelete = currentUser.roles.filter(role => role === 'admin').length > 0;
     }
 
     private updateForm(obj) {
@@ -105,7 +106,7 @@ export class CustomerDetailComponent implements OnInit {
                 if (result.value) {
                     this.companyService.deleteCompany(this.customer)
                         .subscribe(() => {
-                            this.router.navigate(['customers']);
+                            this.router.navigate(['app/customers']);
                         });
                 }
             }

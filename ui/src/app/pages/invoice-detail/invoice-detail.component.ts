@@ -12,6 +12,8 @@ import * as _ from 'lodash';
 import {SweetAlertService} from '../../common/services/sweetAlert.service';
 import {AttachmentsDetailComponent} from '../../common/components/attachments-detail/attachments-detail.component';
 import {Location} from '@angular/common';
+import {User} from '../../models/user.model';
+import {AuthenticationService} from '../../common/services/authentication.service';
 
 @Component({
     selector: 'invoice-detail',
@@ -20,13 +22,14 @@ import {Location} from '@angular/common';
 })
 export class InvoiceDetailComponent implements OnInit {
 
-    form: FormGroup;
-    companies: CompanyModel[];
-    kinds: InvoiceKindType[];
-    invoice = new InvoiceModel();
-    invoiceId: string;
-    statuses: InvoiceStatusType[];
-    selectedCompany: CompanyModel;
+    public form: FormGroup;
+    public companies: CompanyModel[];
+    public kinds: InvoiceKindType[];
+    public invoice = new InvoiceModel();
+    public invoiceId: string;
+    public statuses: InvoiceStatusType[];
+    public selectedCompany: CompanyModel;
+    public canDelete: boolean;
 
     @ViewChild(AttachmentsDetailComponent) attachmentsComponent: AttachmentsDetailComponent;
 
@@ -37,11 +40,14 @@ export class InvoiceDetailComponent implements OnInit {
                 private route: ActivatedRoute,
                 private router: Router,
                 private alertService: SweetAlertService,
-                private location: Location) {
+                private location: Location,
+                private authService: AuthenticationService) {
     }
 
     ngOnInit() {
         this.fetchInvoice();
+        const currentUser = this.authService.current();
+        this.canDelete = currentUser.roles.filter(role => role === 'admin' || role === 'seller').length > 0;
         this.kinds = this.repositoryService.fetchInvoiceKind();
         this.repositoryService.fetchInvoiceStatus()
             .subscribe(statuses => this.statuses = statuses);
@@ -65,7 +71,7 @@ export class InvoiceDetailComponent implements OnInit {
         }
     }
 
-    private setForm() {
+    private setForm(): void  {
         this.form.setValue({
             buyer: this.invoice.buyer,
             object: this.invoice.object,
@@ -82,7 +88,7 @@ export class InvoiceDetailComponent implements OnInit {
         this.form.disable();
     }
 
-    public fetchInvoice() {
+    public fetchInvoice(): void {
         this.route.params.subscribe(params => {
             if (!this.invoiceId) {
                 this.invoiceId = params['id'];
@@ -101,7 +107,7 @@ export class InvoiceDetailComponent implements OnInit {
         });
     }
 
-    public create() {
+    public create(): void {
         this.form.disable();
         this.invoice = new InvoiceModel();
         _.merge(this.invoice, this.invoice, this.form.value);
@@ -115,7 +121,7 @@ export class InvoiceDetailComponent implements OnInit {
             });
     }
 
-    public save() {
+    public save(): void {
         this.form.disable();
         if (!this.invoice) {
             this.invoice = new InvoiceModel();
@@ -132,28 +138,28 @@ export class InvoiceDetailComponent implements OnInit {
             );
     }
 
-    public reset() {
+    public reset(): void {
         this.setForm();
     }
 
-    public comparRef(item1, item2) {
+    public comparRef(item1, item2): boolean {
         return item1.reference === item2.reference;
     }
 
-    public delete() {
+    public delete(): void  {
         this.alertService.confirm({title: 'alert.confirm.deletion'}).then(
             (result) => {
                 if (result.value) {
                     this.invoiceService.deleteInvoice(this.invoice)
                         .subscribe(() => {
-                            this.router.navigate(['invoices']);
+                            this.router.navigate(['app/invoices']);
                         });
                 }
             }
         );
     }
 
-    public updateAttachments(attachments) {
+    public updateAttachments(attachments): void  {
         this.invoice.attachments = attachments;
         this.save();
     }
@@ -168,7 +174,7 @@ export class InvoiceDetailComponent implements OnInit {
         }
     }
 
-    public fetchBuyer(value) {
+    public fetchBuyer(value): void  {
         if (value) {
             this.companyService.fetchCompany(value._id)
                 .subscribe(company => {
@@ -183,7 +189,7 @@ export class InvoiceDetailComponent implements OnInit {
     }
 
 
-    public goBack() {
+    public goBack(): void  {
         this.location.back();
     }
 }
