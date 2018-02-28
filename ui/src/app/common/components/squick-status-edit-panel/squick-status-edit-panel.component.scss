@@ -1,0 +1,14 @@
+@import '../../../../styles/base-component';
+
+
+:host {
+  z-index: 10000000;
+  position: absolute;
+  display: block;
+  width: 25%;
+  height: 60%;
+  bottom: 0;
+  right: -100%;
+  background-color: powderblue;
+}
+

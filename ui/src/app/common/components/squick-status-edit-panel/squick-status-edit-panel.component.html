@@ -1,0 +1,29 @@
+<div class="quick-status-panel">
+    <div class="row">
+        <div class="columns shrink">
+            <div class="row align-middle text-center">
+                <div class="columns small-24">
+                    Modification rapide
+                    <h5>{{invoice.object}}</h5>
+                </div>
+                <div class="columns small-24">
+                    <select [(ngModel)]="invoice.status">
+                        <option value="">{{'invoice.status.all' | translate}}</option>
+                        <option *ngFor="let status of statuses" [ngValue]="status">
+                            {{'invoice.status.' + status | translate}}
+                        </option>
+                    </select>
+                </div>
+                <div class="columns small-24">
+                    Modification rapide
+                    <textarea [(ngModel)]="invoice.comment"
+                            rows="10" cols="50">
+                    </textarea>
+                </div>
+                <div class="columns  small-24">
+                    <button class="button" (click)="updateInvoice()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
