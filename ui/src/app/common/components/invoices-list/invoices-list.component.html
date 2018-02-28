@@ -3,63 +3,68 @@
 <spinner [hidden]="!isPending"></spinner>
 
 <table class="invoiceList" *ngIf="invoices">
-    <tbody class="invoiceList-row" *ngFor="let invoice of invoices"
-           (click)="goToDetail(invoice)">
+    <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
     <tr>
-        <td  width="400">
+        <td  width="400" (click)="goToDetail(invoice)">
             <div class="invoiceList-label">{{'invoices.label.client.ref.invoice' | translate}}</div>
         </td>
-        <td>
+        <td (click)="goToDetail(invoice)">
             <span class="invoiceList-label">{{'invoices.label.date' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.date | date: 'dd MMM. yyyy'}}</span>
         </td>
-        <td>
+        <td (click)="goToDetail(invoice)">
             <span class="invoiceList-label">{{'invoices.label.deal' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.business?.name}}</span>
         </td>
-        <td>
+        <td (click)="goToDetail(invoice)">
             <span class="invoiceList-label">{{'invoices.label.amount' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.amount}}</span>
         </td>
-        <td>
+        <td (click)="goToDetail(invoice)">
             <span class="invoiceList-label">{{'invoices.label.tva' | translate}}: </span>
             <span class="invoiceList-value">{{invoice.vats[0]?.amount ? invoice.vats[0]?.amount : '0.0'}} %</span>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.status' | translate}}</span>
         </td>
-        <td rowspan="2">
-            <button class="button btn small primary force-inner-space-left-2 force-inner-space-right-2">
-                {{'invoices.label.4pm' | translate}}
-            </button>
+        <td>
+            <span class="invoiceList-label">
+            <a (click)="seeInvoice(invoice)"><i class="ion-eye"></i></a>
+            <a (click)="downloadInvoice(invoice)"><i class="ion-code-download"></i></a>
+                </span>
+
         </td>
     </tr>
 
     <tr>
-        <td rowspan="2">
+        <td rowspan="2" (click)="goToDetail(invoice)">
             <div class="invoiceList-value text">{{invoice.buyer.name}}</div>
             <div class="invoiceList-value text blue-text">{{invoice.object}}</div>
         </td>
-        <td rowspan="2">
+        <td rowspan="2" (click)="goToDetail(invoice)">
             <span class="invoiceList-label">{{'invoices.label.deadlineDate' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.dueDate | date: 'dd MMM. yyyy'}}</span>
         </td>
-        <td rowspan="2">
+        <td rowspan="2" (click)="goToDetail(invoice)">
             <span class="invoiceList-label">{{'invoices.label.type' | translate}}:</span>
             <span class="invoiceList-value">{{'invoice.kind.' + invoice.kind | translate}}</span>
         </td>
-        <td rowspan="2">
+        <td rowspan="2" (click)="goToDetail(invoice)">
             <span class="invoiceList-label">{{'invoices.label.freeTaxAmount' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.netAmount | currency:'EUR':'symbol':'4.2-2':'fr'}}</span>
         </td>
-        <td rowspan="2">
+        <td rowspan="2" (click)="goToDetail(invoice)">
             <span class="invoiceList-label"><img src="assets/images/svg/icon_attachments.svg"> :</span>
             <span class="invoiceList-value">{{invoice.attachments?.length}}</span>
         </td>
         <td rowspan="2">
             <div class="invoiceList-value status {{invoice.status}}">{{ 'invoice.status.' + invoice.status | translate}}</div>
         </td>
-        <td rowspan="2"></td>
+        <td rowspan="2">
+            <button class="button btn small primary force-inner-space-left-2 force-inner-space-right-2">
+                {{'invoices.label.4pm' | translate}}
+            </button>
+        </td>
     </tr>
     </tbody>
 </table>

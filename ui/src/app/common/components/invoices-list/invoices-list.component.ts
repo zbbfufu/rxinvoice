@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {InvoiceModel} from '../../../models/invoice.model';
 import {Router} from '@angular/router';
+import {DownloadInvoiceService} from '../../services/download-invoice.service';
 
 @Component({
     selector: 'invoices-list',
@@ -12,9 +13,18 @@ export class InvoicesListComponent {
     @Input() invoices: InvoiceModel[];
     @Input() isPending: false;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router,
+                private downloadService: DownloadInvoiceService) { }
 
     public goToDetail(customer) {
         this.router.navigate(['/app/invoices/detail/' + customer._id]);
+    }
+
+    public seeInvoice(invoice) {
+        this.downloadService.seeInvoice(invoice);
+    }
+
+    public downloadInvoice(invoice) {
+        this.downloadService.downloadInvoice(invoice);
     }
 }

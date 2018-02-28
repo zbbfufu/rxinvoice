@@ -44,6 +44,7 @@ import {StyleguideModule} from './style-guide-module/styleguide.module';
 import {FileUploadModule} from 'ng2-file-upload';
 import {ToggleComponent} from './common/components/toggle-boolean/toggle.component';
 import {OrderByPipe} from './common/pipes/orderBy.pipe';
+import {DownloadInvoiceService} from './common/services/download-invoice.service';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -111,6 +112,7 @@ export function createTranslateLoader(http: HttpClient) {
         AuthenticationService,
         ActivityService,
         SweetAlertService,
+        DownloadInvoiceService,
         DatePipe,
         CurrencyPipe,
         {

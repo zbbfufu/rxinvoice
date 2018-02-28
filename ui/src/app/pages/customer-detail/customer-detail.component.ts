@@ -8,7 +8,6 @@ import {SweetAlertService} from '../../common/services/sweetAlert.service';
 import {AuthenticationService} from '../../common/services/authentication.service';
 import 'rxjs/add/operator/filter';
 import {Location} from '@angular/common';
-import {isBoolean} from 'util';
 
 @Component({
     selector: 'customer-detail',

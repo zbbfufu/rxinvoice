@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
                 this.preparedInvoices = invoices;
                 this.isPending = false;
             });
-        this.invoiceService.fetchInvoices({statuses: 'WAITING_VALIDATION', startDate: moment().add(8, 'days').format('YYYY-MM-DD') })
+        this.invoiceService.fetchInvoices({statuses: 'WAITING_VALIDATION'})
             .subscribe(invoices => {
                 this.validatedInvoices = invoices;
             });

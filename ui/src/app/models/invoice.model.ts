@@ -7,6 +7,7 @@ import {InvoiceKindType} from './invoice-kind.type';
 import {InvoiceLineModel} from './invoice-line.model';
 import {StatusChangeModel} from './status-change.model';
 import {BlobModel} from './blob.model';
+import {DatePipe} from '@angular/common';
 
 export class InvoiceModel {
     key: string;
@@ -33,6 +34,33 @@ export class InvoiceModel {
     attachments: BlobModel[];
     statusChanges: StatusChangeModel[];
 
-    constructor() {}
+    constructor(private datePipe: DatePipe) {
+        this.datePipe = datePipe;
+    }
+
+    generatePdfFilename(invoice) {
+        let filename = '';
+        if (invoice) {
+            if (invoice.reference) {
+                filename = invoice.reference;
+            }
+            if (invoice.business && invoice.business.name) {
+                if (filename) {
+                    filename += '_';
+                }
+                filename += invoice.business.name;
+            }
+            if (invoice.date) {
+                if (filename) {
+                    filename += '_';
+                }
+                    filename += invoice.date;
+            }
+        }
+        if (!filename) {
+            filename = 'print_invoice';
+        }
+        return filename + '.pdf';
+    }
 }
 
