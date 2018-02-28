@@ -13,7 +13,7 @@
                             <div  class="column small-18">
                                 <div *ngFor="let file of attachments">
                                     <button *ngIf="editMode" type="button" (click)="delete(file)">
-                                        <i class="ion-android-delete red"></i>
+                                        <i class="ion-android-delete red"></i>&nbsp;
                                     </button>
                                     <a  class="link blue-link" href="/api/download/{{file._id}}" target="_blank">{{file.fileName}}</a>
                                 </div>

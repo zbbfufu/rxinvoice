@@ -129,7 +129,7 @@
                                 [invoiceId]="invoiceId"
                                 [editMode]="form.enabled"
                                 [attachments]="invoice.attachments"
-                                (deleteFile)="updateAttachments($event)"
+                                (deleteFile)="deleteAttachment($event)"
                                 (attachmentsChange)="fetchInvoice()"></attachments-detail>
             <!--<activity-panel *ngIf="invoice && invoice._id"  [(activities)]="invoice.activities"></activity-panel>-->
         </div>

@@ -1,6 +1,6 @@
 
 export class BlobModel {
-    id: string;
+    _id: string;
     fileName: string;
     comments: string;
     mimeType: string;

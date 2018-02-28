@@ -53,4 +53,11 @@ export class InvoiceService {
             .map((result: any) => plainToClass(InvoiceModel, result as Object))
             .catch((response: Response) => Observable.throw({ message: 'Unable to delete invoice', response: response }));
     }
+
+    public deleteAttachment(invoiceId, attachmentId ): Observable<InvoiceModel> {
+        return this.http
+            .delete(this.baseUrl + '/' + invoiceId + '/attachments/' + attachmentId)
+            .map((result: any) => plainToClass(InvoiceModel, result as Object))
+            .catch((response: Response) => Observable.throw({ message: 'Unable to delete attachment from invoice', response: response }));
+    }
 }

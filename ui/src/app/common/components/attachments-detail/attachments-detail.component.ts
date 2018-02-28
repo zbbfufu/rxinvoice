@@ -15,7 +15,7 @@ export class AttachmentsDetailComponent implements OnInit {
     @Input() attachments: BlobModel[];
     @Input() editMode = false;
     @Output() attachmentsChange: EventEmitter<null> = new EventEmitter();
-    @Output() deleteFile: EventEmitter<BlobModel[]> = new EventEmitter();
+    @Output() deleteFile: EventEmitter<string> = new EventEmitter();
     url: string;
 
     public uploader: FileUploader;
@@ -46,8 +46,7 @@ export class AttachmentsDetailComponent implements OnInit {
         this.alertService.confirm({title: 'alert.confirm.deletion'}).then(
             (accept) => {
                 if (accept.value) {
-                    this.attachments = this.attachments.filter(file => fileToRemove !== file);
-                    this.deleteFile.emit(this.attachments);
+                    this.deleteFile.emit(fileToRemove._id);
                 }
 
             }

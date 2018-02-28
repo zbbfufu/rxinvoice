@@ -159,9 +159,12 @@ export class InvoiceDetailComponent implements OnInit {
         );
     }
 
-    public updateAttachments(attachments): void  {
-        this.invoice.attachments = attachments;
-        this.save();
+    public deleteAttachment(attachmentId): void  {
+        this.invoiceService.deleteAttachment(this.invoiceId, attachmentId)
+            .subscribe( () => {
+                this.invoice.attachments =
+                    this.invoice.attachments.filter(file => file._id !== attachmentId);
+            });
     }
 
     public getSentDate() {
