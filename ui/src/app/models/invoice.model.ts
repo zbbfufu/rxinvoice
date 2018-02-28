@@ -34,8 +34,7 @@ export class InvoiceModel {
     attachments: BlobModel[];
     statusChanges: StatusChangeModel[];
 
-    constructor(private datePipe: DatePipe) {
-        this.datePipe = datePipe;
+    constructor() {
     }
 
     generatePdfFilename(invoice) {
