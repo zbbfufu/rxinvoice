@@ -10,8 +10,8 @@
 
                 <div class="columns">
                     <button type="button"
-                            (click)="toggleFilter('REFERENCE')"
-                            [ngClass]="{'isActive green': filterString ===  'REFERENCE',
+                            (click)="toggleFilter('object')"
+                            [ngClass]="{'isActive green': filterString ===  'object',
                    'spinner':  filterString ===  'REFERENCE' && isPending}"
                             class="round large listFilter-item">
                         {{'invoices.filter.ref' | translate}}
@@ -20,8 +20,8 @@
 
                 <div class="columns">
                     <button type="button"
-                            (click)="toggleFilter('DATE')"
-                            [ngClass]="{'isActive green': filterString ===  'DATE',
+                            (click)="toggleFilter('date')"
+                            [ngClass]="{'isActive green': filterString ===  'date',
                    'spinner':  filterString ===  'DATE' && isPending}"
                             class="round large listFilter-item">
                         {{'invoices.filter.date' | translate}}

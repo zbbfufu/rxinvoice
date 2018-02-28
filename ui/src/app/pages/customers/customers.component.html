@@ -7,24 +7,24 @@
                 </div>
 
                 <div class="columns">
-                    <button type="button" (click)="toggleFilter('NAME')"
-                            [ngClass]="{'isActive green': filterString ===  'NAME'}"
+                    <button type="button" (click)="toggleFilter('name')"
+                            [ngClass]="{'isActive green': filterString ===  'name'}"
                             class="round large listFilter-item">
                         {{'customers.filter.az' | translate}}
                     </button>
                 </div>
 
                 <div class="columns">
-                    <button type="button" (click)="toggleFilter('CREATIONDATE')"
-                            [ngClass]="{'isActive green': filterString ===  'CREATIONDATE'}"
+                    <button type="button" (click)="toggleFilter('lastSendDate')"
+                            [ngClass]="{'isActive green': filterString ===  'lastSendDate'}"
                             class="round large listFilter-item">
                         {{'customers.filter.date' | translate}}
                     </button>
                 </div>
 
                 <div class="columns">
-                    <button type="button" (click)="toggleFilter('LASTPAIDINVOICE')"
-                            [ngClass]="{'isActive green': filterString ===  'LASTPAIDINVOICE'}"
+                    <button type="button" (click)="toggleFilter('lastPaymentDate')"
+                            [ngClass]="{'isActive green': filterString ===  'lastPaymentDate'}"
                             class="round large listFilter-item">
                         {{'customers.filters.ca' | translate}}
                     </button>
@@ -59,6 +59,6 @@
 
 <!-- [END HEADER] -->
 
-<customers-list [companies]="companies | orderBy: filterString"  [isPending]="isPending"></customers-list>
+<customers-list [companies]="companies | orderBy: filterString: isReverse"  [isPending]="isPending"></customers-list>
 
 

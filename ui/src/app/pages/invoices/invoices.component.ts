@@ -19,19 +19,13 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 })
 export class InvoicesComponent implements OnInit {
 
-    searchForm: FormGroup;
-    query: FormControl;
-    startDate: FormControl;
-    endDate: FormControl;
-    buyerRef: FormControl;
-    statuses: FormControl;
-    kind: FormControl;
+    public searchForm: FormGroup;
 
-    invoices: InvoiceModel[];
-    statusTypes: InvoiceStatusType[];
-    kinds: InvoiceKindType[];
-    filterString = 'REFERENCE';
-    isPending = true;
+    public invoices: InvoiceModel[];
+    public statusTypes: InvoiceStatusType[];
+    public kinds: InvoiceKindType[];
+    public filterString = 'object';
+    public isPending = true;
 
     constructor(private fb: FormBuilder,
                 private invoiceService: InvoiceService,
@@ -65,11 +59,7 @@ export class InvoicesComponent implements OnInit {
     }
 
     toggleFilter(string) {
-        if (this.filterString && this.filterString === string) {
-            this.filterString = undefined;
-        } else {
             this.filterString = string;
-        }
     }
 
     research() {

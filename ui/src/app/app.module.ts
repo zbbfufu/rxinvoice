@@ -2,7 +2,6 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/h
 import {CustomerSelectComponent} from './common/components/selects/customer-select/customer-select.component';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {NgModule} from '@angular/core';
-import {OrderByPipe} from './common/pipes/orderBy.pipe';
 import {DebounceDirective} from './common/directives/debounce.directive';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {AppComponent} from './app/app.component';
@@ -44,6 +43,7 @@ import {SweetAlertService} from './common/services/sweetAlert.service';
 import {StyleguideModule} from './style-guide-module/styleguide.module';
 import {FileUploadModule} from 'ng2-file-upload';
 import {ToggleComponent} from './common/components/toggle-boolean/toggle.component';
+import {OrderByPipe} from './common/pipes/orderBy.pipe';
 
 
 export function createTranslateLoader(http: HttpClient) {

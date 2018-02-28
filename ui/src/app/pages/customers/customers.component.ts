@@ -10,16 +10,17 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class CustomersComponent implements OnInit {
 
-    companies: CompanyModel[];
-    filterString: string;
-    isPending = true;
-    query: string;
+   public companies: CompanyModel[];
+   public filterString: string;
+   public isPending = true;
+   public query: string;
+   public isReverse = false;
 
 
     constructor(private companyService: CompanyService,
                 private router: Router,
                 private route: ActivatedRoute) {
-        this.toggleFilter('NAME');
+        this.toggleFilter('name');
     }
 
     ngOnInit() {
@@ -32,7 +33,7 @@ export class CustomersComponent implements OnInit {
 
     }
 
-    public search() {
+    public search(): void {
         this.companies = [];
         this.isPending = true;
         this.companyService.fetchCompanies(this.query)
@@ -43,15 +44,12 @@ export class CustomersComponent implements OnInit {
             });
     }
 
-    public toggleFilter(string) {
-        if (this.filterString && this.filterString === string) {
-            this.filterString = undefined;
-        } else {
+    public toggleFilter(string): void {
+        this.isReverse = string === 'lastSendDate' ||  string === 'lastPaymentDate';
             this.filterString = string;
-        }
     }
 
-    public getNumberOfBusiness() {
+    public getNumberOfBusiness(): number {
         if (this.companies) {
             return this.companies.filter(company => company.business)
                 .map(company => company.business.length)
