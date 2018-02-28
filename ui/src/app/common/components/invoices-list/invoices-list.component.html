@@ -5,55 +5,61 @@
 <table class="invoiceList" *ngIf="invoices">
     <tbody class="invoiceList-row" *ngFor="let invoice of invoices">
     <tr>
-        <td  width="400" (click)="goToDetail(invoice)">
-            <div class="invoiceList-label">{{'invoices.label.client.ref.invoice' | translate}}</div>
+        <td  width="400">
+            <div class="invoiceList-label ">
+                <span class="width-80-purcent inline-block">
+                    {{'invoices.label.client.ref.invoice' | translate}}
+                </span>
+                <span class="text-right font-bigger">
+                    <a (click)="seeInvoice(invoice)"><i class="ion-eye"></i></a>
+                </span>
+
+            </div>
         </td>
-        <td (click)="goToDetail(invoice)">
+        <td (click)="goToDetail(invoice)" class="text-click">
             <span class="invoiceList-label">{{'invoices.label.date' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.date | date: 'dd MMM. yyyy'}}</span>
         </td>
-        <td (click)="goToDetail(invoice)">
+        <td (click)="goToDetail(invoice)" class="text-click">
             <span class="invoiceList-label">{{'invoices.label.deal' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.business?.name}}</span>
         </td>
-        <td (click)="goToDetail(invoice)">
+        <td (click)="goToDetail(invoice)" class="text-click">
             <span class="invoiceList-label">{{'invoices.label.amount' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.amount}}</span>
         </td>
-        <td (click)="goToDetail(invoice)">
+        <td (click)="goToDetail(invoice)" class="text-click">
             <span class="invoiceList-label">{{'invoices.label.tva' | translate}}: </span>
             <span class="invoiceList-value">{{invoice.vats[0]?.amount ? invoice.vats[0]?.amount : '0.0'}} %</span>
         </td>
         <td>
             <span class="invoiceList-label">{{'invoices.label.status' | translate}}</span>
         </td>
-        <td>
-            <span class="invoiceList-label">
-            <a (click)="seeInvoice(invoice)"><i class="ion-eye"></i></a>
-            <a (click)="downloadInvoice(invoice)"><i class="ion-code-download"></i></a>
-                </span>
-
+        <td class="text-center font-bigger">
+            <div>
+                <a (click)="downloadInvoice(invoice)"><i class="ion-code-download"></i></a>
+            </div>
         </td>
     </tr>
 
     <tr>
-        <td rowspan="2" (click)="goToDetail(invoice)">
+        <td rowspan="2" (click)="goToDetail(invoice)" class="text-click">
             <div class="invoiceList-value text">{{invoice.buyer.name}}</div>
             <div class="invoiceList-value text blue-text">{{invoice.object}}</div>
         </td>
-        <td rowspan="2" (click)="goToDetail(invoice)">
+        <td rowspan="2" (click)="goToDetail(invoice)" class="text-click">
             <span class="invoiceList-label">{{'invoices.label.deadlineDate' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.dueDate | date: 'dd MMM. yyyy'}}</span>
         </td>
-        <td rowspan="2" (click)="goToDetail(invoice)">
+        <td rowspan="2" (click)="goToDetail(invoice)" class="text-click">
             <span class="invoiceList-label">{{'invoices.label.type' | translate}}:</span>
             <span class="invoiceList-value">{{'invoice.kind.' + invoice.kind | translate}}</span>
         </td>
-        <td rowspan="2" (click)="goToDetail(invoice)">
+        <td rowspan="2" (click)="goToDetail(invoice)" class="text-click">
             <span class="invoiceList-label">{{'invoices.label.freeTaxAmount' | translate}}:</span>
             <span class="invoiceList-value">{{invoice.netAmount | currency:'EUR':'symbol':'4.2-2':'fr'}}</span>
         </td>
-        <td rowspan="2" (click)="goToDetail(invoice)">
+        <td rowspan="2" (click)="goToDetail(invoice)" class="text-click">
             <span class="invoiceList-label"><img src="assets/images/svg/icon_attachments.svg"> :</span>
             <span class="invoiceList-value">{{invoice.attachments?.length}}</span>
         </td>

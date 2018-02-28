@@ -48,7 +48,6 @@
 @include new('invoiceList') {
   padding: rem-calc(10px);
   border-spacing: 0;
-  cursor: pointer;
 
   @include has('row') {
     background-color: $content-dark-list-color;
@@ -93,6 +92,14 @@
   @include has('value') {
     color: $body-dark-font-color;
     font-weight: 500;
+  }
+
+  .width-80-purcent {
+    width: 88%;
+  }
+
+  .inline-block {
+    display: inline-block;
   }
 }
 
