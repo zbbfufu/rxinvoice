@@ -35,13 +35,14 @@ export class AuthenticationService {
     return this.onAuthentication();
   }
 
-  public fetchCurrent(): Observable<User> {
-    return this.http.get(this.baseUrl + '/current', { withCredentials: true })
+  public fetchCurrent() {
+      this.http.get(this.baseUrl + '/current', { withCredentials: true })
       .map((result: any) => result.principal)
-      .do(
+      .subscribe(
         (user: User) => this.currentUser.next(user),
         () => this.currentUser.next(null)
       );
+      return this.currentUser;
   }
 
   public current(): User {
