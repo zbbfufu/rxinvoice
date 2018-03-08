@@ -122,6 +122,7 @@ $media-xl : 'screen and (min-width: 80em)';
 
   &.options {
     margin: 0;
+    border-radius: 0;
 
     .style-guide-preview-container { border-bottom: 1px solid $sg-background-color;}
     .style-guide-code { border-bottom: 1px solid lighten($style-guide-code, 5%);}
@@ -137,7 +138,6 @@ $media-xl : 'screen and (min-width: 80em)';
 
     .style-guide-preview-content {
       width: 100%;
-      text-align: center;
       justify-content: center;
 
       &.left-content {text-align: left;}
