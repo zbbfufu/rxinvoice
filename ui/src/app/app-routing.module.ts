@@ -14,6 +14,7 @@ import {TypographyGuideComponent} from './style-guide-module/typography-guide/ty
 import {IconsGuideComponent} from './style-guide-module/icons-guide/icons-guide.component';
 import {ButtonsGuideComponent} from './style-guide-module/buttons-guide/buttons-guide.component';
 import {FormsGuideComponent} from './style-guide-module/forms-guide/forms-guide.component';
+import {DashboardGuideComponent} from "./style-guide-module/dashboard-guide/dashboard-guide.component";
 
 const routes: Routes = [
     {path: 'login', pathMatch: 'full', component: LoginComponent},
@@ -37,11 +38,13 @@ const routes: Routes = [
     { path: 'guide',
         component: StyleguideComponent,
         children: [
+            {path: 'dashboard', component: DashboardGuideComponent},
             {path: 'colors', component: ColorsGuideComponent},
             {path: 'typography', component: TypographyGuideComponent},
             {path: 'icons', component: IconsGuideComponent},
             {path: 'buttons', component: ButtonsGuideComponent},
-            {path: 'forms', component: FormsGuideComponent}
+            {path: 'forms', component: FormsGuideComponent},
+            {path: '**', redirectTo: 'dashboard'}
         ]
     },
 ];

@@ -45,7 +45,7 @@ import {FileUploadModule} from 'ng2-file-upload';
 import {ToggleComponent} from './common/components/toggle-boolean/toggle.component';
 import {OrderByPipe} from './common/pipes/orderBy.pipe';
 import {DownloadInvoiceService} from './common/services/download-invoice.service';
-import { SquickStatusEditPanelComponent } from './common/components/squick-status-edit-panel/squick-status-edit-panel.component';
+import {SquickStatusEditPanelComponent } from './common/components/squick-status-edit-panel/squick-status-edit-panel.component';
 
 
 export function createTranslateLoader(http: HttpClient) {

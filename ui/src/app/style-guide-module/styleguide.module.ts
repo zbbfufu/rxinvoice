@@ -9,6 +9,7 @@ import { TypographyGuideComponent } from './typography-guide/typography-guide.co
 import { IconsGuideComponent } from './icons-guide/icons-guide.component';
 import { FormsGuideComponent } from './forms-guide/forms-guide.component';
 import { ButtonsGuideComponent } from './buttons-guide/buttons-guide.component';
+import {DashboardGuideComponent} from "./dashboard-guide/dashboard-guide.component";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { ButtonsGuideComponent } from './buttons-guide/buttons-guide.component';
     TypographyGuideComponent,
     IconsGuideComponent,
     FormsGuideComponent,
-    ButtonsGuideComponent
+    ButtonsGuideComponent,
+    DashboardGuideComponent,
   ]
 })
 export class StyleguideModule { }

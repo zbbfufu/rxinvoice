@@ -33,6 +33,7 @@ $sg-style-guide-note-font :      #4c4646;
 $sg-color-block-boxshadow:       rgba(#4c637b, 0.8);
 $sg-code-sample-border-color :   #7B8C9C;
 $border-content-container :      #7B8C9C;
+$style-guide-code :              #20252c;
 
 // == Fontastic // Icons section var
 // => ftc == fontastic
@@ -89,6 +90,11 @@ $media-xl : 'screen and (min-width: 80em)';
   }
 }
 
+.style-guide-sub-title {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
 //==== Style Guide Content Type
 
 .style-guide-content-type {
@@ -102,6 +108,74 @@ $media-xl : 'screen and (min-width: 80em)';
       font-size: 15px;
       color: #4c637b;
     }
+  }
+}
+
+.style-guide-element {
+  display: flex;
+  align-items: align-items;
+  justify-content: center;
+  margin-bottom: 16px;
+  background: white;
+  border-radius: 3px;
+  overflow: hidden;
+
+  &.options {
+    margin: 0;
+
+    .style-guide-preview-container { border-bottom: 1px solid $sg-background-color;}
+    .style-guide-code { border-bottom: 1px solid lighten($style-guide-code, 5%);}
+  }
+
+  .style-guide-preview-container {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding: 16px;
+
+    &.black { background-color: $style-guide-code;}
+
+    .style-guide-preview-content {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+
+      &.left-content {text-align: left;}
+
+      button {
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .style-guide-code {
+    width: 50%;
+    background: $style-guide-code;
+    padding: 16px;
+
+    .toolbar-item {
+
+      a {
+        position: absolute !important;
+        right: 0;
+        bottom: 0;
+        background: white;
+        border-radius: 4px 0 0 0;
+      }
+    }
+  }
+}
+
+.style-guide-list-options {
+  text-align: center;
+
+  li {
+    display: inline-block;
+    color: white;
+    padding: 0 16px;
+    border-right: 1px solid white;
+
+    &:last-child { border: none;}
   }
 }
 
@@ -211,6 +285,8 @@ pre.style-guide-code {
 }
 
 .style-guide-note {
+  display: block;
+  width: 100%;
   margin-bottom: 16px;
   padding: 16px;
   background: $sg-style-guide-note-bg;
@@ -299,8 +375,17 @@ pre.style-guide-code {
       }
     }
   }
-}
 
-// ================================================
-// ==== Extract from generated IONICONS CSS and update.
-// ================================================
+  .style-guide-item-section-nav {
+    margin-top: 24px;
+
+    &:first-child { margin-top: 0;}
+
+    a:hover { background-color: transparent !important;}
+  }
+
+  .style-guide-sub-nav {
+    margin: 0;
+    height: auto !important;
+  }
+}
