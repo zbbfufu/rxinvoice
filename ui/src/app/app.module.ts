@@ -40,12 +40,12 @@ import {TabComponent} from './common/components/tabs/tab.component';
 import {TabsComponent} from './common/components/tabs/tabs.component';
 import {ActivityService} from './common/services/activity.service';
 import {SweetAlertService} from './common/services/sweetAlert.service';
-import {StyleguideModule} from './style-guide-module/styleguide.module';
 import {FileUploadModule} from 'ng2-file-upload';
 import {ToggleComponent} from './common/components/toggle-boolean/toggle.component';
 import {OrderByPipe} from './common/pipes/orderBy.pipe';
 import {DownloadInvoiceService} from './common/services/download-invoice.service';
 import {SquickStatusEditPanelComponent } from './common/components/squick-status-edit-panel/squick-status-edit-panel.component';
+import {StyleGuideModule} from './style-guide-module/style-guide.module';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -95,7 +95,7 @@ export function createTranslateLoader(http: HttpClient) {
         HttpClientModule,
         NgSelectModule,
         DpDatePickerModule,
-        StyleguideModule,
+        StyleGuideModule,
         FileUploadModule,
         TranslateModule.forRoot({
             loader: {

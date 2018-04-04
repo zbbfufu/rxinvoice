@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {InvoiceModel} from '../../../models/invoice.model';
 import {Router} from '@angular/router';
 import {DownloadInvoiceService} from '../../services/download-invoice.service';
@@ -12,6 +12,7 @@ export class InvoicesListComponent {
 
     @Input() invoices: InvoiceModel[];
     @Input() isPending: false;
+    @Output() quickUpdate:  EventEmitter<InvoiceModel> = new EventEmitter();
 
     constructor(private router: Router,
                 private downloadService: DownloadInvoiceService) { }

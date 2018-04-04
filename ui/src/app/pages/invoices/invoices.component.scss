@@ -32,3 +32,12 @@ invoices-list {
 @include new('invoiceDetail') {
   margin: rem-calc(35px 0 0 0);
 }
+
+
+.showPanel {
+  right: 0!important;
+}
+
+.hidePanel {
+  right: -100% !important;
+}

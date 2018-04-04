@@ -26,6 +26,8 @@ export class InvoicesComponent implements OnInit {
     public kinds: InvoiceKindType[];
     public filterString = 'object';
     public isPending = true;
+    public showQuickPanelStatusEdit = false;
+    public selectedForQuickUpdate: InvoiceModel;
 
     constructor(private fb: FormBuilder,
                 private invoiceService: InvoiceService,
@@ -86,5 +88,16 @@ export class InvoicesComponent implements OnInit {
         } else {
             return 0;
         }
+    }
+
+    public selectForQuickUpdate(invoice) {
+        this.selectedForQuickUpdate = invoice;
+        this.showQuickPanelStatusEdit = true;
+    }
+
+
+    public updatedInvoice(invoice) {
+        this.selectedForQuickUpdate = invoice;
+        this.showQuickPanelStatusEdit = false;
     }
 }

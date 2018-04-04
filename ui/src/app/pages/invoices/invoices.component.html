@@ -1,5 +1,6 @@
 <!-- [HEADER] -->
 
+
 <form class="invoiceFilter" [formGroup]="searchForm">
     <div class="row">
         <div class="columns shrink">
@@ -31,8 +32,8 @@
         </div>
 
         <div class="columns auto inner-space-top-5">
-                <input class="input search" type="text" placeholder="{{'invoice.search.name' | translate}}"
-                      formControlName="query">
+            <input class="input search" type="text" placeholder="{{'invoice.search.name' | translate}}"
+                   formControlName="query">
         </div>
 
         <div class="columns small-14 inner-space-top-5">
@@ -89,7 +90,8 @@
         <!-- Invoice number -->
 
         <div class="invoiceNumber columns small-8 inner-space-top-8">
-            <h6> <strong class="nb">{{ invoices && invoices.length ? invoices.length : 0 }}</strong> {{'invoices.total.number' | translate}}
+            <h6><strong class="nb">{{ invoices && invoices.length ? invoices.length : 0 }}</strong>
+                {{'invoices.total.number' | translate}}
                 <strong class="nb">{{getGrossAmount()}}</strong></h6>
         </div>
 
@@ -110,4 +112,9 @@
 
 <!-- [END HEADER] -->
 
-<invoices-list [invoices]="invoices | orderBy: filterString" [isPending]="isPending"></invoices-list>
+<invoices-list [invoices]="invoices | orderBy: filterString"
+               (quickUpdate)="selectForQuickUpdate($event)" [isPending]="isPending"></invoices-list>
+
+<squick-status-edit-panel [attr.class]="showQuickPanelStatusEdit ? 'showPanel': 'hidePanel'"
+                          [invoice]="selectedForQuickUpdate" [showQuickPanelStatusEdit]="showQuickPanelStatusEdit"
+                          (invoiceUpdate)="updatedInvoice($event)"></squick-status-edit-panel>

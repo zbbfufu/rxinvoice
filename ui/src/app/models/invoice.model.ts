@@ -53,7 +53,7 @@ export class InvoiceModel {
                 if (filename) {
                     filename += '_';
                 }
-                    filename += invoice.date;
+                    filename += (new DatePipe('fr')).transform(invoice.date, 'MMMM yyyy');
             }
         }
         if (!filename) {

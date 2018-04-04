@@ -11,7 +11,6 @@
                     {{'invoices.label.client.ref.invoice' | translate}}
                 </span>
                 <span class="text-right font-bigger">
-                    <a (click)="seeInvoice(invoice)"><i class="ion-eye"></i></a>
                 </span>
 
             </div>
@@ -64,7 +63,7 @@
             <span class="invoiceList-value">{{invoice.attachments?.length}}</span>
         </td>
         <td rowspan="2">
-            <div class="invoiceList-value status {{invoice.status}}">{{ 'invoice.status.' + invoice.status | translate}}</div>
+            <div class="invoiceList-value text-click status {{invoice.status}}" (click)="quickUpdate.emit(invoice)">{{ 'invoice.status.' + invoice.status | translate}}</div>
         </td>
         <td rowspan="2">
             <button class="button btn small primary force-inner-space-left-2 force-inner-space-right-2">

@@ -18,39 +18,5 @@
   </app-root>
 </body>
 
-<script type="text/javascript" src="assets/js/prism.js"></script>
-<script>
-    (function() {
-        var languageItems = [];
-        var languages = components.languages;
-        var count = 0;
-        for (var id in languages) {
-            if (id == 'meta') {
-                continue;
-            }
-            count++;
-            var name = languages[id].title || languages[id];
-
-            languageItems.push({
-                tag: 'li',
-                attributes: {
-                    'data-id': id
-                },
-                contents: [
-                    name,
-                    ' - ',
-                    {
-                        tag: 'code',
-                        contents: id
-                    }
-                ]
-            });
-        }
-        $u.element.create('ul', {
-            contents: languageItems,
-            inside: '#languages-list'
-        });
-        $u.element.contents($('#languages-list-count'), count);
-    }());
-</script>
+<script type="text/javascript" src="assets/prism.js" data-manual></script>
 </html>
