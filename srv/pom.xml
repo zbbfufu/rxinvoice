@@ -5,12 +5,12 @@
     <parent>
         <groupId>rxinvoice</groupId>
         <artifactId>rxinvoice-parent</artifactId>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <groupId>rxinvoice</groupId>
     <artifactId>rxinvoice-srv</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
