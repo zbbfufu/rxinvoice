@@ -77,7 +77,7 @@
                     </div>
                 </div>
 
-                <div class="row align-middle invoiceDetail-container-label" *ngIf="invoice.date">
+                <div class="row align-middle invoiceDetail-container-label" *ngIf="form.controls.date">
                     <h6 class="column small-8"> {{'invoice.label.invoice.date' | translate}}</h6>
                     <div class="column">
                         <date-picker [control]="form.controls.date"
