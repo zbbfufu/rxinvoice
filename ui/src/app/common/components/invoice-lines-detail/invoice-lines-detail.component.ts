@@ -35,6 +35,8 @@ export class InvoiceLinesDetailComponent implements OnInit {
 
     public deletedLine(lineToRemove) {
         this.lines = this.lines.filter(line => line !== lineToRemove);
+        this.linesChange.emit(this.lines);
+        this.lineForm.reset();
     }
 
 }
