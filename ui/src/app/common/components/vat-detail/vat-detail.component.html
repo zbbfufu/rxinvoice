@@ -4,7 +4,6 @@
             <h6 class="column small-24 title-section">{{'company.vats' | translate}}</h6>
             <hr class="column small-24">
         </div>
-
         <form *ngIf="editMode" novalidate
               class="row newCustomerDetail-container" #vatForm="ngForm"
               (submit)="addVat()">

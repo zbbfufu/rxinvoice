@@ -24,11 +24,14 @@ export class VatDetailComponent implements OnInit {
     public addVat() {
         const newVat = plainToClass(VATModel, this.vatForm.value as Object);
         this.vats.push(newVat);
+        console.log(this.vats);
         this.vatsChange.emit(this.vats);
         this.vatForm.reset();
     }
 
     public deletedVat(vatToRemove) {
         this.vats = this.vats.filter(vat => vat !== vatToRemove);
+        this.vatsChange.emit(this.vats);
+        this.vatForm.reset();
     }
 }

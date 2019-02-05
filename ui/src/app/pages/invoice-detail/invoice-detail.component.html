@@ -124,7 +124,7 @@
 
         <div class="column auto" *ngIf="invoice">
             <invoice-lines-detail [(lines)]="invoice.lines" [editMode]="form.enabled"></invoice-lines-detail>
-            <vat-detail [editMode]="form.enabled" [(vats)]="invoice.vats" [hidden]="!form.controls['withVAT'].value"></vat-detail>
+            <vat-detail [(vats)]="invoice.vats" [editMode]="form.enabled" [hidden]="!form.controls['withVAT'].value"></vat-detail>
             <attachments-detail *ngIf="invoice && invoice._id"
                                 [invoiceId]="invoiceId"
                                 [editMode]="form.enabled"
