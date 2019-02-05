@@ -109,7 +109,9 @@ export class InvoiceDetailComponent implements OnInit {
 
     public create(): void {
         this.form.disable();
-        this.invoice = new InvoiceModel();
+        if (!this.invoice) {
+            this.invoice = new InvoiceModel();
+        }
         _.merge(this.invoice, this.invoice, this.form.value);
         this.invoiceService.createInvoice(this.invoice).subscribe((invoice) => {
                 this.invoice = invoice;
@@ -182,12 +184,10 @@ export class InvoiceDetailComponent implements OnInit {
             this.companyService.fetchCompany(value._id)
                 .subscribe(company => {
                     this.selectedCompany = company;
-                    this.invoice.vats = company.vats;
                     console.log('company: ', company);
                 });
         } else {
             this.selectedCompany = undefined;
-            this.invoice.vats = undefined;
         }
     }
 
