@@ -30,6 +30,8 @@ export class BusinessDetailComponent implements OnInit {
 
     public deletedBusiness(bsnToRemove) {
         this.business = this.business.filter(bsn => bsn !== bsnToRemove);
+        this.businessChange.emit(this.business);
+        this.bsnForm.reset();
     }
 
 }

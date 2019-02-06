@@ -11,13 +11,26 @@
 
                 <div class="row align-middle newCustomerDetail-container-content">
                     <h6 class="column shrink">{{'newCustomer.label.designation' | translate}}</h6>
-                    <div class="column auto"><input type="text" ngModel required name="name" maxlength="30"></div>
+                    <div class="column auto">
+                        <input type="text"
+                               class="form-control"
+                               ngModel required name="name"
+                               maxlength="30">
+                    </div>
 
                     <h6 class="column shrink">{{'newCustomer.label.caInvoiced' | translate}}</h6>
-                    <div class="column auto"><input type="number" ngModel name="caInvoiced"></div>
+                    <div class="column auto">
+                        <input type="number"
+                               class="form-control"
+                               ngModel required name="caInvoiced">
+                    </div>
 
                     <h6 class="column shrink">{{'newCustomer.label.caFixed' | translate}}</h6>
-                    <div class="column auto"><input type="number" ngModel name="caFixed"></div>
+                    <div class="column auto">
+                        <input type="number"
+                               class="form-control"
+                               ngModel required name="caFixed">
+                    </div>
 
                     <button *ngIf="editMode" type="submit"
                             [disabled]="!bsnForm.valid"
@@ -42,19 +55,25 @@
                         <h6 class="column shrink">{{'newCustomer.label.designation' | translate}}</h6>
                         <div class="column auto">
                             <input type="text" required
-                                   [ngModel]="business[i].name"
+                                   name="name"
+                                   class="form-control"
+                                   [(ngModel)]="business[i].name"
                                    [(disabled)]="!editMode">
                         </div>
 
                         <h6 class="column shrink">{{'newCustomer.label.caInvoiced' | translate}}</h6>
                         <div class="column auto">
-                            <input type="number" [ngModel]="business[i].caInvoiced"
+                            <input type="number" [(ngModel)]="business[i].caInvoiced"
+                                   name="caInvoice"
+                                   class="form-control"
                                    [(disabled)]="!editMode">
                         </div>
 
                         <h6 class="column shrink">{{'newCustomer.label.caFixed' | translate}}</h6>
                         <div class="column auto">
-                            <input type="number" [ngModel]="business[i].caFixed"
+                            <input type="number" [(ngModel)]="business[i].caFixed"
+                                   name="caFixed"
+                                   class="form-control"
                                    [(disabled)]="!editMode">
                         </div>
 

@@ -81,7 +81,9 @@ export class CustomerDetailComponent implements OnInit {
     }
 
     public create() {
-        this.customer = new CompanyModel;
+        if (!this.customer) {
+            this.customer = new CompanyModel();
+        }
         _.merge(this.customer, this.customer, this.form.value);
         this.companyService.createCompany(this.customer).subscribe((company) => {
                 this.customer = company;
