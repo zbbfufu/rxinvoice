@@ -24,7 +24,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {CommonModule, CurrencyPipe, DatePipe} from '@angular/common';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
-import {DpDatePickerModule} from 'ng2-date-picker';
 import {InvoiceService} from './common/services/invoice.service';
 import {RepositoryService} from './common/services/repository.service';
 import {CompanyService} from './common/services/company.service';
@@ -46,6 +45,7 @@ import {OrderByPipe} from './common/pipes/orderBy.pipe';
 import {DownloadInvoiceService} from './common/services/download-invoice.service';
 import {SquickStatusEditPanelComponent } from './common/components/squick-status-edit-panel/squick-status-edit-panel.component';
 import {StyleGuideModule} from './style-guide-module/style-guide.module';
+import {DpDatePickerModule} from "ng2-date-picker";
 
 
 export function createTranslateLoader(http: HttpClient) {

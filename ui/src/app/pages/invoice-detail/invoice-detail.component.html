@@ -80,8 +80,7 @@
                 <div class="row align-middle invoiceDetail-container-label" *ngIf="form.controls.date">
                     <h6 class="column small-8"> {{'invoice.label.invoice.date' | translate}}</h6>
                     <div class="column">
-                        <date-picker [control]="form.controls.date"
-                                     [utcMode]="true" [disabled]="form.disabled"></date-picker>
+                        <date-picker formControlName="date"></date-picker>
                     </div>
                 </div>
 
@@ -94,8 +93,7 @@
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.label.dueDate' | translate}}</h6>
                     <div class="column">
-                        <date-picker [control]="form.controls.dueDate"
-                                     [utcMode]="true" [disabled]="form.disabled"></date-picker>
+                        <date-picker formControlName="dueDate"></date-picker>
                     </div>
                 </div>
 

@@ -127,7 +127,6 @@ public class InvoiceResource {
         if (invoice.getStatus() != invoiceFromDB.getStatus()) {
             handleStatusChange(invoice);
         }
-
         return invoice;
     }
 

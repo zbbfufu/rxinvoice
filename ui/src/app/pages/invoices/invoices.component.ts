@@ -4,13 +4,14 @@ import {InvoiceKindType} from '../../models/invoice-kind.type';
 import {InvoiceModel} from '../../models/invoice.model';
 import {InvoiceService} from '../../common/services/invoice.service';
 import {RepositoryService} from '../../common/services/repository.service';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounce';
 import 'rxjs/add/operator/debounceTime';
 import {CurrencyPipe} from '@angular/common';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-
+import * as moment from 'moment';
+import {DateUtils} from "../../common/utils/date-utils";
 
 @Component({
     selector: 'invoices',
@@ -36,7 +37,7 @@ export class InvoicesComponent implements OnInit {
                 private route: ActivatedRoute) {
         this.searchForm = fb.group({
             query: '',
-            startDate: '',
+            startDate: moment().subtract(7, 'days').toDate(),
             endDate: '',
             buyerRef: '',
             statuses: '',
@@ -46,18 +47,26 @@ export class InvoicesComponent implements OnInit {
 
     ngOnInit() {
         const once = this.route.queryParamMap.subscribe((params: Params) => {
-            this.searchForm.patchValue(params.params);
+            let searchParams = Object.assign({}, params.params);
+            if(searchParams.startDate) {
+                searchParams.startDate = DateUtils.stringToDate(searchParams.startDate);
+            }
+            if(searchParams.endDate) {
+                searchParams.endDate = DateUtils.stringToDate(searchParams.endDate);
+            }
+            this.searchForm.patchValue(searchParams);
         });
         this.repositoryService.fetchInvoiceStatus()
             .subscribe(statuses => this.statusTypes = statuses);
         this.kinds = this.repositoryService.fetchInvoiceKind();
         this.searchForm.valueChanges
-            .debounceTime(2000)
+            .debounceTime(250)
             .distinctUntilChanged()
             .subscribe(() => {
                if (once) {once.unsubscribe(); }
                 this.research();
             });
+        this.research();
     }
 
     toggleFilter(string) {
@@ -73,7 +82,14 @@ export class InvoicesComponent implements OnInit {
                     this.invoices = invoices;
                     this.isPending = false;
                     console.log('invoices :', invoices);
-                    this.router.navigate([], {replaceUrl: false, queryParams: this.searchForm.value });
+                    let searchParams = Object.assign({}, this.searchForm.value);
+                    if(searchParams.startDate) {
+                        searchParams.startDate = DateUtils.dateToString(searchParams.startDate);
+                    }
+                    if(searchParams.endDate) {
+                        searchParams.endDate = DateUtils.dateToString(searchParams.endDate);
+                    }
+                    this.router.navigate([], {replaceUrl: false, queryParams: searchParams});
                 },
                 () => this.isPending = false);
     }

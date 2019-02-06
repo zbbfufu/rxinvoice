@@ -14,6 +14,7 @@ import {AttachmentsDetailComponent} from '../../common/components/attachments-de
 import {Location} from '@angular/common';
 import {User} from '../../models/user.model';
 import {AuthenticationService} from '../../common/services/authentication.service';
+import {DateUtils} from "../../common/utils/date-utils";
 
 @Component({
     selector: 'invoice-detail',
@@ -77,8 +78,8 @@ export class InvoiceDetailComponent implements OnInit {
             object: this.invoice.object,
             business: this.invoice.business,
             kind: this.invoice.kind,
-            date: this.invoice.date,
-            dueDate: this.invoice.dueDate,
+            date: DateUtils.stringToDate(this.invoice.date),
+            dueDate: DateUtils.stringToDate(this.invoice.dueDate),
             status: this.invoice.status,
             comment: this.invoice.comment,
             reference: this.invoice.reference,
@@ -96,7 +97,6 @@ export class InvoiceDetailComponent implements OnInit {
             if (this.invoiceId) {
                 this.invoiceService.fetchInvoice(this.invoiceId)
                     .subscribe((invoice: InvoiceModel) => {
-                        console.log(invoice);
                         this.invoice = invoice;
                         if (invoice.buyer) {
                             this.fetchBuyer(invoice.buyer);
@@ -132,6 +132,7 @@ export class InvoiceDetailComponent implements OnInit {
         this.invoiceService.saveInvoice(this.invoice)
             .subscribe(() => {
                     this.fetchInvoice();
+                    console.log(this.invoice);
                     this.alertService.success({title: 'alert.update.success', customClass: 'swal2-for-edit'});
                 },
                 () => {
@@ -184,7 +185,6 @@ export class InvoiceDetailComponent implements OnInit {
             this.companyService.fetchCompany(value._id)
                 .subscribe(company => {
                     this.selectedCompany = company;
-                    console.log('company: ', company);
                 });
         } else {
             this.selectedCompany = undefined;
@@ -195,4 +195,6 @@ export class InvoiceDetailComponent implements OnInit {
     public goBack(): void  {
         this.location.back();
     }
+
+
 }

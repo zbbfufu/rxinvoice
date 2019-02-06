@@ -1,4 +1,5 @@
 import { HttpParams } from '@angular/common/http';
+import * as moment from 'moment';
 
 export class SearchParams {
 
@@ -12,7 +13,7 @@ export class SearchParams {
             .reduce((p, key) => {
                 let value = params[key];
                 if (value instanceof Date) {
-                    value = value.toISOString();
+                    value = moment(value).format('YYYY-MM-DD');
                 } else if (value.getUri) {
                     value = value.getUri();
                 }
