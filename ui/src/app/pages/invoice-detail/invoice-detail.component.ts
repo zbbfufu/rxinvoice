@@ -12,7 +12,6 @@ import * as _ from 'lodash';
 import {SweetAlertService} from '../../common/services/sweetAlert.service';
 import {AttachmentsDetailComponent} from '../../common/components/attachments-detail/attachments-detail.component';
 import {Location} from '@angular/common';
-import {User} from '../../models/user.model';
 import {AuthenticationService} from '../../common/services/authentication.service';
 import {DateUtils} from "../../common/utils/date-utils";
 
