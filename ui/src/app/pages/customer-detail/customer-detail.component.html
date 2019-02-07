@@ -105,7 +105,7 @@
                                     (click)="customer && customer._id  ? save() : create()"
                                     [disabled]="f.invalid || f.pending">
                                 <i class="ion-checkmark-round"></i>
-                                {{( !customer ? 'button.label.create' : 'button.label.update') |
+                                {{( !customer ? 'button.label.create' : 'button.label.save') |
                                 translate}}
                             </button>
                             <button *ngIf="!editMode"
