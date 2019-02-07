@@ -14,6 +14,7 @@ import {AttachmentsDetailComponent} from '../../common/components/attachments-de
 import {Location} from '@angular/common';
 import {AuthenticationService} from '../../common/services/authentication.service';
 import {DateUtils} from "../../common/utils/date-utils";
+import {DownloadInvoiceService} from "../../common/services/download-invoice.service";
 
 @Component({
     selector: 'invoice-detail',
@@ -41,7 +42,8 @@ export class InvoiceDetailComponent implements OnInit {
                 private router: Router,
                 private alertService: SweetAlertService,
                 private location: Location,
-                private authService: AuthenticationService) {
+                private authService: AuthenticationService,
+                private downloadService: DownloadInvoiceService) {
     }
 
     ngOnInit() {
@@ -190,10 +192,12 @@ export class InvoiceDetailComponent implements OnInit {
         }
     }
 
-
     public goBack(): void  {
         this.location.back();
     }
 
+    public download() {
+        this.downloadService.downloadInvoice(this.invoice);
+    }
 
 }

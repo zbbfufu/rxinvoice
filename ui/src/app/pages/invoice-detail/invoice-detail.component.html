@@ -164,6 +164,14 @@
                     </button>
                 </div>
 
+                <div class="columns shrink" *ngIf="invoiceId">
+                    <button class="button medium grey ripple"
+                            type="button"
+                            (click)="download()">
+                        <i class="ion-code-download"></i>{{'button.label.download' | translate}}
+                    </button>
+                </div>
+
                 <div class="columns medium" *ngIf="invoiceId">
                     <button *ngIf="form.enabled"
                             class="button medium grey ripple"
