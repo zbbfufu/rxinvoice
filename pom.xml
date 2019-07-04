@@ -27,8 +27,8 @@
             </activation>
             <id>all</id>
             <modules>
-                <module>srv</module>
                 <module>ui</module>
+                <module>srv</module>
             </modules>
         </profile>
         <profile>
