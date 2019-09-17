@@ -52,7 +52,7 @@
                             </div>
 
                             <div class="column small-2">
-                                <input type="number"
+                                <input type="number" required
                                        class="form-control"
                                        [disabled]="!editMode"
                                        [(ngModel)]="amount" name="amount">
@@ -61,7 +61,7 @@
                             <div class="columns auto text-right">
                                 <button *ngIf="editMode"
                                         type="submit"
-                                        [disabled]="lineForm.invalid && amount"
+                                        [disabled]="lineForm.invalid"
                                         class="round medium primary ripple columns shrink">
                                     <i class="ion-plus-round"></i>
                                 </button>
@@ -95,28 +95,33 @@
                                 <input type="text"
                                        class="form-control"
                                        [disabled]="!editMode"
-                                       [(ngModel)]="line.description" required name="description">
+                                       [(ngModel)]="line.description"
+                                       required
+                                       name="description">
                             </div>
 
                             <div class="column small-3">
                                 <input type="number"
                                        class="form-control"
                                        [disabled]="!editMode"
-                                       [(ngModel)]="line.quantity" name="quantity">
+                                       [(ngModel)]="line.quantity"
+                                       name="quantity">
                             </div>
 
                             <div class="column small-3">
                                 <input type="number"
                                        class="form-control"
                                        [disabled]="!editMode"
-                                       [(ngModel)]="line.unitCost" name="unitCost">
+                                       [(ngModel)]="line.unitCost"
+                                       name="unitCost">
                             </div>
 
                             <div class="column small-4">
                                 <input type="number"
                                        class="form-control"
                                        [disabled]="!editMode"
-                                       [(ngModel)]="line.grossAmount" name="grossAmount">
+                                       [(ngModel)]="line.grossAmount"
+                                       name="grossAmount">
                             </div>
 
                             <div class="column small-2">
@@ -124,7 +129,9 @@
                                         type="number"
                                        class="form-control"
                                        [disabled]="!editMode"
-                                       [(ngModel)]="line.vat.amount" name="amount">
+                                       [(ngModel)]="line.vat.amount"
+                                       required
+                                       name="amount">
                             </div>
                             <!--FIXME  CSS  add disabled class management to 'round' button  -->
                             <div class="columns auto text-right">

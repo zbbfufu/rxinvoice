@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CompanyModel} from '../../models/company.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ControlContainer, FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {CompanyService} from '../../common/services/company.service';
 import {InvoiceModel} from '../../models/invoice.model';
 import {InvoiceService} from '../../common/services/invoice.service';
@@ -19,7 +19,8 @@ import {DownloadInvoiceService} from "../../common/services/download-invoice.ser
 @Component({
     selector: 'invoice-detail',
     templateUrl: './invoice-detail.component.html',
-    styleUrls: ['./invoice-detail.component.scss']
+    styleUrls: ['./invoice-detail.component.scss'],
+    viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 export class InvoiceDetailComponent implements OnInit {
 
