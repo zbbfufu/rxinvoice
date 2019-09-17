@@ -30,8 +30,6 @@ import rxinvoice.rest.BlobService;
 import rxinvoice.rest.events.InvoiceUpdatedEvent;
 
 import javax.inject.Named;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
@@ -51,19 +49,16 @@ public class InvoiceService {
     private final JongoCollection invoices;
 
     private final BlobService blobService;
-    private final InvoiceExportService invoiceExportService;
     private final CompanyService companyService;
 
     private final EventBus eventBus;
 
     public InvoiceService(@Named("invoices") JongoCollection invoices,
                           BlobService blobService,
-                          InvoiceExportService invoiceExportService,
                           CompanyService companyService,
                           EventBus eventBus) {
         this.invoices = invoices;
         this.blobService = blobService;
-        this.invoiceExportService = invoiceExportService;
         this.companyService = companyService;
         this.eventBus = eventBus;
     }
@@ -308,18 +303,6 @@ public class InvoiceService {
         }
 
         blobService.definitiveDelete(attachmentId);
-    }
-
-    public void exportsInvoices(RestxResponse response, InvoiceSearchFilter invoiceSearchFilter) {
-        Iterable<Invoice> invoices = this.findInvoices(invoiceSearchFilter);
-
-        try (OutputStream outputStream = response.getOutputStream()) {
-            invoiceExportService.exportInvoices(invoices, outputStream);
-            outputStream.flush();
-        } catch (IOException e) {
-            logger.error(e.getMessage(), e);
-            throw new RuntimeException(e);
-        }
     }
 
     private void updateAmounts(Invoice invoice) {

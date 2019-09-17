@@ -117,20 +117,4 @@ public class InvoiceResource {
     public void deleteInvoice(String invoiceId, String attachmentId) {
         invoiceService.deleteInvoice(invoiceId, attachmentId);
     }
-
-    public void exportsInvoices(RestxResponse response,
-                                Optional<String> startDate, Optional<String> endDate,
-                                Optional<String> statuses, Optional<String> buyerRef,
-                                Optional<String> kind, Optional<String> query) {
-
-        invoiceService.exportsInvoices(response,
-                new InvoiceSearchFilter()
-                        .setStartDate(startDate)
-                        .setEndDate(endDate)
-                        .setStatuses(statuses)
-                        .setBuyerRef(buyerRef)
-                        .setKind(kind)
-                        .setQuery(query));
-    }
-
 }
