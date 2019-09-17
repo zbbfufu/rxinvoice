@@ -89,10 +89,10 @@ public class InvoiceMetricsResource {
         Iterable<Invoice> list = invoices.get().find("{ buyer._id: #}", new ObjectId(company.getKey())).as(Invoice.class);
 
         int nbInvoices = 0;
-        BigDecimal expected = new BigDecimal(0);
-        BigDecimal expired = new BigDecimal(0);
-        BigDecimal invoiced = new BigDecimal(0);
-        BigDecimal paid = new BigDecimal(0);
+        BigDecimal expected = BigDecimal.ZERO;
+        BigDecimal expired = BigDecimal.ZERO;
+        BigDecimal invoiced = BigDecimal.ZERO;
+        BigDecimal paid = BigDecimal.ZERO;
         for (Invoice invoice : list) {
             nbInvoices++;
 
@@ -119,15 +119,6 @@ public class InvoiceMetricsResource {
         companies.get().save(company);
 
         logger.debug("End to compute company metrics for company {}", company.getKey());
-    }
-
-    private BigDecimal divide(BigDecimal a, BigDecimal b) {
-        try {
-            return a.divide(b, BigDecimal.ROUND_HALF_UP);
-        } catch (ArithmeticException ae) {
-            logger.debug("Can not divide", ae);
-            return null;
-        }
     }
 
     public void computeInvoiceMetricsSync(Invoice invoice) {

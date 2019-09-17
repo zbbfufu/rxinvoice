@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-valueNumber">
-                    <h3 class="column small-12 highlight-text-bold">{{ customer?.metrics?.invoiced  | currency:'EUR':'symbol':'4.2-2':'fr' }}</h3>
+                    <h3 class="column small-12 highlight-text-bold">{{ (customer?.metrics?.invoiced +customer?.metrics?.paid) | currency:'EUR':'symbol':'4.2-2':'fr' }}</h3>
                     <h3 class="column small-12 highlight-text-bold">{{ customer?.metrics?.paid  | currency:'EUR':'symbol':'4.2-2':'fr' }}</h3>
                 </div>
 
@@ -142,15 +142,13 @@
                             <div class="row align-right newCustomerAction-container-number-label total-value">
                                 <h6 class="column auto"><i class="ion-android-checkmark-circle"></i>{{'newCustomer.label.totalInvoiced'
                                     | translate}} :</h6>
-                                <!--FIXME totalRevenues missing-->
-                                <span class="total-nb"></span>
+                                <span class="total-nb">{{(customer?.metrics?.expected + customer?.metrics?.paid +customer?.metrics?.invoiced)| currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
 
                             </div>
                             <div class="row align-middle newCustomerAction-container-number-label total-value">
                                 <h6 class="column auto"><i class="ion-arrow-graph-down-right"></i>{{'newCustomer.label.totalDebt'
                                     | translate}} :</h6>
-                                <!--FIXME totalDebts missing-->
-                                <span class="total-nb"></span>
+                                <span class="total-nb">{{customer?.metrics?.expired | currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
                             </div>
                         </div>
                     </div>
