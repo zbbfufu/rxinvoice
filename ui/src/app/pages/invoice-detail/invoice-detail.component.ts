@@ -48,8 +48,10 @@ export class InvoiceDetailComponent implements OnInit {
 
     ngOnInit() {
         this.fetchInvoice();
-        const currentUser = this.authService.current();
-        this.canDelete = currentUser.roles.filter(role => role === 'admin' || role === 'seller').length > 0;
+        this.authService.userEvents
+            .subscribe(currentUser =>
+                this.canDelete = currentUser.roles.filter(role => role === 'admin' || role === 'seller').length > 0);
+
         this.kinds = this.repositoryService.fetchInvoiceKind();
         this.repositoryService.fetchInvoiceStatus()
             .subscribe(statuses => this.statuses = statuses);

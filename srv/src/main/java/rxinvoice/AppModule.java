@@ -7,6 +7,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.jongo.Mapper;
 import org.jongo.marshall.jackson.JacksonMapper;
+import restx.config.ConfigLoader;
+import restx.config.ConfigSupplier;
 import restx.factory.Module;
 import restx.factory.Provides;
 import restx.i18n.SupportedLocale;
@@ -91,6 +93,11 @@ public class AppModule {
                 return Optional.absent();
             }
         };
+    }
+
+    @Provides
+    public ConfigSupplier appConfigSupplier(ConfigLoader configLoader) {
+        return configLoader.fromResource("settings/settings");
     }
 
     @Provides

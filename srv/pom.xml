@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -8,15 +9,14 @@
         <version>0.2.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>rxinvoice</groupId>
     <artifactId>rxinvoice-srv</artifactId>
     <version>0.2.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <restx.version>0.33.1</restx.version>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <restx.version>0.35.1</restx.version>
         <project.war.overlay.groupId>rxinvoice</project.war.overlay.groupId>
         <project.war.overlay.artifactId>rxinvoice</project.war.overlay.artifactId>
     </properties>
@@ -50,6 +50,11 @@
         </dependency>
         <dependency>
             <groupId>io.restx</groupId>
+            <artifactId>restx-core-java8</artifactId>
+            <version>${restx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.restx</groupId>
             <artifactId>restx-jongo</artifactId>
             <version>${restx.version}</version>
         </dependency>
@@ -75,7 +80,7 @@
         </dependency>
         <dependency>
             <groupId>io.restx</groupId>
-            <artifactId>restx-server-jetty</artifactId>
+            <artifactId>restx-server-jetty8</artifactId>
             <version>${restx.version}</version>
         </dependency>
         <dependency>

@@ -9,6 +9,7 @@ import restx.*;
 import restx.factory.Component;
 import restx.http.HttpStatus;
 import restx.security.RestxSessionCookieFilter;
+import rxinvoice.AppModule;
 import rxinvoice.service.PrintService;
 
 import javax.inject.Named;
@@ -29,12 +30,12 @@ public class PrintRoute extends StdRoute {
     private PrintService printService;
 
     public PrintRoute(@Named("restx.server.baseUrl") String serverUrl,
-                      @Named("infoportAddress") Optional<String> infoportUrl,
+                      @Named("serverAddress") Optional<String> serverAddress,
                       RestxSessionCookieFilter sessionFilter,
                       PrintService printService) {
 
         super("print", new StdRestxRequestMatcher("GET", "/print"));
-        this.baseUrl = infoportUrl.or(serverUrl);
+        this.baseUrl = serverAddress.or(serverUrl);
         this.sessionFilter = sessionFilter;
         this.printService = printService;
     }

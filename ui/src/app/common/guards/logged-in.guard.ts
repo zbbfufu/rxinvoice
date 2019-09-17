@@ -3,6 +3,7 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 import {AuthenticationService} from '../services/authentication.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import {map, filter, tap} from "rxjs/operators";
 
 @Injectable()
 export class LoggedInGuard implements CanActivate {
@@ -12,19 +13,14 @@ export class LoggedInGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        const user = this.authService.current();
-        if (user !== undefined && user !== null) {
-            return true;
-        } else {
-            return this.authService.fetchCurrent()
-                .map((fetchUser) => {
-                    if (fetchUser !== undefined && fetchUser !== null) {
-                        return true;
-                    } else {
-                        this.router.navigate(['/login']);
-                        return false;
-                    }
-                });
-        }
+        console.log("WITHIN guard");
+        return this.authService.userEvents.pipe(
+            filter(user => user !== undefined),
+            map(user => user !== null),
+            tap(isConnectedUser => {
+                if (!isConnectedUser) {
+                    this.router.navigateByUrl('/login');
+                }
+            }));
     }
 }

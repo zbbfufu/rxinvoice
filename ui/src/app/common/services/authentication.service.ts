@@ -11,7 +11,7 @@ import {User} from '../../models/user.model';
 @Injectable()
 export class AuthenticationService {
 
-  private currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
+  public userEvents: BehaviorSubject<User> = new BehaviorSubject<User>(undefined);
   private onAuth: Subject<User> = new Subject<User>();
   private baseUrl = '/api/sessions';
 
@@ -26,7 +26,7 @@ export class AuthenticationService {
       .map((result: any) => result.principal)
       .subscribe(
         (user: User) => {
-          this.currentUser.next(user);
+          this.userEvents.next(user);
           this.onAuth.next(user);
         }, (error) => {
           this.onAuth.next(null);
@@ -39,14 +39,14 @@ export class AuthenticationService {
       this.http.get(this.baseUrl + '/current', { withCredentials: true })
       .map((result: any) => result.principal)
       .subscribe(
-        (user: User) => this.currentUser.next(user),
-        () => this.currentUser.next(null)
+        (user: User) => this.userEvents.next(user),
+        () => this.userEvents.next(null)
       );
-      return this.currentUser;
+      return this.userEvents;
   }
 
   public current(): User {
-    return this.currentUser.getValue();
+    return this.userEvents.getValue();
   }
 
   public onAuthentication(): Observable<User> {
@@ -56,7 +56,7 @@ export class AuthenticationService {
   public logout(): void {
     this.http.delete(this.baseUrl + '/current').subscribe(() => {
       console.log('session destroyed');
-      this.currentUser.next(null);
+      this.userEvents.next(null);
         this.router.navigate(['/login']);
     });
   }

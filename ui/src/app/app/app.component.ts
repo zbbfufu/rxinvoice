@@ -17,6 +17,8 @@ export class AppComponent implements OnInit {
                 private router: Router) {}
 
     ngOnInit(): void {
+        console.log("FROM appcomponent");
+        this.authService.fetchCurrent();
         registerLocaleData(localeFr);
         this.translate.setDefaultLang('');
         this.translate.use('');

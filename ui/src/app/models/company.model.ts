@@ -3,6 +3,7 @@ import {BusinessModel} from './business.model';
 import {VATModel} from './VAT.model';
 import {FiscalYearModel} from './fiscalYear.model';
 import {InvoiceInfoModel} from './InvoiceInfo.model';
+import {AddressModel} from "./address.model";
 
 export class CompanyModel {
     _id: string;
@@ -12,7 +13,7 @@ export class CompanyModel {
 
     legalNotice?: string;
     showLegalNoticeForeignBuyer?: boolean;
-    address: string;
+    address: AddressModel;
     metrics?: {invoiced: number, paid: number};
     business?: BusinessModel[];
     vats?: VATModel[];

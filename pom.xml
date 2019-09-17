@@ -10,7 +10,7 @@
     <parent>
         <groupId>fr.4sh.pom-parents</groupId>
         <artifactId>4sh-uberpom</artifactId>
-        <version>0.12</version>
+        <version>0.13</version>
     </parent>
 
     <scm>
