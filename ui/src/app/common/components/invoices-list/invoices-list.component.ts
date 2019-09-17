@@ -17,8 +17,8 @@ export class InvoicesListComponent {
     constructor(private router: Router,
                 private downloadService: DownloadInvoiceService) { }
 
-    public goToDetail(customer) {
-        this.router.navigate(['/app/invoices/detail/' + customer._id]);
+    public goToDetail(invoice) {
+        this.router.navigate(['/app/invoices/detail/' + invoice._id]);
     }
 
     public seeInvoice(invoice) {
