@@ -13,7 +13,6 @@ export class LoggedInGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        console.log("WITHIN guard");
         return this.authService.userEvents.pipe(
             filter(user => user !== undefined),
             map(user => user !== null),
