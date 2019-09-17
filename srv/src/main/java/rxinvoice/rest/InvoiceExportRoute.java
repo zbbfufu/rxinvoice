@@ -4,6 +4,7 @@ import com.google.common.net.HttpHeaders;
 import restx.*;
 import restx.factory.Component;
 import restx.http.HttpStatus;
+import rxinvoice.utils.OptionalUtils;
 
 import java.io.IOException;
 
@@ -24,8 +25,12 @@ public class InvoiceExportRoute extends StdRoute {
         resp.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"Report.xlsx\"");
         resp.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
-        invoiceResource.exportsInvoices(resp, req.getQueryParam("startDate"), req.getQueryParam("endDate"),
-                req.getQueryParam("statuses"), req.getQueryParam("buyerRef"), req.getQueryParam("kind"),
-                req.getQueryParam("query"));
+        invoiceResource.exportsInvoices(resp,
+                OptionalUtils.convertToJ8Optional(req.getQueryParam("startDate")),
+                OptionalUtils.convertToJ8Optional(req.getQueryParam("endDate")),
+                OptionalUtils.convertToJ8Optional(req.getQueryParam("statuses")),
+                OptionalUtils.convertToJ8Optional(req.getQueryParam("buyerRef")),
+                OptionalUtils.convertToJ8Optional(req.getQueryParam("kind")),
+                OptionalUtils.convertToJ8Optional(req.getQueryParam("query")));
     }
 }

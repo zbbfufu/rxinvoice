@@ -1,6 +1,5 @@
 package rxinvoice.rest;
 
-import com.google.common.base.Optional;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,7 @@ import rxinvoice.domain.Invoice;
 
 import javax.inject.Named;
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,16 +22,13 @@ public class InvoiceMetricsResource {
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     private CompanyResource companyResource;
-    private InvoiceResource invoiceResource;
     private JongoCollection companies;
     private JongoCollection invoices;
 
     public InvoiceMetricsResource(CompanyResource companyResource,
-                                  InvoiceResource invoiceResource,
                                   @Named("companies") JongoCollection companies,
                                   @Named("invoices") JongoCollection invoices) {
         this.companyResource = companyResource;
-        this.invoiceResource = invoiceResource;
 
         this.companies = companies;
         this.invoices = invoices;
@@ -72,7 +69,7 @@ public class InvoiceMetricsResource {
     }
 
     public void computeAllCompanyMetricsAsync() {
-        final Iterable<Company> companyList = companyResource.findCompanies(Optional.<String>absent());
+        final Iterable<Company> companyList = companyResource.findCompanies(Optional.empty());
 
         for (Company company : companyList) {
             computeCompanyMetricsAsync(company);
