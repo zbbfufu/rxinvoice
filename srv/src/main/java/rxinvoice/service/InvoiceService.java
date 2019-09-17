@@ -198,11 +198,14 @@ public class InvoiceService {
         }
 
         if (invoiceSearchFilter.getQuery().isPresent()) {
-            builder.and("object").is(MoreJongos.containsIgnoreCase(invoiceSearchFilter.getQuery().get()));
+            builder.and(QueryBuilder.start().or(
+                        QueryBuilder.start("object").is(MoreJongos.containsIgnoreCase(invoiceSearchFilter.getQuery().get())).get(),
+                        QueryBuilder.start("reference").is(MoreJongos.containsIgnoreCase(invoiceSearchFilter.getQuery().get())).get())
+                    .get());
         }
 
         if (invoiceSearchFilter.getReference().isPresent()) {
-            builder.and("reference").is(invoiceSearchFilter.getReference().get());
+            builder.and("reference").is(MoreJongos.containsIgnoreCase(invoiceSearchFilter.getReference().get()));
         }
 
         return invoices.get().find(builder.get().toString()).as(Invoice.class);
