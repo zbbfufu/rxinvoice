@@ -1,41 +1,67 @@
 package rxinvoice.service;
 
-import com.google.common.io.ByteStreams;
-import fprint.core.Printer;
-import fprint.core.PrinterExecutorPhantomJs;
-import fprint.core.PrinterFile;
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
+import com.openhtmltopdf.util.XRLog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import restx.factory.Component;
-import restx.security.RestxSessionCookieFilter;
+import rxinvoice.domain.Invoice;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import static rxinvoice.utils.MoreJ8Preconditions.checkPresent;
 
 @Component
 public class PrintServiceImpl implements PrintService {
 
-    public void exportUriToPdf(String baseUrl, RestxSessionCookieFilter sessionFilter, String pageUri, OutputStream outputStream) throws IOException {
+    private static final Logger logger = LoggerFactory.getLogger(PrintServiceImpl.class);
 
-        String url = baseUrl + (baseUrl.endsWith("/") ? "" : "/") + "#" + pageUri;
+    private final InvoiceService invoiceService;
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("authorization", "print:a93d7f10a1f30aedcc1fa7ea4513e80d");
-        parameters.put("acceptLanguage", "fr");
-        Printer printer = new PrinterFile(new PrinterExecutorPhantomJs());
-        printer.setUrl(url);
-        printer.setUseCache(true);
-
-        printer.setFileName(new SimpleDateFormat("'print_'yyyyMMdd_hhmmssSSS").format(new Date()));
-        printer.setOutputDir(new File(System.getProperty("java.io.tmpdir")));
-        printer.setParameters(parameters);
-        File fileGenerated = printer.print();
-
-        ByteStreams.copy(new FileInputStream(fileGenerated), outputStream);
+    public PrintServiceImpl(InvoiceService invoiceService) {
+        this.invoiceService = invoiceService;
     }
 
+    private void createPdfFromHtml(String html, OutputStream outputStream) {
+        XRLog.setLoggingEnabled(false);
+        PdfRendererBuilder builder = new PdfRendererBuilder();
+        builder.withHtmlContent(html, "/");
+        builder.toStream(outputStream);
+        try {
+            builder.run();
+        } catch (Exception e) {
+            logger.error("Pdf generation failed {}", e.getMessage());
+        }
+    }
+
+    private String executeTemplate(String templateName, Map<String, Object> params) {
+        DefaultMustacheFactory mf = new DefaultMustacheFactory();
+        Mustache m = mf.compile("templates/" + templateName);
+        StringWriter writer = new StringWriter();
+        try {
+            m.execute(writer, params).flush();
+        } catch (IOException e) {
+            logger.error("Template execution failed for template {} : {}", templateName, e.getMessage());
+        }
+        return writer.toString();
+    }
+
+    public void exportUriToPdf(String invoiceId, OutputStream outputStream) {
+
+        Invoice invoice = checkPresent(invoiceService.findInvoiceByKey(invoiceId),
+                String.format("Invoice not found for id %s", invoiceId));
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("invoice", invoice);
+        String html = executeTemplate("invoice.mustache", params);
+        try {
+            createPdfFromHtml(html, outputStream);
+        } catch (Exception e) {
+            logger.error("Pdf generation failed {}", e.getMessage());
+        }
+    }
 }
