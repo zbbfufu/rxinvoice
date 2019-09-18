@@ -81,7 +81,6 @@ export class InvoicesComponent implements OnInit {
                 (invoices) => {
                     this.invoices = invoices;
                     this.isPending = false;
-                    console.log('invoices :', invoices);
                     let searchParams = Object.assign({}, this.searchForm.value);
                     if(searchParams.startDate) {
                         searchParams.startDate = DateUtils.dateToString(searchParams.startDate);

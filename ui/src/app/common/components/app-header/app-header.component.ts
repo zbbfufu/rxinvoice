@@ -25,7 +25,6 @@ export class AppHeaderComponent implements OnInit {
         this.activityService.fetchActivities()
             .subscribe(activities =>  {
                 this.activities = activities;
-                console.log('activities: ', activities);
             });
     }
 

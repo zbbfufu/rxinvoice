@@ -1,7 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CompanyModel} from '../../models/company.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+    AbstractControl,
+    ControlContainer,
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    NgForm,
+    Validators
+} from '@angular/forms';
 import {CompanyService} from '../../common/services/company.service';
 import {InvoiceModel} from '../../models/invoice.model';
 import {InvoiceService} from '../../common/services/invoice.service';
@@ -15,11 +23,15 @@ import {Location} from '@angular/common';
 import {AuthenticationService} from '../../common/services/authentication.service';
 import {DateUtils} from "../../common/utils/date-utils";
 import {DownloadInvoiceService} from "../../common/services/download-invoice.service";
+import {map, switchMap} from "rxjs/operators";
+import {timer} from "rxjs/observable/timer";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'invoice-detail',
     templateUrl: './invoice-detail.component.html',
-    styleUrls: ['./invoice-detail.component.scss']
+    styleUrls: ['./invoice-detail.component.scss'],
+    viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
 })
 export class InvoiceDetailComponent implements OnInit {
 
@@ -48,8 +60,10 @@ export class InvoiceDetailComponent implements OnInit {
 
     ngOnInit() {
         this.fetchInvoice();
-        const currentUser = this.authService.current();
-        this.canDelete = currentUser.roles.filter(role => role === 'admin' || role === 'seller').length > 0;
+        this.authService.userEvents
+            .subscribe(currentUser =>
+                this.canDelete = currentUser.roles.filter(role => role === 'admin' || role === 'seller').length > 0);
+
         this.kinds = this.repositoryService.fetchInvoiceKind();
         this.repositoryService.fetchInvoiceStatus()
             .subscribe(statuses => this.statuses = statuses);
@@ -64,12 +78,40 @@ export class InvoiceDetailComponent implements OnInit {
             date: new FormControl(''),
             status: new FormControl('', Validators.required),
             comment: new FormControl(''),
-            reference: new FormControl(''),
+            reference: new FormControl('', null, this.invoiceReferenceAsyncValidator()),
             withVAT: new FormControl(false),
             customerInvoiceRef: new FormControl('')
         });
         if (!this.invoiceId) {
             this.form.enable();
+        }
+    }
+
+    private invoiceReferenceAsyncValidator() {
+        return (input: FormControl) => {
+            if (this.invoiceId || !input.value) {
+                return Observable.of(null);
+            }
+            return timer(200).pipe(
+                switchMap(() => this.invoiceService.fetchInvoices({reference: input.value})),
+                map(res => {
+                    return res.length === 0 ? null : {referenceExist: true}
+                }))
+        };
+    };
+
+    private validateInvoiceReference(control: AbstractControl) {
+        if (this.invoiceId|| !control.value) {
+            return null;
+        } else {
+            return this.invoiceService.fetchInvoices({reference: control.value}).map(res => {
+                if (res && res.length > 0) {
+                    return {error: "reference forbidden"}
+                } else {
+                return null;
+                }
+            }).subscribe();
+
         }
     }
 

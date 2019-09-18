@@ -8,7 +8,9 @@ import restx.factory.Component;
 import restx.http.HttpStatus;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Blob;
+import rxinvoice.domain.Invoice;
 import rxinvoice.rest.common.PartsReader;
+import rxinvoice.service.InvoiceService;
 
 import javax.inject.Named;
 import java.io.ByteArrayInputStream;
@@ -25,14 +27,15 @@ public class UploadRoute extends StdRoute {
 
     private final BlobService blobService;
     private final ObjectMapper objectMapper;
-    private final InvoiceResource invoiceResource;
+    private final InvoiceService invoiceService;
 
     public UploadRoute(BlobService blobService,
-                       @Named("FrontObjectMapper") ObjectMapper objectMapper, InvoiceResource invoiceResource) {
+                       @Named("FrontObjectMapper") ObjectMapper objectMapper,
+                       InvoiceService invoiceService) {
         super("upload", new StdRestxRequestMatcher("POST", "/invoices/{invoiceId}/attachments"));
         this.blobService = blobService;
         this.objectMapper = objectMapper;
-        this.invoiceResource = invoiceResource;
+        this.invoiceService = invoiceService;
     }
 
     @Override
@@ -88,7 +91,7 @@ public class UploadRoute extends StdRoute {
         resp.setStatus(HttpStatus.OK);
         resp.setContentType("application/json");
 
-        invoiceResource.addAttachments(invoiceId, blobs);
+        invoiceService.addAttachments(invoiceId, blobs);
 
         objectMapper.writeValue(resp.getOutputStream(), blobs);
     }

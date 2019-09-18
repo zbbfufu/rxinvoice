@@ -1,6 +1,5 @@
 package rxinvoice.rest;
 
-import com.google.common.base.Optional;
 import org.joda.time.LocalDate;
 import restx.annotations.GET;
 import restx.annotations.RestxResource;
@@ -13,6 +12,7 @@ import rxinvoice.domain.Revenue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestxResource
 @Component
@@ -41,8 +41,8 @@ public class RevenueResource {
 
     @GET("/revenues/monthly")
     public Iterable<Revenue> getMonthlyRevenues(Optional<LocalDate> from, Optional<LocalDate> to) {
-        LocalDate fromMonth = from.or(LocalDate.now().minusMonths(5)).withDayOfMonth(1);
-        LocalDate toMonth = to.or(LocalDate.now());
+        LocalDate fromMonth = from.orElse(LocalDate.now().minusMonths(5)).withDayOfMonth(1);
+        LocalDate toMonth = to.orElse(LocalDate.now());
         List<Revenue> revenues = new ArrayList<>();
 
         while (fromMonth.isBefore(toMonth)) {

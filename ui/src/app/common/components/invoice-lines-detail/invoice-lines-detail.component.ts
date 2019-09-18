@@ -1,13 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {ControlContainer, Form, FormGroup, NgForm} from '@angular/forms';
 import {InvoiceLineModel} from '../../../models/invoice-line.model';
 import {plainToClass} from 'class-transformer';
 import {VATModel} from '../../../models/VAT.model';
 
 @Component({
-  selector: 'invoice-lines-detail',
-  templateUrl: './invoice-lines-detail.component.html',
-  styleUrls: ['./invoice-lines-detail.component.scss']
+    selector: 'invoice-lines-detail',
+    templateUrl: './invoice-lines-detail.component.html',
+    styleUrls: ['./invoice-lines-detail.component.scss'],
+    viewProviders: [{provide: ControlContainer, useExisting: NgForm}],
 })
 export class InvoiceLinesDetailComponent implements OnInit {
 

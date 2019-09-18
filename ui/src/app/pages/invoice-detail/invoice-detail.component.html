@@ -1,3 +1,4 @@
+<form #invoiceDetailForm="ngForm">
 <div class="invoice full-height">
     <div class="row align-middle invoiceHeader">
         <div class="columns shrink">
@@ -129,6 +130,7 @@
                                 [attachments]="invoice.attachments"
                                 (deleteFile)="deleteAttachment($event)"
                                 (attachmentsChange)="fetchInvoice()"></attachments-detail>
+
             <!--<activity-panel *ngIf="invoice && invoice._id"  [(activities)]="invoice.activities"></activity-panel>-->
         </div>
     </div>
@@ -144,7 +146,7 @@
                             class="button medium green ripple"
                             type="submit"
                             (click)="invoice && invoice._id  ? save() : create()"
-                            [disabled]="form.invalid || form.pending">
+                            [disabled]="form.invalid || form.pending || invoiceDetailForm.invalid">
                         <i class="ion-checkmark-round"></i>
                         {{( !invoiceId ? 'button.label.create' : 'button.label.save') | translate}}
                     </button>
@@ -183,3 +185,4 @@
         </div>
     </footer>
 </div>
+</form>
