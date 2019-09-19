@@ -10,7 +10,10 @@ import restx.factory.Component;
 import rxinvoice.domain.Invoice;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static rxinvoice.utils.MoreJ8Preconditions.checkPresent;
@@ -57,6 +60,8 @@ public class PrintServiceImpl implements PrintService {
 
         Map<String, Object> params = new HashMap<>();
         params.put("invoice", invoice);
+        DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
+        params.put("invoiceDate", invoice.getDate() == null ? "" : dateFormat.format(invoice.getDate().toDate()));
         String html = executeTemplate("invoice.mustache", params);
         try {
             createPdfFromHtml(html, outputStream);
