@@ -13,10 +13,8 @@ import org.bson.types.ObjectId;
 import org.joda.time.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import restx.RestxResponse;
 import restx.Status;
 import restx.WebException;
-import restx.annotations.GET;
 import restx.factory.Component;
 import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
@@ -145,14 +143,23 @@ public class InvoiceService {
 
         Company buyer = buyerOpt.get();
         if (invoice.getStatus() == SENT) {
-            buyer.setLastSendDate(DateTime.now());
-            buyer.setLastSentInvoice(new Company.InvoiceInfo(invoice));
-            companyService.updateCompany(buyer);
+            sendInvoice(invoice, buyer);
         } else if (invoice.getStatus() == PAID) {
-            buyer.setLastPaymentDate(DateTime.now());
-            buyer.setLastPaidInvoice(new Company.InvoiceInfo(invoice));
-            companyService.updateCompany(buyer);
+            payInvoice(invoice, buyer);
         }
+    }
+
+    private void payInvoice(Invoice invoice, Company buyer) {
+        buyer.setLastPaymentDate(DateTime.now());
+        buyer.setLastPaidInvoice(new Company.InvoiceInfo(invoice));
+        companyService.updateCompany(buyer);
+    }
+
+    private void sendInvoice(Invoice invoice, Company buyer) {
+        buyer.setLastSendDate(DateTime.now());
+        buyer.setLastSentInvoice(new Company.InvoiceInfo(invoice));
+        companyService.updateCompany(buyer);
+        this.invoices.get().update(new ObjectId(invoice.getKey())).with("{$set: {sentDate: #}}", DateTime.now().toDate());
     }
 
     public Iterable<Invoice> findInvoices(InvoiceSearchFilter invoiceSearchFilter) {
