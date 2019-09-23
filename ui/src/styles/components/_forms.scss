@@ -32,6 +32,10 @@
 input {
   border-radius: rem-calc(14px);
   margin-bottom: 0 !important;
+
+  &.ng-invalid {
+    border: 2px solid rgba($shiraz, 0.5);
+  }
 }
 
 .input {
@@ -95,6 +99,10 @@ select, .ng-control {
 
   &:focus {
     border: $input-border-focus !important;
+  }
+
+  &.ng-invalid {
+    border: 2px solid rgba($shiraz, 0.5);
   }
 }
 
