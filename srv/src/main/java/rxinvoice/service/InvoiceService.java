@@ -88,9 +88,8 @@ public class InvoiceService {
     }
 
 
-    public Invoice updateInvoice(String key, Invoice invoice) {
-        checkEquals("key", key, "invoice.key", invoice.getKey());
-        Optional<Invoice> invoiceByKey = findInvoiceByKey(key);
+    public Invoice updateInvoice(Invoice invoice) {
+        Optional<Invoice> invoiceByKey = findInvoiceByKey(invoice.getKey());
         if (!invoiceByKey.isPresent()) {
             throw new WebException(HttpStatus.NOT_FOUND);
         }

@@ -15,6 +15,7 @@ import rxinvoice.service.InvoiceService;
 import java.util.*;
 import java.util.Optional;
 
+import static restx.common.MorePreconditions.checkEquals;
 import static rxinvoice.AppModule.Roles.ADMIN;
 import static rxinvoice.AppModule.Roles.SELLER;
 import static rxinvoice.domain.enumeration.Status.*;
@@ -42,7 +43,8 @@ public class InvoiceResource {
     @RolesAllowed({ADMIN, SELLER})
     @PUT("/invoices/{key}")
     public Invoice updateInvoice(String key, Invoice invoice) {
-        return invoiceService.updateInvoice(key, invoice);
+        checkEquals("key", key, "invoice.key", invoice.getKey());
+        return invoiceService.updateInvoice(invoice);
     }
 
     @GET("/invoices")
