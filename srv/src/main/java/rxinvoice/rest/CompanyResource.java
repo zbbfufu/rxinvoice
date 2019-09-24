@@ -1,10 +1,14 @@
 package rxinvoice.rest;
 
 import restx.Status;
+import restx.WebException;
 import restx.annotations.*;
 import restx.factory.Component;
+import restx.http.HttpStatus;
 import restx.security.RolesAllowed;
+import rxinvoice.AppModule;
 import rxinvoice.domain.Company;
+import rxinvoice.domain.User;
 import rxinvoice.service.CompanyService;
 
 import java.util.Optional;
@@ -19,10 +23,14 @@ import static rxinvoice.AppModule.Roles.SELLER;
 @Component
 @RestxResource
 public class CompanyResource {
-    private final CompanyService companyService;
 
-    public CompanyResource(CompanyService companyService) {
+    private final CompanyService companyService;
+    private final InvoiceMetricsService invoiceMetricsService;
+
+    public CompanyResource(CompanyService companyService,
+                           InvoiceMetricsService invoiceMetricsService) {
         this.companyService = companyService;
+        this.invoiceMetricsService = invoiceMetricsService;
     }
 
     @RolesAllowed({ADMIN, SELLER})
@@ -45,6 +53,13 @@ public class CompanyResource {
 
     @GET("/companies/{key}")
     public Optional<Company> findCompanyByKey(String key) {
+        // users can only get their own company except admin and sellers
+        User user = AppModule.currentUser();
+        if (!key.equals(user.getCompanyRef())
+                && !user.getPrincipalRoles().contains(ADMIN)
+                && !user.getPrincipalRoles().contains(SELLER)) {
+            throw new WebException(HttpStatus.FORBIDDEN);
+        }
         return companyService.findCompanyByKey(key);
     }
 
@@ -73,4 +88,9 @@ public class CompanyResource {
         return companyService.deleteCompany(key);
     }
 
+    @RolesAllowed(ADMIN)
+    @POST("/admin/companies/metrics")
+    public void computeCompaniesMetrics() {
+        invoiceMetricsService.computeAllCompanyMetricsAsync();
+    }
 }

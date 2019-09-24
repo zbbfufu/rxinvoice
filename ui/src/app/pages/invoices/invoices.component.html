@@ -115,6 +115,8 @@
 <invoices-list [invoices]="invoices | orderBy: filterString"
                (quickUpdate)="selectForQuickUpdate($event)" [isPending]="isPending"></invoices-list>
 
-<squick-status-edit-panel [attr.class]="showQuickPanelStatusEdit ? 'showPanel': 'hidePanel'"
-                          [invoice]="selectedForQuickUpdate" [showQuickPanelStatusEdit]="showQuickPanelStatusEdit"
-                          (invoiceUpdate)="updatedInvoice($event)"></squick-status-edit-panel>
+<quick-status-edit-panel class="quick-status-panel" *ngIf="selectedForQuickUpdate"
+                          [invoice]="selectedForQuickUpdate"
+                          (invoiceUpdate)="updatedInvoice($event)">
+
+</quick-status-edit-panel>

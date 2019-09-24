@@ -11,38 +11,36 @@ import rxinvoice.domain.Company;
 import rxinvoice.domain.FiscalYear;
 import rxinvoice.domain.Invoice;
 import rxinvoice.domain.Metrics;
+import rxinvoice.service.CompanyService;
+import rxinvoice.service.InvoiceService;
 
 import javax.inject.Named;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static rxinvoice.utils.MoreJ8Preconditions.checkPresent;
 
 @Component
-public class InvoiceMetricsResource {
-    private static final Logger logger = LoggerFactory.getLogger(InvoiceMetricsResource.class);
+public class InvoiceMetricsService {
+    private static final Logger logger = LoggerFactory.getLogger(InvoiceMetricsService.class);
 
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    private CompanyResource companyResource;
-    private JongoCollection companies;
-    private JongoCollection invoices;
+    private final CompanyService companyService;
+    private final InvoiceService invoiceService;
 
-    public InvoiceMetricsResource(CompanyResource companyResource,
-                                  @Named("companies") JongoCollection companies,
-                                  @Named("invoices") JongoCollection invoices) {
-        this.companyResource = companyResource;
-
-        this.companies = companies;
-        this.invoices = invoices;
+    public InvoiceMetricsService(CompanyService companyService,
+                                 InvoiceService invoiceService) {
+        this.companyService = companyService;
+        this.invoiceService = invoiceService;
     }
 
     private Company getCompany(String key) {
-        return companies.get().findOne(new ObjectId(key)).as(Company.class);
+        return checkPresent(companyService.findCompanyByKey(key), String.format("COmpnay not found for key %s", key));
     }
 
     private void computeCompanyMetricsAsync(final Company company) {
@@ -52,7 +50,7 @@ public class InvoiceMetricsResource {
                 final Factory factory = Factory.builder().addFromServiceLoader().build();
 
                 try {
-                    factory.queryByClass(InvoiceMetricsResource.class).findOneAsComponent().get().computeCompanyMetrics(company.getKey());
+                    factory.queryByClass(InvoiceMetricsService.class).findOneAsComponent().get().computeCompanyMetrics(company.getKey());
                 } catch (Exception e) {
                     logger.error("Error in computeCompanyMetricsAsync", e);
                     throw new RuntimeException(e);
@@ -68,7 +66,7 @@ public class InvoiceMetricsResource {
     }
 
     public void computeCompanyMetricsAsync(String companyId) {
-        final Optional<Company> companyOptional = companyResource.findCompanyByKey(companyId);
+        final Optional<Company> companyOptional = companyService.findCompanyByKey(companyId);
 
         if (companyOptional.isPresent()) {
             computeCompanyMetricsAsync(companyOptional.get());
@@ -76,7 +74,7 @@ public class InvoiceMetricsResource {
     }
 
     public void computeAllCompanyMetricsAsync() {
-        final Iterable<Company> companyList = companyResource.findCompanies(Optional.empty());
+        final Iterable<Company> companyList = companyService.findCompanies(Optional.empty());
 
         for (Company company : companyList) {
             computeCompanyMetricsAsync(company);
@@ -88,7 +86,7 @@ public class InvoiceMetricsResource {
 
         Company company = getCompany(companyKey);
 
-        List<Invoice> invoiceList = Lists.newArrayList((Iterable<? extends Invoice>) invoices.get().find("{ buyer._id: #}", new ObjectId(company.getKey())).as(Invoice.class));
+        List<Invoice> invoiceList = Lists.newArrayList(invoiceService.findInvoicesByBuyer(company.getKey()));
 
         Metrics metrics = computeFiscalYearMetrics(invoiceList, Optional.empty());
 
@@ -101,7 +99,7 @@ public class InvoiceMetricsResource {
         company.getFiscalYearMetricsMap().put(1, computeFiscalYearMetrics(invoiceList, Optional.of(next)));
 
         company.setMetrics(metrics);
-        companies.get().save(company);
+        companyService.saveCompany(company);
 
         logger.debug("End to compute company metrics for company {}", company.getKey());
     }
