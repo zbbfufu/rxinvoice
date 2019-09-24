@@ -6,7 +6,6 @@ import restx.annotations.GET;
 import restx.annotations.RestxResource;
 import restx.common.UUIDGenerator;
 import restx.exceptions.ErrorCode;
-import restx.exceptions.RestxError;
 import restx.exceptions.RestxErrors;
 import restx.factory.Component;
 import restx.http.HttpStatus;
@@ -19,18 +18,18 @@ public class InvoiceMetricsEventListener implements AutoCloseable {
     public static enum ShouldNotBeCalled {}
 
     private EventBus eventBus;
-    private InvoiceMetricsResource invoiceMetricsResource;
+    private InvoiceMetricsService invoiceMetricsService;
 
-    public InvoiceMetricsEventListener(EventBus eventBus, InvoiceMetricsResource invoiceMetricsResource) {
+    public InvoiceMetricsEventListener(EventBus eventBus, InvoiceMetricsService invoiceMetricsService) {
         this.eventBus = eventBus;
-        this.invoiceMetricsResource = invoiceMetricsResource;
+        this.invoiceMetricsService = invoiceMetricsService;
 
         eventBus.register(this);
     }
 
     @Subscribe
     public void handleInvoiceUpdated(InvoiceUpdatedEvent event) {
-        invoiceMetricsResource.computeInvoiceMetricsSync(event.getInvoice());
+        invoiceMetricsService.computeInvoiceMetricsSync(event.getInvoice());
     }
 
     // Create a fake route to be a RestxResource, to force restx to create an instance of

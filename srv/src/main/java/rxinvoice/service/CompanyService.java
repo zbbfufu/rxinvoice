@@ -43,12 +43,10 @@ public class CompanyService {
         this.eventBus = eventBus;
     }
 
-    public Iterable<Company> findCompanies(Optional<String> query) {
+    public Iterable<Company> findCompanies(Optional<String> queryOptional) {
         QueryBuilder queryBuilder = QueryBuilder.start();
 
-        if (query.isPresent()) {
-            queryBuilder.and("name").is(MoreJongos.containsIgnoreCase(query.get())).get();
-        }
+        queryOptional.ifPresent(query -> queryBuilder.and("name").is(MoreJongos.containsIgnoreCase(query)).get());
 
         return companies.get().find(queryBuilder.get().toString()).sort("{name: 1}").as(Company.class);
     }
@@ -92,14 +90,6 @@ public class CompanyService {
     }
 
     public Optional<Company> findCompanyByKey(String key) {
-        // users can only get their own company except admin and sellers
-        User user = AppModule.currentUser();
-        if (!key.equals(user.getCompanyRef())
-                && !user.getPrincipalRoles().contains(ADMIN)
-                && !user.getPrincipalRoles().contains(SELLER)) {
-            throw new WebException(HttpStatus.FORBIDDEN);
-        }
-
         return Optional.ofNullable(companies.get().findOne(new ObjectId(key)).as(Company.class));
     }
 
@@ -114,7 +104,7 @@ public class CompanyService {
         return company;
     }
 
-    private void saveCompany(Company company) {
+    public void saveCompany(Company company) {
         for (Business business : company.getBusiness()) {
             if (Strings.isNullOrEmpty(business.getReference())) {
                 business.setReference(UUID.randomUUID().toString());

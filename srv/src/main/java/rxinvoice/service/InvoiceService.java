@@ -205,8 +205,8 @@ public class InvoiceService {
 
         if (invoiceSearchFilter.getQuery().isPresent()) {
             builder.and(QueryBuilder.start().or(
-                        QueryBuilder.start("object").is(MoreJongos.containsIgnoreCase(invoiceSearchFilter.getQuery().get())).get(),
-                        QueryBuilder.start("reference").is(MoreJongos.containsIgnoreCase(invoiceSearchFilter.getQuery().get())).get())
+                    QueryBuilder.start("object").is(MoreJongos.containsIgnoreCase(invoiceSearchFilter.getQuery().get())).get(),
+                    QueryBuilder.start("reference").is(MoreJongos.containsIgnoreCase(invoiceSearchFilter.getQuery().get())).get())
                     .get());
         }
 
@@ -237,8 +237,11 @@ public class InvoiceService {
                 }
             }
         }
-
         return invoice;
+    }
+
+    public Iterable<Invoice> findInvoicesByBuyer(String buyerKey) {
+        return this.invoices.get().find("{ buyer._id: #}", new ObjectId(buyerKey)).as(Invoice.class);
     }
 
     public Iterable<Invoice> findToPrepareInvoices() {
