@@ -21,6 +21,9 @@ export class CustomerDetailComponent implements OnInit {
     public companyId: string;
     public canDelete: boolean;
     @ViewChild('f') form: FormGroup;
+    private currentYearTurnover: number = 0;
+    private currentYearTurnoverExpected: number = 0;
+    private totalTurnover: number = 0;
 
     constructor(private companyService: CompanyService,
                 private route: ActivatedRoute,
@@ -56,7 +59,17 @@ export class CustomerDetailComponent implements OnInit {
                     .subscribe((company: CompanyModel) => {
                         this.form.setValue(this.updateForm(company));
                         this.customer = company;
-                        console.log(company);
+                        if (company && company.fiscalYearMetricsMap && company.fiscalYearMetricsMap[0]) {
+                            this.currentYearTurnover = company.fiscalYearMetricsMap[0].invoiced +
+                                company.fiscalYearMetricsMap[0].paid +
+                                company.fiscalYearMetricsMap[0].expired;
+                            this.currentYearTurnoverExpected = this.currentYearTurnover + company.fiscalYearMetricsMap[0].expected;
+                        }
+                        if (company && company.metrics) {
+                            this.totalTurnover = company.metrics.invoiced +
+                                company.metrics.paid +
+                                company.metrics.expired;
+                        }
                     });
             } else {
                 this.editMode = true;

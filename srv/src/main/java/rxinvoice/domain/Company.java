@@ -1,14 +1,18 @@
 package rxinvoice.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.joda.time.LocalDate;
 import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 import restx.jackson.FixedPrecision;
+import restx.jackson.Views;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  */
@@ -89,6 +93,9 @@ public class Company implements Auditable {
     public List<VATVal> getVats() {
         return vats;
     }
+
+//    @JsonView(Views.Transient.class)
+    public Map<Integer, Metrics> fiscalYearMetricsMap = new HashMap<>();
 
     @Override
     public String getBusinessKey() {
@@ -217,6 +224,15 @@ public class Company implements Auditable {
         return this;
     }
 
+    public Map<Integer, Metrics> getFiscalYearMetricsMap() {
+        return fiscalYearMetricsMap;
+    }
+
+    public Company setFiscalYearMetricsMap(Map<Integer, Metrics> fiscalYearMetricsMap) {
+        this.fiscalYearMetricsMap = fiscalYearMetricsMap;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
@@ -240,149 +256,10 @@ public class Company implements Auditable {
                 '}';
     }
 
-
-    public static class Metrics {
-        private int nbInvoices;
-        @FixedPrecision(2)
-        private BigDecimal expected;
-        @FixedPrecision(2)
-        private BigDecimal expired;
-        @FixedPrecision(2)
-        private BigDecimal invoiced;
-        @FixedPrecision(2)
-        private BigDecimal paid;
-
-
-        public int getNbInvoices() {
-            return nbInvoices;
-        }
-
-        public void setNbInvoices(int nbInvoices) {
-            this.nbInvoices = nbInvoices;
-        }
-
-        public BigDecimal getExpected() {
-            return expected;
-        }
-
-        public void setExpected(BigDecimal expected) {
-            this.expected = expected;
-        }
-
-        public BigDecimal getExpired() {
-            return expired;
-        }
-
-        public void setExpired(BigDecimal expired) {
-            this.expired = expired;
-        }
-
-        public BigDecimal getInvoiced() {
-            return invoiced;
-        }
-
-        public void setInvoiced(BigDecimal invoiced) {
-            this.invoiced = invoiced;
-        }
-
-        public BigDecimal getPaid() {
-            return paid;
-        }
-
-        public void setPaid(BigDecimal paid) {
-            this.paid = paid;
-        }
-
-
-        @Override
-        public String toString() {
-            return "Metrics{" +
-                    "nbInvoices=" + nbInvoices +
-                    ", expected=" + expected +
-                    ", expired=" + expired +
-                    ", invoiced=" + invoiced +
-                    ", paid=" + paid +
-                    '}';
-        }
-    }
-
     public static enum KindCompany {
         EDITOR, INHOUSE_SOLUTION_EDITOR, MAJOR_ACCOUNT, PME, FINAL_RECIPIENT
     }
 
-    public static class FiscalYear {
-        private LocalDate start;
-        private LocalDate end;
-
-        public static final FiscalYear DEFAULT = new FiscalYear()
-                .setStart(firstDayOfYear())
-                .setEnd(lastDayOfYear())
-                .current();
-
-        public LocalDate getStart() {
-            return start;
-        }
-
-        public FiscalYear setStart(LocalDate start) {
-            this.start = start;
-            return this;
-        }
-
-        public LocalDate getEnd() {
-            return end;
-        }
-
-        public FiscalYear setEnd(LocalDate end) {
-            this.end = end;
-            return this;
-        }
-
-        private static LocalDate firstDayOfYear() {
-            return LocalDate.now().withMonthOfYear(1).withDayOfMonth(1);
-        }
-
-        private static LocalDate lastDayOfYear() {
-            return LocalDate.now().withMonthOfYear(12).withDayOfMonth(31);
-        }
-
-        public FiscalYear current() {
-            LocalDate start = this.start.withYear(LocalDate.now().getYear());
-            LocalDate end = this.end.withYear(LocalDate.now().getYear());
-
-            if (LocalDate.now().isBefore(start)) {
-                start = start.minusYears(1);
-            }
-
-            if (LocalDate.now().isAfter(end)) {
-                end = end.plusYears(1);
-            }
-
-            return new FiscalYear()
-                    .setStart(start)
-                    .setEnd(end);
-        }
-
-        public FiscalYear previous() {
-            return new FiscalYear()
-                    .setStart(start.minusYears(1))
-                    .setEnd(end.minusYears(1));
-        }
-
-        public FiscalYear next() {
-            return new FiscalYear()
-                    .setStart(start.plusYears(1))
-                    .setEnd(end.plusYears(1));
-        }
-      
-        @Override
-        public String toString() {
-            return "FiscalYear{" +
-                    "start=" + start +
-                    ", end=" + end +
-                    '}';
-        }
-    }
-  
     public static class InvoiceInfo {
         private String ref;
         @FixedPrecision(2)

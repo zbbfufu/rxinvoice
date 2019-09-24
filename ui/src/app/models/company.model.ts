@@ -4,6 +4,7 @@ import {VATModel} from './VAT.model';
 import {FiscalYearModel} from './fiscalYear.model';
 import {InvoiceInfoModel} from './InvoiceInfo.model';
 import {AddressModel} from "./address.model";
+import {InvoiceMetricsModel} from "./invoice-metrics";
 
 export class CompanyModel {
     _id: string;
@@ -14,7 +15,8 @@ export class CompanyModel {
     legalNotice?: string;
     showLegalNoticeForeignBuyer?: boolean;
     address: AddressModel;
-    metrics?: {invoiced: number, paid: number};
+    metrics?: InvoiceMetricsModel;
+    fiscalYearMetricsMap: any;
     business?: BusinessModel[];
     vats?: VATModel[];
     kind?: CompanyKindType;
@@ -26,6 +28,6 @@ export class CompanyModel {
     lastSentInvoice?: InvoiceInfoModel;
     lastPaidInvoice?: InvoiceInfoModel;
 
-  constructor() {
-  }
+    constructor() {
+    }
 }
