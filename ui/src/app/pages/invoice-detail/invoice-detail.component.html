@@ -7,7 +7,7 @@
         </div>
 
         <div class="columns shrink invoiceHeader-name">
-            {{ (invoice && invoice._id) ? invoice.object : 'invoices.label.back' | translate }}
+            {{ (invoice && invoice._id) ? (invoice.reference ? "[" + invoice.reference + "] " : "") + invoice.object : 'invoices.label.back' | translate }}
         </div>
     </div>
 
