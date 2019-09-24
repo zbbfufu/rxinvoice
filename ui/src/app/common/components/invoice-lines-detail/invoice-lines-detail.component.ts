@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {ControlContainer, Form, FormGroup, NgForm} from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ControlContainer, NgForm} from '@angular/forms';
 import {InvoiceLineModel} from '../../../models/invoice-line.model';
-import {plainToClass} from 'class-transformer';
 import {VATModel} from '../../../models/VAT.model';
 
 @Component({
@@ -13,31 +12,45 @@ import {VATModel} from '../../../models/VAT.model';
 export class InvoiceLinesDetailComponent implements OnInit {
 
     @Input() lines: InvoiceLineModel[];
+    @Input() companyRef: string;
     @Input() editMode: boolean;
+    @Input() vatEnabled: boolean;
+
     @Output() linesChange: EventEmitter<InvoiceLineModel[]> = new EventEmitter();
-    @ViewChild('lineForm') lineForm: FormGroup;
-    amount: number;
+
+    private newLine: InvoiceLineModel;
 
     ngOnInit() {
-        if (!this.lines) { this.lines = []; }
+        if (!this.lines) {
+            this.lines = [];
+        }
+        this.newLine = this.createNewLine();
     }
 
     public addLine() {
-        const newLine = plainToClass(InvoiceLineModel, this.lineForm.value as Object);
-        const vat = new VATModel();
-        vat.amount = this.amount;
-        vat.vat = `${this.amount}`;
-        newLine.vat = vat;
-        this.lines.push(newLine);
+        this.lines.push(this.copyLine(this.newLine));
         this.linesChange.emit(this.lines);
-        this.lineForm.reset();
-        this.amount = undefined;
+        this.newLine = this.createNewLine();
     }
 
-    public deletedLine(lineToRemove) {
+    public deleteLine(lineToRemove) {
         this.lines = this.lines.filter(line => line !== lineToRemove);
         this.linesChange.emit(this.lines);
-        this.lineForm.reset();
     }
 
+    private createNewLine(): InvoiceLineModel {
+        let line = new InvoiceLineModel();
+        line.vat = new VATModel();
+        return line;
+    }
+
+    private copyLine(invoiceLine: InvoiceLineModel) {
+        let lineCopy = new InvoiceLineModel();
+        let vatModelCopy = new VATModel();
+        vatModelCopy.vat = invoiceLine.vat.vat;
+        vatModelCopy.amount = invoiceLine.vat.amount;
+        Object.assign(lineCopy, invoiceLine);
+        lineCopy.vat = vatModelCopy;
+        return lineCopy;
+    }
 }

@@ -112,7 +112,7 @@
 
                 <div class="row align-middle invoiceDetail-container-label">
                     <h6 class="column small-8"> {{'invoice.label.comment' | translate}}</h6>
-                    <div class="column" class="panel panel-default">
+                    <div class="column panel panel-default">
                            <textarea type="text" formControlName="comment"
                                      rows="10" cols="50">
                            </textarea>
@@ -122,8 +122,12 @@
         </form>
 
         <div class="column auto" *ngIf="invoice">
-            <invoice-lines-detail [(lines)]="invoice.lines" [editMode]="form.enabled"></invoice-lines-detail>
-            <vat-detail [(vats)]="invoice.vats" [editMode]="form.enabled" [hidden]="!form.controls['withVAT'].value"></vat-detail>
+            <invoice-lines-detail [(lines)]="invoice.lines"
+                                  [vatEnabled]="form.controls.withVAT.value || invoice.withVAT"
+                                  [editMode]="form.enabled"
+                                  [companyRef]="selectedCompany?._id">
+            </invoice-lines-detail>
+<!--            <vat-detail [(vats)]="invoice.vats" [editMode]="form.enabled" [hidden]="!form.controls['withVAT'].value"></vat-detail>-->
             <attachments-detail *ngIf="invoice && invoice._id"
                                 [invoiceId]="invoiceId"
                                 [editMode]="form.enabled"

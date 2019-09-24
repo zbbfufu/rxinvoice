@@ -46,6 +46,9 @@ import {DownloadInvoiceService} from './common/services/download-invoice.service
 import {SquickStatusEditPanelComponent } from './common/components/squick-status-edit-panel/squick-status-edit-panel.component';
 import {StyleGuideModule} from './style-guide-module/style-guide.module';
 import {DpDatePickerModule} from "ng2-date-picker";
+import { VatSelectComponent } from './common/components/selects/vat-select/vat-select.component';
+import { InvoiceLineFormComponent } from './common/components/invoice-lines-detail/invoice-line-form/invoice-line-form.component';
+import { InvoiceLineHeaderComponent } from './common/components/invoice-lines-detail/invoice-line-header/invoice-line-header.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -84,7 +87,10 @@ export function createTranslateLoader(http: HttpClient) {
         TabComponent,
         TabsComponent,
         ToggleComponent,
-        SquickStatusEditPanelComponent
+        SquickStatusEditPanelComponent,
+        VatSelectComponent,
+        InvoiceLineFormComponent,
+        InvoiceLineHeaderComponent
     ],
     imports: [
         AppRoutingModule,

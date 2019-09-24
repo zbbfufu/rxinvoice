@@ -4,149 +4,32 @@
             <h6 class="column small-24 title-section">{{'line.title' | translate}}</h6>
             <hr class="column small-24">
         </div>
-        <form *ngIf="editMode" novalidate
-              class="row newCustomerDetail-container" #lineForm="ngForm"
-              (submit)="addLine()">
+        <div *ngIf="editMode" class="row newCustomerDetail-container">
             <div class="column">
-
-                <div class="row align-middle newCustomerDetail-container-content space-bottom-15">
-                    <div class="small-24">
-                        <div class="row">
-                            <h6 class="column small-10">{{'line.designation' | translate}}</h6>
-                            <h6 class="column small-3">{{'line.quantity' | translate}}</h6>
-                            <h6 class="column small-3">{{'line.cost.unit' | translate}}</h6>
-                            <h6 class="column small-4">{{'line.grossAmount' | translate}}</h6>
-                            <h6 class="column small-2">{{'line.purcent' | translate}}</h6>
-                            <h6 class="column small-2"></h6>
-                        </div>
-                    </div>
-
-                    <div class="small-24">
-                        <div class="row space-bottom-8">
-                            <div class="column small-10">
-                                <input type="text"
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       ngModel required name="description">
-                            </div>
-
-                            <div class="column small-3">
-                                <input type="number"
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       ngModel name="quantity">
-                            </div>
-
-                            <div class="column small-3">
-                                <input type="number"
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       ngModel name="unitCost">
-                            </div>
-
-                            <div class="column small-4">
-                                <input type="number"
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       ngModel name="grossAmount">
-                            </div>
-
-                            <div class="column small-2">
-                                <input type="number" required
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       [(ngModel)]="amount" name="amount">
-                            </div>
-
-                            <div class="columns auto text-right">
-                                <button *ngIf="editMode"
-                                        type="submit"
-                                        [disabled]="lineForm.invalid"
-                                        class="round medium primary ripple columns shrink">
-                                    <i class="ion-plus-round"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <ng-container *ngIf="lines && lines.length > 0">
-        <div class="row newCustomerDetail-container">
-            <div class="column">
-
-                <div class="row align-middle newCustomerDetail-container-content space-bottom-15">
-                    <div class="small-24 column">
-                        <div class="row">
-                            <h6 class="column small-10">{{'line.designation' | translate}}</h6>
-                            <h6 class="column small-3">{{'line.quantity' | translate}}</h6>
-                            <h6 class="column small-3">{{'line.cost.unit' | translate}}</h6>
-                            <h6 class="column small-4">{{'line.grossAmount' | translate}}</h6>
-                            <h6 class="column small-2">{{'line.purcent' | translate}}</h6>
-                            <h6 class="column small-2"></h6>
-                        </div>
-                    </div>
-
-                    <div class="small-24 column">
-                        <div class="row space-bottom-8" *ngFor="let line of lines">
-                            <div class="column small-10">
-                                <input type="text"
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       [(ngModel)]="line.description"
-                                       required
-                                       name="description">
-                            </div>
-
-                            <div class="column small-3">
-                                <input type="number"
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       [(ngModel)]="line.quantity"
-                                       name="quantity">
-                            </div>
-
-                            <div class="column small-3">
-                                <input type="number"
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       [(ngModel)]="line.unitCost"
-                                       name="unitCost">
-                            </div>
-
-                            <div class="column small-4">
-                                <input type="number"
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       [(ngModel)]="line.grossAmount"
-                                       name="grossAmount">
-                            </div>
-
-                            <div class="column small-2">
-                                <input *ngIf="line.vat"
-                                        type="number"
-                                       class="form-control"
-                                       [disabled]="!editMode"
-                                       [(ngModel)]="line.vat.amount"
-                                       required
-                                       name="amount">
-                            </div>
-                            <!--FIXME  CSS  add disabled class management to 'round' button  -->
-                            <div class="columns auto text-right">
-                                <button *ngIf="editMode"
-                                        type="button"
-                                        (click)="deletedLine(line)"
-                                        class="round medium red ripple columns shrink">
-                                    <i class="ion-close-round"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                <invoice-line-header [vatEnabled]="vatEnabled"></invoice-line-header>
+                <form (submit)="addLine()" novalidate #invoiceLineForm="ngForm">
+                    <invoice-line-form [line]="newLine"
+                                       [companyRef]="companyRef"
+                                       [editionMode]="'CREATION'"
+                                       [editable]="editMode"
+                                       [vatEnabled]="vatEnabled"
+                                       [invoiceLineForm]="invoiceLineForm">
+                    </invoice-line-form>
+                </form>
             </div>
         </div>
-    </ng-container>
+        <ng-container *ngIf="lines && lines.length > 0">
+            <div class="column">
+                <invoice-line-header [vatEnabled]="vatEnabled"></invoice-line-header>
+                <invoice-line-form *ngFor="let line of lines"
+                                   [line]="line"
+                                   [companyRef]="companyRef"
+                                   [editionMode]="'EDITION'"
+                                   [editable]="editMode"
+                                   [vatEnabled]="vatEnabled"
+                                   (lineDeleted)="deleteLine(line)">
+                </invoice-line-form>
+            </div>
+        </ng-container>
+    </div>
 </div>
