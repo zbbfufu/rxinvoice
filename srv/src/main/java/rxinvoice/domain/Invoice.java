@@ -23,7 +23,6 @@ public class Invoice implements Auditable {
     private DateTime date;
     private DateTime dueDate;
     private DateTime sentDate;
-// FIXME need to add sentDate, when the status is passed to sent
     private Status status;
     private boolean withVAT;
     private String object;
@@ -73,6 +72,15 @@ public class Invoice implements Auditable {
 
     public DateTime getDate() {
         return date;
+    }
+
+    public DateTime getSentDate() {
+        return sentDate;
+    }
+
+    public Invoice setSentDate(DateTime sentDate) {
+        this.sentDate = sentDate;
+        return this;
     }
 
     public DateTime getDueDate() {

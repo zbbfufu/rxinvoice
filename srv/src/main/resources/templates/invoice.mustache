@@ -6,437 +6,352 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>TEST</title>
     <style type="text/css" rel="stylesheet" media="all">
-        .invoice {
-            clear: both;
+        @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: #252525;
+        }
+
+
+        @page {
+            margin: 0 !important;
+        }
+
+        /* GLOBAL */
+
+        /* == Typo */
+
+        .label-info {
+            text-transform: uppercase;
+            color: #7d7d7d;
+            letter-spacing: 1px;
+        }
+
+        .label-buyer {
+            display: block;
+            font-size: 13px;
+        }
+
+        .project-name {
+            white-space: pre;
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        /* Layout */
+
+        .bloc-container {
+            display: inline-block;
+            background: #e2e2e2;
+            padding: 12px;
+        }
+
+        .bloc-container-title {
+            margin: 0;
+            font-size: 16px;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            color: black;
+        }
+
+        /* HEADER */
+
+        .panel-header {
+            width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .panel-header .invoiceSeller,
+        .panel-header .invoiceReference {
+            display: inline-block;
+            vertical-align: middle;
+           width: 46%;
+        }
+
+        .invoiceSeller {
+            margin-left: 24px;
+        }
+
+        .invoiceReference {
+            margin-right: 24px;
+            text-align: right;
+        }
+
+        /* == Logo */
+        .seller-name img {
+            display: block;
+            width: 116px;
+            margin-bottom: 16px;
+        }
+
+        /* == Invoice Ref */
+
+        .invoice-ref-nb {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .invoice-ref-title {
+            padding-top: 0 !important;
+            margin: 0;
+            color: #EA2531 !important;
+            text-transform: none;
+            font-size: 34px;
+        }
+
+        /* BUYER */
+
+        .panel-buyer {
+            display: block;
+            width: 100%;
+            margin-bottom: 34px;
+        }
+
+        .panel-buyer .invoiceObject,
+        .panel-buyer .invoiceBuyer {
+            display: inline-block;
+            vertical-align: middle;
+            width: 40%;
+        }
+
+        .invoiceBuyer {
+            padding-right: 24px;
+            margin-left: 24px;
+        }
+
+        .invoiceObject {
+            padding-left: 24px;
+            margin-right: 24px;
+        }
+
+
+        /* TABLE LINE */
+
+        .panel-line {
+            display: block;
+            margin: 0 24px;
+        }
+
+        .panel-line table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr th {
+            text-transform: uppercase;
+            color: #7d7d7d;
+            letter-spacing: 1px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        thead tr .currency {
+            padding: 0 16px;
+            text-align: right;
+        }
+
+        tbody tr td {
+            font-size: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid #252525;
+            color: #252525;
+        }
+
+        tbody tr .currency {
+            padding: 8px 16px;
+            text-align: right;
+        }
+
+        .col-sep td {
+            border-bottom: none;
+            padding: 0;
+        }
+
+        tfoot tr td {
+            padding: 12px 0;
         }
 
         th.currency {
             width: 20%;
+            text-align: right;
         }
 
         td.currency {
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        .totalLabel {
+            width: 178px;
+            padding: 8px 16px;
+            font-weight: normal !important;
             text-align: right;
         }
 
-        input {
-            width: 100%;
-            height: 100%;
-        }
-
-
-        label.invoiceObject {
-            height: 145px;
-            min-width: 140px;
-            vertical-align: top;
-        }
-
-        textarea.invoiceObject {
-            height: 145px;
-            min-width: 140px;
-            width: 340px;
-            max-width: 340px;
-            line-height: normal;
-        }
-
-        input.invoiceComment {
-            width: 332px;
-        }
-
-        label.legalNotice,
-        label.detail {
-            height: 100px;
-            min-width: 140px;
-            vertical-align: top;
-        }
-
-        textarea.legalNotice,
-        textarea.detail {
-            height: 100px;
-            width: 340px;
-            max-width: 340px;
-            line-height: normal;
-        }
-
-        label.address {
-            height: 100px;
-            vertical-align: top;
-        }
-
-        textarea.address {
-            height: 100px;
-            width: 305px;
-            max-width: 305px;
-            line-height: normal;
-        }
-
-
-        .invoiceSeller,
-        .invoiceBuyer,
-        .invoiceComment {
-            clear: both;
-        }
-
-        .addressBodyBlock {
-            margin-top: 0;
-        }
-
-        .addressBody {
-            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-            width: 100%;
-            border: none;
-            font-size: 12px;
-            background: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .view {
-            position: relative;
-
-            font-size: 16px;
-        }
-
-        .buyer-name {
-            font-size: 18px;
-        }
-
-        .addressBodyBlock,
-        .addressBody {
-            font-size: 16px;
-        }
-
-
-        .invoiceReference h2 {
-            padding-top: 10px;
-            font-size: 34px;
-            font-weight: bold;
-        }
-
-        .invoice-ref-row {
-            font-size: 18px;
-        }
-
-        .invoice-4sh-logo {
-            display: block;
-            width: 3cm;
-            height: 1.5cm;
-        }
-
-        .seller-name {
-            margin-bottom: 0;
-        }
-
-        .attention-to,
-        .invoiceObject h3 {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .buyer-row {
-            margin: 50px 0;
-        }
-
-        h2, h3 {
-            color: black;
-            text-transform: uppercase;
-            font-weight: bold;
-            background: none;
-            border: none;
-            padding: 0;
-        }
-
-        h2 {
-            color: #808080 !important;
-        }
-
-        h3 {
-            font-size: 14px;
-        }
-
-        .invoiceObject {
-            border: none;
-            width: 55%;
-            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-            font-size: 16px;
-            background: none;
-            padding: 0;
-            width: 100%;
-
-        }
-
-        .invoiceSeller,
-        .invoiceBuyer,
-        .invoiceComment {
-            margin-left: 20px;
-            clear: none;
-        }
-
-        .invoiceReference,
-        .invoiceObject {
-            margin-right: 20px;
-        }
-
-        .invoiceReference {
+        .totalAmount {
+            padding: 8px 16px;
+            background-color: #252525;
+            color: white;
+            font-weight: normal;
             text-align: right;
         }
 
-        .invoiceComment {
-            margin-top: 20px;
-        }
+        /* FOOTER */
 
-        .invoiceLines {
-            margin-top: 20px;
-        }
-
-        .invoiceLines table {
-            border: none;
-            border-top: black solid 3px;
-        }
-
-        .invoiceLines thead,
-        .invoiceLines tbody {
-            border-left: black solid 1px !important;
-        / / important needed for overwrite boostrap border-right: black solid 1 px !important;
-        / / important needed for overwrite boostrap
-        }
-
-        .invoiceLines tbody {
-            border-bottom: black solid 1px;
-        }
-
-        .invoiceLines th {
-            text-align: center;
-            border: black solid 1px !important;
-        / / important needed for overwrite boostrap text-transform: uppercase;
-        }
-
-        .invoiceLines tr.startVat {
-            margin-top: 20px;
-        }
-
-        .invoiceLines tr {
-            border: none !important;
-        / / important needed for overwrite boostrap
-        }
-
-        .invoiceLines td {
-            border: none !important;
-        / / important needed for overwrite boostrap border-right: black solid 1 px !important;
-        / / important needed for overwrite boostrap
-        }
-
-        .invoiceLines.totalLabel {
-            border: none;
-        }
-
-        .invoiceLines .totalAmount {
-            border: black solid 1px !important;
-        / / important needed for overwrite boostrap
-        }
-
-
-        .legalNotice {
-            margin-top: 15px;
-        }
-
-        .legalNoticeForeignBuyer {
-            font-style: italic;
-            font-size: 16px;
-        }
-
-        .invoice-bottom-info {
+        .panel-footer {
             position: fixed;
-            left: 45px;
-            right: 45px;
             bottom: 0;
+            padding: 0 24px;
+            padding-bottom: 3mm;
+            padding-top: 3mm;
+            margin-top: 25px;
+            font-size: 8pt;
+            background: #e2e2e2;
+            border-top: 1px solid #ea2531;
         }
 
-        .invoiceLegalNotice {
-            margin-top: 40px;
-        }
-
-        .invoiceLegalNoticeBlock {
-            margin-top: 10px;
-        }
-
-        .legalNotice {
-            border: none;
-            width: 100%;
-            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-            background: none;
-            padding: 0;
-            font-size: 16px;
-        }
-
-
-        .invoiceLegalNoticeInfo {
-            font-style: italic;
-            font-size: 80%;
-            font-size: 14px;
-        }
-
-
-        .footer {
-            border-top: solid 3px red;
-            margin: 10px 0;
-            padding: 0 10px;
-        }
-
-        .fullName {
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .detail {
-            padding: 0;
-            margin: 0;
-            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-            background-color: transparent;
-            border: none;
+        .panel-footer .legalNotice {
+            white-space: pre-line;
             font-size: 12px;
-        }
-
-
-        .icon-title {
-            display: inline-block;
-            vertical-align: top;
-            height: 25px;
-            width: 25px;
-            margin-right: 10px;
+            font-weight: 700;
         }
     </style>
 </head>
 
 <body>
+
 <div class="panel panel-body">
-
-    <div class="row">
-        <div class="invoiceReference pull-right">
-            <h2>Facture</h2>
-            <div class="invoice-ref-row">FACTURE Nº {{invoice.reference}}</div>
-            <div class="invoice-ref-row">DATE : {{invoice.date}}</div>
-        </div>
-
+    <div class="panel-header">
         <div class="invoiceSeller">
             <h2 class="seller-name">
+                <img src="data:image/png;base64,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"/>
                 {{invoice.seller.name}}
             </h2>
 
             <div class="addressBodyBlock">
-                <pre class="addressBody">{{invoice.seller.address.body}}</pre>
+                <label class="label-info">Adresse</label>
+                <div class="addressBody">{{invoice.seller.address.body}}</div>
             </div>
             <div class="addressBodyBlock">{{invoice.seller.address.zipCode}} {{invoice.seller.address.city}}</div>
             {{#invoice.seller.address.country}}
                 <div class="addressBodyBlock">{{invoice.seller.address.country}}</div>
             {{/invoice.seller.address.country}}
         </div>
+
+        <div class="invoiceReference">
+            <h2 class="invoice-ref-title">Facture</h2>
+            <div class="invoice-ref-nb">Nº {{invoice.reference}}</div>
+            <label class="label-info">Date</label>
+            <div class="invoice-ref-row">{{invoiceDate}}</div>
+        </div>
     </div>
 
-    <div class="row buyer-row">
-        <div class="invoiceObject pull-right">
-            <h3>Objet :</h3>
-            <pre class="invoiceObject">{{invoice.object}}</pre>
-
-            {{#invoice.customerInvoiceRef}}
-                <pre class="invoiceObject">Ref. commande client : {{invoice.customerInvoiceRef}}</pre>
-            {{/invoice.customerInvoiceRef}}
-
-        </div>
-
+    <div class="panel-buyer">
         <div class="invoiceBuyer">
-            <h3 class="attention-to">A l'attention de :</h3>
-            <div class="buyer-name">{{invoice.buyer.name}}</div>
-            <div class="addressBodyBlock">
-                <pre class="addressBody">{{invoice.buyer.address.body}}</pre>
+            <div class="bloc-container">
+                <h3 class="bloc-container-title">A l'attention de :</h3>
+                <div class="buyer-name">{{invoice.buyer.name}}</div>
+                <div class="label-buyer">{{invoice.buyer.address.body}}</div>
+                <div class="label-buyer">{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}}</div>
+                {{#invoice.buyer.address.country}}
+                    <div class="label-buyer">{{invoice.buyer.address.country}}</div>
+                {{/invoice.buyer.address.country}}
+
+
+                {{#invoice.buyer.legalNotice}}
+                <div class="label-buyer">{{invoice.buyer.legalNotice}}</small>
+                {{/invoice.buyer.legalNotice}}
+                {{#invoice.buyer.showLegalNoticeForeignBuyer}}
+                    <div class="label-buyer">TVA due par le preneur Article 196 - Directive 2006/112/CE</div>
+                {{/invoice.buyer.showLegalNoticeForeignBuyer}}
             </div>
-            <div class="addressBodyBlock">{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}}</div>
-            {{#invoice.buyer.address.country}}
-                <div class="addressBodyBlock">{{invoice.buyer.address.country}}</div>
-            {{/invoice.buyer.address.country}}
-
-
-            {{#invoice.buyer.legalNotice}}
-                <div class="legalNotice">{{invoice.buyer.legalNotice}}</div>
-            {{/invoice.buyer.legalNotice}}
-            {{#invoice.buyer.showLegalNoticeForeignBuyer}}
-                <div class="legalNoticeForeignBuyer">TVA due par le preneur Article 196 - Directive 2006/112/CE</div>
-            {{/invoice.buyer.showLegalNoticeForeignBuyer}}
-        </div>
-    </div>
-
-    <div class="invoiceLines">
-        <table class="table table-condensed table-bordered">
-            <thead>
-            <tr>
-                <th>Désignation</th>
-                <th class="currency">Montant HT</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-            {{#invoice.lines}}
-                <tr>
-                    <td>{{description}}</td>
-                    <td class="currency">{{grossAmount}}</td>
-                </tr>
-            {{/invoice.lines}}
-
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td class="currency totalLabel totalGrossAmount">
-                    <div>Total HT</div>
-                </td>
-                <td class="currency totalAmount">{{invoice.grossAmount}}</td>
-            </tr>
-            {{#invoice.withVAT}}
-                {{#invoice.vatsAmount}}
-                    <tr>
-                        <td class="currency totalLabel">
-                            <div>{{'invoice.lines.vat'  | translate}} - {{vat}}</div>
-                        </td>
-                        <td class="currency totalAmount">{{amount}}</td>
-                    </tr>
-                {{/invoice.vatsAmount}}
-                <tr>
-                    <td class="currency totalLabel">
-                        <div>Total TTC</div>
-                    </td>
-                    <td class="currency totalAmount">{{invoice.netAmount}}</td>
-                </tr>
-            {{/invoice.withVAT}}
-            </tfoot>
-        </table>
-    </div>
-
-    <div class="invoice-bottom-info">
-        <div class="invoiceLegalNotice">
-            <div class="invoiceLegalNoticeBlock">
-                <pre class="legalNotice">{{invoice.seller.legalNotice}}</pre>
             </div>
-            <br></br>
-            <div class="invoiceLegalNoticeBlock invoiceLegalNoticeInfo">
-                <div>« En cas de retard de paiement, seront exigibles, conformément à l'article L 441-6 du code de
-                    commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur
-                    ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros ».
+
+            <div class="invoiceObject">
+                <div class="bloc-container">
+                    <h3 class="bloc-container-title">Objet :</h3>
+                    <div class="project-name">{{invoice.object}}</div>
+                    {{#invoice.customerInvoiceRef}}
+                        <div class="label-buyer">Ref. commande client : {{invoice.customerInvoiceRef}}</div>
+                    {{/invoice.customerInvoiceRef}}
                 </div>
             </div>
-            <br></br>
         </div>
-        <div class="footer">
-            <div class="fullName">{{invoice.seller.fullName}}</div>
-            <pre class="detail">{{invoice.seller.detail}}</pre>
+
+        <div class="panel-line">
+            <table>
+                <thead>
+                <tr>
+                    <th style="text-align: left;">Désignation</th>
+                    <th></th>
+                    <th class="currency">Montant HT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="col-sep">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                {{#invoice.lines}}
+                    <tr>
+                        <td>{{description}}</td>
+                        <td></td>
+                        <td class="currency">{{grossAmount}}</td>
+                    </tr>
+                {{/invoice.lines}}
+                </tbody>
+
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td class="totalLabel totalGrossAmount">
+                        <div>Total HT</div>
+                    </td>
+                    <td class="currency totalAmount">{{invoice.grossAmount}}</td>
+                </tr>
+                {{#invoice.withVAT}}
+                    {{#invoice.vatsAmount}}
+                        <tr>
+                            <td></td>
+                            <td class="totalLabel">
+                                <div>TVA - {{vat}}</div>
+                            </td>
+                            <td class="currency totalAmount">{{amount}}</td>
+                        </tr>
+                    {{/invoice.vatsAmount}}
+                    <tr>
+                        <td></td>
+                        <td class="totalLabel">
+                            <div>Total TTC</div>
+                        </td>
+                        <td class="currency totalAmount">{{invoice.netAmount}}</td>
+                    </tr>
+                {{/invoice.withVAT}}
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="panel-footer">
+            <div class="invoiceLegalNotice">
+                <div class="invoiceLegalNoticeBlock">
+                    <div class="legalNotice">{{invoice.seller.legalNotice}}</div>
+                </div>
+                <br></br>
+                <div class="invoiceLegalNoticeBlock invoiceLegalNoticeInfo">
+                    <div>« En cas de retard de paiement, seront exigibles, conformément à l'article L 441-6 du code de
+                        commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur
+                        ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros ».
+                    </div>
+                </div>
+                <br></br>
+            </div>
+            <div class="footer">
+                <div class="fullName">{{invoice.seller.fullName}}</div>
+                <div class="detail">{{invoice.seller.detail}}</div>
+            </div>
         </div>
     </div>
-</div>
-
 
 </body>
 </html>

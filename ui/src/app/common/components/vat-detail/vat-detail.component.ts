@@ -4,9 +4,9 @@ import {plainToClass} from 'class-transformer';
 import {VATModel} from '../../../models/VAT.model';
 
 @Component({
-  selector: 'vat-detail',
-  templateUrl: './vat-detail.component.html',
-  styleUrls: ['./vat-detail.component.scss']
+    selector: 'vat-detail',
+    templateUrl: './vat-detail.component.html',
+    styleUrls: ['./vat-detail.component.scss']
 })
 export class VatDetailComponent implements OnInit {
 

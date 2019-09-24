@@ -6,6 +6,7 @@ import restx.annotations.RestxResource;
 import restx.factory.Component;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Company;
+import rxinvoice.domain.FiscalYear;
 import rxinvoice.domain.Invoice;
 import rxinvoice.domain.Revenue;
 
@@ -28,10 +29,10 @@ public class RevenueResource {
     @GET("/revenues/fiscal")
     public Iterable<Revenue> getFiscalYearRevenues() {
         Optional<Company> company = companyResource.findCompanyByKey(AppModule.currentUser().getCompanyRef());
-        Company.FiscalYear fiscalYear =
-                company.isPresent() ? company.get().getFiscalYear().current() : Company.FiscalYear.DEFAULT;
-        Company.FiscalYear previousFiscalYear = fiscalYear.previous();
-        Company.FiscalYear nextFiscalYear = fiscalYear.next();
+        FiscalYear fiscalYear =
+                company.isPresent() ? company.get().getFiscalYear().current() : FiscalYear.DEFAULT;
+        FiscalYear previousFiscalYear = fiscalYear.previous();
+        FiscalYear nextFiscalYear = fiscalYear.next();
 
         return Arrays.asList(
                 computeRevenue(previousFiscalYear.getStart(), previousFiscalYear.getEnd(), Revenue.PeriodType.YEARLY),

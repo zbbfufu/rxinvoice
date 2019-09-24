@@ -19,11 +19,14 @@
         <td>
             <div class="customerList-item-label text-right">{{'customers.label.number' | translate}}</div>
             <span class="customerList-item-label">{{'customers.label.lastFinancialYear' | translate}}: </span>
-            <span class="customerList-item-value float-right">0</span>
+            <span class="customerList-item-value float-right">{{customer.fiscalYearMetricsMap[-1]?.nbInvoices}}</span>
         </td>
         <td>
             <div class="customerList-item-label text-right">{{'customers.label.ca' | translate}}</div>
-            <span class="customerList-item-value float-right">{{ '000000' | currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
+            <span class="customerList-item-value float-right">{{(customer.fiscalYearMetricsMap[-1]?.paid +
+                customer.fiscalYearMetricsMap[-1]?.invoiced +
+                customer.fiscalYearMetricsMap[-1]?.expected +
+                customer.fiscalYearMetricsMap[-1]?.expired) | currency:'EUR':'symbol':'1.2-2':'fr' }}</span>
         </td>
     </tr>
 
@@ -44,10 +47,14 @@
         </td>
         <td class="force-inner-space-bottom-0">
             <span class="customerList-item-label">{{'customers.label.financialYear' | translate}}:</span>
-            <span class="customerList-item-value float-right">0</span>
+            <span class="customerList-item-value float-right">{{customer.fiscalYearMetricsMap[0]?.nbInvoices}}</span>
         </td>
         <td class="force-inner-space-bottom-0 float-right">
-            <span class="customerList-item-value">{{ '000000' | currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
+            <span class="customerList-item-value">{{(customer.fiscalYearMetricsMap[0]?.paid +
+                customer.fiscalYearMetricsMap[0]?.invoiced +
+                customer.fiscalYearMetricsMap[0]?.expected +
+                customer.fiscalYearMetricsMap[0]?.expired) | currency:'EUR':'symbol':'1.2-2':'fr' }}
+            </span>
         </td>
     </tr>
 
@@ -55,10 +62,13 @@
     <tr>
         <td>
             <span class="customerList-item-label">{{'customers.label.nextFinancialYear' | translate}}:</span>
-            <span class="customerList-item-value float-right">0</span>
+            <span class="customerList-item-value float-right">{{customer.fiscalYearMetricsMap[1]?.nbInvoices}}</span>
         </td>
         <td>
-            <span class="customerList-item-value float-right">{{ '000000' | currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
+            <span class="customerList-item-value float-right">{{(customer.fiscalYearMetricsMap[1]?.paid +
+                customer.fiscalYearMetricsMap[1]?.invoiced +
+                customer.fiscalYearMetricsMap[1]?.expected +
+                customer.fiscalYearMetricsMap[1]?.expired) | currency:'EUR':'symbol':'1.2-2':'fr' }}</span>
         </td>
     </tr>
 </tbody>

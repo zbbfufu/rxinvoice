@@ -50,7 +50,7 @@
                     <invoices-list [invoices]="validatedInvoices" [isPending]="isPending"></invoices-list>
                 </div>
             </tab>
-            <tab class="row"  [tabTitle]="'invoice.status.SENT' | translate" tabId="SENT"
+            <tab class="row"  [tabTitle]="'dashboard.to.send' | translate" tabId="VALIDATED"
                  [numberOfElements]="sentInvoices?.length" [amount]="getAmount(sentInvoices)">
                 <div class="column small-24 tab-content">
                     <invoices-list [invoices]="sentInvoices" [isPending]="isPending"></invoices-list>

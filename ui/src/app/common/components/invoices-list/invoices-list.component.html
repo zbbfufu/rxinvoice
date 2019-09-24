@@ -44,7 +44,7 @@
     <tr>
         <td rowspan="2" class="text-click">
             <div class="invoiceList-value text">{{invoice.buyer.name}}</div>
-            <div><a class="invoiceList-value text blue-text" [routerLink]="['/app/invoices/detail/' + invoice._id]">{{invoice.object}}</a></div>
+            <div><a class="invoiceList-value text blue-text" [routerLink]="['/app/invoices/detail/' + invoice._id]">[{{invoice.reference ? invoice.reference : ('invoices.label.NA'|translate)}}] {{invoice.object}}</a></div>
         </td>
         <td rowspan="2" (click)="goToDetail(invoice)" class="text-click">
             <span class="invoiceList-label">{{'invoices.label.deadlineDate' | translate}}:</span>

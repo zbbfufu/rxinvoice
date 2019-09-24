@@ -134,6 +134,16 @@
       background-color: $app-main-color !important;
     }
   }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.3;
+
+    &:hover {
+      cursor: not-allowed !important;
+      opacity: 0.3 !important;
+    }
+  }
 }
 
 // ================ //

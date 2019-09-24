@@ -12,6 +12,7 @@ import {CurrencyPipe} from '@angular/common';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import * as moment from 'moment';
 import {DateUtils} from "../../common/utils/date-utils";
+import {SearchParams} from "../../models/search-params.model";
 
 @Component({
     selector: 'invoices',
@@ -48,10 +49,10 @@ export class InvoicesComponent implements OnInit {
     ngOnInit() {
         const once = this.route.queryParamMap.subscribe((params: Params) => {
             let searchParams = Object.assign({}, params.params);
-            if(searchParams.startDate) {
+            if (searchParams.startDate) {
                 searchParams.startDate = DateUtils.stringToDate(searchParams.startDate);
             }
-            if(searchParams.endDate) {
+            if (searchParams.endDate) {
                 searchParams.endDate = DateUtils.stringToDate(searchParams.endDate);
             }
             this.searchForm.patchValue(searchParams);
@@ -63,14 +64,16 @@ export class InvoicesComponent implements OnInit {
             .debounceTime(250)
             .distinctUntilChanged()
             .subscribe(() => {
-               if (once) {once.unsubscribe(); }
+                if (once) {
+                    once.unsubscribe();
+                }
                 this.research();
             });
         this.research();
     }
 
     toggleFilter(string) {
-            this.filterString = string;
+        this.filterString = string;
     }
 
     research() {
@@ -82,10 +85,10 @@ export class InvoicesComponent implements OnInit {
                     this.invoices = invoices;
                     this.isPending = false;
                     let searchParams = Object.assign({}, this.searchForm.value);
-                    if(searchParams.startDate) {
+                    if (searchParams.startDate) {
                         searchParams.startDate = DateUtils.dateToString(searchParams.startDate);
                     }
-                    if(searchParams.endDate) {
+                    if (searchParams.endDate) {
                         searchParams.endDate = DateUtils.dateToString(searchParams.endDate);
                     }
                     this.router.navigate([], {replaceUrl: false, queryParams: searchParams});
@@ -114,5 +117,9 @@ export class InvoicesComponent implements OnInit {
     public updatedInvoice(invoice) {
         this.selectedForQuickUpdate = invoice;
         this.showQuickPanelStatusEdit = false;
+    }
+
+    public buildUri(): string {
+        return "/api/exports/invoices?" + SearchParams.toHttpParams(this.searchForm.value).toString();
     }
 }

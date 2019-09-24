@@ -1,5 +1,6 @@
 package rxinvoice.rest;
 
+import com.google.common.collect.Lists;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,13 +8,19 @@ import restx.factory.Component;
 import restx.factory.Factory;
 import restx.jongo.JongoCollection;
 import rxinvoice.domain.Company;
+import rxinvoice.domain.FiscalYear;
 import rxinvoice.domain.Invoice;
+import rxinvoice.domain.Metrics;
 
 import javax.inject.Named;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class InvoiceMetricsResource {
@@ -80,20 +87,39 @@ public class InvoiceMetricsResource {
         logger.debug("Begin to compute company metrics for company {}", companyKey);
 
         Company company = getCompany(companyKey);
-        Company.Metrics metrics = company.getMetrics();
 
-        if (metrics == null) {
-            metrics = new Company.Metrics();
+        List<Invoice> invoiceList = Lists.newArrayList((Iterable<? extends Invoice>) invoices.get().find("{ buyer._id: #}", new ObjectId(company.getKey())).as(Invoice.class));
+
+        Metrics metrics = computeFiscalYearMetrics(invoiceList, Optional.empty());
+
+        FiscalYear current = FiscalYear.DEFAULT;
+        FiscalYear previous = current.previous();
+        FiscalYear next = current.next();
+
+        company.getFiscalYearMetricsMap().put(-1, computeFiscalYearMetrics(invoiceList, Optional.of(previous)));
+        company.getFiscalYearMetricsMap().put(0, computeFiscalYearMetrics(invoiceList, Optional.of(current)));
+        company.getFiscalYearMetricsMap().put(1, computeFiscalYearMetrics(invoiceList, Optional.of(next)));
+
+        company.setMetrics(metrics);
+        companies.get().save(company);
+
+        logger.debug("End to compute company metrics for company {}", company.getKey());
+    }
+
+    private Metrics computeFiscalYearMetrics(List<Invoice> invoices,  Optional<FiscalYear> fiscalYearOptional) {
+        Metrics metrics = new Metrics();
+        if (fiscalYearOptional.isPresent()) {
+            invoices = invoices.stream()
+                    .filter(invoice -> invoice.getDate().toLocalDate().isAfter(fiscalYearOptional.get().getStart())
+                            && invoice.getDate().toLocalDate().isBefore(fiscalYearOptional.get().getEnd())).collect(Collectors.toList());
         }
-
-        Iterable<Invoice> list = invoices.get().find("{ buyer._id: #}", new ObjectId(company.getKey())).as(Invoice.class);
-
         int nbInvoices = 0;
         BigDecimal expected = BigDecimal.ZERO;
         BigDecimal expired = BigDecimal.ZERO;
         BigDecimal invoiced = BigDecimal.ZERO;
         BigDecimal paid = BigDecimal.ZERO;
-        for (Invoice invoice : list) {
+        BigDecimal cancelled = BigDecimal.ZERO;
+        for (Invoice invoice : invoices) {
             nbInvoices++;
 
             switch (invoice.getStatus()) {
@@ -104,22 +130,18 @@ public class InvoiceMetricsResource {
                 case DRAFT: expected = expected.add(invoice.getGrossAmount());break;
                 case WAITING_VALIDATION: expected = expected.add(invoice.getGrossAmount());break;
                 case VALIDATED: expected = expected.add(invoice.getGrossAmount());break;
+                case CANCELLED: cancelled = cancelled.add(invoice.getGrossAmount());break;
             }
         }
-
-
-
         metrics.setExpected(expected);
         metrics.setExpired(expired);
         metrics.setInvoiced(invoiced);
+        metrics.setCancelled(cancelled);
         metrics.setPaid(paid);
         metrics.setNbInvoices(nbInvoices);
-
-        company.setMetrics(metrics);
-        companies.get().save(company);
-
-        logger.debug("End to compute company metrics for company {}", company.getKey());
+        return metrics;
     }
+
 
     public void computeInvoiceMetricsSync(Invoice invoice) {
         if (invoice != null && invoice.getBuyer() != null) {
