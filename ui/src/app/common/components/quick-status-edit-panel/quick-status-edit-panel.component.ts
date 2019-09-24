@@ -2,22 +2,20 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {InvoiceModel} from '../../../models/invoice.model';
 import {InvoiceStatusType} from '../../../models/invoice-status.type';
 import {RepositoryService} from '../../services/repository.service';
-import {InvoiceService} from '../../services/invoice.service';
 
 @Component({
-    selector: 'squick-status-edit-panel',
-    templateUrl: './squick-status-edit-panel.component.html',
-    styleUrls: ['./squick-status-edit-panel.component.scss']
+    selector: 'quick-status-edit-panel',
+    templateUrl: './quick-status-edit-panel.component.html',
+    styleUrls: ['./quick-status-edit-panel.component.scss']
 })
-export class SquickStatusEditPanelComponent implements OnInit {
+export class QuickStatusEditPanelComponent implements OnInit {
 
     public statuses: InvoiceStatusType[];
     @Input() invoice: InvoiceModel;
     @Input() showQuickPanelStatusEdit = false;
     @Output() invoiceUpdate: EventEmitter<InvoiceModel> = new EventEmitter();
 
-    constructor(private repositoryService: RepositoryService,
-                private invoiceService: InvoiceService) {
+    constructor(private repositoryService: RepositoryService) {
     }
 
     ngOnInit() {
@@ -25,8 +23,7 @@ export class SquickStatusEditPanelComponent implements OnInit {
             .subscribe(statuses => this.statuses = statuses);
     }
 
-    public updateInvoice() {
-
+    public updateInvoice(): void {
         this.invoiceUpdate.emit(this.invoice);
     }
 
