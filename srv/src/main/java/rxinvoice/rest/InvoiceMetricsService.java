@@ -66,11 +66,8 @@ public class InvoiceMetricsService {
     }
 
     public void computeCompanyMetricsAsync(String companyId) {
-        final Optional<Company> companyOptional = companyService.findCompanyByKey(companyId);
-
-        if (companyOptional.isPresent()) {
-            computeCompanyMetricsAsync(companyOptional.get());
-        }
+        Company company = checkPresent(companyService.findCompanyByKey(companyId), String.format("Company not found for id: %s", companyId));
+        computeCompanyMetricsAsync(company);
     }
 
     public void computeAllCompanyMetricsAsync() {
@@ -108,6 +105,7 @@ public class InvoiceMetricsService {
         Metrics metrics = new Metrics();
         if (fiscalYearOptional.isPresent()) {
             invoices = invoices.stream()
+                    .filter(invoice -> invoice.getDate() != null)
                     .filter(invoice -> invoice.getDate().toLocalDate().isAfter(fiscalYearOptional.get().getStart())
                             && invoice.getDate().toLocalDate().isBefore(fiscalYearOptional.get().getEnd())).collect(Collectors.toList());
         }
