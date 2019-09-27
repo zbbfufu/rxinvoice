@@ -27,13 +27,13 @@ export class InvoiceLinesDetailComponent implements OnInit {
         this.newLine = this.createNewLine();
     }
 
-    public addLine() {
-        this.lines.push(this.copyLine(this.newLine));
-        this.linesChange.emit(this.lines);
+    public addLine(line: InvoiceLineModel) {
+        this.lines.push(line);
         this.newLine = this.createNewLine();
+        this.linesChange.emit(this.lines);
     }
 
-    public deleteLine(lineToRemove) {
+    public deleteLine(lineToRemove: InvoiceLineModel) {
         this.lines = this.lines.filter(line => line !== lineToRemove);
         this.linesChange.emit(this.lines);
     }
@@ -42,15 +42,5 @@ export class InvoiceLinesDetailComponent implements OnInit {
         let line = new InvoiceLineModel();
         line.vat = new VATModel();
         return line;
-    }
-
-    private copyLine(invoiceLine: InvoiceLineModel) {
-        let lineCopy = new InvoiceLineModel();
-        let vatModelCopy = new VATModel();
-        vatModelCopy.vat = invoiceLine.vat.vat;
-        vatModelCopy.amount = invoiceLine.vat.amount;
-        Object.assign(lineCopy, invoiceLine);
-        lineCopy.vat = vatModelCopy;
-        return lineCopy;
     }
 }

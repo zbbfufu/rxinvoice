@@ -33,7 +33,7 @@ input {
   border-radius: rem-calc(14px);
   margin-bottom: 0 !important;
 
-  &.ng-invalid {
+  &.ng-invalid.ng-touched {
     border: 2px solid rgba($shiraz, 0.5);
   }
 }
