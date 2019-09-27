@@ -18,9 +18,9 @@ export class InvoiceLineFormComponent implements OnInit {
     @Input() line: InvoiceLineModel;
     @Input() editionMode: InvoiceLineEditionMode;
     @Input() editable: boolean;
-    @Input() invoiceLineForm: NgForm;
     @Input() vatEnabled: boolean;
 
+    @Output() lineAdded: EventEmitter<InvoiceLineModel> = new EventEmitter();
     @Output() lineDeleted: EventEmitter<InvoiceLineModel> = new EventEmitter();
 
     ngOnInit() {
@@ -48,6 +48,10 @@ export class InvoiceLineFormComponent implements OnInit {
         this.computeGrossAmount();
     }
 
+    public addLine() {
+        this.lineAdded.emit(this.line);
+    }
+    
     public deleteLine() {
         this.lineDeleted.emit(this.line);
     }

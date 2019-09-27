@@ -7,27 +7,24 @@
         <div *ngIf="editMode" class="row newCustomerDetail-container">
             <div class="column">
                 <invoice-line-header [vatEnabled]="vatEnabled"></invoice-line-header>
-                <form (submit)="addLine()" novalidate #invoiceLineForm="ngForm">
-                    <invoice-line-form [line]="newLine"
-                                       [companyRef]="companyRef"
-                                       [editionMode]="'CREATION'"
-                                       [editable]="editMode"
-                                       [vatEnabled]="vatEnabled"
-                                       [invoiceLineForm]="invoiceLineForm">
-                    </invoice-line-form>
-                </form>
+                <invoice-line-form [line]="newLine"
+                                   [companyRef]="companyRef"
+                                   [editionMode]="'CREATION'"
+                                   [editable]="editMode"
+                                   [vatEnabled]="vatEnabled"
+                                   (lineAdded)="addLine($event)">
+                </invoice-line-form>
             </div>
         </div>
         <ng-container *ngIf="lines && lines.length > 0">
             <div class="column">
                 <invoice-line-header [vatEnabled]="vatEnabled"></invoice-line-header>
-                <invoice-line-form *ngFor="let line of lines"
-                                   [line]="line"
+                <invoice-line-form [line]="line" *ngFor="let line of lines"
                                    [companyRef]="companyRef"
                                    [editionMode]="'EDITION'"
                                    [editable]="editMode"
                                    [vatEnabled]="vatEnabled"
-                                   (lineDeleted)="deleteLine(line)">
+                                   (lineDeleted)="deleteLine($event)">
                 </invoice-line-form>
             </div>
         </ng-container>
