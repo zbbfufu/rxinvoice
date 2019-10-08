@@ -7,11 +7,11 @@ import com.openhtmltopdf.util.XRLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import restx.factory.Component;
+import restx.i18n.Messages;
 import rxinvoice.domain.invoice.Invoice;
 
+import javax.inject.Named;
 import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -24,9 +24,12 @@ public class PrintServiceImpl implements PrintService {
     private static final Logger logger = LoggerFactory.getLogger(PrintServiceImpl.class);
 
     private final InvoiceService invoiceService;
+    private final Messages messages;
 
-    public PrintServiceImpl(InvoiceService invoiceService) {
+    public PrintServiceImpl(InvoiceService invoiceService,
+                            @Named("Messages") Messages messages) {
         this.invoiceService = invoiceService;
+        this.messages = messages;
     }
 
     private void createPdfFromHtml(String html, OutputStream outputStream) {
@@ -59,7 +62,7 @@ public class PrintServiceImpl implements PrintService {
                 String.format("Invoice not found for id %s", invoiceId));
 
         Map<String, Object> params = new HashMap<>();
-        params.put("invoice", invoice.toInvoiceView());
+        params.put("invoice", invoice.toInvoiceView(messages, Locale.FRANCE));
 
         String html = executeTemplate("invoice.mustache", params);
         try {

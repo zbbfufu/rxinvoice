@@ -4,11 +4,11 @@ import com.google.common.collect.Lists;
 import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
+import restx.i18n.Messages;
 import restx.jackson.FixedPrecision;
 import rxinvoice.domain.*;
 import rxinvoice.domain.company.Business;
 import rxinvoice.domain.company.Company;
-import rxinvoice.domain.enumeration.Activity;
 import rxinvoice.domain.enumeration.Kind;
 
 import java.math.BigDecimal;
@@ -309,8 +309,8 @@ public class Invoice implements Auditable {
         return this;
     }
 
-    public InvoiceView toInvoiceView() {
-        return new InvoiceView(this);
+    public InvoiceView toInvoiceView(Messages messages, Locale locale) {
+        return new InvoiceView(this, messages, locale);
     }
 
     public static class InvoiceView {
@@ -329,7 +329,7 @@ public class Invoice implements Auditable {
 
         private String reference;
         private String object;
-        private Kind kind;
+        private String kind;
         private Business business;
 
         private Company.CompanyView seller;
@@ -340,7 +340,7 @@ public class Invoice implements Auditable {
         @FixedPrecision(2)
         private BigDecimal netAmount;
 
-        public InvoiceView(Invoice invoice) {
+        public InvoiceView(Invoice invoice, Messages messages, Locale locale) {
             this.key = invoice.getKey();
             this.date = (invoice.date == null) ? "" : dateFormat.format(invoice.date.toDate());
             this.dueDate = (invoice.dueDate == null) ? "" : dateFormat.format(invoice.dueDate.toDate());
@@ -356,7 +356,7 @@ public class Invoice implements Auditable {
             }
             this.reference = invoice.reference;
             this.object = invoice.object;
-            this.kind = invoice.kind;
+            this.kind = messages.getMessage("invoice.kind." + invoice.kind.name(), locale);
             this.business = invoice.business;
             this.seller = invoice.seller.toCompanyView();
             this.buyer = invoice.buyer.toCompanyView();
@@ -474,11 +474,11 @@ public class Invoice implements Auditable {
             return this;
         }
 
-        public Kind getKind() {
+        public String getKind() {
             return kind;
         }
 
-        public InvoiceView setKind(Kind kind) {
+        public InvoiceView setKind(String kind) {
             this.kind = kind;
             return this;
         }
