@@ -62,6 +62,7 @@ public class PrintServiceImpl implements PrintService {
         params.put("invoice", invoice);
         DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
         params.put("invoiceDate", invoice.getDate() == null ? "" : dateFormat.format(invoice.getDate().toDate()));
+        params.put("dueDate", invoice.getDueDate() == null ? "" : dateFormat.format(invoice.getDueDate().toDate()));
         String html = executeTemplate("invoice.mustache", params);
         try {
             createPdfFromHtml(html, outputStream);

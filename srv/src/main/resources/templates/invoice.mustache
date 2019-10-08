@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>TEST</title>
+    <title>{{invoice.reference}}</title>
     <style type="text/css" rel="stylesheet" media="all">
         @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
 
@@ -88,6 +88,11 @@
         /* == Invoice Ref */
 
         .invoice-ref-nb {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .invoice-date-row {
             font-size: 14px;
             margin-bottom: 8px;
         }
@@ -230,7 +235,6 @@
             </h2>
 
             <div class="addressBodyBlock">
-                <label class="label-info">Adresse</label>
                 <div class="addressBody">{{invoice.seller.address.body}}</div>
             </div>
             <div class="addressBodyBlock">{{invoice.seller.address.zipCode}} {{invoice.seller.address.city}}</div>
@@ -243,7 +247,9 @@
             <h2 class="invoice-ref-title">Facture</h2>
             <div class="invoice-ref-nb">Nº {{invoice.reference}}</div>
             <label class="label-info">Date</label>
-            <div class="invoice-ref-row">{{invoiceDate}}</div>
+            <div class="invoice-date-row">{{invoiceDate}}</div>
+            <label class="label-info">Echéance</label>
+            <div class="invoice-date-row">{{dueDate}}</div>
         </div>
     </div>
 
