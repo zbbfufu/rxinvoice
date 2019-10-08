@@ -9,9 +9,10 @@ import restx.annotations.RestxResource;
 import restx.factory.Component;
 import restx.jongo.JongoCollection;
 import restx.security.RolesAllowed;
-import rxinvoice.domain.Business;
-import rxinvoice.domain.Company;
-import rxinvoice.domain.Invoice;
+import rxinvoice.domain.ActivityValue;
+import rxinvoice.domain.company.Business;
+import rxinvoice.domain.company.Company;
+import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.enumeration.Activity;
 import rxinvoice.domain.report.InvoiceActivity;
 
@@ -103,7 +104,7 @@ public class CorsResource {
             if (invoice.getActivities() == null || invoice.getActivities().isEmpty()) {
                 results.add(compute(cacheCompanyKind, invoice, Activity.UNKNOWN, new BigDecimal(100)));
             } else {
-                for (Invoice.ActivityValue activityValue : invoice.getActivities()) {
+                for (ActivityValue activityValue : invoice.getActivities()) {
                     results.add(compute(cacheCompanyKind, invoice, activityValue.getActivity(), activityValue.getValue()));
                 }
             }

@@ -8,7 +8,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.joda.time.DateTime;
 import restx.factory.Component;
 import restx.i18n.Messages;
-import rxinvoice.domain.Invoice;
+import rxinvoice.domain.VATAmount;
+import rxinvoice.domain.invoice.Invoice;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -69,7 +70,7 @@ public class InvoiceExportService {
 
         BigDecimal sumOfVatAmounts = BigDecimal.ZERO;
 
-        for (Invoice.VATAmount vatAmount : invoice.getVatsAmount()) {
+        for (VATAmount vatAmount : invoice.getVatsAmount()) {
             sumOfVatAmounts = sumOfVatAmounts.add(vatAmount.getAmount());
         }
 

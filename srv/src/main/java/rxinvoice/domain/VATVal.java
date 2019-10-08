@@ -35,4 +35,36 @@ public class VATVal {
                 ", amount=" + amount +
                 '}';
     }
+
+    public VATValView toVatView() {
+        return new VATValView(this);
+    }
+
+    public static class VATValView {
+        private String vat;
+        private String amount;
+
+
+        public VATValView(VATVal vatVal) {
+            this.vat = vatVal.vat;
+            this.amount = (vatVal.amount == null) ? "0.00" :  vatVal.amount.setScale(2).toString();
+        }
+
+        @Override
+        public String toString() {
+            return "VATValView{" +
+                    "vat='" + vat + '\'' +
+                    ", amount='" + amount + '\'' +
+                    '}';
+        }
+
+        public String getVat() {
+            return vat;
+        }
+
+        public VATValView setVat(String vat) {
+            this.vat = vat;
+            return this;
+        }
+    }
 }

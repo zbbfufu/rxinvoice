@@ -1,4 +1,4 @@
-package rxinvoice.domain;
+package rxinvoice.domain.company;
 
 import org.joda.time.LocalDate;
 

@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>TEST</title>
+    <title>{{invoice.reference}}</title>
     <style type="text/css" rel="stylesheet" media="all">
         @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
 
@@ -88,6 +88,11 @@
         /* == Invoice Ref */
 
         .invoice-ref-nb {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .invoice-date-row {
             font-size: 14px;
             margin-bottom: 8px;
         }
@@ -226,11 +231,9 @@
         <div class="invoiceSeller">
             <h2 class="seller-name">
                 <img src="data:image/png;base64,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"/>
-                {{invoice.seller.name}}
             </h2>
 
             <div class="addressBodyBlock">
-                <label class="label-info">Adresse</label>
                 <div class="addressBody">{{invoice.seller.address.body}}</div>
             </div>
             <div class="addressBodyBlock">{{invoice.seller.address.zipCode}} {{invoice.seller.address.city}}</div>
@@ -243,7 +246,10 @@
             <h2 class="invoice-ref-title">Facture</h2>
             <div class="invoice-ref-nb">Nº {{invoice.reference}}</div>
             <label class="label-info">Date</label>
-            <div class="invoice-ref-row">{{invoiceDate}}</div>
+            <div class="invoice-date-row">{{invoice.date}}</div>
+            <label class="label-info">Echéance</label>
+            <div class="invoice-date-row">{{invoice.dueDate}}</div>
+            <div class="invoice-date-row">{{invoice.kind}}</div>
         </div>
     </div>
 
@@ -325,7 +331,7 @@
                         <td class="totalLabel">
                             <div>Total TTC</div>
                         </td>
-                        <td class="currency totalAmount">{{invoice.netAmount}}</td>
+                        <td class="currency totalAmount">{{#percentFormat}}{{invoice.netAmount}}{{/percentFormat}}</td>
                     </tr>
                 {{/invoice.withVAT}}
                 </tfoot>

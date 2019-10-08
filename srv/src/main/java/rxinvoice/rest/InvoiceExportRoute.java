@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import restx.*;
 import restx.factory.Component;
 import restx.http.HttpStatus;
-import rxinvoice.domain.Invoice;
+import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.service.InvoiceExportService;
 import rxinvoice.service.InvoiceSearchFilter;
 import rxinvoice.service.InvoiceService;

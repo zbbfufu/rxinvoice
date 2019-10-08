@@ -1,4 +1,4 @@
-package rxinvoice.domain;
+package rxinvoice.domain.company;
 
 public class Business {
         private String reference;

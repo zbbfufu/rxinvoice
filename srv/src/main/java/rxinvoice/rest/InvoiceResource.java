@@ -2,12 +2,11 @@ package rxinvoice.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import restx.RestxResponse;
 import restx.Status;
 import restx.annotations.*;
 import restx.factory.Component;
 import restx.security.RolesAllowed;
-import rxinvoice.domain.Invoice;
+import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.enumeration.Activity;
 import rxinvoice.service.InvoiceSearchFilter;
 import rxinvoice.service.InvoiceService;
@@ -18,7 +17,7 @@ import java.util.Optional;
 import static restx.common.MorePreconditions.checkEquals;
 import static rxinvoice.AppModule.Roles.ADMIN;
 import static rxinvoice.AppModule.Roles.SELLER;
-import static rxinvoice.domain.enumeration.Status.*;
+import static rxinvoice.domain.invoice.Status.*;
 
 /**
  *
@@ -88,7 +87,7 @@ public class InvoiceResource {
     }
 
     @GET("/invoices/status")
-    public Iterable<rxinvoice.domain.enumeration.Status> findInvoiceStatus() {
+    public Iterable<rxinvoice.domain.invoice.Status> findInvoiceStatus() {
         return Arrays.asList(values());
     }
 

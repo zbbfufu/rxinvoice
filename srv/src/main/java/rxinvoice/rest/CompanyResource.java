@@ -7,7 +7,7 @@ import restx.factory.Component;
 import restx.http.HttpStatus;
 import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
-import rxinvoice.domain.Company;
+import rxinvoice.domain.company.Company;
 import rxinvoice.domain.User;
 import rxinvoice.service.CompanyService;
 
