@@ -8,7 +8,6 @@ import restx.factory.Component;
 import restx.http.HttpStatus;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Blob;
-import rxinvoice.domain.Invoice;
 import rxinvoice.rest.common.PartsReader;
 import rxinvoice.service.InvoiceService;
 

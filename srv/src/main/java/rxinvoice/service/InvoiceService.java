@@ -20,9 +20,12 @@ import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Blob;
-import rxinvoice.domain.Company;
-import rxinvoice.domain.Invoice;
+import rxinvoice.domain.VATAmount;
+import rxinvoice.domain.company.Company;
+import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.User;
+import rxinvoice.domain.invoice.InvoiceInfo;
+import rxinvoice.domain.invoice.Line;
 import rxinvoice.jongo.MoreJongos;
 import rxinvoice.rest.BlobService;
 import rxinvoice.rest.events.InvoiceUpdatedEvent;
@@ -32,11 +35,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
-import static restx.common.MorePreconditions.checkEquals;
 import static rxinvoice.AppModule.Roles.ADMIN;
 import static rxinvoice.AppModule.Roles.SELLER;
-import static rxinvoice.domain.enumeration.Status.*;
-import static rxinvoice.domain.enumeration.Status.WAITING_VALIDATION;
+import static rxinvoice.domain.invoice.Status.*;
+import static rxinvoice.domain.invoice.Status.WAITING_VALIDATION;
 import static rxinvoice.utils.MoreJ8Preconditions.checkPresent;
 
 @Component
@@ -150,13 +152,13 @@ public class InvoiceService {
 
     private void payInvoice(Invoice invoice, Company buyer) {
         buyer.setLastPaymentDate(DateTime.now());
-        buyer.setLastPaidInvoice(new Company.InvoiceInfo(invoice));
+        buyer.setLastPaidInvoice(new InvoiceInfo(invoice));
         companyService.updateCompany(buyer);
     }
 
     private void sendInvoice(Invoice invoice, Company buyer) {
         buyer.setLastSendDate(DateTime.now());
-        buyer.setLastSentInvoice(new Company.InvoiceInfo(invoice));
+        buyer.setLastSentInvoice(new InvoiceInfo(invoice));
         companyService.updateCompany(buyer);
         this.invoices.get().update(new ObjectId(invoice.getKey())).with("{$set: {sentDate: #}}", DateTime.now().toDate());
     }
@@ -321,18 +323,18 @@ public class InvoiceService {
         BigDecimal grossAmount = BigDecimal.ZERO;
         BigDecimal vatAmountLine = BigDecimal.ZERO;
         BigDecimal netAmount = BigDecimal.ZERO;
-        Map<String, Invoice.VATAmount> vatAmounts = new TreeMap<>();
-        for (Invoice.Line line : invoice.getLines()) {
+        Map<String, VATAmount> vatAmounts = new TreeMap<>();
+        for (Line line : invoice.getLines()) {
             if (line.getQuantity() != null && line.getUnitCost() != null) {
                 line.setGrossAmount(line.getQuantity().multiply(line.getUnitCost()));
                 grossAmount = grossAmount.add(line.getGrossAmount());
                 if (line.getVat() != null) {
                     vatAmountLine = line.getGrossAmount().multiply(line.getVat().getAmount().divide(new BigDecimal(100)))
                             .setScale(2, RoundingMode.HALF_UP);
-                    Invoice.VATAmount vatAmount = vatAmounts.get(line.getVat().getVat());
+                    VATAmount vatAmount = vatAmounts.get(line.getVat().getVat());
                     String vat = line.getVat().getVat();
                     if (vatAmount == null) {
-                        vatAmounts.put(vat, new Invoice.VATAmount().setVat(vat).setAmount(vatAmountLine));
+                        vatAmounts.put(vat, new VATAmount().setVat(vat).setAmount(vatAmountLine));
                     } else {
                         vatAmounts.put(vat, vatAmount.setAmount(vatAmount.getAmount().add(vatAmountLine)));
                     }

@@ -8,14 +8,12 @@ import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.jongo.Distinct;
 import restx.Status;
-import restx.WebException;
 import restx.factory.Component;
-import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Activity;
-import rxinvoice.domain.Business;
-import rxinvoice.domain.Company;
+import rxinvoice.domain.company.Business;
+import rxinvoice.domain.company.Company;
 import rxinvoice.domain.User;
 import rxinvoice.jongo.MoreJongos;
 
@@ -25,7 +23,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static rxinvoice.AppModule.Roles.ADMIN;
-import static rxinvoice.AppModule.Roles.SELLER;
 
 
 @Component

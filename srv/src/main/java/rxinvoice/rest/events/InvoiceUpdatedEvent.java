@@ -1,6 +1,6 @@
 package rxinvoice.rest.events;
 
-import rxinvoice.domain.Invoice;
+import rxinvoice.domain.invoice.Invoice;
 
 public class InvoiceUpdatedEvent {
     private Invoice invoice;

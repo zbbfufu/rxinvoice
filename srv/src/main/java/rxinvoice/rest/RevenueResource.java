@@ -5,9 +5,9 @@ import restx.annotations.GET;
 import restx.annotations.RestxResource;
 import restx.factory.Component;
 import rxinvoice.AppModule;
-import rxinvoice.domain.Company;
-import rxinvoice.domain.FiscalYear;
-import rxinvoice.domain.Invoice;
+import rxinvoice.domain.company.Company;
+import rxinvoice.domain.company.FiscalYear;
+import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.Revenue;
 
 import java.util.ArrayList;

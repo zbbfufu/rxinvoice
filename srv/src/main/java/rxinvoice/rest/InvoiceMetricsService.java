@@ -1,20 +1,17 @@
 package rxinvoice.rest;
 
 import com.google.common.collect.Lists;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import restx.factory.Component;
 import restx.factory.Factory;
-import restx.jongo.JongoCollection;
-import rxinvoice.domain.Company;
-import rxinvoice.domain.FiscalYear;
-import rxinvoice.domain.Invoice;
+import rxinvoice.domain.company.Company;
+import rxinvoice.domain.company.FiscalYear;
+import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.Metrics;
 import rxinvoice.service.CompanyService;
 import rxinvoice.service.InvoiceService;
 
-import javax.inject.Named;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;

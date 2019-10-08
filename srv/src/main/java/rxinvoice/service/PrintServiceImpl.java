@@ -7,7 +7,7 @@ import com.openhtmltopdf.util.XRLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import restx.factory.Component;
-import rxinvoice.domain.Invoice;
+import rxinvoice.domain.invoice.Invoice;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -59,10 +59,8 @@ public class PrintServiceImpl implements PrintService {
                 String.format("Invoice not found for id %s", invoiceId));
 
         Map<String, Object> params = new HashMap<>();
-        params.put("invoice", invoice);
-        DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
-        params.put("invoiceDate", invoice.getDate() == null ? "" : dateFormat.format(invoice.getDate().toDate()));
-        params.put("dueDate", invoice.getDueDate() == null ? "" : dateFormat.format(invoice.getDueDate().toDate()));
+        params.put("invoice", invoice.toInvoiceView());
+
         String html = executeTemplate("invoice.mustache", params);
         try {
             createPdfFromHtml(html, outputStream);

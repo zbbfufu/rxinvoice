@@ -247,9 +247,9 @@
             <h2 class="invoice-ref-title">Facture</h2>
             <div class="invoice-ref-nb">Nº {{invoice.reference}}</div>
             <label class="label-info">Date</label>
-            <div class="invoice-date-row">{{invoiceDate}}</div>
+            <div class="invoice-date-row">{{invoice.date}}</div>
             <label class="label-info">Echéance</label>
-            <div class="invoice-date-row">{{dueDate}}</div>
+            <div class="invoice-date-row">{{invoice.dueDate}}</div>
         </div>
     </div>
 
@@ -331,7 +331,7 @@
                         <td class="totalLabel">
                             <div>Total TTC</div>
                         </td>
-                        <td class="currency totalAmount">{{invoice.netAmount}}</td>
+                        <td class="currency totalAmount">{{#percentFormat}}{{invoice.netAmount}}{{/percentFormat}}</td>
                     </tr>
                 {{/invoice.withVAT}}
                 </tfoot>
