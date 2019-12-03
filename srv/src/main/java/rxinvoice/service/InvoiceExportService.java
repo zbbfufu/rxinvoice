@@ -8,7 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.joda.time.DateTime;
 import restx.factory.Component;
 import restx.i18n.Messages;
-import rxinvoice.domain.VATAmount;
+import rxinvoice.domain.invoice.VATAmount;
 import rxinvoice.domain.invoice.Invoice;
 
 import java.io.IOException;

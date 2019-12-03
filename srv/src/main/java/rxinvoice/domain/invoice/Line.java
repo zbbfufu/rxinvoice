@@ -1,7 +1,7 @@
 package rxinvoice.domain.invoice;
 
 import restx.jackson.FixedPrecision;
-import rxinvoice.domain.VATVal;
+import rxinvoice.domain.print.VATValPrint;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -83,7 +83,7 @@ public class Line {
 
     public static class LineView {
         private String description;
-        private VATVal.VATValView vat;
+        private VATValPrint vat;
 
         private String quantity;
         private String unitCost;
@@ -120,11 +120,11 @@ public class Line {
             return this;
         }
 
-        public VATVal.VATValView getVat() {
+        public VATValPrint getVat() {
             return vat;
         }
 
-        public LineView setVat(VATVal.VATValView vat) {
+        public LineView setVat(VATValPrint vat) {
             this.vat = vat;
             return this;
         }

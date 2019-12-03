@@ -4,8 +4,10 @@ import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 import rxinvoice.domain.*;
+import rxinvoice.domain.print.CompanyPrint;
 import rxinvoice.domain.enumeration.KindCompany;
 import rxinvoice.domain.invoice.InvoiceInfo;
+import rxinvoice.domain.invoice.VATVal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +44,32 @@ public class Company implements Auditable {
     private InvoiceInfo lastSentInvoice;
     private InvoiceInfo lastPaidInvoice;
 
+    public CompanyPrint toCompanyView() {
+        return new CompanyPrint(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "key='" + key + '\'' +
+                ", name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", detail='" + detail + '\'' +
+                ", legalNotice='" + legalNotice + '\'' +
+                ", showLegalNoticeForeignBuyer=" + showLegalNoticeForeignBuyer +
+                ", address=" + address +
+                ", metrics=" + metrics +
+                ", business=" + business +
+                ", vats=" + vats +
+                ", fiscalYear=" + fiscalYear +
+                ", creationDate=" + creationDate +
+                ", emailAddress=" + emailAddress +
+                ", lastSendDate=" + lastSendDate +
+                ", lastPaymentDate=" + lastPaymentDate +
+                ", lastSentInvoice=" + lastSentInvoice +
+                ", lastPaidInvoice=" + lastPaidInvoice +
+                '}';
+    }
 
     public String getKey() {
         return key;
@@ -221,139 +249,4 @@ public class Company implements Auditable {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Company{" +
-                "key='" + key + '\'' +
-                ", name='" + name + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", detail='" + detail + '\'' +
-                ", legalNotice='" + legalNotice + '\'' +
-                ", showLegalNoticeForeignBuyer=" + showLegalNoticeForeignBuyer +
-                ", address=" + address +
-                ", metrics=" + metrics +
-                ", business=" + business +
-                ", vats=" + vats +
-                ", fiscalYear=" + fiscalYear +
-                ", creationDate=" + creationDate +
-                ", emailAddress=" + emailAddress +
-                ", lastSendDate=" + lastSendDate +
-                ", lastPaymentDate=" + lastPaymentDate +
-                ", lastSentInvoice=" + lastSentInvoice +
-                ", lastPaidInvoice=" + lastPaidInvoice +
-                '}';
-    }
-
-
-    public CompanyView toCompanyView() {
-        return new CompanyView(this);
-    }
-
-    public static class CompanyView {
-        private String key;
-        private String name;
-        private String fullName;
-        private String detail;
-        private Address address;
-        private String emailAddress;
-        private String legalNotice;
-        private Boolean showLegalNoticeForeignBuyer;
-
-        public CompanyView(Company company) {
-            this.key = company.key;
-            this.name = company.name;
-            this.fullName = company.fullName;
-            this.detail = company.detail;
-            this.address = company.address;
-            this.emailAddress = company.emailAddress;
-            this.legalNotice = company.legalNotice;
-            this.showLegalNoticeForeignBuyer = company.showLegalNoticeForeignBuyer;
-        }
-
-        @Override
-        public String toString() {
-            return "CompanyView{" +
-                    "key='" + key + '\'' +
-                    ", name='" + name + '\'' +
-                    ", fullName='" + fullName + '\'' +
-                    ", detail='" + detail + '\'' +
-                    ", address=" + address +
-                    ", emailAddress='" + emailAddress + '\'' +
-                    ", legalNotice='" + legalNotice + '\'' +
-                    ", showLegalNoticeForeignBuyer=" + showLegalNoticeForeignBuyer +
-                    '}';
-        }
-
-        public String getKey() {
-            return key;
-        }
-
-        public CompanyView setKey(String key) {
-            this.key = key;
-            return this;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public CompanyView setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public String getFullName() {
-            return fullName;
-        }
-
-        public CompanyView setFullName(String fullName) {
-            this.fullName = fullName;
-            return this;
-        }
-
-        public String getDetail() {
-            return detail;
-        }
-
-        public CompanyView setDetail(String detail) {
-            this.detail = detail;
-            return this;
-        }
-
-        public Address getAddress() {
-            return address;
-        }
-
-        public CompanyView setAddress(Address address) {
-            this.address = address;
-            return this;
-        }
-
-        public String getEmailAddress() {
-            return emailAddress;
-        }
-
-        public CompanyView setEmailAddress(String emailAddress) {
-            this.emailAddress = emailAddress;
-            return this;
-        }
-
-        public String getLegalNotice() {
-            return legalNotice;
-        }
-
-        public CompanyView setLegalNotice(String legalNotice) {
-            this.legalNotice = legalNotice;
-            return this;
-        }
-
-        public Boolean getShowLegalNoticeForeignBuyer() {
-            return showLegalNoticeForeignBuyer;
-        }
-
-        public CompanyView setShowLegalNoticeForeignBuyer(Boolean showLegalNoticeForeignBuyer) {
-            this.showLegalNoticeForeignBuyer = showLegalNoticeForeignBuyer;
-            return this;
-        }
-    }
 }

@@ -10,11 +10,9 @@ import rxinvoice.domain.*;
 import rxinvoice.domain.company.Business;
 import rxinvoice.domain.company.Company;
 import rxinvoice.domain.enumeration.Kind;
-import rxinvoice.domain.invoice.view.InvoiceView;
+import rxinvoice.domain.print.InvoicePrint;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -310,7 +308,7 @@ public class Invoice implements Auditable {
         return this;
     }
 
-    public InvoiceView toInvoiceView(Messages messages, Locale locale) {
-        return new InvoiceView(this, messages, locale);
+    public InvoicePrint toInvoiceView(Messages messages, Locale locale) {
+        return new InvoicePrint(this, messages, locale);
     }
 }

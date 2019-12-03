@@ -20,7 +20,7 @@ import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Blob;
-import rxinvoice.domain.VATAmount;
+import rxinvoice.domain.invoice.VATAmount;
 import rxinvoice.domain.company.Company;
 import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.User;
