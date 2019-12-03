@@ -32,8 +32,3 @@ invoices-list {
 @include new('invoiceDetail') {
   margin: rem-calc(35px 0 0 0);
 }
-
-
-.quick-status-panel {
-  right: 0!important;
-}
