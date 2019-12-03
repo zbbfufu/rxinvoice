@@ -15,7 +15,11 @@
 
 
         @page {
-            margin: 0 !important;
+            margin: 0;
+        }
+
+        @media print {
+            body { margin: 0;}
         }
 
         /* GLOBAL */
@@ -60,17 +64,22 @@
         .panel-header {
             width: 100%;
             margin-bottom: 24px;
+            padding-top: 8mm;
         }
 
         .panel-header .invoiceSeller,
         .panel-header .invoiceReference {
             display: inline-block;
-            vertical-align: middle;
-           width: 46%;
+            vertical-align: top;
+            width: 46%;
         }
 
         .invoiceSeller {
             margin-left: 24px;
+        }
+
+        .invoiceSeller .seller-name {
+            margin-top: 0;
         }
 
         .invoiceReference {
@@ -90,10 +99,27 @@
         .invoice-ref-nb {
             font-size: 14px;
             margin-bottom: 8px;
+            color: #EA2531;
+            font-weight: bold;
+        }
+
+        .info-dates {
+            display: block;
+            margin-left: 28px;
+        }
+
+        .info-dates .label-info {
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .invoice-date-row {
-            font-size: 14px;
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            top: 3px;
+            margin-left: 8px;
+            font-size: 16px;
             margin-bottom: 8px;
         }
 
@@ -123,6 +149,12 @@
         .invoiceBuyer {
             padding-right: 24px;
             margin-left: 24px;
+        }
+
+        .invoiceBuyer .bloc-container,
+        .invoiceObject .bloc-container {
+            height: 110px;
+            width: 270px;
         }
 
         .invoiceObject {
@@ -191,14 +223,15 @@
             width: 178px;
             padding: 8px 16px;
             font-weight: normal !important;
+            border-bottom: 1px solid #252525;
+            border-right: 1px solid #252525;
             text-align: right;
         }
 
         .totalAmount {
             padding: 8px 16px;
-            background-color: #252525;
-            color: white;
             font-weight: normal;
+            border-bottom: 1px solid #252525;
             text-align: right;
         }
 
@@ -245,11 +278,20 @@
         <div class="invoiceReference">
             <h2 class="invoice-ref-title">Facture</h2>
             <div class="invoice-ref-nb">Nº {{invoice.reference}}</div>
-            <label class="label-info">Date</label>
-            <div class="invoice-date-row">{{invoice.date}}</div>
-            <label class="label-info">Echéance</label>
-            <div class="invoice-date-row">{{invoice.dueDate}}</div>
-            <div class="invoice-date-row">{{invoice.kind}}</div>
+            <div class="info-dates">
+                <label class="label-info">Date</label>
+                <div class="invoice-date-row">{{invoice.date}}</div>
+            </div>
+
+            <div class="info-dates">
+                <label class="label-info">Echéance</label>
+                <div class="invoice-date-row">{{invoice.dueDate}}</div>
+            </div>
+
+            <div class="info-dates">
+                <label class="label-info">Type</label>
+                <div class="invoice-date-row">{{invoice.kind}}</div>
+            </div>
         </div>
     </div>
 
@@ -266,7 +308,7 @@
 
 
                 {{#invoice.buyer.legalNotice}}
-                <div class="label-buyer">{{invoice.buyer.legalNotice}}</small>
+                <div class="label-buyer">{{invoice.buyer.legalNotice}}</div>
                 {{/invoice.buyer.legalNotice}}
                 {{#invoice.buyer.showLegalNoticeForeignBuyer}}
                     <div class="label-buyer">TVA due par le preneur Article 196 - Directive 2006/112/CE</div>
@@ -331,7 +373,7 @@
                         <td class="totalLabel">
                             <div>Total TTC</div>
                         </td>
-                        <td class="currency totalAmount">{{#percentFormat}}{{invoice.netAmount}}{{/percentFormat}}</td>
+                        <td class="currency totalAmount">{{invoice.netAmount}}</td>
                     </tr>
                 {{/invoice.withVAT}}
                 </tfoot>
@@ -358,6 +400,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>

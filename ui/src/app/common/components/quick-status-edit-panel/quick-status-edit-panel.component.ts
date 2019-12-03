@@ -14,6 +14,7 @@ export class QuickStatusEditPanelComponent implements OnInit {
     @Input() invoice: InvoiceModel;
     @Input() showQuickPanelStatusEdit = false;
     @Output() invoiceUpdate: EventEmitter<InvoiceModel> = new EventEmitter();
+    @Output() closeQuickUpdate: EventEmitter<void> = new EventEmitter();
 
     constructor(private repositoryService: RepositoryService) {
     }
@@ -27,4 +28,7 @@ export class QuickStatusEditPanelComponent implements OnInit {
         this.invoiceUpdate.emit(this.invoice);
     }
 
+    public close(): void {
+        this.closeQuickUpdate.emit();
+    }
 }

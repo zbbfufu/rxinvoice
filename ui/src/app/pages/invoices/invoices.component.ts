@@ -110,13 +110,19 @@ export class InvoicesComponent implements OnInit {
 
     public selectForQuickUpdate(invoice) {
         this.selectedForQuickUpdate = invoice;
-        this.showQuickPanelStatusEdit = true;
     }
 
+    public closeQuickUpdate(): void {
+        this.selectedForQuickUpdate = undefined;
+        this.research();
+    }
 
-    public updatedInvoice(invoice) {
-        this.selectedForQuickUpdate = invoice;
-        this.showQuickPanelStatusEdit = false;
+    public updatedInvoice(invoice: InvoiceModel) {
+        this.invoiceService.saveInvoice(invoice)
+            .subscribe(value => {
+                this.selectedForQuickUpdate = value;
+                this.closeQuickUpdate();
+            });
     }
 
     public buildUri(): string {

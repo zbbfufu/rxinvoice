@@ -2,12 +2,58 @@
 
 
 :host {
-  z-index: 10000000;
+  z-index: 999999;
   position: absolute;
   display: block;
-  width: 25%;
-  height: 60%;
-  bottom: 0;
-  right: -100%;
-  background-color: powderblue;
+  width: 100vw;
+  height: 100vh;
+  top: rem-calc(-$appHeader-height);
+  left: rem-calc(-$sidebar-width-md);
+  background-color: rgba($black, 0.8);
+
+  @include breakpoint(large only) {
+    left: rem-calc(-$sidebar-width-lg);
+  }
+}
+
+.quick-status-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $white;
+  border-radius: $global-radius;
+  overflow: hidden;
+
+  &-header {
+    position: relative;
+    padding: rem-calc(16px);
+    background-color: $regent-gray;
+    text-align: left;
+    color: $white;
+
+    &-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: rem-calc(38px);
+      width: rem-calc(38px);
+      color: $white;
+      background: rgba($white, 0.2);
+      cursor: pointer;
+      @extend %transition;
+
+      &:hover {
+        @extend %transition;
+        background: rgba($white, 0.4);
+      }
+    }
+  }
+
+  &-content {
+    padding: rem-calc(16px);
+  }
 }
