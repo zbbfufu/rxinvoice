@@ -373,7 +373,7 @@
                         <td class="totalLabel">
                             <div>Total TTC</div>
                         </td>
-                        <td class="currency totalAmount">{{#percentFormat}}{{invoice.netAmount}}{{/percentFormat}}</td>
+                        <td class="currency totalAmount">{{invoice.netAmount}}</td>
                     </tr>
                 {{/invoice.withVAT}}
                 </tfoot>
@@ -385,14 +385,14 @@
                 <div class="invoiceLegalNoticeBlock">
                     <div class="legalNotice">{{invoice.seller.legalNotice}}</div>
                 </div>
-                <br>
+                <br></br>
                 <div class="invoiceLegalNoticeBlock invoiceLegalNoticeInfo">
                     <div>« En cas de retard de paiement, seront exigibles, conformément à l'article L 441-6 du code de
                         commerce, une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur
                         ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros ».
                     </div>
                 </div>
-                <br>
+                <br></br>
             </div>
             <div class="footer">
                 <div class="fullName">{{invoice.seller.fullName}}</div>
@@ -400,6 +400,6 @@
             </div>
         </div>
     </div>
-
+</div>
 </body>
 </html>
