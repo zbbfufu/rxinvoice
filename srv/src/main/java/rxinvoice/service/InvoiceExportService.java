@@ -78,16 +78,16 @@ public class InvoiceExportService {
     }
 
     private void writeHeaderRow(XSSFRow row) {
-        createCell(row, REFERENCE, "Ref");
-        createCell(row, KIND, "Kind");
-        createCell(row, BUYER, "Buyer");
-        createCell(row, BUSINESS, "Business");
-        createCell(row, OBJECT, "Object");
-        createCell(row, DATE, "Date");
-        createCell(row, STATUS, "Status");
-        createCell(row, GROSS_AMOUNT, "Gross amount");
-        createCell(row, NET_AMOUNT, "Net amount");
-        createCell(row, VAT, "VAT");
+        createCell(row, REFERENCE, messages.getMessage("invoice.reference"));
+        createCell(row, KIND, messages.getMessage("invoice.kind"));
+        createCell(row, BUYER, messages.getMessage("invoice.buyer"));
+        createCell(row, BUSINESS, messages.getMessage("invoice.business"));
+        createCell(row, OBJECT, messages.getMessage("invoice.object"));
+        createCell(row, DATE, messages.getMessage("invoice.date"));
+        createCell(row, STATUS, messages.getMessage("invoice.status"));
+        createCell(row, GROSS_AMOUNT, messages.getMessage("invoice.lines.grossAmount"));
+        createCell(row, NET_AMOUNT, messages.getMessage("invoice.lines.netAmount"));
+        createCell(row, VAT, messages.getMessage("invoice.vats"));
     }
 
     private void createCell(XSSFRow row , int cellIndex, String value) {
