@@ -3,7 +3,7 @@
         <div class="columns shrink">
             <div class="row align-middle text-center">
                 <div class="columns small-24">
-                    Modification rapide
+                    {{'dashboard.quickEdition.title' | translate}}
                     <h5>{{invoice.object}}</h5>
                 </div>
                 <div class="columns small-24">
@@ -15,13 +15,16 @@
                     </select>
                 </div>
                 <div class="columns small-24">
-                    Modification rapide
+                    {{'dashboard.quickEdition.comment'|translate}}
                     <textarea [(ngModel)]="invoice.comment"
                             rows="10" cols="50">
                     </textarea>
                 </div>
-                <div class="columns  small-24">
-                    <button class="button" (click)="updateInvoice()">Save</button>
+                <div class="columns small-12">
+                    <button class="button" (click)="updateInvoice()">{{ 'dashboard.quickEdition.save' | translate}}</button>
+                </div>
+                <div class="columns small-12">
+                    <button class="button" (click)="close()">{{ 'dashboard.quickEdition.close' | translate}}</button>
                 </div>
             </div>
         </div>

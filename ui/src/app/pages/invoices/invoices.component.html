@@ -117,6 +117,8 @@
 
 <quick-status-edit-panel class="quick-status-panel" *ngIf="selectedForQuickUpdate"
                           [invoice]="selectedForQuickUpdate"
+                          (closeQuickUpdate)="closeQuickUpdate()"
                           (invoiceUpdate)="updatedInvoice($event)">
+
 
 </quick-status-edit-panel>
