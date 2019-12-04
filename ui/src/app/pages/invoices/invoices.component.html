@@ -89,14 +89,14 @@
 
         <!-- Invoice number -->
 
-        <div class="invoiceNumber columns small-8 inner-space-top-8">
+        <div class="invoiceNumber columns auto inner-space-top-8">
             <h6><strong class="nb">{{ invoices && invoices.length ? invoices.length : 0 }}</strong>
                 {{'invoices.total.number' | translate}}
                 <strong class="nb">{{getGrossAmount()}} {{'invoices.total.exTaxes' | translate}}</strong>
             </h6>
         </div>
 
-        <div class="columns auto text-right">
+        <div class="columns shrink text-right">
             <a class="button medium primary ripple has-img" [href]="buildUri()">
                 <img class="icon" src="assets/images/png/icon_excel.png">
             </a>
