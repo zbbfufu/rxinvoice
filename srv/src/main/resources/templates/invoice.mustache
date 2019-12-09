@@ -38,7 +38,6 @@
         }
 
         .project-name {
-            white-space: pre;
             font-size: 14px;
             line-height: 1.2;
         }
@@ -115,12 +114,10 @@
 
         .invoice-date-row {
             display: inline-block;
-            vertical-align: top;
+            vertical-align: middle;
             position: relative;
-            top: 3px;
             margin-left: 8px;
             font-size: 16px;
-            margin-bottom: 8px;
         }
 
         .invoice-ref-title {
@@ -307,9 +304,6 @@
                 {{/invoice.buyer.address.country}}
 
 
-                {{#invoice.buyer.legalNotice}}
-                <div class="label-buyer">{{invoice.buyer.legalNotice}}</div>
-                {{/invoice.buyer.legalNotice}}
                 {{#invoice.buyer.showLegalNoticeForeignBuyer}}
                     <div class="label-buyer">TVA due par le preneur Article 196 - Directive 2006/112/CE</div>
                 {{/invoice.buyer.showLegalNoticeForeignBuyer}}
