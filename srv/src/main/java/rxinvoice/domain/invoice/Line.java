@@ -96,8 +96,8 @@ public class Line {
                     .setScale(2, RoundingMode.HALF_EVEN).toString();
             this.unitCost = (line.unitCost == null ? BigDecimal.ZERO : line.unitCost)
                     .setScale(2, RoundingMode.HALF_EVEN).toString();
-            this.grossAmount = (line.grossAmount == null ? BigDecimal.ZERO : line.grossAmount)
-                    .setScale(2, RoundingMode.HALF_EVEN).toString();
+            this.grossAmount = (line.grossAmount == null ? ""
+                    : line.grossAmount.setScale(2, RoundingMode.HALF_EVEN).toString());
         }
 
         @Override
