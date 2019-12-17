@@ -350,6 +350,16 @@
             <div class="panel-buyer">
                 <div class="invoiceBuyer">
                     <div class="bloc-container">
+                        <h3 class="bloc-container-title">Objet</h3>
+                        <div class="project-name">{{invoice.object}}</div>
+                        {{#invoice.customerInvoiceRef}}
+                            <div class="label-buyer">Ref. commande client : {{invoice.customerInvoiceRef}}</div>
+                        {{/invoice.customerInvoiceRef}}
+                    </div>
+                </div>
+
+                <div class="invoiceObject">
+                    <div class="bloc-container">
                         <h3 class="bloc-container-title">A l'attention de</h3>
                         <div class="buyer-name">{{invoice.buyer.name}}</div>
                         <div class="label-buyer">{{invoice.buyer.address.body}}</div>
@@ -362,16 +372,6 @@
                         {{#invoice.buyer.showLegalNoticeForeignBuyer}}
                             <div class="label-buyer">TVA due par le preneur Article 196 - Directive 2006/112/CE</div>
                         {{/invoice.buyer.showLegalNoticeForeignBuyer}}
-                    </div>
-                </div>
-
-                <div class="invoiceObject">
-                    <div class="bloc-container">
-                        <h3 class="bloc-container-title">Objet</h3>
-                        <div class="project-name">{{invoice.object}}</div>
-                        {{#invoice.customerInvoiceRef}}
-                            <div class="label-buyer">Ref. commande client : {{invoice.customerInvoiceRef}}</div>
-                        {{/invoice.customerInvoiceRef}}
                     </div>
                 </div>
             </div>
