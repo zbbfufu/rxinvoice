@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 @Component
 public class InvoiceExportService {
@@ -78,16 +79,16 @@ public class InvoiceExportService {
     }
 
     private void writeHeaderRow(XSSFRow row) {
-        createCell(row, REFERENCE, messages.getMessage("invoice.reference"));
-        createCell(row, KIND, messages.getMessage("invoice.kind"));
-        createCell(row, BUYER, messages.getMessage("invoice.buyer"));
-        createCell(row, BUSINESS, messages.getMessage("invoice.business"));
-        createCell(row, OBJECT, messages.getMessage("invoice.object"));
-        createCell(row, DATE, messages.getMessage("invoice.date"));
-        createCell(row, STATUS, messages.getMessage("invoice.status"));
-        createCell(row, GROSS_AMOUNT, messages.getMessage("invoice.lines.grossAmount"));
-        createCell(row, NET_AMOUNT, messages.getMessage("invoice.lines.netAmount"));
-        createCell(row, VAT, messages.getMessage("invoice.vats"));
+        createCell(row, REFERENCE, messages.getMessage("invoice.reference", Locale.FRENCH));
+        createCell(row, KIND, messages.getMessage("invoice.kind", Locale.FRENCH));
+        createCell(row, BUYER, messages.getMessage("invoice.buyer", Locale.FRENCH));
+        createCell(row, BUSINESS, messages.getMessage("invoice.business", Locale.FRENCH));
+        createCell(row, OBJECT, messages.getMessage("invoice.object", Locale.FRENCH));
+        createCell(row, DATE, messages.getMessage("invoice.date", Locale.FRENCH));
+        createCell(row, STATUS, messages.getMessage("invoice.status", Locale.FRENCH));
+        createCell(row, GROSS_AMOUNT, messages.getMessage("invoice.lines.grossAmount", Locale.FRENCH));
+        createCell(row, NET_AMOUNT, messages.getMessage("invoice.lines.netAmount", Locale.FRENCH));
+        createCell(row, VAT, messages.getMessage("invoice.vats", Locale.FRENCH));
     }
 
     private void createCell(XSSFRow row , int cellIndex, String value) {

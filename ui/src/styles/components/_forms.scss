@@ -101,8 +101,8 @@ select, .ng-control {
     border: $input-border-focus !important;
   }
 
-  &.ng-invalid {
-    border: 2px solid rgba($shiraz, 0.5);
+  &.ng-invalid.ng-touched {
+    border: 2px solid rgba($shiraz, 0.5) !important;
   }
 }
 

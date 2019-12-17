@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoices.label.client' | translate}}</h6>
+                    <h6 class="column small-8"> {{'invoices.label.client' | translate}} *</h6>
                     <div class="column">
                         <customer-select [label]="'name'" (valueChange)="fetchBuyer($event)"
                                          [control]="form.controls.buyer"></customer-select>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoice.business' | translate}}</h6>
+                    <h6 class="column small-8"> {{'invoice.business' | translate}} *</h6>
                     <div class="column">
                         <select formControlName="business" [compareWith]="comparRef">
                             <option *ngFor="let business of selectedCompany?.business" [ngValue]="business">
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoice.object' | translate}}</h6>
+                    <h6 class="column small-8"> {{'invoice.object' | translate}} *</h6>
                     <div class="column">
                         <textarea type="text" formControlName="object"
                                   rows="3" cols="10">
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoice.kind' | translate}}</h6>
+                    <h6 class="column small-8"> {{'invoice.kind' | translate}} *</h6>
                     <div class="column">
                         <select formControlName="kind">
                             <option value="">{{'invoice.kind.all' | translate}}</option>
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoice.label.status' | translate}}</h6>
+                    <h6 class="column small-8"> {{'invoice.label.status' | translate}} *</h6>
                     <div class="column">
                         <select formControlName="status">
                             <option value="">{{'invoice.status.all' | translate}}</option>

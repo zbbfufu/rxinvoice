@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
-                    <h6 class="column small-8"> {{'company.name' | translate}}</h6>
+                    <h6 class="column small-8"> {{'company.name' | translate}} *</h6>
                     <div class="column">
                         <input type="text" class="form-control"
                                [disabled]='!editMode' ngModel name="name" required>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
-                    <h6 class="column small-8"> {{'newCustomer.label.mail' | translate}}</h6>
+                    <h6 class="column small-8"> {{'newCustomer.label.mail' | translate}} *</h6>
                     <div class="column">
                         <input type="email" pattern="[^ @]*@[^ @]*" class="form-control"
                                [disabled]='!editMode' ngModel name="emailAddress" required>
@@ -150,9 +150,8 @@
 
                             </div>
                             <div class="row align-middle newCustomerAction-container-number-label total-value">
-                                <h6 class="column auto"><i class="ion-arrow-graph-down-right"></i>{{'newCustomer.label.totalDebt'
-                                    | translate}} :</h6>
-                                <span class="total-nb">{{customer?.metrics?.cancelled | currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
+                                <h6 class="column auto"><i class="ion-arrow-graph-down-right"></i>{{'newCustomer.label.totalDebt' | translate}} :</h6>
+                                <span class="total-nb">{{customer?.metrics?.expired | currency:'EUR':'symbol':'4.2-2':'fr' }}</span>
                             </div>
                         </div>
                     </div>
