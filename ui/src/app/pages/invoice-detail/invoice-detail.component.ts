@@ -158,6 +158,7 @@ export class InvoiceDetailComponent implements OnInit {
         _.merge(this.invoice, this.invoice, this.form.value);
         this.invoiceService.createInvoice(this.invoice).subscribe((invoice) => {
                 this.invoice = invoice;
+                this.invoiceId = invoice._id;
                 this.setForm();
                 this.alertService.success({title: 'alert.creation.success', customClass: 'swal2-for-edit'});
             },
