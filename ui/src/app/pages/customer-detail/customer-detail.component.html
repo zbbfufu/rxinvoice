@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
-                    <h6 class="column small-8"> {{'company.name' | translate}}</h6>
+                    <h6 class="column small-8"> {{'company.name' | translate}} *</h6>
                     <div class="column">
                         <input type="text" class="form-control"
                                [disabled]='!editMode' ngModel name="name" required>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="row align-middle newCustomerDetail-container-label">
-                    <h6 class="column small-8"> {{'newCustomer.label.mail' | translate}}</h6>
+                    <h6 class="column small-8"> {{'newCustomer.label.mail' | translate}} *</h6>
                     <div class="column">
                         <input type="email" pattern="[^ @]*@[^ @]*" class="form-control"
                                [disabled]='!editMode' ngModel name="emailAddress" required>

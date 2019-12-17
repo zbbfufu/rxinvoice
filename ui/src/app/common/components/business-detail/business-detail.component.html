@@ -10,7 +10,7 @@
             <div class="column">
 
                 <div class="row align-middle newCustomerDetail-container-content">
-                    <h6 class="column shrink">{{'newCustomer.label.designation' | translate}}</h6>
+                    <h6 class="column shrink">{{'newCustomer.label.designation' | translate}} *</h6>
                     <div class="column auto">
                         <input type="text"
                                class="form-control"
@@ -55,13 +55,13 @@
                         <h6 class="column shrink">{{bsn.creationDate | date: 'dd MMM. yyyy'}}</h6>
                     </div>
                     <div class="row align-middle newCustomerDetail-container-content">
-                        <h6 class="column shrink">{{'newCustomer.label.designation' | translate}}</h6>
+                        <h6 class="column shrink">{{'newCustomer.label.designation' | translate}} *</h6>
                         <div class="column auto">
                             <input type="text" required
                                    name="name"
                                    class="form-control"
                                    [(ngModel)]="business[i].name"
-                                   [(disabled)]="!editMode">
+                                   [disabled]="!editMode">
                         </div>
 
                         <!--
