@@ -16,8 +16,6 @@
                        [disabled]="!editable"
                        [ngModel]="line.quantity"
                        name="quantity"
-                       min="0"
-                       required
                        (ngModelChange)="quantityChanged($event)">
             </div>
 
@@ -27,8 +25,6 @@
                        [disabled]="!editable"
                        [ngModel]="line.unitCost"
                        name="unitCost"
-                       min="0"
-                       required
                        (ngModelChange)="unitCostChanged($event)">
             </div>
 
