@@ -7,15 +7,13 @@ import rxinvoice.domain.company.Business;
 import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.invoice.Line;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class InvoicePrint {
-
-    private static DateFormat DATE_FORMAT = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
 
     private String key;
 
@@ -25,7 +23,7 @@ public class InvoicePrint {
     private boolean withVAT;
     private List<VATValPrint> vats = new ArrayList<>();
     private List<VATAmountPrint> vatsAmount = new ArrayList<>();
-    private List<Line.LineView> lines = new ArrayList<>();
+    private List<InvoiceLinePrint> lines = new ArrayList<>();
 
     private String reference;
     private String object;
@@ -41,8 +39,8 @@ public class InvoicePrint {
 
     public InvoicePrint(Invoice invoice, Messages messages, Locale locale) {
         this.key = invoice.getKey();
-        this.date = (invoice.getDate() == null) ? "" : DATE_FORMAT.format(invoice.getDate().toDate());
-        this.dueDate = (invoice.getDueDate() == null) ? "" : DATE_FORMAT.format(invoice.getDueDate().toDate());
+        this.date = (invoice.getDate() == null) ? "" : PrintUtils.DATE_FORMAT.format(invoice.getDate().toDate());
+        this.dueDate = (invoice.getDueDate() == null) ? "" : PrintUtils.DATE_FORMAT.format(invoice.getDueDate().toDate());
         this.withVAT = invoice.isWithVAT();
         for (VATVal vat : invoice.getVats()) {
             this.vats.add(vat.toVatView());
@@ -51,7 +49,7 @@ public class InvoicePrint {
             this.vatsAmount.add(vat.toVatAmountView());
         }
         for (Line line : invoice.getLines()) {
-            this.lines.add(line.toLineView());
+            this.lines.add(line.toInvoiceLinePrint());
         }
         this.reference = invoice.getReference();
         this.object = invoice.getObject();
@@ -59,14 +57,17 @@ public class InvoicePrint {
         this.business = invoice.getBusiness();
         this.seller = invoice.getSeller().toCompanyView();
         this.buyer = invoice.getBuyer().toCompanyView();
-        this.grossAmount = (invoice.getGrossAmount() == null) ? "0.00" : invoice.getGrossAmount().setScale(2).toString();
-        this.netAmount = (invoice.getNetAmount() == null) ? "0.00" : invoice.getNetAmount().setScale(2).toString();
+        this.grossAmount = PrintUtils.NUMBER_FORMAT.format((invoice.getGrossAmount() == null)
+                ? BigDecimal.ZERO
+                : invoice.getGrossAmount().setScale(2, RoundingMode.HALF_EVEN));
+        this.netAmount = PrintUtils.NUMBER_FORMAT.format((invoice.getNetAmount() == null)
+                ? BigDecimal.ZERO
+                : invoice.getNetAmount().setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Override
     public String toString() {
         return "InvoiceView{" +
-                "dateFormat=" + DATE_FORMAT +
                 ", key='" + key + '\'' +
                 ", date='" + date + '\'' +
                 ", dueDate='" + dueDate + '\'' +
@@ -83,15 +84,6 @@ public class InvoicePrint {
                 ", grossAmount=" + grossAmount +
                 ", netAmount=" + netAmount +
                 '}';
-    }
-
-    public DateFormat getDateFormat() {
-        return DATE_FORMAT;
-    }
-
-    public InvoicePrint setDateFormat(DateFormat dateFormat) {
-        this.DATE_FORMAT = dateFormat;
-        return this;
     }
 
     public String getKey() {
@@ -148,11 +140,11 @@ public class InvoicePrint {
         return this;
     }
 
-    public List<Line.LineView> getLines() {
+    public List<InvoiceLinePrint> getLines() {
         return lines;
     }
 
-    public InvoicePrint setLines(List<Line.LineView> lines) {
+    public InvoicePrint setLines(List<InvoiceLinePrint> lines) {
         this.lines = lines;
         return this;
     }
