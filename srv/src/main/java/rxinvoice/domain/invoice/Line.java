@@ -1,10 +1,9 @@
 package rxinvoice.domain.invoice;
 
 import restx.jackson.FixedPrecision;
-import rxinvoice.domain.print.VATValPrint;
+import rxinvoice.domain.print.InvoiceLinePrint;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Line {
 
@@ -19,6 +18,10 @@ public class Line {
 
     @FixedPrecision(2)
     private BigDecimal grossAmount;
+
+    public InvoiceLinePrint toInvoiceLinePrint() {
+        return new InvoiceLinePrint(this);
+    }
 
     @Override
     public String toString() {
@@ -74,86 +77,5 @@ public class Line {
     public Line setVat(final VATVal vat) {
         this.vat = vat;
         return this;
-    }
-
-
-    public LineView toLineView() {
-        return new LineView(this);
-    }
-
-    public static class LineView {
-        private String description;
-        private VATValPrint vat;
-
-        private String quantity;
-        private String unitCost;
-        private String grossAmount;
-
-        public LineView(Line line) {
-            this.description = line.description;
-            this.vat = line.vat == null ? null : line.vat.toVatView();
-            this.quantity = (line.quantity == null ? BigDecimal.ZERO : line.quantity)
-                    .setScale(2, RoundingMode.HALF_EVEN).toString();
-            this.unitCost = (line.unitCost == null ? BigDecimal.ZERO : line.unitCost)
-                    .setScale(2, RoundingMode.HALF_EVEN).toString();
-            this.grossAmount = (line.grossAmount == null ? ""
-                    : line.grossAmount.setScale(2, RoundingMode.HALF_EVEN).toString());
-        }
-
-        @Override
-        public String toString() {
-            return "LineView{" +
-                    "description='" + description + '\'' +
-                    ", vat=" + vat +
-                    ", quantity='" + quantity + '\'' +
-                    ", unitCost='" + unitCost + '\'' +
-                    ", grossAmount='" + grossAmount + '\'' +
-                    '}';
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public LineView setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public VATValPrint getVat() {
-            return vat;
-        }
-
-        public LineView setVat(VATValPrint vat) {
-            this.vat = vat;
-            return this;
-        }
-
-        public String getQuantity() {
-            return quantity;
-        }
-
-        public LineView setQuantity(String quantity) {
-            this.quantity = quantity;
-            return this;
-        }
-
-        public String getUnitCost() {
-            return unitCost;
-        }
-
-        public LineView setUnitCost(String unitCost) {
-            this.unitCost = unitCost;
-            return this;
-        }
-
-        public String getGrossAmount() {
-            return grossAmount;
-        }
-
-        public LineView setGrossAmount(String grossAmount) {
-            this.grossAmount = grossAmount;
-            return this;
-        }
     }
 }

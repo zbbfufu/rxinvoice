@@ -11,8 +11,9 @@ public class VATAmountPrint {
 
     public VATAmountPrint(VATAmount vatAmount) {
         this.vat = vatAmount.getVat();
-        this.amount = ((vatAmount.getAmount() == null) ? BigDecimal.ZERO : vatAmount.getAmount())
-                .setScale(2, RoundingMode.HALF_EVEN).toString();
+        this.amount = PrintUtils.NUMBER_FORMAT.format((vatAmount.getAmount() == null)
+                ? BigDecimal.ZERO
+                : vatAmount.getAmount().setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Override

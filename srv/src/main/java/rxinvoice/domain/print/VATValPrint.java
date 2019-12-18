@@ -2,6 +2,9 @@ package rxinvoice.domain.print;
 
 import rxinvoice.domain.invoice.VATVal;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class VATValPrint {
     private String vat;
     private String amount;
@@ -9,7 +12,9 @@ public class VATValPrint {
 
     public VATValPrint(VATVal vatVal) {
         this.vat = vatVal.getVat();
-        this.amount = (vatVal.getAmount() == null) ? "0.00" : vatVal.getAmount().setScale(2).toString();
+        this.amount = PrintUtils.NUMBER_FORMAT.format((vatVal.getAmount() == null)
+                ? BigDecimal.ZERO
+                : vatVal.getAmount().setScale(2, RoundingMode.HALF_EVEN));
     }
 
     @Override
