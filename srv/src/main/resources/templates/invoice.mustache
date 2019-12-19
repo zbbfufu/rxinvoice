@@ -321,10 +321,8 @@
                     <div class="addressBodyBlock">
                         <div class="addressBody">{{invoice.seller.address.body}}</div>
                     </div>
-                    <div class="addressBodyBlock">{{invoice.seller.address.zipCode}} {{invoice.seller.address.city}}</div>
-                    {{#invoice.seller.address.country}}
-                        <div class="addressBodyBlock">{{invoice.seller.address.country}}</div>
-                    {{/invoice.seller.address.country}}
+                    <div class="addressBodyBlock">{{invoice.seller.address.zipCode}} {{invoice.seller.address.city}} {{invoice.seller.address.country}}
+                    </div>
                 </div>
 
                 <div class="invoiceReference">
@@ -363,11 +361,7 @@
                         <h3 class="bloc-container-title">A l'attention de</h3>
                         <div class="buyer-name">{{invoice.buyer.name}}</div>
                         <div class="label-buyer">{{invoice.buyer.address.body}}</div>
-                        <div class="label-buyer">{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}}</div>
-                        {{#invoice.buyer.address.country}}
-                            <div class="label-buyer">{{invoice.buyer.address.country}}</div>
-                        {{/invoice.buyer.address.country}}
-
+                        <div class="label-buyer">{{invoice.buyer.address.zipCode}} {{invoice.buyer.address.city}} {{invoice.buyer.address.country}}</div>
 
                         {{#invoice.buyer.showLegalNoticeForeignBuyer}}
                             <div class="label-buyer">TVA due par le preneur Article 196 - Directive 2006/112/CE</div>
