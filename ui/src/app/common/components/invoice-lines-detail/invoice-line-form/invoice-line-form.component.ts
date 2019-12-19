@@ -30,7 +30,7 @@ export class InvoiceLineFormComponent implements OnInit {
         if (this.line && this.line.quantity && this.line.unitCost) {
             this.line.grossAmount = this.line.quantity * this.line.unitCost;
         } else {
-            this.line.grossAmount = 0;
+            this.line.grossAmount = null;
         }
     }
 
