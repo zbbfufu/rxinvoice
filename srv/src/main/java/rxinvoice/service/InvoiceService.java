@@ -328,7 +328,7 @@ public class InvoiceService {
             if (line.getQuantity() != null && line.getUnitCost() != null) {
                 line.setGrossAmount(line.getQuantity().multiply(line.getUnitCost()));
                 grossAmount = grossAmount.add(line.getGrossAmount());
-                if (line.getVat() != null) {
+                if (line.getVat() != null && line.getVat().getAmount() != null) {
                     vatAmountLine = line.getGrossAmount().multiply(line.getVat().getAmount().divide(new BigDecimal(100)))
                             .setScale(2, RoundingMode.HALF_UP);
                     VATAmount vatAmount = vatAmounts.get(line.getVat().getVat());
