@@ -100,21 +100,6 @@ export class InvoiceDetailComponent implements OnInit {
         };
     };
 
-    private validateInvoiceReference(control: AbstractControl) {
-        if (this.invoiceId|| !control.value) {
-            return null;
-        } else {
-            return this.invoiceService.fetchInvoices({reference: control.value}).map(res => {
-                if (res && res.length > 0) {
-                    return {error: "reference forbidden"}
-                } else {
-                return null;
-                }
-            }).subscribe();
-
-        }
-    }
-
     private setForm(): void  {
         this.form.setValue({
             buyer: this.invoice.buyer,
