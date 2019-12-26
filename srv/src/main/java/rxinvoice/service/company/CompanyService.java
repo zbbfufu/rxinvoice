@@ -1,12 +1,18 @@
-package rxinvoice.service;
+package rxinvoice.service.company;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 import com.google.common.base.Strings;
 import com.google.common.eventbus.EventBus;
 import com.mongodb.QueryBuilder;
 import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.jongo.Distinct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import restx.Status;
 import restx.factory.Component;
 import restx.jongo.JongoCollection;
@@ -15,12 +21,10 @@ import rxinvoice.domain.Activity;
 import rxinvoice.domain.company.Business;
 import rxinvoice.domain.company.Company;
 import rxinvoice.domain.User;
+import rxinvoice.domain.company.SellerCompanyMetrics;
 import rxinvoice.jongo.MoreJongos;
 
 import javax.inject.Named;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 import static rxinvoice.AppModule.Roles.ADMIN;
 
@@ -28,25 +32,46 @@ import static rxinvoice.AppModule.Roles.ADMIN;
 @Component
 public class CompanyService {
 
+    private static final Logger logger = LoggerFactory.getLogger(CompanyService.class);
+
     private final JongoCollection companies;
     private final JongoCollection invoices;
+    private final SellerCompanyMetricsService sellerCompanyMetricsService;
     private final EventBus eventBus;
 
     public CompanyService(@Named("companies") JongoCollection companies,
                           @Named("invoices") JongoCollection invoices,
+                          SellerCompanyMetricsService sellerCompanyMetricsService,
                           EventBus eventBus) {
         this.companies = companies;
         this.invoices = invoices;
+        this.sellerCompanyMetricsService = sellerCompanyMetricsService;
         this.eventBus = eventBus;
     }
 
     public Iterable<Company> findCompanies(Optional<String> queryOptional) {
+        String sellerCompanyKey = AppModule.currentUser().getCompanyRef();
+        if (sellerCompanyKey == null) {
+            logger.error("Seller company ref not found for use: {}", AppModule.currentUser());
+        }
+        Optional<SellerCompanyMetrics> optionalMetrics = this.sellerCompanyMetricsService.findBySellerRef(sellerCompanyKey);
+
         QueryBuilder queryBuilder = QueryBuilder.start();
 
         queryOptional.ifPresent(query -> queryBuilder.and("name").is(MoreJongos.containsIgnoreCase(query)).get());
 
-        return companies.get().find(queryBuilder.get().toString()).sort("{name: 1}").as(Company.class);
+        Stream<Company> companyStream = StreamSupport.stream(this.companies.get()
+                .find(queryBuilder.get().toString())
+                .sort("{name: 1}")
+                .as(Company.class).spliterator(), false);
+
+        return companyStream.map(company -> company.setFiscalYearMetricsMap(
+                optionalMetrics
+                        .map(companyMetrics -> companyMetrics.getBuyerCompaniesMetrics().get(company.getKey()))
+                        .orElse(SellerCompanyMetrics.buildEmptyMetricsMap())))
+                .collect(Collectors.toList());
     }
+
 
     public Iterable<Company> findBuyerCompanies() {
         /* TODO: use aggregate to remove for each in java code
@@ -84,6 +109,17 @@ public class CompanyService {
             }
         }
         return companies.get().find("{_id: {$in:#}}", buyers).as(Company.class);
+    }
+
+    public Optional<Company> findCompanyByKeyWithMetrics(String key, String sellerCompanyKey) {
+        Optional<Company> companyOptional = findCompanyByKey(key);
+        companyOptional.ifPresent(company -> {
+            Optional<SellerCompanyMetrics> metricsOptional = sellerCompanyMetricsService.findBySellerRef(sellerCompanyKey);
+            company.setFiscalYearMetricsMap(metricsOptional
+                    .map(companyMetrics -> companyMetrics.getBuyerCompaniesMetrics().get(key))
+                    .orElse(SellerCompanyMetrics.buildEmptyMetricsMap()));
+        });
+        return companyOptional;
     }
 
     public Optional<Company> findCompanyByKey(String key) {

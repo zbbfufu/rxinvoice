@@ -9,7 +9,8 @@ import restx.security.RolesAllowed;
 import rxinvoice.AppModule;
 import rxinvoice.domain.company.Company;
 import rxinvoice.domain.User;
-import rxinvoice.service.CompanyService;
+import rxinvoice.service.company.CompanyService;
+import rxinvoice.service.invoice.InvoiceMetricsService;
 
 import java.util.Optional;
 
@@ -60,7 +61,7 @@ public class CompanyResource {
                 && !user.getPrincipalRoles().contains(SELLER)) {
             throw new WebException(HttpStatus.FORBIDDEN);
         }
-        return companyService.findCompanyByKey(key);
+        return companyService.findCompanyByKeyWithMetrics(key, user.getCompanyRef());
     }
 
     @RolesAllowed({ADMIN, SELLER})
@@ -89,8 +90,8 @@ public class CompanyResource {
     }
 
     @RolesAllowed(ADMIN)
-    @POST("/admin/companies/metrics")
-    public void computeCompaniesMetrics() {
-        invoiceMetricsService.computeAllCompanyMetricsAsync();
+    @POST("/admin/companies/metrics/seller/:sellerCompanyKey")
+    public void computeCompaniesMetrics(String sellerCompanyKey) {
+        invoiceMetricsService.computeAllCompanyMetricsAsync(sellerCompanyKey);
     }
 }

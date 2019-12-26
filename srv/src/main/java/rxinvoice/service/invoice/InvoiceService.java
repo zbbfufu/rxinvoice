@@ -1,4 +1,4 @@
-package rxinvoice.service;
+package rxinvoice.service.invoice;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
@@ -28,7 +28,9 @@ import rxinvoice.domain.invoice.InvoiceInfo;
 import rxinvoice.domain.invoice.Line;
 import rxinvoice.jongo.MoreJongos;
 import rxinvoice.rest.BlobService;
+import rxinvoice.rest.InvoiceSearchFilter;
 import rxinvoice.rest.events.InvoiceUpdatedEvent;
+import rxinvoice.service.company.CompanyService;
 
 import javax.inject.Named;
 import java.math.BigDecimal;

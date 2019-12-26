@@ -10,6 +10,7 @@ import restx.exceptions.RestxErrors;
 import restx.factory.Component;
 import restx.http.HttpStatus;
 import rxinvoice.rest.events.InvoiceUpdatedEvent;
+import rxinvoice.service.invoice.InvoiceMetricsService;
 
 @RestxResource
 @Component

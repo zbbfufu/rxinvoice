@@ -9,7 +9,7 @@ import restx.http.HttpStatus;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Blob;
 import rxinvoice.rest.common.PartsReader;
-import rxinvoice.service.InvoiceService;
+import rxinvoice.service.invoice.InvoiceService;
 
 import javax.inject.Named;
 import java.io.ByteArrayInputStream;

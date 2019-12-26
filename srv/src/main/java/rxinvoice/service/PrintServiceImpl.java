@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import restx.factory.Component;
 import restx.i18n.Messages;
 import rxinvoice.domain.invoice.Invoice;
+import rxinvoice.service.invoice.InvoiceService;
 
 import javax.inject.Named;
 import java.io.*;
