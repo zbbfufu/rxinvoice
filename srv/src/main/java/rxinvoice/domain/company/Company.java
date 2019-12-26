@@ -1,8 +1,10 @@
 package rxinvoice.domain.company;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.joda.time.DateTime;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
+import restx.jackson.Views;
 import rxinvoice.domain.*;
 import rxinvoice.domain.print.CompanyPrint;
 import rxinvoice.domain.enumeration.KindCompany;
@@ -44,6 +46,8 @@ public class Company implements Auditable {
     private InvoiceInfo lastSentInvoice;
     private InvoiceInfo lastPaidInvoice;
 
+    @JsonView(Views.Transient.class)
+    private Map<String, Metrics> fiscalYearMetricsMap = new HashMap<>();
     public CompanyPrint toCompanyView() {
         return new CompanyPrint(this);
     }
@@ -110,8 +114,6 @@ public class Company implements Auditable {
     public List<VATVal> getVats() {
         return vats;
     }
-
-    public Map<Integer, Metrics> fiscalYearMetricsMap = new HashMap<>();
 
     @Override
     public String getBusinessKey() {
@@ -240,11 +242,11 @@ public class Company implements Auditable {
         return this;
     }
 
-    public Map<Integer, Metrics> getFiscalYearMetricsMap() {
+    public Map<String, Metrics> getFiscalYearMetricsMap() {
         return fiscalYearMetricsMap;
     }
 
-    public Company setFiscalYearMetricsMap(Map<Integer, Metrics> fiscalYearMetricsMap) {
+    public Company setFiscalYearMetricsMap(Map<String, Metrics> fiscalYearMetricsMap) {
         this.fiscalYearMetricsMap = fiscalYearMetricsMap;
         return this;
     }

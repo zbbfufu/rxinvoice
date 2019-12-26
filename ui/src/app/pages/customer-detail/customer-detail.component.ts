@@ -59,11 +59,11 @@ export class CustomerDetailComponent implements OnInit {
                     .subscribe((company: CompanyModel) => {
                         this.form.setValue(this.updateForm(company));
                         this.customer = company;
-                        if (company && company.fiscalYearMetricsMap && company.fiscalYearMetricsMap[0]) {
-                            this.currentYearTurnover = company.fiscalYearMetricsMap[0].invoiced +
-                                company.fiscalYearMetricsMap[0].paid +
-                                company.fiscalYearMetricsMap[0].expired;
-                            this.currentYearTurnoverExpected = this.currentYearTurnover + company.fiscalYearMetricsMap[0].expected;
+                        if (company && company.fiscalYearMetricsMap && company.fiscalYearMetricsMap["currentYear"]) {
+                            this.currentYearTurnover = company.fiscalYearMetricsMap["currentYear"].invoiced +
+                                company.fiscalYearMetricsMap["currentYear"].paid +
+                                company.fiscalYearMetricsMap["currentYear"].expired;
+                            this.currentYearTurnoverExpected = this.currentYearTurnover + company.fiscalYearMetricsMap["currentYear"].expected;
                         }
                         if (company && company.metrics) {
                             this.totalTurnover = company.metrics.invoiced +

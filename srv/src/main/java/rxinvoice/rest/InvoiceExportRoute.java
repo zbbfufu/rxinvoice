@@ -7,9 +7,8 @@ import restx.*;
 import restx.factory.Component;
 import restx.http.HttpStatus;
 import rxinvoice.domain.invoice.Invoice;
-import rxinvoice.service.InvoiceExportService;
-import rxinvoice.service.InvoiceSearchFilter;
-import rxinvoice.service.InvoiceService;
+import rxinvoice.service.invoice.InvoiceExportService;
+import rxinvoice.service.invoice.InvoiceService;
 import rxinvoice.utils.OptionalUtils;
 
 import java.io.IOException;

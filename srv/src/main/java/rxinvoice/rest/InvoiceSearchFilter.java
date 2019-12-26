@@ -1,4 +1,4 @@
-package rxinvoice.service;
+package rxinvoice.rest;
 
 
 import java.util.Optional;

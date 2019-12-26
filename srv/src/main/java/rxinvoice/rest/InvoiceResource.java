@@ -8,8 +8,7 @@ import restx.factory.Component;
 import restx.security.RolesAllowed;
 import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.enumeration.Activity;
-import rxinvoice.service.InvoiceSearchFilter;
-import rxinvoice.service.InvoiceService;
+import rxinvoice.service.invoice.InvoiceService;
 
 import java.util.*;
 import java.util.Optional;
