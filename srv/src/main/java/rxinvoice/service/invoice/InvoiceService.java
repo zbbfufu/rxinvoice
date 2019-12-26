@@ -20,12 +20,9 @@ import restx.http.HttpStatus;
 import restx.jongo.JongoCollection;
 import rxinvoice.AppModule;
 import rxinvoice.domain.Blob;
-import rxinvoice.domain.invoice.VATAmount;
+import rxinvoice.domain.invoice.*;
 import rxinvoice.domain.company.Company;
-import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.User;
-import rxinvoice.domain.invoice.InvoiceInfo;
-import rxinvoice.domain.invoice.Line;
 import rxinvoice.jongo.MoreJongos;
 import rxinvoice.rest.BlobService;
 import rxinvoice.rest.InvoiceSearchFilter;
@@ -323,25 +320,28 @@ public class InvoiceService {
 
     private void updateAmounts(Invoice invoice) {
         BigDecimal grossAmount = BigDecimal.ZERO;
-        BigDecimal vatAmountLine = BigDecimal.ZERO;
         BigDecimal netAmount = BigDecimal.ZERO;
         Map<String, VATAmount> vatAmounts = new TreeMap<>();
         for (Line line : invoice.getLines()) {
             if (line.getQuantity() != null && line.getUnitCost() != null) {
                 line.setGrossAmount(line.getQuantity().multiply(line.getUnitCost()));
                 grossAmount = grossAmount.add(line.getGrossAmount());
-                if (line.getVat() != null && line.getVat().getAmount() != null) {
-                    vatAmountLine = line.getGrossAmount().multiply(line.getVat().getAmount().divide(new BigDecimal(100)))
-                            .setScale(2, RoundingMode.HALF_UP);
-                    VATAmount vatAmount = vatAmounts.get(line.getVat().getVat());
-                    String vat = line.getVat().getVat();
+                BigDecimal vatAmountLine = BigDecimal.ZERO;
+                if (null != line.getVat()
+                        && null != line.getVat().getVat()
+                        && null != line.getVat().getAmount()) {
+                    vatAmountLine = line.getGrossAmount()
+                            .multiply(line.getVat().getAmount()
+                                    .divide(new BigDecimal(100))).setScale(2, RoundingMode.HALF_UP);
+                    String vatName = line.getVat().getVat();
+                    VATAmount vatAmount = vatAmounts.get(vatName);
+
                     if (vatAmount == null) {
-                        vatAmounts.put(vat, new VATAmount().setVat(vat).setAmount(vatAmountLine));
-                    } else {
-                        vatAmounts.put(vat, vatAmount.setAmount(vatAmount.getAmount().add(vatAmountLine)));
+                        vatAmount = new VATAmount().setVat(vatName).setAmount(BigDecimal.ZERO);
                     }
-                    netAmount = netAmount.add(vatAmountLine).add(line.getGrossAmount());
+                    vatAmounts.put(vatName, vatAmount.setAmount(vatAmount.getAmount().add(vatAmountLine)));
                 }
+                netAmount = netAmount.add(vatAmountLine).add(line.getGrossAmount());
             }
         }
 
