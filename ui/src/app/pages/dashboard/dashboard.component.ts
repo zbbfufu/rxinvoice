@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
 
     preparedInvoices: InvoiceModel[];
     validatedInvoices: InvoiceModel[];
-    sentInvoices: InvoiceModel[];
+    toSendInvoices: InvoiceModel[];
     reviveInvoices: InvoiceModel[];
     isPending = true;
 
@@ -29,8 +29,8 @@ export class DashboardComponent implements OnInit {
             .subscribe(invoices => {
                 this.validatedInvoices = invoices;
             });
-        this.invoiceService.fetchInvoices({statuses: 'VALIDATED'})
-            .subscribe(invoices => this.sentInvoices = invoices);
+        this.invoiceService.fetchInvoices({statuses: ['VALIDATED', 'READY']})
+            .subscribe(invoices => this.toSendInvoices = invoices);
         this.invoiceService.fetchInvoices({statuses: 'LATE'})
             .subscribe(invoices => this.reviveInvoices = invoices);
     }
