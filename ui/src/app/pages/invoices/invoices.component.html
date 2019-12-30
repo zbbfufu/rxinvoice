@@ -11,8 +11,8 @@
 
                 <div class="columns">
                     <button type="button"
-                            (click)="toggleFilter('object')"
-                            [ngClass]="{'isActive green': filterString ===  'object',
+                            (click)="toggleFilter('reference')"
+                            [ngClass]="{'isActive green': filterString ===  'reference',
                    'spinner':  filterString ===  'REFERENCE' && isPending}"
                             class="round large listFilter-item">
                         {{'invoices.filter.ref' | translate}}

@@ -192,7 +192,7 @@ public class InvoiceService {
         }
 
         if (invoiceSearchFilter.getStatuses().isPresent()) {
-            String[] statusList = invoiceSearchFilter.getStatuses().get().split(", ");
+            String[] statusList = invoiceSearchFilter.getStatuses().get().split(",");
             builder.and("status").in(statusList);
         }
 

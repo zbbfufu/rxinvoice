@@ -26,7 +26,7 @@ export class InvoicesComponent implements OnInit {
     public invoices: InvoiceModel[];
     public statusTypes: InvoiceStatusType[];
     public kinds: InvoiceKindType[];
-    public filterString = 'object';
+    public filterString = 'reference';
     public isPending = true;
     public showQuickPanelStatusEdit = false;
     public selectedForQuickUpdate: InvoiceModel;
