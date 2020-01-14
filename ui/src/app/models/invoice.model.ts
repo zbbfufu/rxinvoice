@@ -8,6 +8,7 @@ import {InvoiceLineModel} from './invoice-line.model';
 import {StatusChangeModel} from './status-change.model';
 import {BlobModel} from './blob.model';
 import {DatePipe} from '@angular/common';
+import * as _ from 'lodash';
 
 export class InvoiceModel {
     key: string;
