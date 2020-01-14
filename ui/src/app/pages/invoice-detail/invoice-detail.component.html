@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoice.business' | translate}} *</h6>
+                    <h6 class="column small-8"> {{'invoice.business' | translate}}</h6>
                     <div class="column">
                         <select formControlName="business" [compareWith]="comparRef">
                             <option *ngFor="let business of selectedCompany?.business" [ngValue]="business">

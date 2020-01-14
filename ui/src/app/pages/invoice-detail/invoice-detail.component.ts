@@ -70,7 +70,7 @@ export class InvoiceDetailComponent implements OnInit {
             .subscribe(companies => this.companies = companies);
         this.form = this.fb.group({
             buyer: new FormControl('', Validators.required),
-            business: new FormControl('', Validators.required),
+            business: new FormControl(''),
             object: new FormControl('', Validators.required),
             kind: new FormControl('', Validators.required),
             dueDate: new FormControl(''),
