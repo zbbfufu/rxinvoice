@@ -37,6 +37,19 @@ export class InvoiceModel {
     constructor() {
     }
 
+    public copy(): InvoiceModel {
+        var copy = _.cloneDeep(this);
+        copy.status = "DRAFT";
+        copy._id = null;
+        copy.reference = null;
+        copy.sentDate = null;
+        copy.activities = [];
+        copy.attachments = [];
+        copy.statusChanges = [];
+        return copy;
+    }
+
+
     generatePdfFilename(invoice) {
         let filename = '';
         if (invoice) {
@@ -53,7 +66,7 @@ export class InvoiceModel {
                 if (filename) {
                     filename += '_';
                 }
-                    filename += (new DatePipe('fr')).transform(invoice.date, 'MMMM yyyy');
+                filename += (new DatePipe('fr')).transform(invoice.date, 'MMMM yyyy');
             }
         }
         if (!filename) {
