@@ -9,9 +9,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounce';
 import 'rxjs/add/operator/debounceTime';
 import {CurrencyPipe} from '@angular/common';
-import {ActivatedRoute, Params, Router} from '@angular/router';
 import * as moment from 'moment';
-import {DateUtils} from "../../common/utils/date-utils";
 import {SearchParams} from "../../models/search-params.model";
 
 @Component({
@@ -33,30 +31,21 @@ export class InvoicesComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
                 private invoiceService: InvoiceService,
-                private repositoryService: RepositoryService,
-                private router: Router,
-                private route: ActivatedRoute) {
+                private repositoryService: RepositoryService) {
         this.searchForm = fb.group({
             query: '',
             startDate: moment().subtract(7, 'days').toDate(),
             endDate: '',
             buyerRef: '',
-            statuses: '',
+            status: '',
             kind: ''
         });
     }
 
     ngOnInit() {
-        const once = this.route.queryParamMap.subscribe((params: Params) => {
-            let searchParams = Object.assign({}, params.params);
-            if (searchParams.startDate) {
-                searchParams.startDate = DateUtils.stringToDate(searchParams.startDate);
-            }
-            if (searchParams.endDate) {
-                searchParams.endDate = DateUtils.stringToDate(searchParams.endDate);
-            }
-            this.searchForm.patchValue(searchParams);
-        });
+        if (this.invoiceService.invoiceSearchFilter) {
+            this.searchForm.patchValue(this.invoiceService.invoiceSearchFilter);
+        }
         this.repositoryService.fetchInvoiceStatus()
             .subscribe(statuses => this.statusTypes = statuses);
         this.kinds = this.repositoryService.fetchInvoiceKind();
@@ -64,9 +53,6 @@ export class InvoicesComponent implements OnInit {
             .debounceTime(250)
             .distinctUntilChanged()
             .subscribe(() => {
-                if (once) {
-                    once.unsubscribe();
-                }
                 this.research();
             });
         this.research();
@@ -79,19 +65,11 @@ export class InvoicesComponent implements OnInit {
     research() {
         this.invoices = [];
         this.isPending = true;
-        this.invoiceService.fetchInvoices(this.searchForm.value)
+        this.invoiceService.fetchInvoices(this.searchForm.value, true)
             .subscribe(
                 (invoices) => {
                     this.invoices = invoices;
                     this.isPending = false;
-                    let searchParams = Object.assign({}, this.searchForm.value);
-                    if (searchParams.startDate) {
-                        searchParams.startDate = DateUtils.dateToString(searchParams.startDate);
-                    }
-                    if (searchParams.endDate) {
-                        searchParams.endDate = DateUtils.dateToString(searchParams.endDate);
-                    }
-                    this.router.navigate([], {replaceUrl: false, queryParams: searchParams});
                 },
                 () => this.isPending = false);
     }
@@ -102,7 +80,7 @@ export class InvoicesComponent implements OnInit {
                 .filter(invoices => invoices.grossAmount)
                 .map(invoice => invoice.grossAmount)
                 .reduce((a, b) => a + b, 0);
-            return (new CurrencyPipe('en')).transform(`${amount}`, 'EUR', 'symbol', '4.2-2', 'fr');
+            return (new CurrencyPipe('en')).transform(`${amount}`, 'EUR', 'symbol', '.2-2', 'fr');
         } else {
             return 0;
         }
