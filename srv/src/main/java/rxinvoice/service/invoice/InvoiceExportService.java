@@ -1,5 +1,6 @@
 package rxinvoice.service.invoice;
 
+import com.google.common.collect.Lists;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -15,7 +16,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Component
 public class InvoiceExportService {
@@ -36,6 +39,12 @@ public class InvoiceExportService {
     }
 
     public void exportInvoices(Iterable<Invoice> invoices, OutputStream outputStream) throws IOException {
+        // Sort by reference then by date for export only
+        invoices = Lists.newArrayList(invoices).stream()
+                .sorted(Comparator.nullsLast(Comparator.comparing(Invoice::getReference))
+                        .thenComparing(Invoice::getDate))
+                .collect(Collectors.toList());
+
         XSSFWorkbook myWorkBook = new XSSFWorkbook();
         XSSFSheet mySheet = myWorkBook.createSheet();
 

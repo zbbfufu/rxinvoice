@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="row align-middle invoiceDetail-container-label">
-                    <h6 class="column small-8"> {{'invoice.business' | translate}} *</h6>
+                    <h6 class="column small-8"> {{'invoice.business' | translate}}</h6>
                     <div class="column">
                         <select formControlName="business" [compareWith]="comparRef">
                             <option *ngFor="let business of selectedCompany?.business" [ngValue]="business">
@@ -158,6 +158,11 @@
                             (click)="form.enable()"
                             class="button medium green ripple">
                         <i class="ion-edit"></i>{{'button.label.update' | translate}}
+                    </button>
+                    <button *ngIf="form.disabled"
+                            (click)="duplicate()"
+                            class="button medium grey ripple">
+                        <i class="ion-ios-copy"></i>{{'button.label.copy' | translate}}
                     </button>
                 </div>
 

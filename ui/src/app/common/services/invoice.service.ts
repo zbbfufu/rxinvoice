@@ -4,15 +4,27 @@ import {plainToClass} from 'class-transformer';
 import {HttpClient} from '@angular/common/http';
 import {InvoiceModel} from '../../models/invoice.model';
 import {SearchParams} from '../../models/search-params.model';
+import {InvoiceSearchFilterModel} from '../../models/invoice-search-filter.model';
 
 @Injectable()
 export class InvoiceService {
+
+    public invoiceSearchFilter: InvoiceSearchFilterModel;
 
     private baseUrl = '/api/invoices';
 
     constructor(private http: HttpClient) { }
 
-    public fetchInvoices(params): Observable<InvoiceModel[]> {
+    public fetchInvoices(params: any, save?: boolean): Observable<InvoiceModel[]> {
+        if (save) {
+            this.invoiceSearchFilter = new InvoiceSearchFilterModel();
+            this.invoiceSearchFilter.startDate = params.startDate;
+            this.invoiceSearchFilter.endDate = params.endDate;
+            this.invoiceSearchFilter.query = params.query;
+            this.invoiceSearchFilter.kind = params.kind;
+            this.invoiceSearchFilter.buyerRef = params.buyerRef;
+            this.invoiceSearchFilter.status = params.status;
+        }
         return this.http
             .get(this.baseUrl, {params: SearchParams.toHttpParams(params)})
             .map((result: any) => plainToClass(InvoiceModel, result as Object[]))

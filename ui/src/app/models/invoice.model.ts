@@ -8,6 +8,7 @@ import {InvoiceLineModel} from './invoice-line.model';
 import {StatusChangeModel} from './status-change.model';
 import {BlobModel} from './blob.model';
 import {DatePipe} from '@angular/common';
+import * as _ from 'lodash';
 
 export class InvoiceModel {
     key: string;
@@ -37,6 +38,19 @@ export class InvoiceModel {
     constructor() {
     }
 
+    public copy(): InvoiceModel {
+        var copy = _.cloneDeep(this);
+        copy.status = "DRAFT";
+        copy._id = null;
+        copy.reference = null;
+        copy.sentDate = null;
+        copy.activities = [];
+        copy.attachments = [];
+        copy.statusChanges = [];
+        return copy;
+    }
+
+
     generatePdfFilename(invoice) {
         let filename = '';
         if (invoice) {
@@ -53,7 +67,7 @@ export class InvoiceModel {
                 if (filename) {
                     filename += '_';
                 }
-                    filename += (new DatePipe('fr')).transform(invoice.date, 'MMMM yyyy');
+                filename += (new DatePipe('fr')).transform(invoice.date, 'MMMM yyyy');
             }
         }
         if (!filename) {

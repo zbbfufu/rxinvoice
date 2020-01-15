@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CompanyModel} from '../../models/company.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {
-    AbstractControl,
     ControlContainer,
     FormBuilder,
     FormControl,
@@ -31,7 +30,7 @@ import {Observable} from "rxjs";
     selector: 'invoice-detail',
     templateUrl: './invoice-detail.component.html',
     styleUrls: ['./invoice-detail.component.scss'],
-    viewProviders: [{ provide: ControlContainer, useExisting: NgForm }]
+    viewProviders: [{provide: ControlContainer, useExisting: NgForm}]
 })
 export class InvoiceDetailComponent implements OnInit {
 
@@ -71,7 +70,7 @@ export class InvoiceDetailComponent implements OnInit {
             .subscribe(companies => this.companies = companies);
         this.form = this.fb.group({
             buyer: new FormControl('', Validators.required),
-            business: new FormControl('', Validators.required),
+            business: new FormControl(''),
             object: new FormControl('', Validators.required),
             kind: new FormControl('', Validators.required),
             dueDate: new FormControl(''),
@@ -100,7 +99,7 @@ export class InvoiceDetailComponent implements OnInit {
         };
     };
 
-    private setForm(): void  {
+    private setForm(): void {
         this.form.setValue({
             buyer: this.invoice.buyer,
             object: this.invoice.object,
@@ -178,7 +177,7 @@ export class InvoiceDetailComponent implements OnInit {
         return item1.reference === item2.reference;
     }
 
-    public delete(): void  {
+    public delete(): void {
         this.alertService.confirm({title: 'alert.confirm.deletion'}).then(
             (result) => {
                 if (result.value) {
@@ -191,9 +190,9 @@ export class InvoiceDetailComponent implements OnInit {
         );
     }
 
-    public deleteAttachment(attachmentId): void  {
+    public deleteAttachment(attachmentId): void {
         this.invoiceService.deleteAttachment(this.invoiceId, attachmentId)
-            .subscribe( () => {
+            .subscribe(() => {
                 this.invoice.attachments =
                     this.invoice.attachments.filter(file => file._id !== attachmentId);
             });
@@ -209,7 +208,7 @@ export class InvoiceDetailComponent implements OnInit {
         }
     }
 
-    public fetchBuyer(value): void  {
+    public fetchBuyer(value): void {
         if (value) {
             this.companyService.fetchCompany(value._id)
                 .subscribe(company => {
@@ -220,7 +219,7 @@ export class InvoiceDetailComponent implements OnInit {
         }
     }
 
-    public goBack(): void  {
+    public goBack(): void {
         this.location.back();
     }
 
@@ -228,4 +227,9 @@ export class InvoiceDetailComponent implements OnInit {
         this.downloadService.downloadInvoice(this.invoice);
     }
 
+    public duplicate() {
+        this.invoice = this.invoice.copy();
+        this.setForm();
+        this.form.enable();
+    }
 }
