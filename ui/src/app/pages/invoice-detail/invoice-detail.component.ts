@@ -70,7 +70,7 @@ export class InvoiceDetailComponent implements OnInit {
             .subscribe(companies => this.companies = companies);
         this.form = this.fb.group({
             buyer: new FormControl('', Validators.required),
-            business: new FormControl(''),
+            business: new FormControl(null),
             object: new FormControl('', Validators.required),
             kind: new FormControl('', Validators.required),
             dueDate: new FormControl(''),
@@ -174,7 +174,13 @@ export class InvoiceDetailComponent implements OnInit {
     }
 
     public comparRef(item1, item2): boolean {
-        return item1.reference === item2.reference;
+        if (!item1 && !item2) {
+            return true
+        }
+        if (!item1 || !item2) {
+            return false;
+        }
+        return !item1 && !item2 || item1.reference === item2.reference;
     }
 
     public delete(): void {
