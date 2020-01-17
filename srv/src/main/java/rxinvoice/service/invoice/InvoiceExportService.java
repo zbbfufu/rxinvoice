@@ -40,9 +40,12 @@ public class InvoiceExportService {
 
     public void exportInvoices(Iterable<Invoice> invoices, OutputStream outputStream) throws IOException {
         // Sort by reference then by date for export only
-        invoices = Lists.newArrayList(invoices).stream()
-                .sorted(Comparator.nullsLast(Comparator.comparing(Invoice::getReference))
-                        .thenComparing(Invoice::getDate))
+        invoices = Lists.newArrayList(invoices).stream().sorted(
+                Comparator
+                        .comparing(Invoice::getReference,
+                                Comparator.nullsLast(Comparator.naturalOrder()))
+                        .thenComparing(Invoice::getDate,
+                                Comparator.nullsLast(Comparator.reverseOrder())))
                 .collect(Collectors.toList());
 
         XSSFWorkbook myWorkBook = new XSSFWorkbook();
