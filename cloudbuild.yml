@@ -1,6 +1,9 @@
 steps:
 - name: 'eu.gcr.io/quatreapp/mvn-npm-builder:latest'
   args: ['mvn', '-B', 'package']
-#   - name: 'gcr.io/cloud-builders/docker'
-#   args: ['build', '--tag=gcr.io/$PROJECT_ID/4sh-invoice-core:', '.']
-# images: ['gcr.io/$PROJECT_ID/4sh-invoice-core:']
+- name: 'gcr.io/cloud-builders/docker'
+  dir: /workspace/srv
+  entrypoint: /bin/bash
+  args: [ 'docker-build-push.sh']
+  env:
+    - 'PROJECT_ID=$PROJECT_ID'

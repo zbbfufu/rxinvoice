@@ -9,8 +9,10 @@ if [[ -z "$PROJECT_ID" ]]; then
     exit 1
 fi
 
-POM_ARTIFACT=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='artifactId']/text()" pom.xml | awk '{$1=$1};1'`
-POM_VERSION=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='version']/text()" pom.xml | awk '{$1=$1};1'`
+#POM_ARTIFACT=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='artifactId']/text()" pom.xml | awk '{$1=$1};1'`
+#POM_VERSION=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='version']/text()" pom.xml | awk '{$1=$1};1'`
+POM_ARTIFACT=$( grep -A4 '<parent>' pom.xml | grep artifactId | sed 's#.*<artifactId>\(.*\)</artifactId>.*#\1#' )
+POM_VERSION=$( grep -A4 '<parent>' pom.xml | grep version | sed 's#.*<version>\(.*\)</version>.*#\1#' )
 VERSION=${1:-$POM_VERSION}
 ARTIFACT=${1:-$POM_ARTIFACT}
 IMAGE_VERSION_SUFFIX=${2:-}
@@ -26,10 +28,13 @@ if [ ! -f "$ARTIFACT_FILE" ]; then
     exit 1
 fi
 
-IMAGE=eu.gcr.io/$PROJECT_ID/$CONTAINER:$VERSION$IMAGE_VERSION_SUFFIX
+IMAGE=eu.gcr.io/$PROJECT_ID/$CONTAINER
+TAG=$VERSION$IMAGE_VERSION_SUFFIX
 
 echo building $IMAGE
 
 rm target/ROOT.war
 cp $ARTIFACT_FILE target/ROOT.war
-docker build -t $IMAGE . && docker tag $IMAGE eu.gcr.io/$PROJECT_ID/$CONTAINER:latest && docker push eu.gcr.io/$PROJECT_ID/$CONTAINER
+docker build -t $IMAGE:$TAG -t $IMAGE:latest . \
+    && docker push $IMAGE:$TAG \
+    && docker push $IMAGE:latest
