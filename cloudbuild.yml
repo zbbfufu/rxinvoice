@@ -1,0 +1,6 @@
+steps:
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['-B', 'package']
+#   - name: 'gcr.io/cloud-builders/docker'
+#   args: ['build', '--tag=gcr.io/$PROJECT_ID/4sh-invoice-core:', '.']
+# images: ['gcr.io/$PROJECT_ID/4sh-invoice-core:']
