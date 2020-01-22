@@ -1,6 +1,6 @@
 FROM maven:3.6.3-jdk-8-slim
 
-ENV NODE_VERSION=12.14.1
+ENV NODE_VERSION=9.11.2
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
     && case "${dpkgArch##*-}" in \
