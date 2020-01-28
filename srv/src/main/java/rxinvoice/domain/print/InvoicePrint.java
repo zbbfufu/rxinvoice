@@ -26,6 +26,7 @@ public class InvoicePrint {
     private List<InvoiceLinePrint> lines = new ArrayList<>();
 
     private String reference;
+    private String customerInvoiceRef;
     private String object;
     private String kind;
     private Business business;
@@ -52,6 +53,7 @@ public class InvoicePrint {
             this.lines.add(line.toInvoiceLinePrint());
         }
         this.reference = invoice.getReference();
+        this.customerInvoiceRef = invoice.getCustomerInvoiceRef();
         this.object = invoice.getObject();
         this.kind = messages.getMessage("invoice.kind." + invoice.getKind().name(), locale);
         this.business = invoice.getBusiness();
@@ -218,6 +220,15 @@ public class InvoicePrint {
 
     public InvoicePrint setNetAmount(String netAmount) {
         this.netAmount = netAmount;
+        return this;
+    }
+
+    public String getCustomerInvoiceRef() {
+        return customerInvoiceRef;
+    }
+
+    public InvoicePrint setCustomerInvoiceRef(String customerInvoiceRef) {
+        this.customerInvoiceRef = customerInvoiceRef;
         return this;
     }
 }

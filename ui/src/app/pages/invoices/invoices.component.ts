@@ -37,7 +37,7 @@ export class InvoicesComponent implements OnInit {
             startDate: moment().subtract(7, 'days').toDate(),
             endDate: '',
             buyerRef: '',
-            status: '',
+            statuses: '',
             kind: ''
         });
     }

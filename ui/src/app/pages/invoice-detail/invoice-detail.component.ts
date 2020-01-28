@@ -25,6 +25,7 @@ import {DownloadInvoiceService} from "../../common/services/download-invoice.ser
 import {map, switchMap} from "rxjs/operators";
 import {timer} from "rxjs/observable/timer";
 import {Observable} from "rxjs";
+import * as moment from 'moment';
 
 @Component({
     selector: 'invoice-detail',
@@ -84,6 +85,12 @@ export class InvoiceDetailComponent implements OnInit {
         if (!this.invoiceId) {
             this.form.enable();
         }
+        this.form.valueChanges.subscribe(value => {
+            if (value.date && !value.dueDate) {
+                this.form.controls['dueDate'].setValue(moment(value.date).add(1, 'M').toDate());
+            }
+        });
+
     }
 
     private invoiceReferenceAsyncValidator() {

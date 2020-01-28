@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CONTAINER=core
+CONTAINER=4sh-invoice-core
 
 if [[ -z "$PROJECT_ID" ]]; then
     echo "Must provide GCP project id as PROJECT_ID variable in environment" 1>&2
@@ -30,4 +30,4 @@ echo building $IMAGE
 
 rm target/ROOT.war
 cp $ARTIFACT_FILE target/ROOT.war
-docker build -t $IMAGE . && docker tag $IMAGE gcr.io/$PROJECT_ID/$CONTAINER:latest && docker push gcr.io/$PROJECT_ID/$CONTAINER
+docker build -t $IMAGE . && docker tag $IMAGE eu.gcr.io/$PROJECT_ID/$CONTAINER:latest && docker push eu.gcr.io/$PROJECT_ID/$CONTAINER
