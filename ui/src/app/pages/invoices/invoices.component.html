@@ -60,7 +60,7 @@
 
                 <div class="columns small-5">
                     <div class="invoiceSelect-item">
-                        <select formControlName="status">
+                        <select formControlName="statuses">
                             <option value="">{{'invoice.status.all' | translate}}</option>
                             <option *ngFor="let status of statusTypes" [ngValue]="status">
                                 {{'invoice.status.' + status | translate}}

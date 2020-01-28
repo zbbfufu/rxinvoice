@@ -7,7 +7,7 @@ export class InvoiceSearchFilterModel {
     startDate: Date;
     endDate: Date;
     buyerRef: string;
-    status: InvoiceStatusType;
+    statuses: InvoiceStatusType[];
     kind: InvoiceKindType;
 
 }
