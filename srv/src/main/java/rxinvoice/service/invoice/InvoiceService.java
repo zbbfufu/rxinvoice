@@ -32,6 +32,7 @@ import rxinvoice.service.company.CompanyService;
 import javax.inject.Named;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Clock;
 import java.util.*;
 
 import static rxinvoice.AppModule.Roles.ADMIN;
@@ -51,12 +52,16 @@ public class InvoiceService {
     private final CompanyService companyService;
 
     private final EventBus eventBus;
+    private final Clock clock;
+
 
     public InvoiceService(@Named("invoices") JongoCollection invoices,
+                          Clock clock,
                           BlobService blobService,
                           CompanyService companyService,
                           EventBus eventBus) {
         this.invoices = invoices;
+        this.clock = clock;
         this.blobService = blobService;
         this.companyService = companyService;
         this.eventBus = eventBus;
@@ -382,4 +387,14 @@ public class InvoiceService {
         }
     }
 
+    public int updateLateInvoicesStatus() {
+
+        int count = this.invoices.get()
+                .update("{status: #, dueDate: {$lt: #}}", SENT, new Date(clock.instant().toEpochMilli()))
+                .multi()
+                .with("{$set: {status: #}}", LATE).getN();
+        logger.debug("Updated {} to status LATE", count);
+        return count;
+
+    }
 }
