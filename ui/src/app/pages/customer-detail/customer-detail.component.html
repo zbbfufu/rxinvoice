@@ -12,22 +12,30 @@
 
     <div class="row newCustomerDetail" [ngClass]="{'mode-edit': editMode}">
         <form #f="ngForm" (submit)="save()" novalidate class="column small-10">
+
+            <div class="column row newCustomerDetail-container dark caInfos">
+                <span class="caInfos-period">{{'ca.fiscal.year' | translate}} (Mars - Avril)</span>
+                <div class="column small-24">
+                    <!-- TODO add vats management / legalNotice / kind / fiscalYearModel ?-->
+                    <div class="row align-middle newCustomerDetail-container-labelNumber">
+                        <h6 class="column small-12 no-border">{{'newCustomer.label.caInvoiced' | translate}}</h6>
+                        <h6 class="column small-12 no-border">{{'newCustomer.label.caFixed' | translate}}</h6>
+                    </div>
+                </div>
+
+                <div class="column small-24">
+                    <div class="row align-middle newCustomerDetail-container-valueNumber">
+                        <h3 class="column small-12 highlight-text-bold">
+                            {{currentYearTurnover | currency:'EUR':'symbol':'.2-2':'fr' }}
+                        </h3>
+                        <h3 class="column small-12 highlight-text-bold">
+                            {{currentYearTurnoverExpected  | currency:'EUR':'symbol':'.2-2':'fr' }}
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
             <div class="column newCustomerDetail-container dark space-bottom-20">
-                <!-- TODO add vats management / legalNotice / kind / fiscalYearModel ?-->
-                <div class="row align-middle newCustomerDetail-container-labelNumber">
-                    <h6 class="column small-12 no-border">{{'newCustomer.label.caInvoiced' | translate}}</h6>
-                    <h6 class="column small-12 no-border">{{'newCustomer.label.caFixed' | translate}}</h6>
-                </div>
-
-                <div class="row align-middle newCustomerDetail-container-valueNumber">
-                    <h3 class="column small-12 highlight-text-bold">
-                        {{currentYearTurnover | currency:'EUR':'symbol':'.2-2':'fr' }}
-                    </h3>
-                    <h3 class="column small-12 highlight-text-bold">
-                        {{currentYearTurnoverExpected  | currency:'EUR':'symbol':'.2-2':'fr' }}
-                    </h3>
-                </div>
-
                 <div class="row align-middle newCustomerDetail-container-label">
                     <h6 class="column small-8"> {{'company.name' | translate}} *</h6>
                     <div class="column">
@@ -86,6 +94,8 @@
                 </div>
             </div>
         </form>
+
+        <div class="column shrink space-left-24"></div>
 
         <div class="column auto" *ngIf="customer">
             <business-detail class="newCustomerDetail-container" [(business)]="customer.business"
