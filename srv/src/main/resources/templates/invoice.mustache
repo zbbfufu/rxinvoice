@@ -319,6 +319,22 @@
                 background: #e2e2e2;
             }
 
+            .panel-footer:after {
+                position: absolute;
+                counter-increment: page;
+                content: "Page " counter(page) " sur " counter(pages);
+                right: 0;
+                bottom: 0;
+                text-align: center;
+                padding: 4px 16px 8px 4px;
+                font-weight: bold;
+                white-space: nowrap;
+                z-index: 20;
+                background-color: white;
+                color: #b01032;
+                border-radius: 8px 0 0 0;
+            }
+
             .panel-footer:before {
                 position: absolute;
                 top: -58px;
