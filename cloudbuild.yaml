@@ -1,9 +1,13 @@
 steps:
-- name: 'eu.gcr.io/quatreapp/mvn-npm-builder'
+- id: maven-build
+  name: 'eu.gcr.io/quatreapp/mvn-npm-builder'
   args: ['mvn', '-B', 'package']
-- name: 'eu.gcr.io/quatreapp/docker-xmllint'
+- id: docker-push
+  name: 'eu.gcr.io/quatreapp/docker-xmllint'
   dir: /workspace/srv
   entrypoint: /bin/bash
   args: [ 'docker-build-push.sh']
   env:
     - 'PROJECT_ID=$PROJECT_ID'
+  waitFor:
+    - maven-build
