@@ -1,11 +1,21 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
+  - id: 'nvm-npm-builder'
+    name: 'gcr.io/cloud-builders/docker'
     args: [
       'build',
       '--tag=eu.gcr.io/$PROJECT_ID/mvn-npm-builder:$COMMIT_SHA',
       '--tag=eu.gcr.io/$PROJECT_ID/mvn-npm-builder:latest',
       '-f', 'ci/cloud-build/Dockerfile.mvn-npm-builder', '.']
+  - id: 'docker-xmllint'
+    name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '--tag=eu.gcr.io/$PROJECT_ID/docker-xmllint:$COMMIT_SHA',
+      '--tag=eu.gcr.io/$PROJECT_ID/docker-xmllint:latest',
+      '-f', 'ci/cloud-build/Dockerfile.docker-xmllint', '.']
 images: [
   'eu.gcr.io/$PROJECT_ID/mvn-npm-builder:$COMMIT_SHA',
-  'eu.gcr.io/$PROJECT_ID/mvn-npm-builder:latest'
+  'eu.gcr.io/$PROJECT_ID/mvn-npm-builder:latest',
+  'eu.gcr.io/$PROJECT_ID/docker-xmllint:$COMMIT_SHA',
+  'eu.gcr.io/$PROJECT_ID/docker-xmllint:latest'
 ]
