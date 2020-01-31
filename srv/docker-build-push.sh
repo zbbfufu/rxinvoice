@@ -9,10 +9,8 @@ if [[ -z "$PROJECT_ID" ]]; then
     exit 1
 fi
 
-#POM_ARTIFACT=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='artifactId']/text()" pom.xml | awk '{$1=$1};1'`
-#POM_VERSION=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='version']/text()" pom.xml | awk '{$1=$1};1'`
-POM_ARTIFACT=$( grep -A4 '<parent>' pom.xml | grep artifactId | sed 's#.*<artifactId>\(.*\)</artifactId>.*#\1#' )
-POM_VERSION=$( grep -A4 '<parent>' pom.xml | grep version | sed 's#.*<version>\(.*\)</version>.*#\1#' )
+POM_ARTIFACT=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='artifactId']/text()" pom.xml | awk '{$1=$1};1'`
+POM_VERSION=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='version']/text()" pom.xml | awk '{$1=$1};1'`
 VERSION=${1:-$POM_VERSION}
 ARTIFACT=${1:-$POM_ARTIFACT}
 IMAGE_VERSION_SUFFIX=${2:-}

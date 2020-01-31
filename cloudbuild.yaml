@@ -1,7 +1,7 @@
 steps:
-- name: 'eu.gcr.io/quatreapp/mvn-npm-builder:latest'
+- name: 'eu.gcr.io/quatreapp/mvn-npm-builder'
   args: ['mvn', '-B', 'package']
-- name: 'gcr.io/cloud-builders/docker'
+- name: 'eu.gcr.io/quatreapp/docker-xmllint'
   dir: /workspace/srv
   entrypoint: /bin/bash
   args: [ 'docker-build-push.sh']
