@@ -14,6 +14,9 @@ blocks:
             - checkout
             - sem-version java 1.8
             - mvn -B package --file pom.xml
+            - POM_VERSION=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='version']/text()" srv/pom.xml | awk '{$1=$1};1'`
+            - mv srv/target/rxinvoice-srv-$POM_VERSION.war ROOT.war
+            - artifact push workflow ROOT.war
   - name: "Push Image"
     dependencies: ["Maven"]
     task:
@@ -28,5 +31,9 @@ blocks:
       jobs:
         - name: Docker build
           commands:
-            - cd srv
-            - sh docker-build-push.sh
+            - checkout
+            - artifact pull workflow ROOT.war
+            - mkdir target
+            - mv ROOT.war target/
+            - docker build -t eu.gcr.io/quatreapp/4sh-invoice-core:latest -t eu.gcr.io/quatreapp/4sh-invoice-core:$SEMAPHORE_GIT_SHA -f srv/Dockerfile .
+            - docker push eu.gcr.io/quatreapp/4sh-invoice-core
