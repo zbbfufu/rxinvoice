@@ -21,3 +21,4 @@ images: [
   'eu.gcr.io/$PROJECT_ID/docker-xmllint:$COMMIT_SHA',
   'eu.gcr.io/$PROJECT_ID/docker-xmllint:latest'
 ]
+tags: ['builders', 'invoice']
