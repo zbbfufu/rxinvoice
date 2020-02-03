@@ -5,6 +5,6 @@ images:
 - name: rxinvoice
   newTag: latest
 bases:
-- ../../base
+- ../../base/
 resources:
 - ingress.yaml

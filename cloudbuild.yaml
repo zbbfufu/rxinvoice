@@ -48,9 +48,9 @@ steps:
   waitFor:
     - docker-push
 - id: invoice-deploy
-  # dir: 'kubernetes/overlays/${_ENV}'
+  dir: 'kubernetes/overlays/${_ENV}'
   name: 'gcr.io/cloud-builders/kubectl'
-  args: [ 'apply', '-k', 'kubernetes/overlays/${_ENV}' ]
+  args: [ 'apply', '-k', '.' ]
   env:
     - 'KUBECTL_VERSION=1.14'
     - 'CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}'
