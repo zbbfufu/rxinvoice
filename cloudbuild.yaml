@@ -21,7 +21,7 @@ steps:
   waitFor:
     - docker-push
 - id: mongo-install
-  name: 'alpine/helm:3.0.3'
+  name: 'eu.gcr.io/${PROJECT_ID}/helm:3.0.3'
   entrypoint: /bin/sh
   args:
     - '-c'

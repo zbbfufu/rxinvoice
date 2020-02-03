@@ -28,6 +28,8 @@ steps:
       '--tag=eu.gcr.io/$PROJECT_ID/helm:latest',
       '--build-arg', 'HELM_VERSION=v${_HELM_VERSION}',
       '.']
+    waitFor:
+    - checkout-builders-community
 images: [
   'eu.gcr.io/$PROJECT_ID/mvn-npm-builder:$COMMIT_SHA',
   'eu.gcr.io/$PROJECT_ID/mvn-npm-builder:latest',
