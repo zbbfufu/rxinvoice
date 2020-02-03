@@ -36,7 +36,7 @@ cp $ARTIFACT_FILE target/ROOT.war
 docker build \
     -t $IMAGE:$TAG \
     -t $IMAGE:latest \
-    -t $IMAGE:$COMMIT_SHA
+    -t $IMAGE:$COMMIT_SHA \
     . \
 && docker push $IMAGE:$TAG \
 && docker push $IMAGE:$COMMIT_SHA \
