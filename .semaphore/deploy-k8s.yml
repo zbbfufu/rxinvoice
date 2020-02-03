@@ -34,7 +34,7 @@ blocks:
         commands:
           - gcloud auth activate-service-account --key-file=.secrets/gcp.json
           - gcloud config set project quatreapp
-          - gcloud container clusters get-credentials quatreapp-cl
+          - gcloud container clusters get-credentials quatreapp-cl --zone=europe-west1-c
       jobs:
         - name: rollout update
           commands:
