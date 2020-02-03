@@ -15,10 +15,27 @@ steps:
       '--tag=eu.gcr.io/$PROJECT_ID/docker-xmllint:latest',
       '-f', 'ci/cloud-build/Dockerfile.docker-xmllint', '.']
     waitFor: ['-']
+  - id: 'checkout-builders-community'
+    name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://github.com/GoogleCloudPlatform/cloud-builders-community']
+    waitFor: ['-']
+  - id: 'helm-builder'
+    name: 'gcr.io/cloud-builders/docker'
+    dir: '/workspace/cloud-builders-community/helm'
+    args: [
+      'build',
+      '--tag=eu.gcr.io/$PROJECT_ID/helm:${_HELM_VERSION}',
+      '--tag=eu.gcr.io/$PROJECT_ID/helm:latest',
+      '--build-arg', 'HELM_VERSION=v${_HELM_VERSION}',
+      '.']
 images: [
   'eu.gcr.io/$PROJECT_ID/mvn-npm-builder:$COMMIT_SHA',
   'eu.gcr.io/$PROJECT_ID/mvn-npm-builder:latest',
   'eu.gcr.io/$PROJECT_ID/docker-xmllint:$COMMIT_SHA',
-  'eu.gcr.io/$PROJECT_ID/docker-xmllint:latest'
+  'eu.gcr.io/$PROJECT_ID/docker-xmllint:latest',
+  'eu.gcr.io/$PROJECT_ID/helm:${_HELM_VERSION}',
+  'eu.gcr.io/$PROJECT_ID/helm:latest'
 ]
 tags: ['builders', 'invoice']
+substitutions:
+  _HELM_VERSION: '3.0.3'
