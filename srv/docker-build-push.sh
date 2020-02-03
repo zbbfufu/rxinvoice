@@ -2,6 +2,8 @@
 
 CONTAINER=4sh-invoice-core
 
+PROJECT_ID=quatreapp
+
 if [[ -z "$PROJECT_ID" ]]; then
     echo "Must provide GCP project id as PROJECT_ID variable in environment" 1>&2
     exit 1
