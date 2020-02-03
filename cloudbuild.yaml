@@ -52,6 +52,7 @@ steps:
   name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-k', 'kubernetes/overlays/${_ENV}' ]
   env:
+    - 'KUBECTL_VERSION=1.14'
     - 'CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}'
     - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER_NAME}'
   waitFor:
