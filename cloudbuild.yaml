@@ -47,6 +47,10 @@ steps:
   ]
   waitFor:
     - docker-push
+- id: test-kubectl-image-version
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'image', 'ls']
+  waitFor: ['-']
 - id: invoice-deploy
   dir: 'kubernetes/overlays/${_ENV}'
   name: 'gcr.io/cloud-builders/kubectl'
