@@ -4,4 +4,4 @@ metadata:
   creationTimestamp: null
   name: invoice-config
 data:
-  java_opts: "-Djava.awt.headless=true -Xms256M -Xmx512M -Dmongo.uri=mongodb://mongo"
+  java_opts: "-Djava.awt.headless=true -Xms256M -Xmx512M -Dmongo.uri=mongodb://mongodb-mongodb-sharded"
