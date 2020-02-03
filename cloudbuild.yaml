@@ -40,21 +40,24 @@ steps:
 - id: invoice-patch
   dir: 'kubernetes/overlays/${_ENV}'
   name: 'lyft/kustomizer:v3.3.0'
-  args: [
-    'kustomize',
-    'edit', 'set', 'image',
-    'rxinvoice=rxinvoice:${SHORT_SHA}'
-  ]
+  entrypoint: '/bin/sh'
+  args:
+    - '-c'
+    - |
+      kustomize edit set image rxinvoice=rxinvoice:${SHORT_SHA} \
+      && kustomize build > /tmp-gen/all.yaml
+  volumes:
+    - name: generated
+      path: /tmp-gen
   waitFor:
     - docker-push
-- id: test-kubectl-image-version
-  name: 'gcr.io/cloud-builders/docker'
-  args: [ 'image', 'ls']
-  waitFor: ['-']
 - id: invoice-deploy
-  dir: 'kubernetes/overlays/${_ENV}'
-  name: 'gcr.io/cloud-builders/kubectl@${_KUBECTL_DIGEST}'
-  args: [ 'apply', '-k', '.' ]
+  dir: '/tmp-gen'
+  name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-f', '.' ]
+  volumes:
+  - name: generated
+    path: /tmp-gen
   env:
     - 'KUBECTL_VERSION=1.14'
     - 'CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}'
