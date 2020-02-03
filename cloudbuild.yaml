@@ -26,8 +26,8 @@ steps:
   args:
     - '-c'
     - |
-      helm repo add bitnami https://charts.bitnami.com/bitnami
-      && helm repo update
+      helm repo add bitnami https://charts.bitnami.com/bitnami \
+      && helm repo update \
       && helm upgrade mongodb bitnami/mongodb-sharded \
         --install \
         --namespace 4sh-invoice-${_ENV} \
@@ -55,6 +55,8 @@ steps:
     - mongo-install
     - invoice-patch
 tags: ['invoice']
+options:
+  machineType: 'N1_HIGHCPU_8'
 substitutions:
   _CLUSTER_NAME: quatreapp-cl
   _CLUSTER_LOCATION: '--zone=europe-west1-c'
