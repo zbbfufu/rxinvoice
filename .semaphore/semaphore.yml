@@ -17,26 +17,6 @@ blocks:
             - POM_VERSION=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='version']/text()" srv/pom.xml | awk '{$1=$1};1'`
             - mv srv/target/rxinvoice-srv-$POM_VERSION.war ROOT.war
             - artifact push workflow ROOT.war
-  - name: "Push Image"
-    dependencies: ["Maven"]
-    task:
-      secrets:
-        - name: GCP
-      prologue:
-        commands:
-          # Authenticate using the file injected from the secret
-          - gcloud auth activate-service-account --key-file=.secrets/gcp.json
-          # Don't forget -q to silence confirmation prompts
-          - gcloud auth configure-docker -q
-      jobs:
-        - name: Docker build
-          commands:
-            - checkout
-            - artifact pull workflow ROOT.war
-            - mkdir target
-            - mv ROOT.war target/
-            - docker build -t eu.gcr.io/quatreapp/4sh-invoice-core:latest -t eu.gcr.io/quatreapp/4sh-invoice-core:$SEMAPHORE_GIT_SHA -f srv/Dockerfile .
-            - docker push eu.gcr.io/quatreapp/4sh-invoice-core
 promotions:
   - name: Deploy to Kubernetes
     pipeline_file: deploy-k8s.yml

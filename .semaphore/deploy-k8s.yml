@@ -5,8 +5,27 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
+  - name: "Build and Push Image"
+    task:
+      secrets:
+        - name: GCP
+      prologue:
+        commands:
+          # Authenticate using the file injected from the secret
+          - gcloud auth activate-service-account --key-file=.secrets/gcp.json
+          # Don't forget -q to silence confirmation prompts
+          - gcloud auth configure-docker -q
+      jobs:
+        - name: Docker build
+          commands:
+            - checkout
+            - artifact pull workflow ROOT.war
+            - mkdir target
+            - mv ROOT.war target/
+            - docker build -t eu.gcr.io/quatreapp/4sh-invoice-core:latest -t eu.gcr.io/quatreapp/4sh-invoice-core:$SEMAPHORE_GIT_SHA -f srv/Dockerfile .
+            - docker push eu.gcr.io/quatreapp/4sh-invoice-core
   - name: "Deploy"
-    dependencies: ["Push Image"]
+    dependencies: ["Build and Push Image"]
     task:
       secrets:
         - name: GCP
