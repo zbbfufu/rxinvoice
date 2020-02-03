@@ -15,17 +15,17 @@ blocks:
             - mvn -B package --file pom.xml
   - name: "Push Image"
     dependencies: ["Maven"]
-      task:
-        secrets:
-          - name: GCP
-        prologue:
+    task:
+      secrets:
+        - name: GCP
+      prologue:
+        commands:
+          # Authenticate using the file injected from the secret
+          - gcloud auth activate-service-account --key-file=.secrets/gcp.json
+          # Don't forget -q to silence confirmation prompts
+          - gcloud auth configure-docker -q
+      jobs:
+        - name: Docker build
           commands:
-            # Authenticate using the file injected from the secret
-            - gcloud auth activate-service-account --key-file=.secrets/gcp.json
-            # Don't forget -q to silence confirmation prompts
-            - gcloud auth configure-docker -q
-        jobs:
-          - name: Docker build
-            commands:
-              - cd srv
-              - sh docker-build-push.sh
+            - cd srv
+            - sh docker-build-push.sh
