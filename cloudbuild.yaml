@@ -51,7 +51,10 @@ steps:
   dir: '/workspace/kubernetes/overlays/${_ENV}'
   name: 'gcr.io/cloud-builders/kubectl'
   args: [ 'apply', '-k', '.' ]
+  env:
+    - 'KUBECONFIG=/workspace/kubeconfig'
   waitFor:
+    - setup-k8s
     - mongo-install
     - invoice-patch
 tags: ['invoice']
