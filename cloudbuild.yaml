@@ -43,6 +43,7 @@ steps:
   dir: '/workspace/kubernetes/overlays/${_ENV}'
   name: 'lyft/kustomizer:v3.3.0'
   args: [
+    'kustomize',
     'edit', 'set', 'image',
     'rxinvoice=rxinvoice:${SHORT_SHA}'
   ]
