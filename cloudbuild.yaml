@@ -53,7 +53,7 @@ steps:
   waitFor: ['-']
 - id: invoice-deploy
   dir: 'kubernetes/overlays/${_ENV}'
-  name: 'gcr.io/cloud-builders/kubectl'
+  name: 'gcr.io/cloud-builders/kubectl@${_KUBECTL_DIGEST}'
   args: [ 'apply', '-k', '.' ]
   env:
     - 'KUBECTL_VERSION=1.14'
@@ -70,3 +70,4 @@ substitutions:
   _CLUSTER_NAME: quatreapp-cl
   _CLUSTER_ZONE: europe-west1-c
   _ENV: dev
+  _KUBECTL_DIGEST: 'sha256:f3739844fef97420c617261f997902a65100f203385c93f71e9420581b404d37'
