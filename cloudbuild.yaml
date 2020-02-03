@@ -23,18 +23,16 @@ steps:
 - id: mongo-install
   name: 'alpine/helm:3.0.3'
   entrypoint: /bin/sh
-  args: [ '-c',
-    '''
-      helm repo add bitnami https://charts.bitnami.com/bitnami &&
-      helm repo update &&
-      echo "Before helm upgrade" &&
-      helm upgrade --install \
+  args:
+    - '-c'
+    - |
+      helm repo add bitnami https://charts.bitnami.com/bitnami
+      && helm repo update
+      && helm upgrade mongodb bitnami/mongodb-sharded \
+        --install \
         --namespace 4sh-invoice-${_ENV} \
-        mongodb bitnami/mongodb-sharded \
         --version 1.0.5 \
         --set shards=1,metrics.enabled=true,service.name=mongo
-    '''
-  ]
   env:
     - 'KUBECONFIG=/workspace/kubeconfig'
   waitFor:
