@@ -6,6 +6,7 @@ agent:
     os_image: ubuntu1804
 blocks:
   - name: Maven
+    dependencies: []
     task:
       jobs:
         - name: Build
