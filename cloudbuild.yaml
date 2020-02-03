@@ -10,9 +10,16 @@ steps:
   args: ['docker-build-push.sh']
   env:
     - 'PROJECT_ID=${PROJECT_ID}'
-    - 'COMMIT_SHA=${COMMIT_SHA}'
+    - 'COMMIT_SHA=${SHORT_SHA}'
   waitFor:
     - maven-build
+- id: setup-k8s
+  name: 'gcr.io/cloud-builders/gcloud'
+  args: ['container cluster get-credentials ${_CLUSTER_NAME} ${_CLUSTER_LOCATION}']
+  env:
+    - 'KUBECONFIG=/workspace/kubeconfig'
+  waitFor:
+    - docker-push
 - id: mongo-install
   name: 'alpine/helm:3.0.3'
   entrypoint: /bin/sh
@@ -20,6 +27,7 @@ steps:
     '''
       helm repo add bitnami https://charts.bitnami.com/bitnami &&
       helm repo update &&
+      echo "Before helm upgrade" &&
       helm upgrade --install \
         --namespace 4sh-invoice-${_ENV} \
         mongodb bitnami/mongodb-sharded \
@@ -27,13 +35,16 @@ steps:
         --set shards=1,metrics.enabled=true,service.name=mongo
     '''
   ]
-  waitFor: ['-']
+  env:
+    - 'KUBECONFIG=/workspace/kubeconfig'
+  waitFor:
+    - setup-k8s
 - id: invoice-patch
   dir: '/workspace/kubernetes/overlays/${_ENV}'
   name: 'lyft/kustomizer:v3.3.0'
   args: [
     'edit', 'set', 'image',
-    'rxinvoice=rxinvoice:${COMMIT_SHA}'
+    'rxinvoice=rxinvoice:${SHORT_SHA}'
   ]
   waitFor:
     - docker-push
@@ -46,4 +57,6 @@ steps:
     - invoice-patch
 tags: ['invoice']
 substitutions:
+  _CLUSTER_NAME: quatreapp-cl
+  _CLUSTER_LOCATION: '--zone europe-west1-c'
   _ENV: dev
