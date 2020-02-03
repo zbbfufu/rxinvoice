@@ -26,13 +26,13 @@ steps:
   args:
     - '-c'
     - |
-      helm repo add bitnami https://charts.bitnami.com/bitnami \
+      helm repo add stable https://kubernetes-charts.storage.googleapis.com/ \
       && helm repo update \
-      && helm upgrade mongodb bitnami/mongodb-sharded \
+      && helm upgrade mongodb stable/mongodb-replicaset \
         --install \
         --namespace 4sh-invoice-${_ENV} \
         --version 1.0.5 \
-        --set shards=1,metrics.enabled=true
+        --set replicas=1,metrics.enabled=true
   env:
     - 'KUBECONFIG=/workspace/kubeconfig'
   waitFor:
