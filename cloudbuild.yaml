@@ -31,7 +31,7 @@ steps:
       && helm upgrade mongodb stable/mongodb-replicaset \
         --install \
         --namespace 4sh-invoice-${_ENV} \
-        --version 1.0.5 \
+        --version 3.11.4 \
         --set replicas=1,metrics.enabled=true
   env:
     - 'KUBECONFIG=/workspace/kubeconfig'
