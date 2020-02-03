@@ -4,6 +4,7 @@ namespace: 4sh-invoice-dev
 images:
 - name: rxinvoice
   newTag: latest
-resources:
+bases:
 - ../../base
+resources:
 - ingress.yaml
