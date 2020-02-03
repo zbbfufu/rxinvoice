@@ -37,3 +37,18 @@ blocks:
             - mv ROOT.war target/
             - docker build -t eu.gcr.io/quatreapp/4sh-invoice-core:latest -t eu.gcr.io/quatreapp/4sh-invoice-core:$SEMAPHORE_GIT_SHA -f srv/Dockerfile .
             - docker push eu.gcr.io/quatreapp/4sh-invoice-core
+  - name: "Deploy"
+    dependencies: ["Push Image"]
+    task:
+      secrets:
+        - name: GCP
+      prologue:
+        commands:
+          - gcloud auth activate-service-account --key-file=.secrets/gcp.json
+          - gcloud config set project quatreapp
+          - gcloud container clusters get-credentials quatreapp-cl
+      jobs:
+        - name: rollout update
+          commands:
+            - kubectl config set-context --current --namespace=4sh-invoice-qa
+            - kubectl rollout restart deployment invoice
