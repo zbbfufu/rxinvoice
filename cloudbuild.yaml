@@ -5,7 +5,7 @@ steps:
   waitFor: ['-']
 - id: docker-push
   name: 'eu.gcr.io/quatreapp/docker-xmllint'
-  dir: /workspace/srv
+  dir: 'srv'
   entrypoint: /bin/bash
   args: ['docker-build-push.sh']
   env:
@@ -38,7 +38,7 @@ steps:
   waitFor:
     - setup-k8s
 - id: invoice-patch
-  dir: '/workspace/kubernetes/overlays/${_ENV}'
+  dir: 'kubernetes/overlays/${_ENV}'
   name: 'lyft/kustomizer:v3.3.0'
   args: [
     'kustomize',
@@ -48,9 +48,9 @@ steps:
   waitFor:
     - docker-push
 - id: invoice-deploy
-  dir: '/workspace/kubernetes/overlays/${_ENV}'
+  # dir: 'kubernetes/overlays/${_ENV}'
   name: 'gcr.io/cloud-builders/kubectl'
-  args: [ 'apply', '-k', '.' ]
+  args: [ 'apply', '-k', 'kubernetes/overlays/${_ENV}' ]
   env:
     - 'CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}'
     - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER_NAME}'
@@ -63,5 +63,5 @@ options:
   machineType: 'N1_HIGHCPU_8'
 substitutions:
   _CLUSTER_NAME: quatreapp-cl
-  _CLUSTER_ZONE: 'europe-west1-c'
+  _CLUSTER_ZONE: europe-west1-c
   _ENV: dev
