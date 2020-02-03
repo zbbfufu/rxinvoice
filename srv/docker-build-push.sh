@@ -33,6 +33,11 @@ echo building $IMAGE
 
 rm target/ROOT.war
 cp $ARTIFACT_FILE target/ROOT.war
-docker build -t $IMAGE:$TAG -t $IMAGE:latest . \
-    && docker push $IMAGE:$TAG \
-    && docker push $IMAGE:latest
+docker build \
+    -t $IMAGE:$TAG \
+    -t $IMAGE:latest \
+    -t $IMAGE:$COMMIT_SHA
+    . \
+&& docker push $IMAGE:$TAG \
+&& docker push $IMAGE:$COMMIT_SHA \
+&& docker push $IMAGE:latest

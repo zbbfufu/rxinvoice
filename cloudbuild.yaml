@@ -2,12 +2,48 @@ steps:
 - id: maven-build
   name: 'eu.gcr.io/quatreapp/mvn-npm-builder'
   args: ['mvn', '-B', 'package']
+  waitFor: ['-']
 - id: docker-push
   name: 'eu.gcr.io/quatreapp/docker-xmllint'
   dir: /workspace/srv
   entrypoint: /bin/bash
-  args: [ 'docker-build-push.sh']
+  args: ['docker-build-push.sh']
   env:
-    - 'PROJECT_ID=$PROJECT_ID'
+    - 'PROJECT_ID=${PROJECT_ID}'
+    - 'COMMIT_SHA=${COMMIT_SHA}'
   waitFor:
     - maven-build
+- id: mongo-install
+  name: 'alpine/helm:3.0.3'
+  entrypoint: /bin/sh
+  args: [ '-c',
+    '''
+      helm repo add bitnami https://charts.bitnami.com/bitnami &&
+      helm repo update &&
+      helm upgrade --install \
+        --namespace 4sh-invoice-${_ENV} \
+        mongodb bitnami/mongodb-sharded \
+        --version 1.0.5 \
+        --set shards=1,metrics.enabled=true,service.name=mongo
+    '''
+  ]
+  waitFor: ['-']
+- id: invoice-patch
+  dir: '/workspace/kubernetes/overlays/${_ENV}'
+  name: 'lyft/kustomizer:v3.3.0'
+  args: [
+    'edit', 'set', 'image',
+    'rxinvoice=rxinvoice:${COMMIT_SHA}'
+  ]
+  waitFor:
+    - docker-push
+- id: invoice-deploy
+  dir: '/workspace/kubernetes/overlays/${_ENV}'
+  name: 'gcr.io/cloud-builders/kubectl'
+  args: [ 'apply', '-k', '.' ]
+  waitFor:
+    - mongo-install
+    - invoice-patch
+tags: ['invoice']
+substitutions:
+  _ENV: dev
