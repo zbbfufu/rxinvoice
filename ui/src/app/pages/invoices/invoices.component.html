@@ -2,41 +2,64 @@
 
 
 <form class="invoiceFilter" [formGroup]="searchForm">
-    <div class="row">
-        <div class="columns shrink">
-            <div class="row align-middle">
+    <div class="row valign-middle">
+        <div class="columns auto">
+            <div class="row">
                 <div class="columns shrink">
-                    <h6>{{'invoices.filter.title' | translate}}</h6>
-                </div>
+                    <div class="row align-middle">
+                        <div class="columns shrink">
+                            <h6>{{'invoices.filter.title' | translate}}</h6>
+                        </div>
 
-                <div class="columns">
-                    <button type="button"
-                            (click)="toggleFilter('reference')"
-                            [ngClass]="{'isActive green': filterString ===  'reference',
+                        <div class="columns">
+                            <button type="button"
+                                    (click)="toggleFilter('reference')"
+                                    [ngClass]="{'isActive green': filterString ===  'reference',
                    'spinner':  filterString ===  'REFERENCE' && isPending}"
-                            class="round large listFilter-item">
-                        {{'invoices.filter.ref' | translate}}
-                    </button>
+                                    class="round large listFilter-item">
+                                {{'invoices.filter.ref' | translate}}
+                            </button>
+                        </div>
+
+                        <div class="columns">
+                            <button type="button"
+                                    (click)="toggleFilter('date')"
+                                    [ngClass]="{'isActive green': filterString ===  'date',
+                   'spinner':  filterString ===  'DATE' && isPending}"
+                                    class="round large listFilter-item">
+                                {{'invoices.filter.date' | translate}}
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="columns">
-                    <button type="button"
-                            (click)="toggleFilter('date')"
-                            [ngClass]="{'isActive green': filterString ===  'date',
-                   'spinner':  filterString ===  'DATE' && isPending}"
-                            class="round large listFilter-item">
-                        {{'invoices.filter.date' | translate}}
+                <div class="columns auto inner-space-top-5">
+                    <input class="input search" type="text" placeholder="{{'invoice.search.name' | translate}}"
+                           formControlName="query">
+                </div>
+            </div>
+        </div>
+
+        <div class="columns shrink">
+            <div class="row align-right inner-space-top-2">
+                <div class="columns shrink text-right">
+                    <a class="button medium primary ripple has-img" [href]="buildUri()">
+                        <img class="icon" src="assets/images/png/icon_excel_white.png">
+                    </a>
+                    <button class="button medium green ripple"
+                            routerLink="/app/invoices/new"
+                            type="button">
+                        <i class="ion-plus-round"></i>{{'invoices.newInvoice' | translate}}
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="columns auto inner-space-top-5">
-            <input class="input search" type="text" placeholder="{{'invoice.search.name' | translate}}"
-                   formControlName="query">
+        <div class="columns small-24">
+            <spacer size="12"></spacer>
         </div>
 
-        <div class="columns small-14 inner-space-top-5">
+        <div class="columns auto">
             <div class="row">
                 <div class="columns small-5">
                     <div class="invoiceSelect-date">
@@ -81,33 +104,17 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Select input -->
-
-    <div class="invoiceSelect row">
-
-        <!-- Invoice number -->
-
-        <div class="invoiceNumber columns auto inner-space-top-8">
-            <h6><strong class="nb">{{ invoices && invoices.length ? invoices.length : 0 }}</strong>
-                {{'invoices.total.number' | translate}}
-                <strong class="nb">{{getGrossAmount()}} {{'invoices.total.exTaxes' | translate}}</strong>
-            </h6>
-        </div>
-
-        <div class="columns shrink text-right">
-            <a class="button medium primary ripple has-img" [href]="buildUri()">
-                <img class="icon" src="assets/images/png/icon_excel_white.png">
-            </a>
-            <button class="button medium green ripple"
-                    routerLink="/app/invoices/new"
-                    type="button">
-                <i class="ion-plus-round"></i>{{'invoices.newInvoice' | translate}}
-            </button>
+        <div class="columns shrink">
+            <!-- Invoice number -->
+            <div class="invoiceNumber columns auto inner-space-top-2">
+                <h6><strong class="nb">{{ invoices && invoices.length ? invoices.length : 0 }}</strong>
+                    {{'invoices.total.number' | translate}}
+                    <strong class="nb">{{getGrossAmount()}} {{'invoices.total.exTaxes' | translate}}</strong>
+                </h6>
+            </div>
         </div>
     </div>
-
 </form>
 
 <!-- [END HEADER] -->

@@ -7,6 +7,22 @@
   height: 100%;
 }
 
+.caInfos {
+  position: relative;
+  margin-top: rem-calc(38px) !important;
+  padding: rem-calc(12px 16px 0 16px) !important;
+
+  &-period {
+    position: absolute;
+    top: rem-calc(-26px);
+    left: 0;
+    padding: rem-calc(4px 16px);
+    background-color: darken($blue-bayoux, 15%);
+    font-weight: bold;
+    border-radius: rem-calc(16px 4px 0 0);
+  }
+}
+
 @include new('newCustomer') {
   background-color: $background-color;
 
@@ -72,12 +88,10 @@
 
       @include has('labelNumber') {
         display: flex;
-        margin-top: rem-calc(16px);
       }
 
       @include has('valueNumber') {
         display: flex;
-        margin-bottom: rem-calc(32px);
       }
 
       @include has('label') {
@@ -87,7 +101,7 @@
 
       @include has('content') {
         margin: rem-calc(16px 0);
-        
+
         button {
           margin-left: rem-calc(8px);
           cursor: pointer;

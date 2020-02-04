@@ -74,8 +74,8 @@ export class InvoiceDetailComponent implements OnInit {
             business: new FormControl(null),
             object: new FormControl('', Validators.required),
             kind: new FormControl('', Validators.required),
-            dueDate: new FormControl(''),
-            date: new FormControl(''),
+            dueDate: new FormControl(null),
+            date: new FormControl(null),
             status: new FormControl('', Validators.required),
             comment: new FormControl(''),
             reference: new FormControl('', null, this.invoiceReferenceAsyncValidator()),
@@ -87,7 +87,7 @@ export class InvoiceDetailComponent implements OnInit {
         }
         this.form.valueChanges.subscribe(value => {
             if (value.date && !value.dueDate) {
-                this.form.controls['dueDate'].setValue(moment(value.date).add(1, 'M').toDate());
+                this.form.controls['dueDate'].setValue(moment(value.date).add(30, 'd').toDate());
             }
         });
 

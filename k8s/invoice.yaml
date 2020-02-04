@@ -1,0 +1,59 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "invoice"
+  namespace: "4sh-invoice-qa"
+  labels:
+    app: "invoice-app"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "invoice-app"
+  template:
+    metadata:
+      labels:
+        app: "invoice-app"
+    spec:
+      containers:
+        - name: "invoice-app"
+          image: "eu.gcr.io/quatreapp/4sh-invoice-core"
+          env:
+            - name: JAVA_OPTS
+              value: -Djava.awt.headless=true -Xmx512M -Dmongo.uri=mongodb://mongo-mongodb-replicaset-0.mongo-mongodb-replicaset -Drestx.http.XForwardedSupport=all
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: invoice-service
+  namespace: 4sh-invoice-qa
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: invoice-app
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: 4sh-invoice-qa-ingress
+  namespace: "4sh-invoice-qa"
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - 4sh-invoice-qa.quatre.app
+    secretName: 4sh-invoice-qa-cert
+  rules:
+  - host: 4sh-invoice-qa.quatre.app
+    http:
+      paths:
+      - backend:
+          serviceName: invoice-service
+          servicePort: 8080
+

@@ -1,0 +1,42 @@
+version: v1.0
+name: Deploy to Kubernetes
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: "Build and Push Image"
+    dependencies: []
+    task:
+      secrets:
+        - name: GCP
+      prologue:
+        commands:
+          # Authenticate using the file injected from the secret
+          - gcloud auth activate-service-account --key-file=.secrets/gcp.json
+          # Don't forget -q to silence confirmation prompts
+          - gcloud auth configure-docker -q
+      jobs:
+        - name: Docker build
+          commands:
+            - checkout
+            - artifact pull workflow ROOT.war
+            - mkdir target
+            - mv ROOT.war target/
+            - docker build -t eu.gcr.io/quatreapp/4sh-invoice-core:latest -t eu.gcr.io/quatreapp/4sh-invoice-core:$SEMAPHORE_GIT_SHA -f srv/Dockerfile .
+            - docker push eu.gcr.io/quatreapp/4sh-invoice-core
+  - name: "Deploy"
+    dependencies: ["Build and Push Image"]
+    task:
+      secrets:
+        - name: GCP
+      prologue:
+        commands:
+          - gcloud auth activate-service-account --key-file=.secrets/gcp.json
+          - gcloud config set project quatreapp
+          - gcloud container clusters get-credentials quatreapp-cl --zone=europe-west1-c
+      jobs:
+        - name: rollout update
+          commands:
+            - kubectl config set-context --current --namespace=4sh-invoice-qa
+            - kubectl rollout restart deployment invoice

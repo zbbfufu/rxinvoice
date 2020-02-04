@@ -1,0 +1,22 @@
+version: v1.0
+name: Java
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Maven
+    dependencies: []
+    task:
+      jobs:
+        - name: Build
+          commands:
+            - checkout
+            - sem-version java 1.8
+            - mvn -B package --file pom.xml
+            - POM_VERSION=`xmllint --nocdata  --xpath "/*[name()='project']/*[name()='version']/text()" srv/pom.xml | awk '{$1=$1};1'`
+            - mv srv/target/rxinvoice-srv-$POM_VERSION.war ROOT.war
+            - artifact push workflow ROOT.war
+promotions:
+  - name: Deploy to Kubernetes
+    pipeline_file: deploy-k8s.yml
