@@ -40,6 +40,10 @@ export class CustomerDetailComponent implements OnInit {
     ngOnInit() {
         this.fetchCustomer();
         const currentUser = this.authService.current();
+        this.companyService.fetchCompany(currentUser.companyRef)
+            .subscribe(company => this.buildCompanyFiscalYearBounds(company));
+
+
         this.canDelete = currentUser.roles.filter(role => role === 'admin').length > 0;
     }
 
@@ -74,7 +78,6 @@ export class CustomerDetailComponent implements OnInit {
                                 company.metrics.paid +
                                 company.metrics.expired;
                         }
-                        this.buildCompanyFiscalYearBounds(company);
                     });
             } else {
                 this.editMode = true;
@@ -84,9 +87,9 @@ export class CustomerDetailComponent implements OnInit {
 
     private buildCompanyFiscalYearBounds(company: CompanyModel) {
         let fiscalYear = company.fiscalYear;
-
-        let startMonth = Moment(fiscalYear.start).locale('fr').format('MMMM');
-        let endMonth = Moment(fiscalYear.end).locale('fr').format('MMMM');
+        // Sorry for code below
+        let startMonth = Moment(fiscalYear.start).add(-1, 'd').locale('fr').format('MMMM');
+        let endMonth = Moment(fiscalYear.end).add(1, 'd').locale('fr').format('MMMM');
         this.companyFiscalYearBounds = '(' + startMonth + ' - ' + endMonth + ')';
 
     }
