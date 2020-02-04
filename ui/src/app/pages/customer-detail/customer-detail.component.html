@@ -14,7 +14,7 @@
         <form #f="ngForm" (submit)="save()" novalidate class="column small-10">
 
             <div class="column row newCustomerDetail-container dark caInfos">
-                <span class="caInfos-period">{{'ca.fiscal.year' | translate}} (Mars - Avril)</span>
+                <span class="caInfos-period">{{'ca.fiscal.year' | translate}} {{companyFiscalYearBounds}}</span>
                 <div class="column small-24">
                     <!-- TODO add vats management / legalNotice / kind / fiscalYearModel ?-->
                     <div class="row align-middle newCustomerDetail-container-labelNumber">

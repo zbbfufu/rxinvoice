@@ -4,10 +4,12 @@ import {FormGroup} from '@angular/forms';
 import {CompanyService} from '../../common/services/company.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
+import * as Moment from 'moment';
 import {SweetAlertService} from '../../common/services/sweetAlert.service';
 import {AuthenticationService} from '../../common/services/authentication.service';
 import 'rxjs/add/operator/filter';
 import {Location} from '@angular/common';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'customer-detail',
@@ -24,10 +26,12 @@ export class CustomerDetailComponent implements OnInit {
     private currentYearTurnover: number = 0;
     private currentYearTurnoverExpected: number = 0;
     private totalTurnover: number = 0;
+    public companyFiscalYearBounds: string;
 
     constructor(private companyService: CompanyService,
                 private route: ActivatedRoute,
                 private router: Router,
+                private translateService: TranslateService,
                 private alertService: SweetAlertService,
                 private authService: AuthenticationService,
                 private location: Location) {
@@ -70,11 +74,21 @@ export class CustomerDetailComponent implements OnInit {
                                 company.metrics.paid +
                                 company.metrics.expired;
                         }
+                        this.buildCompanyFiscalYearBounds(company);
                     });
             } else {
                 this.editMode = true;
             }
         });
+    }
+
+    private buildCompanyFiscalYearBounds(company: CompanyModel) {
+        let fiscalYear = company.fiscalYear;
+
+        let startMonth = Moment(fiscalYear.start).locale('fr').format('MMMM');
+        let endMonth = Moment(fiscalYear.end).locale('fr').format('MMMM');
+        this.companyFiscalYearBounds = '(' + startMonth + ' - ' + endMonth + ')';
+
     }
 
     public save() {
