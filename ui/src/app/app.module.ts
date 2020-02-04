@@ -50,6 +50,7 @@ import {DpDatePickerModule} from "ng2-date-picker";
 import { VatSelectComponent } from './common/components/selects/vat-select/vat-select.component';
 import { InvoiceLineFormComponent } from './common/components/invoice-lines-detail/invoice-line-form/invoice-line-form.component';
 import { InvoiceLineHeaderComponent } from './common/components/invoice-lines-detail/invoice-line-header/invoice-line-header.component';
+import {SpacerComponent} from './common/components/spacer/spacer.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -91,7 +92,8 @@ export function createTranslateLoader(http: HttpClient) {
         QuickStatusEditPanelComponent,
         VatSelectComponent,
         InvoiceLineFormComponent,
-        InvoiceLineHeaderComponent
+        InvoiceLineHeaderComponent,
+        SpacerComponent
     ],
     imports: [
         AppRoutingModule,
