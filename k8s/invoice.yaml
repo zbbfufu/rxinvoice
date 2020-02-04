@@ -56,4 +56,26 @@ spec:
       - backend:
           serviceName: invoice-service
           servicePort: 8080
-
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-process-outdated-invoices
+spec:
+  schedule: "0 5 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: main
+              image: buildpack-deps:curl
+              args:
+                - /bin/sh
+                - -ec
+                - >
+                  server="http://invoice-service" ;
+                  url=$server"/api/admin/sent-invoices" ;
+                  curl -X POST -H "Content-Type: application/json" $url -d '{}'
+          restartPolicy: Never
