@@ -1,19 +1,21 @@
 steps:
   - id: 'nvm-npm-builder'
     name: 'gcr.io/cloud-builders/docker'
+    dir: 'ci/cloud-build/'
     args: [
       'build',
       '--tag=eu.gcr.io/$PROJECT_ID/mvn-npm-builder:$COMMIT_SHA',
       '--tag=eu.gcr.io/$PROJECT_ID/mvn-npm-builder:latest',
-      '-f', 'ci/cloud-build/Dockerfile.mvn-npm-builder', '.']
+      '-f', 'Dockerfile.mvn-npm-builder', '.']
     waitFor: ['-']
   - id: 'docker-xmllint'
     name: 'gcr.io/cloud-builders/docker'
+    dir: 'ci/cloud-build/'
     args: [
       'build',
       '--tag=eu.gcr.io/$PROJECT_ID/docker-xmllint:$COMMIT_SHA',
       '--tag=eu.gcr.io/$PROJECT_ID/docker-xmllint:latest',
-      '-f', 'ci/cloud-build/Dockerfile.docker-xmllint', '.']
+      '-f', 'Dockerfile.docker-xmllint', '.']
     waitFor: ['-']
   - id: 'checkout-builders-community'
     name: 'gcr.io/cloud-builders/git'
