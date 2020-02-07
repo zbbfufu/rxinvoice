@@ -67,10 +67,9 @@ steps:
     - mongo-install
     - invoice-patch
 tags: ['invoice']
-options:
-  machineType: 'N1_HIGHCPU_8'
+# options:
+#   machineType: 'N1_HIGHCPU_8'
 substitutions:
   _CLUSTER_NAME: quatreapp-cl
   _CLUSTER_ZONE: europe-west1-c
   _ENV: dev
-  _KUBECTL_DIGEST: 'sha256:f3739844fef97420c617261f997902a65100f203385c93f71e9420581b404d37'
