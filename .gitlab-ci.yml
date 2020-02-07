@@ -1,0 +1,26 @@
+maven-build:
+  image: registry.gitlab.com/4sh/rxinvoice-ci/mvn-npm-builder
+  script: mvn -B package
+  artifacts:
+    paths:
+      - srv/target/*.war
+
+docker-push:
+  image: registry.gitlab.com/4sh/rxinvoice-ci/docker-xmllint
+  script:
+    - cd srv
+    - echo $GCP_SERVICE_KEY > /tmp/$CI_PIPELINE_ID.json
+    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+    - gcloud auth configure-docker -q
+    - bash docker-build-push.sh
+  variables:
+    PROJECT_ID: $GCP_PROJECT_ID
+    COMMIT_SHA: $CI_COMMIT_SHORT_SHA    
+
+mongo-install:
+  image: helm
+  script: 'echo "NotYetImplemented: intall mongo"'
+
+invoice-deploy:
+  image: gcr.io/cloud-builders/kubectl
+  script: 'echo "NotYetImplemented: deploy invoice"'
