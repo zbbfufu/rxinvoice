@@ -160,4 +160,7 @@ public class CompanyService {
         return Status.of("deleted");
     }
 
+    public long countCompanies() {
+        return this.companies.get().count();
+    }
 }
