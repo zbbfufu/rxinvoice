@@ -1,0 +1,5 @@
+version: '2'
+services:
+  rxinvoice:
+    build: ./
+    image: eu.gcr.io/quatreapp/rxinvoice-core:latest
