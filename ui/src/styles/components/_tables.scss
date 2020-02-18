@@ -10,13 +10,13 @@ table {
       &:nth-child(even) {
         &:hover, &:focus, &:active {
           @extend %transition;
-          background-color: $catskill-dark;
+          background-color: $catskill-white;
         }
       }
 
       &:hover, &:focus, &:active {
         @extend %transition;
-        background-color: $catskill-dark;
+        background-color: $catskill-white;
       }
     }
   }

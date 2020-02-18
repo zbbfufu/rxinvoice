@@ -23,32 +23,26 @@
 // == Colors by name (based on : http://chir.ag/projects/name-that-color/)
 // USE ONLY TO DEFINE COLORS BY FUNCTION, don't use in others vars declaration.
 
-$shakespeare :                                   #3CA3D2 !default;
-$blue-bayoux :                                   #4c637b !default;
-$catskill-white :                                #E3EAF3 !default;
-$catskill-dark :                                 #e7edf5 !default;
 
-$regent-gray :                                   #7B8C9C !default;
 $geyser :                                        #CCD4DA !default;
 $silver-rust :                                   #cdcdcd !default;
 $black-squeeze :                                 #F2F6FA !default;
-$catskill-light :                                #f8fafc !default;
 $alice-blue:                                     #FCFEFF !default;
+$catskill-white :                                #E3EAF3 !default;
+$sail :                                          #9CD8F4 !default;
+$shakespeare :                                   #3CA3D2 !default;
+$blue-bayoux :                                   #4c637b !default;
+$lima :                                          #4daf7c !default;
+$sushi :                                         #67BA2F !default;
+$bright-sun :                                    #efcd38 !default;
+$coral :                                         #FF9452 !default;
+$cinnabar :                                      #E53935 !default;
+$lavender :                                      #B77EDB !default;
+$black :                                         #000000 !default;
+$regent-gray :                                   #7B8C9C !default;
 $wild-sand :                                     #F6F6F6 !default;
+$white :                                         #ffffff !default;
 
-$sushi :                                        #67BA2F !default;
-
-$bright-sun :                                   #eac85d !default;
-$sunshade :                                     #808c9f !default;
-$red-orange :                                   #e0502e !default;
-$lima :                                         #4daf7c !default;
-
-$white :                                        #ffffff !default;
-
-
-$shiraz :                                        #b01032 !default;
-$la-palma :                                      #10B016 !default;
-$yellow-sea :                                    #ffa806 !default;
 
 // == Colors by function
 // = General
@@ -61,33 +55,45 @@ $app-sub-light-color :                            $catskill-white !default;
 
 $app-disabled-color :                             $silver-rust !default;
 
-$app-error-color :                                $shiraz !default;
-$app-warning-color :                              $yellow-sea !default;
-$app-success-color :                              $la-palma !default;
-$app-notif-color :                                $red-orange !default;
+$app-error-color :                                $cinnabar !default;
+$app-warning-color :                              $coral !default;
+$app-success-color :                              $sushi !default;
+$app-notif-color :                                $coral !default;
 
 // = Content color
-$content-dark-list-color :                        $catskill-light !default;
+$content-dark-list-color :                        $catskill-white !default;
 $content-medium-list-color :                      $black-squeeze !default;
 $content-light-list-color :                       $alice-blue !default;
 
-$content-hover-list-color :                       $catskill-dark !default;
+$content-hover-list-color :                       $catskill-white !default;
 
 // = Fonts color
 $body-dark-font-color :                           $regent-gray !default;
 $body-light-font-color :                          $geyser !default;
 
-// = Status color
-$status-tovalidate-color :                        $sunshade !default;
+// = Status color TAB
+$status-tovalidate-color :                        $sail !default;
 $status-toprepare-color :                         $bright-sun !default;
-$status-torelaunched-color :                      $red-orange  !default;
-$status-tosend-color :                            $lima  !default;
+$status-torelaunched-color :                      $cinnabar  !default;
+$status-tosend-color :                            $blue-bayoux  !default;
 $status-border-light-color :                      $geyser !default;
+
+// = Status color LABEL
+$status-draft-color :                             $bright-sun !default;
+$status-ready-color :                             $lavender !default;
+$status-waiting-validation-color :                $sail !default;
+$status-validated-color :                         $shakespeare !default;
+$status-sent-color :                              $blue-bayoux !default;
+$status-paid-color :                              $sushi !default;
+$status-payment-scheduled-color :                 $coral !default;
+$status-late-color :                              $cinnabar !default;
+$status-unpaid-color :                            $black !default;
+$status-cancelled-color :                         $regent-gray !default;
 
 // = Buttons color
 $button-primary-color :                           $sushi !default;
 $button-secondary-color :                         $shakespeare !default;
-$button-red :                                     $red-orange !default;
+$button-red :                                     $cinnabar !default;
 $button-yellow :                                  $bright-sun !default;
 $button-filter-color :                            $black-squeeze !default;
 $button-border-dark-color :                       $regent-gray !default;

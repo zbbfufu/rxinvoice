@@ -1,2 +1,11 @@
-export type InvoiceStatusType = 'DRAFT'| 'READY'| 'SENT'| 'LATE'| 'PAID'| 'CANCELLED'|
-    'WAITING_VALIDATION'| 'VALIDATED' | 'UNPAID' | 'PAYMENT_SCHEDULED';
+export type InvoiceStatusType =
+      'DRAFT'
+    | 'READY'
+    | 'WAITING_VALIDATION'
+    | 'VALIDATED'
+    | 'SENT'
+    | 'PAID'
+    | 'PAYMENT_SCHEDULED'
+    | 'LATE'
+    | 'UNPAID'
+    | 'CANCELLED';

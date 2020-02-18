@@ -87,7 +87,9 @@ public class InvoiceResource {
 
     @GET("/invoices/status")
     public Iterable<rxinvoice.domain.invoice.Status> findInvoiceStatus() {
-        return Arrays.asList(values());
+        List<rxinvoice.domain.invoice.Status> statuses = Arrays.asList(values());
+        statuses.sort(Comparator.comparing(rxinvoice.domain.invoice.Status::getRank));
+        return statuses;
     }
 
     @GET("/invoices/activities")

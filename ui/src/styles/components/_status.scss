@@ -12,7 +12,6 @@
   position: relative;
   padding: rem-calc(4px 16px);
   margin: 0 6px;
-  border-radius: 2px;
   color: white !important;
   background-color: $app-main-color;
   box-shadow: 0 0 2px $status-border-light-color;
@@ -46,12 +45,17 @@
 
   // Type Status
 
-  &.DRAFT { background: $bright-sun;}
-  &.READY { background: $shakespeare;}
-  &.SENT { background: $lima;}
-  &.LATE { background: $shiraz;}
-  &.PAID { background: $sushi;}
-  &.CANCELLED { background: $sunshade;}
+  &.DRAFT                   { background: $status-draft-color; }
+  &.READY                   { background: $status-ready-color; }
+  &.WAITING_VALIDATION      { background: $status-waiting-validation-color; }
+  &.VALIDATED               { background: $status-validated-color; }
+  &.SENT                    { background: $status-sent-color; }
+  &.PAID                    { background: $status-paid-color; }
+  &.PAYMENT_SCHEDULED       { background: $status-payment-scheduled-color; }
+  &.LATE                    { background: $status-late-color; }
+  &.UNPAID                  { background: $status-unpaid-color; }
+  &.CANCELLED               { background: $status-cancelled-color; }
+
 }
 
 .PREPARE { background: $status-toprepare-color !important;}
