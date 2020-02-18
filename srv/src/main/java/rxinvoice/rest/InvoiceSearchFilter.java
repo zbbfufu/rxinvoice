@@ -1,6 +1,10 @@
 package rxinvoice.rest;
 
 
+import rxinvoice.utils.SortProperty;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class InvoiceSearchFilter {
@@ -12,6 +16,8 @@ public class InvoiceSearchFilter {
     private Optional<String> kind = Optional.empty();
     private Optional<String> query = Optional.empty();
     private Optional<String> reference = Optional.empty();
+
+    private List<SortProperty> sortProperties = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -86,6 +92,15 @@ public class InvoiceSearchFilter {
 
     public InvoiceSearchFilter setReference(Optional<String> reference) {
         this.reference = reference;
+        return this;
+    }
+
+    public List<SortProperty> getSortProperties() {
+        return sortProperties;
+    }
+
+    public InvoiceSearchFilter setSortProperties(List<SortProperty> sortProperties) {
+        this.sortProperties = sortProperties;
         return this;
     }
 }

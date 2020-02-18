@@ -28,6 +28,7 @@ import rxinvoice.rest.BlobService;
 import rxinvoice.rest.InvoiceSearchFilter;
 import rxinvoice.rest.events.InvoiceUpdatedEvent;
 import rxinvoice.service.company.CompanyService;
+import rxinvoice.utils.SortCriteriaUtil;
 
 import javax.inject.Named;
 import java.math.BigDecimal;
@@ -220,7 +221,10 @@ public class InvoiceService {
             builder.and("reference").is(MoreJongos.containsIgnoreCase(invoiceSearchFilter.getReference().get()));
         }
 
-        return invoices.get().find(builder.get().toString()).as(Invoice.class);
+        return invoices.get()
+                .find(builder.get().toString())
+                .sort(SortCriteriaUtil.buildMongoSortQuery(invoiceSearchFilter.getSortProperties()))
+                .as(Invoice.class);
     }
 
     public Optional<Invoice> findInvoiceByKey(String key) {
