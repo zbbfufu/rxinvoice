@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ControlContainer, NgForm} from '@angular/forms';
 import {InvoiceLineModel} from '../../../models/invoice-line.model';
 import {VATModel} from '../../../models/VAT.model';
+import {LineMoveEvent} from './line-move-event';
 
 @Component({
     selector: 'invoice-lines-detail',
@@ -42,5 +43,18 @@ export class InvoiceLinesDetailComponent implements OnInit {
         let line = new InvoiceLineModel();
         line.vat = new VATModel();
         return line;
+    }
+
+    public lineMoved(lineMoveEvent: LineMoveEvent):void {
+        let index = this.lines.indexOf(lineMoveEvent.line);
+        if (lineMoveEvent.direction > 0 ) {
+            this.lines[index] = this.lines[index + 1];
+            this.lines[index + 1] = lineMoveEvent.line;
+        } else {
+            this.lines[index] = this.lines[index - 1];
+            this.lines[index - 1] = lineMoveEvent.line;
+
+        }
+
     }
 }

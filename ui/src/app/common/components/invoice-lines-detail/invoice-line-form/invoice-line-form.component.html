@@ -1,6 +1,8 @@
 <form (submit)="addLine()" novalidate #invoiceLineForm="ngForm">
     <div class="small-24">
         <div class="row space-bottom-8">
+            <button type="button" class="medium columns shrink" (click)="moveUp()">up</button>
+            <button type="button" class=" medium ripple columns shrink" (click)="moveDown()">down</button>
             <div class="column small-10">
                 <input type="text"
                        class="form-control"

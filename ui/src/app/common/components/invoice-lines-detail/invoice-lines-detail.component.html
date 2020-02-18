@@ -24,7 +24,8 @@
                                    [editionMode]="'EDITION'"
                                    [editable]="editMode"
                                    [vatEnabled]="vatEnabled"
-                                   (lineDeleted)="deleteLine($event)">
+                                   (lineDeleted)="deleteLine($event)"
+                                   (lineMoved)="lineMoved($event)">
                 </invoice-line-form>
             </div>
         </ng-container>
