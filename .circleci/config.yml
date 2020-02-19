@@ -1,9 +1,65 @@
 version: 2.1
 
-orbs:
-  maven: circleci/maven@0.0.12
-
-workflows:
-  maven_test:
-    jobs:
-      - maven/test # checkout, build, test, and upload test results
+jobs:
+  build:
+    machine:
+      image: ubuntu-1604:201903-01
+    environment:
+      TERM: xterm-256color
+    steps:
+      - checkout
+      - run:
+          name: Install tools
+          command: |
+            set -o xtrace
+            # Install/update xmllint
+            sudo apt-get update
+            sudo apt-get -y install libxml2-utils
+            # Install kubectl
+            pushd /tmp
+            KUBECTL_VERSION=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+            curl -sLO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl
+            sudo mv kubectl /usr/local/bin/kubectl
+            sudo chmod +x /usr/local/bin/kubectl
+            kubectl version --short --client=true
+            popd
+      - run:
+          name: Setup gcloud
+          command: |
+            set -o xtrace
+            echo "$GCP_SERVICE_KEY" > /tmp/credentials.json
+            gcloud auth activate-service-account --key-file="/tmp/credentials.json"
+            gcloud config set disable_prompts true
+            gcloud config set project $GCP_PROJECT_ID
+            gcloud auth configure-docker -q
+            gcloud container clusters get-credentials quatreapp-cl --zone=europe-west1-c
+            kubectl config set-context --current --namespace=4sh-invoice-dev
+      - run:
+          name: Maven build
+          command: "mvn -B package"
+      - run:
+          name: "Docker build & push"
+          command: |
+            pushd srv
+            chmod +x ./docker-build-push.sh
+            PROJECT_ID="$GCP_PROJECT_ID" bash ./docker-build-push.sh
+            popd
+      - run:
+          name: install Helm
+          command: |
+            curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+      - run:
+          name: Install mongo dev
+          command: |
+            helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+            helm repo update
+            helm upgrade mongodb stable/mongodb-replicaset \
+              --install \
+              --namespace 4sh-invoice-dev \
+              --version 3.11.4 \
+              --set replicas=1,metrics.enabled=true
+      - run:
+          name: Deploy to dev
+          command: |
+            
+            kubectl apply -f k8s/invoice.yaml
