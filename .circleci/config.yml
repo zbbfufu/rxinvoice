@@ -35,10 +35,28 @@ jobs:
             gcloud container clusters get-credentials quatreapp-cl --zone=europe-west1-c
             kubectl config set-context --current --namespace=4sh-invoice-dev
       - restore_cache:
-
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - maven-repo-v1-{{ .Branch }}-{{ checksum "srv/pom.xml" }}
+            - maven-repo-v1-{{ .Branch }}-
+            - maven-repo-v1-
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-v1-{{ .Branch }}-{{ checksum "ui/package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
       - run:
           name: Maven build
           command: "mvn -B package"
+      - save_cache:
+          key: maven-repo-v1-{{ .Branch }}-{{ checksum "srv/pom.xml" }}
+          paths:
+            - ~/.m2
+      - save_cache:
+          key: node-v1-{{ .Branch }}-{{ checksum "ui/package-lock.json" }}
+          paths:
+            - /usr/local/lib/node_modules  # location depends on npm version
       - run:
           name: "Docker build & push"
           command: |
