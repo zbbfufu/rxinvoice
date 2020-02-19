@@ -1,0 +1,15 @@
+.btn-updown {
+  border: 2px solid #E3EAF3;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.3rem;
+  margin: 0.85rem 0.3rem;
+
+  img {
+    display: block;
+  }
+
+  &:hover {
+    background-color: #E3EAF3;
+  }
+}
