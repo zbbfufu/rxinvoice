@@ -20,6 +20,8 @@ export class InvoiceLineFormComponent implements OnInit {
     @Input() editionMode: InvoiceLineEditionMode;
     @Input() editable: boolean;
     @Input() vatEnabled: boolean;
+    @Input() topArrowDisplayed: boolean;
+    @Input() bottomArrowDisplayed: boolean;
 
     @Output() lineAdded: EventEmitter<InvoiceLineModel> = new EventEmitter();
     @Output() lineDeleted: EventEmitter<InvoiceLineModel> = new EventEmitter();

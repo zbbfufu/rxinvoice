@@ -1,10 +1,16 @@
 <form (submit)="addLine()" novalidate #invoiceLineForm="ngForm">
     <div class="small-24">
         <div class="row space-bottom-8">
-            <button type="button" class="medium columns shrink btn-updown" (click)="moveUp()">
+            <button type="button"
+                    [disabled]="!topArrowDisplayed"
+                    [class.disabled]="!topArrowDisplayed"
+                    class="medium columns shrink btn-updown" (click)="moveUp()">
                 <img src="assets/images/svg/icon_arrow_up.svg">
             </button>
-            <button type="button" class=" medium ripple columns shrink btn-updown" (click)="moveDown()">
+            <button type="button"
+                    [disabled]="!bottomArrowDisplayed"
+                    [class.disabled]="!bottomArrowDisplayed"
+                    class=" medium ripple columns shrink btn-updown" (click)="moveDown()">
                 <img src="assets/images/svg/icon_arrow_down.svg">
             </button>
             <div class="column small-10">
