@@ -87,11 +87,28 @@ export class CustomerDetailComponent implements OnInit {
 
     private buildCompanyFiscalYearBounds(company: CompanyModel) {
         let fiscalYear = company.fiscalYear;
-        // Sorry for code below
-        let startMonth = Moment(fiscalYear.start).add(-1, 'd').locale('fr').format('MMMM');
-        let endMonth = Moment(fiscalYear.end).add(1, 'd').locale('fr').format('MMMM');
-        this.companyFiscalYearBounds = '(' + startMonth + ' - ' + endMonth + ')';
+        let now = Moment();
 
+        let startDate = Moment(fiscalYear.start).year(now.year());
+        let endDate = Moment(fiscalYear.end).year(now.year());
+
+        if (now.isBefore(startDate)) {
+            startDate.year(startDate.year() - 1);
+        }
+        if (now.isAfter(endDate)) {
+            endDate.year(endDate.year() + 1);
+        }
+
+        // Sorry for code below
+        let startMonth = startDate
+            .add(1, 'd')
+            .locale('fr')
+            .format('MMMM YYYY');
+        let endMonth = endDate
+            .add(-1, 'd')
+            .locale('fr')
+            .format('MMMM YYYY');
+        this.companyFiscalYearBounds = '(' + startMonth + ' - ' + endMonth + ')';
     }
 
     public save() {

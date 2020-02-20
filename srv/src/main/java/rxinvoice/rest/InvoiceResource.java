@@ -9,6 +9,8 @@ import restx.security.RolesAllowed;
 import rxinvoice.domain.invoice.Invoice;
 import rxinvoice.domain.enumeration.Activity;
 import rxinvoice.service.invoice.InvoiceService;
+import rxinvoice.utils.SortCriteriaUtil;
+import rxinvoice.utils.SortProperty;
 
 import java.util.*;
 import java.util.Optional;
@@ -52,7 +54,11 @@ public class InvoiceResource {
                                           Optional<String> buyerRef,
                                           Optional<String> kind,
                                           Optional<String> query,
-                                          Optional<String> reference) {
+                                          Optional<String> reference,
+                                          Optional<String> sortParam) {
+
+        final List<SortProperty> sortProperties = SortCriteriaUtil.buildSortProperties(sortParam.orElse(null));
+
         return invoiceService.findInvoices(new InvoiceSearchFilter()
                 .setStartDate(startDate)
                 .setEndDate(endDate)
@@ -60,7 +66,8 @@ public class InvoiceResource {
                 .setBuyerRef(buyerRef)
                 .setKind(kind)
                 .setQuery(query)
-                .setReference(reference));
+                .setReference(reference)
+                .setSortProperties(sortProperties));
     }
 
     @GET("/invoices/toPrepare")
@@ -87,7 +94,9 @@ public class InvoiceResource {
 
     @GET("/invoices/status")
     public Iterable<rxinvoice.domain.invoice.Status> findInvoiceStatus() {
-        return Arrays.asList(values());
+        List<rxinvoice.domain.invoice.Status> statuses = Arrays.asList(values());
+        statuses.sort(Comparator.comparing(rxinvoice.domain.invoice.Status::getRank));
+        return statuses;
     }
 
     @GET("/invoices/activities")

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {InvoiceLineModel} from "../../../../models/invoice-line.model";
 import {VATModel} from "../../../../models/VAT.model";
 import {ControlContainer, NgForm} from "@angular/forms";
+import {LineMoveEvent} from '../line-move-event';
 
 @Component({
     selector: 'invoice-line-form',
@@ -19,9 +20,12 @@ export class InvoiceLineFormComponent implements OnInit {
     @Input() editionMode: InvoiceLineEditionMode;
     @Input() editable: boolean;
     @Input() vatEnabled: boolean;
+    @Input() topArrowDisplayed: boolean;
+    @Input() bottomArrowDisplayed: boolean;
 
     @Output() lineAdded: EventEmitter<InvoiceLineModel> = new EventEmitter();
     @Output() lineDeleted: EventEmitter<InvoiceLineModel> = new EventEmitter();
+    @Output() lineMoved: EventEmitter<LineMoveEvent> = new EventEmitter();
 
     ngOnInit() {
     }
@@ -51,8 +55,16 @@ export class InvoiceLineFormComponent implements OnInit {
     public addLine() {
         this.lineAdded.emit(this.line);
     }
-    
+
     public deleteLine() {
         this.lineDeleted.emit(this.line);
+    }
+
+    public moveUp():void {
+        this.lineMoved.emit(new LineMoveEvent(this.line, -1))
+    }
+
+    public moveDown(): void {
+        this.lineMoved.emit(new LineMoveEvent(this.line, 1))
     }
 }

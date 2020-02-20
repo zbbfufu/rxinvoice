@@ -34,7 +34,7 @@ input {
   margin-bottom: 0 !important;
 
   &.ng-invalid.ng-touched {
-    border: 2px solid rgba($shiraz, 0.5);
+    border: 2px solid rgba($cinnabar, 0.5);
   }
 }
 
@@ -102,7 +102,7 @@ select, .ng-control {
   }
 
   &.ng-invalid.ng-touched {
-    border: 2px solid rgba($shiraz, 0.5) !important;
+    border: 2px solid rgba($cinnabar, 0.5) !important;
   }
 }
 

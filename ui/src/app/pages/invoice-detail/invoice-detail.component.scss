@@ -10,6 +10,29 @@
     @include has('name') {
       color: white;
       font-weight: bold;
+
+      @include has('ref') {
+        position: relative;
+        margin-right: rem-calc(24px);
+        padding: rem-calc(16px);
+        background-color: $regent-gray;
+
+        &:after {
+          position: absolute;
+          right: rem-calc(-18px);
+          top: 0;
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: rem-calc(24px 0 24px 18px);
+          border-color: transparent transparent transparent $regent-gray;
+          content: '';
+        }
+      }
+
+      @include has('title') {
+
+      }
     }
   }
 

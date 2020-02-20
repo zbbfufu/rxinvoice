@@ -23,8 +23,11 @@
                                    [companyRef]="companyRef"
                                    [editionMode]="'EDITION'"
                                    [editable]="editMode"
+                                   [topArrowDisplayed]="lines.indexOf(line) > 0"
+                                   [bottomArrowDisplayed]="lines.indexOf(line) < lines.length -1 "
                                    [vatEnabled]="vatEnabled"
-                                   (lineDeleted)="deleteLine($event)">
+                                   (lineDeleted)="deleteLine($event)"
+                                   (lineMoved)="lineMoved($event)">
                 </invoice-line-form>
             </div>
         </ng-container>

@@ -7,7 +7,12 @@
         </div>
 
         <div class="columns shrink invoiceHeader-name">
-            {{ (invoice && invoice._id) ? (invoice.reference ? "[" + invoice.reference + "] " : "") + invoice.object : 'invoices.label.back' | translate }}
+            <span class="invoiceHeader-name-ref" *ngIf="invoice.reference">
+                {{ (invoice && invoice._id) ? invoice.reference : "[" + invoice.reference + "] "}}
+            </span>
+            <span class="invoiceHeader-name-title">
+                {{ (invoice && invoice._id) ? invoice.object : 'invoices.label.back' | translate }}
+            </span>
         </div>
     </div>
 
