@@ -7,7 +7,7 @@ if (script) {
     var user_AGA = {
         name: "AGA",
         email: "amandine.guerra@4sh.fr",
-        roles: ["seller"]
+        roles: ["seller"],
     };
     var user_CRT = {
         name: "CRT",
@@ -25,7 +25,7 @@ if (script) {
     user_CRT._id = db.getCollection('users').findOne({email: user_CRT.email})._id;
     db.getCollection('userCredentials').save({
         "_id": user_CRT._id,
-        "passwordHash": "$$2a$10$8EiasZHADtkNkF2C2yhfx./qY75KRa1iE.hABZxqQYQ4lbjUxUjxa"
+        "passwordHash": "$2a$10$8EiasZHADtkNkF2C2yhfx./qY75KRa1iE.hABZxqQYQ4lbjUxUjxa"
     });
 
     db.getCollection('scripts').save(
