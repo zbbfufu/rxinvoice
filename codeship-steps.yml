@@ -1,0 +1,14 @@
+- type: serial
+  steps:
+  - name: Maven build
+    service: rxinvoice-srv
+    command: mvn -B package
+  - name: Docker push
+    service: rxinvoice-srv
+    type: push
+    image_name: eu.gcr.io/quatreapp/rxinvoice-codeship
+    registry: https://eu.gcr.io
+    dockercfg_service: gcr_dockercfg
+  - name: deploy
+    service: googleclouddeployment
+    command: codeship-deploy.sh
