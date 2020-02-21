@@ -61,7 +61,7 @@ $app-success-color :                              $sushi !default;
 $app-notif-color :                                $coral !default;
 
 // = Content color
-$content-dark-list-color :                        $catskill-white !default;
+$content-dark-list-color :                        lighten($catskill-white, 5%) !default;
 $content-medium-list-color :                      $black-squeeze !default;
 $content-light-list-color :                       $alice-blue !default;
 
