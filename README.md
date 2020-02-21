@@ -57,4 +57,3 @@ Simply import as Maven project.
 With IntellJ command line installed, you can just do `idea pom.xml` from the command line.
 
 Check [restx IDE support doc](http://restx.io/docs/ide.html) for details.
-Test codeship
