@@ -1,18 +1,16 @@
 <form (submit)="addLine()" novalidate #invoiceLineForm="ngForm">
     <div class="small-24">
         <div class="row space-bottom-8">
-            <button type="button"
-                    [disabled]="!topArrowDisplayed"
-                    [class.disabled]="!topArrowDisplayed"
-                    class="medium columns shrink btn-updown" (click)="moveUp()">
-                <img src="assets/images/svg/icon_arrow_up.svg">
-            </button>
-            <button type="button"
-                    [disabled]="!bottomArrowDisplayed"
-                    [class.disabled]="!bottomArrowDisplayed"
-                    class=" medium ripple columns shrink btn-updown" (click)="moveDown()">
-                <img src="assets/images/svg/icon_arrow_down.svg">
-            </button>
+            <div class="column small-1">
+                <button type="button"  *ngIf="topArrowDisplayed"
+                        class="medium columns shrink btn-updown" (click)="moveUp()">
+                    <img src="assets/images/svg/icon_arrow_up.svg">
+                </button>
+                <button type="button" *ngIf="bottomArrowDisplayed"
+                        class=" medium ripple columns shrink btn-updown" (click)="moveDown()">
+                    <img src="assets/images/svg/icon_arrow_down.svg">
+                </button>
+            </div>
             <div class="column small-10">
                 <input type="text"
                        class="form-control"
@@ -22,7 +20,7 @@
                        required>
             </div>
 
-            <div class="column" [class.small-3]="vatEnabled" [class.small-4]="!vatEnabled">
+            <div class="column" [class.small-2]="vatEnabled" [class.small-3]="!vatEnabled">
                 <input type="number"
                        class="form-control text-right"
                        [disabled]="!editable"
