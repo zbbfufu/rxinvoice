@@ -1,8 +1,5 @@
 - type: serial
   steps:
-  - name: Maven build
-    service: rxinvoice
-    command: mvn -B package
   - name: Docker push
     service: rxinvoice
     type: push
