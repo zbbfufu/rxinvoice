@@ -11,7 +11,7 @@ gcr-dockercfg:
 googleclouddeployment:
   image: codeship/google-cloud-deployment
   encrypted_env_file:
-    - env.encrypted
+    - google-credentials.encrypted
   add_docker: true
   volumes:
     - ./:/deploy
