@@ -1,0 +1,107 @@
+- pipeline: "Build to deploy"
+  trigger_mode: "ON_EVERY_PUSH"
+  ref_name: "features/buddy"
+  ref_type: "BRANCH"
+  trigger_condition: "ALWAYS"
+  actions:
+  - action: "Setup gcloud"
+    type: "BUILD"
+    working_directory: "/buddy/rxinvoice"
+    docker_image_name: "google/cloud-sdk"
+    docker_image_tag: "alpine"
+    execute_commands:
+    - "echo \"$GCP_SERVICE_KEY\" > /tmp/credentials.json"
+    - "gcloud auth activate-service-account --key-file=\"/tmp/credentials.json\""
+    - "gcloud config set disable_prompts true"
+    - "gcloud config set project $GCP_PROJECT_ID"
+    - "gcloud auth configure-docker -q"
+    - "gcloud container clusters get-credentials quatreapp-cl --zone=europe-west1-c"
+    - "kubectl config set-context --current --namespace=4sh-invoice-dev"
+    setup_commands:
+    - "gcloud components install kubectl"
+    mount_filesystem_path: "/buddy/rxinvoice"
+    shell: "BASH"
+    trigger_condition: "ALWAYS"
+  - action: "Execute: mvn -B package"
+    type: "BUILD"
+    working_directory: "/buddy/rxinvoice"
+    docker_image_name: "zbbfufu/mvn-npm-builder"
+    docker_image_tag: "3.6-9.11"
+    execute_commands:
+    - "mvn -B package"
+    cached_dirs:
+    - "/root/.m2/repository"
+    - "/root/.npm"
+    mount_filesystem_path: "/buddy/rxinvoice"
+    shell: "BASH"
+    trigger_condition: "ALWAYS"
+    variables:
+    - id: 304438
+      key: "GCP_PROJECT_ID"
+      value: "quatreapp"
+      description: ""
+    - id: 304439
+      key: "GCP_SERVICE_KEY"
+      value: "secure!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.IkTcij7ZeQtUfwKbEY7NMw=="
+      encrypted: true
+      description: "credentials.json"
+  - action: "Docker build push"
+    type: "BUILD"
+    disabled: true
+    working_directory: "/buddy/rxinvoice"
+    docker_image_name: "zbbfufu/docker-xmllint"
+    docker_image_tag: "20200221-02"
+    execute_commands:
+    - "pushd srv/"
+    - "./docker-build-push.sh"
+    - "popd"
+    cached_dirs:
+    - "/var/lib/docker"
+    mount_filesystem_path: "/buddy/rxinvoice"
+    shell: "BASH"
+    trigger_condition: "ALWAYS"
+    variables:
+    - id: 304443
+      key: "GCP_PROJECT_ID"
+      value: "quatreapp"
+      description: ""
+  - action: "Execute: mv srv/target/rxinvoice-*.war /srv/target/ROOT.war"
+    type: "BUILD"
+    working_directory: "/buddy/rxinvoice"
+    docker_image_name: "library/ubuntu"
+    docker_image_tag: "18.04"
+    execute_commands:
+    - "mv srv/target/rxinvoice-*.war srv/target/ROOT.war"
+    mount_filesystem_path: "/buddy/rxinvoice"
+    shell: "BASH"
+    trigger_condition: "ALWAYS"
+  - action: "Build Docker image"
+    type: "DOCKERFILE"
+    dockerfile_path: "srv/Dockerfile"
+    context_path: "srv/"
+    trigger_condition: "ALWAYS"
+  - action: "Push Docker image"
+    type: "DOCKER_PUSH"
+    login: "_json_key"
+    password: "secure!f3QNHFhbrr6so8wteqBIGrn2Y9wohPQ+Tm0J40OTiioWpLoK5M48g8N/I8zFh9Ir94butPyPJCgNEk9ZhmgROzI9SaKh7BhEopAA56yAljT5QiNNIV0vWakxJWscbskzS2bL2y6doOyjBTePnGyB2JhzHdct6KjI3plvfTmc0uuF38ejv/nD5P/x3uF8PHcpxkpDMQkK7lmcVP09AUe2V6Waxkxm7udZpsXzUZxHpillydjEpgc80ZlTmG+H45kUglLVDVkXSOPvb5rwwZbXnw0MTz4u+Rgy2CT5eE54g+IAfliyZrC4m9OOvlFTj5nPjxG06oLsXzfJ0w+RgEbSQ175m2ViXKvF6ZsTrKyjOijaR+ZS3OLt4CSJr1qXea09Abloy5JTQBZveIh3QrYCP7ZPG/48gZWM5FXoXvAWMGcEqW4VXwNszHFWbNzQopDt2n6pdThgiZkYKEoCY7awc9p1EtzWklRRPf2SePuyu52MAfaKgVcvFoG5yC7rS8VZUOL2Yim4ElbinJbyGkZXleBR9cOBXQbkcSVcMOYd1bvIrtm2Z1I2Bb2eE55FGzo3mw41NhWn0ae67z13r0BM8ZwRyODV08daHugWsDeiVtiP+Eab7DZsCzMvkxQZ9bnhh588/1NYYGnz0bI9GVFVjU295bqHrHJCAu2bEGv+nJD4JUpDFK2F6UkrEocEQ0pOHDoonuQfjdqWfmtuFh2oZqqojU0Xj3fSxJI0fYwmoUvGWlT58kg/A9F9yFMyoHgJP8z7b4KDhbefRqQ1s2J0vCQI0R7DBUgLD6NV/5jT+XCkmkBSd1ZPVA/rZ6luFlIHXO+w/NO/XT0Qsy/ruER/x/xHLW0dCRuT4Uc4Iw/xRYi3Sab0vkZm8mEObIJUS1a7k/GkGtvaRYidT20VcwK+QYuBqTJlKntmLVjOzicXuIb1SL8bYxGL/91FRrzLnFhI3/m4MTW9aVg2AXpIVcWvTNFEm+os+2da7Ansi8g8eEnu2o8sPnmtBdhpj2YvjgbXAio8MuJCsSlXnOzYYKfTgnI2iplYdIMCTGCENzLraPptJgSdnF91a5C5129jaI8WqkYinnCIiA1k2L2i4rZ2N1bxX3yPJec3SoNIzdXY16tuXTWv7SE2qX5v7vu7w4ycwj1YDmmU1NtlgQoSn0kbmDq+5GRX5Sd8zWT1JLJND6hC1T8BbbKhClQetN7Mu02UV1bBwhhXfjNEk3K7C6kXRXv+HwNZKmSWcBJt1Sf6A40czgJZ5aCsBCQVQkSa3aCd2+ppqyLv/8boxL9FEak1TqleIBaCmKtiHYi/aMMIj7+krcUehpveaXymi6vTFtRkI9aw8xwcoOnoc4CTfMVG6u3f2cAHhloAiXenpTCiMQz53kJNR95JZjk27D8VK0M+/oa1ePFxUpQuQmpptTX/xitEyBjKE8nrrou1obz7Z6vU8j/Ek9P6OSTnPsGV4aFWHvsHDwLFtIQC7cvdS5+GQRj4Jx9MoaQ9LHcaFsfIaDsfFVxf9mph1PFAs64M+Joli6Izdqz25J2ZDioMVmQLoBiU2xyEfZ2h/ZUck+H2bSIEyL/zD9Ml2E0Of+0fpF/HKAm7qhNhvjgsdvQ9cHFCgG/z4+ejuuSbPYTFSs4MuuL9rmHsOr+ySxy0sgJQ6OQ9cME+O0r89XLckcEshegCeKkrD+3gESkHHoJd7iEC2t6UVSDjU7U1QoZz/nB0o16lSpcwOwH+8SvzheczvSEE09sayNYxAgavEVcF8zc7r8OZ0WApcof26+MHLuH1B9sWmToox8mvTCgmeoHc66s4711vJICN4Ksy1Ux3w1CLsDBBUP97WbDZ9TSh+sYfn/8FvUdKWRKTNrUoR0JX+xAp3MZlOwUye0A8RXnaqraMMRQD9skH4P8fSeTppieW5cm6YUzf5qOjLtKFFc/3ZK+cutnuloPYUiiSTTHcDBPzIoW/cXtKHeR9ccaZZCUj5duE809CwG4BvnMu3rU0U+GN+TSD1qlH9mpa396WgsFiVJ7q7j5rO1TppJJX/cXxEMHI69HIT4+9vPtei/g4yQh1QpaCV2smlvm7klgTy6YAAgnhrpdtMVYEX9g5qMEkE4xb9sz8hW4SHVI04AZPzMOh2NVoP/M8FY4fblPkepkpQfT+pcrvcZLqjbWMEvDrtGIKFtR1BReagucbDGG+FXEPLFBzbf5uET68343CMWJ8tnrC40G+bFRsv94fvictuMCeRI/ruUzqzMz3WO3cC0ZKEz/eKqmWEpdwqhOrGaac68UhcwKHYXGqljjldbzoMMzY+n9UeegUZUC+sLp3z1w1aMbx+ZSM5T56uvE4xNjQPN22QDl+8nw2R7pEOGB/RDsBF+k0rSLaQP81Wm7SHSqCKyik/wXIriBTGW8sHaFkuxNo2QOkL902iP0vXh2/9vwQWFm4I5CR9G3Dd6C4Bc7bENsbxAbJjb1eODx3bjqj9kglhClJ6iB76nsAZIswY3b4lut+7lr7hCc2jwFc6DqKVxmxlGb+MzflO8wvJqo3AnjRb4LG9oxd8G7MnIL9ZWcGxt+025kfugiOqh5R0U9yo37HQq5+/LxlzGdzf0wIR3rYcyKGwR9zLI0JfmpowsA7cENOE3AcmqDM6RqthmVBmSYYzsl75dyoK1eF8ZfwXE81yVPQGBhETR9Gdak9edamQ43h4NfD4uxIu4dq+KifZ6qRtWRjRNqQba/ECuZcSdZsfCP0f1kPj2hgYwGCFTII2Id2aBtG/xsF5xFPDQRMT+yHAJXcBsl1Korau++1CmcMEbFyB+49dSe1xSrgYgKQeIykO4Q1F1l8RQJTn1q2iwlZtbxK888fsez+8Kcxnun6Z8LR8nI+51FEWdek9T/67L1wMR/pJoiH3dZ+mmU8x4tWk5TVT/YW8FLWg5HpL2+NdHnY0q+RmIUF6yeMiuuXGLNyedVrOB1SNk9cCYyB5seQLfikfYckK7qUzP3at/V9RIxwSpk8YzYufWRPDniDBmRYRxUUTyclmut2fcx9MJw1Fv/XKEaJC6+zqg7PI9RFlUvIDCWqdZuygY1BeZJS/mpZnMd1+lqX7iR6CocU+A==.AqE8lYqTOL21djtRSVHEvA=="
+    docker_image_tag: "$BUDDY_EXECUTION_REVISION_SHORT,latest"
+    repository: "quatreapp/rxinvoice-buddy"
+    registry: "eu.gcr.io"
+    trigger_condition: "ALWAYS"
+  variables:
+  - key: "CLOUDSDK_CONFIG"
+    value: "/buddy/rxinvoice/.config/gcloud"
+    id: 304455
+    description: ""
+  - key: "DOCKER_CONFIG"
+    value: "/buddy/rxinvoice/.docker"
+    id: 304467
+    description: ""
+  - key: "GCP_PROJECT_ID"
+    value: "quatreapp"
+    id: 304494
+    description: ""
+  - key: "GCP_SERVICE_KEY"
+    value: "secure!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.c+Xo8mZeAlJEhaRiJO9T7g=="
+    id: 304493
+    description: ""
