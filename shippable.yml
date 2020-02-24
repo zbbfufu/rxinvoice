@@ -57,7 +57,7 @@ jobs:
     type: runSh
     steps:
       - IN: rxinvoice_docker_image
-      - IN: gcl_cli
+      - IN: gcp_cli
         switch: off
       - IN: gke_cluster
         switch: off
