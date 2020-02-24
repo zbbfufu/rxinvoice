@@ -2,7 +2,90 @@ language: java
 
 jdk:
   - openjdk8
+node_js:
+  - 9.11.2
+
+branches:
+  only:
+    - features/shippable
 
 build:
   ci:
     - mvn -B package
+    - pushd srv
+    - mv target/rxinvoice-srv-*.war target/ROOT.war
+    - ./docker-build-push.sh
+    - shipctl post_resource_state "rxinvoice_docker_image" "versionName" "latest"
+
+resources:
+  - name: rxinvoice_docker_image
+    type: image
+    integration: quatreapp-sa-cd
+    versionTemplate:
+      sourceName: eu.gcr.io/quatreapp/4sh-invoice-core
+      isPull: false
+      versionName: latest
+
+  - name: config_repo
+    type: gitRepo
+    integration: github
+    versionTemplate:
+      sourceName: "zbbfufu/rxinvoice"
+      branch: features/shippable
+
+  - name: gcp_cli
+    type: cliConfig
+    integration: quatreapp-sa-cd
+    versionTemplate:
+      region: europe-west1-c
+
+  - name: gke_cluster
+    type: cluster
+    integration: quatreapp-sa-cd
+    versionTemplate:
+      sourceName: quatreapp-cl
+      region: europe-west1-c
+      namespace: 4sh-invoice-dev
+
+
+jobs:
+  - name: rxinvoice_runCI
+    type: runCI
+    steps:
+      - OUT: rxinvoice_docker_image
+  - name: deploy_to_gke
+    type: runSh
+    steps:
+      - IN: rxinvoice_docker_image
+      - IN: gcl_cli
+        switch: off
+      - IN: gke_cluster
+        switch: off
+      - IN: config_repo
+        switch: off
+      - TASK:
+          name: deploy_app
+          script:
+            # Config file prep section
+            - pushd $(shipctl get_resource_state "config_repo")
+
+            # Delete the 2 lines below if you deleted the node_app_img_dh resource     
+            - export APP_IMG=$(shipctl get_resource_version_key rxinvoice_docker_image sourceName)
+            - export APP_TAG=$(shipctl get_resource_version_key rxinvoice_docker_image versionName)
+
+            # Replace wildcards in spec
+            - shipctl replace appDeploy.yml appSvc.yml
+
+            # Cluster login section
+            - export CLUST=$(shipctl get_resource_version_key gke_cluster sourceName)
+            - export CLUST_REG=$(shipctl get_resource_version_key gke_cluster region)
+            - gcloud container clusters get-credentials $CLUST --zone $CLUST_REG
+
+            # App deployment section
+            - kubectl apply -f k8s/invoice-dev.yaml
+            - popd
+
+integrations:
+  hub:
+    - integrationName: quatreapp-sa-cd    #replace with your subscription integration name
+      type: gcloudKey

@@ -32,4 +32,11 @@ echo building $IMAGE
 
 rm target/ROOT.war
 cp $ARTIFACT_FILE target/ROOT.war
-docker build -t $IMAGE . && docker tag $IMAGE eu.gcr.io/$PROJECT_ID/$CONTAINER:latest && docker push eu.gcr.io/$PROJECT_ID/$CONTAINER
+docker build \
+    -t $IMAGE \
+    -t eu.gcr.io/$PROJECT_ID/$CONTAINER:latest \
+    -t eu.gcr.io/$PROJECT_ID/$CONTAINER:${BRANCH}.${BUILD_NUMBER} \
+    .
+
+docker push $IMAGE
+docker push eu.gcr.io/$PROJECT_ID/$CONTAINER:latest
