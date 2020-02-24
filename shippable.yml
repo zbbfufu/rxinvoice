@@ -28,7 +28,7 @@ resources:
 
   - name: config_repo
     type: gitRepo
-    integration: github
+    integration: github-integration
     versionTemplate:
       sourceName: "zbbfufu/rxinvoice"
       branch: features/shippable
