@@ -14,6 +14,7 @@ build:
     - mvn -B package
     - pushd srv
     - mv target/rxinvoice-srv-*.war target/ROOT.war
+    - chmod +x ./docker-build-push.sh
     - ./docker-build-push.sh
     - shipctl post_resource_state "rxinvoice_docker_image" "versionName" "latest"
 
