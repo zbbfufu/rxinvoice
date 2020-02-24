@@ -5,4 +5,4 @@ jdk:
 
 build:
   ci:
-    - mvn -q -B package
+    - mvn -B package
