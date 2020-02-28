@@ -1,0 +1,6 @@
+steps:
+  - command: mvn -B clean package
+    plugins:
+      - docker#v3.2.0:
+          image: "zbbfufu/mvn-npm-builder:3.6-9.11"
+          workdir: /app
