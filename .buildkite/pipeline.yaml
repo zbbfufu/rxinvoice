@@ -1,7 +1,13 @@
 steps:
   - label: "Maven build"
-    command: pwd && ls -R /app && mvn -B clean package
+    command: mvn -B clean package
     plugins:
       - docker#v3.2.0:
           image: "zbbfufu/mvn-npm-builder:3.6-9.11"
+          workdir: /app
+  - label: "Docker build"
+    command: pushd srv && PROJECT_ID=quatreapp bash docker-build-push.sh
+    plugins:
+      - docker#v3.2.0:
+          image: "zbbfufu/docker-xmllint:latest"
           workdir: /app
