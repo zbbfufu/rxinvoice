@@ -76,7 +76,7 @@ jobs:
             # Config file prep section
             - pushd $(shipctl get_resource_state "config_repo")
 
-            # Delete the 2 lines below if you deleted the node_app_img_dh resource     
+            # Delete the 2 lines below if you deleted the rxinvoice_docker_image resource     
             - export APP_IMG=$(shipctl get_resource_version_key rxinvoice_docker_image sourceName)
             - export APP_TAG=$(shipctl get_resource_version_key rxinvoice_docker_image versionName)
 
