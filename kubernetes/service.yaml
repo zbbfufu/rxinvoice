@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: invoice-service
+  namespace: 4sh-invoice-dev
+spec:
+  clusterIP: 10.0.4.214
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: invoice-app
+  sessionAffinity: None
+  type: ClusterIP
+

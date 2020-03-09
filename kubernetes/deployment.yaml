@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: invoice-app
+  name: invoice
+  namespace: 4sh-invoice-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: invoice-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: invoice-app
+    spec:
+      containers:
+        - env:
+            - name: JAVA_OPTS
+              value: >-
+                -Djava.awt.headless=true -Xmx512M
+                -Dmongo.uri=mongodb://mongo-mongodb-replicaset-0.mongo-mongodb-replicaset
+                -Drestx.http.XForwardedSupport=all
+          image: gcr.io/quatreapp/github.com/zbbfufu/rxinvoice
+          imagePullPolicy: Always
+          name: invoice-app
